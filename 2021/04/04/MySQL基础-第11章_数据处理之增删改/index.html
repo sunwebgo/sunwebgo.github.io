@@ -1,0 +1,1296 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.1 实际问题  解决方式：使用 INSERT 语句向表中插入数据。 1.2 方式1：VALUES的方式添加使用这种语法一次只能向表中插入一条数据。 情况1：为表的所有字段按默认顺序插入数据 INSERT INTO 表名 VALUES (value1,value2,....);  值列表中需要为表的每一个字段指定值，并且值的顺序必须和数据表中字段定义时的顺序相同。 举例： INSERT INTO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第11章_数据处理之增删改">
+<meta property="og:url" content="http://example.com/2021/04/04/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC11%E7%AB%A0_%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B9%8B%E5%A2%9E%E5%88%A0%E6%94%B9/index.html">
+<meta property="og:site_name" content="xhang&#39;s blog">
+<meta property="og:description" content="1.1 实际问题  解决方式：使用 INSERT 语句向表中插入数据。 1.2 方式1：VALUES的方式添加使用这种语法一次只能向表中插入一条数据。 情况1：为表的所有字段按默认顺序插入数据 INSERT INTO 表名 VALUES (value1,value2,....);  值列表中需要为表的每一个字段指定值，并且值的顺序必须和数据表中字段定义时的顺序相同。 举例： INSERT INTO">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
+<meta property="article:published_time" content="2021-04-04T04:43:56.000Z">
+<meta property="article:modified_time" content="2023-06-11T11:19:58.691Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
+  
+  
+  
+  <title>第11章_数据处理之增删改 - xhang&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第11章_数据处理之增删改"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-04-04 12:43" pubdate>
+          2021年4月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          87 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第11章_数据处理之增删改</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="1-1-实际问题"><a href="#1-1-实际问题" class="headerlink" title="1.1 实际问题"></a>1.1 实际问题</h3><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1555425366064.png" srcset="/img/loading.gif" lazyload alt="1555425366064" style="zoom:80%;" />
+
+<p>解决方式：使用 INSERT 语句向表中插入数据。</p>
+<h3 id="1-2-方式1：VALUES的方式添加"><a href="#1-2-方式1：VALUES的方式添加" class="headerlink" title="1.2 方式1：VALUES的方式添加"></a>1.2 方式1：VALUES的方式添加</h3><p>使用这种语法一次只能向表中插入<strong>一条</strong>数据。</p>
+<p><strong>情况1：为表的所有字段按默认顺序插入数据</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">INSERT INTO 表名
+VALUES (value1,value2,....);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>值列表中需要为表的每一个字段指定值，并且值的顺序必须和数据表中字段定义时的顺序相同。</p>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO departments
+VALUES (70, &#39;Pub&#39;, 100, 1700);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO	departments
+VALUES		(100, &#39;Finance&#39;, NULL, NULL);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>情况2：为表的指定字段插入数据</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO 表名(column1 [, column2, …, columnn]) 
+VALUES (value1 [,value2, …, valuen]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>为表的指定字段插入数据，就是在INSERT语句中只向部分字段中插入值，而其他字段的值为表定义时的默认值。</p>
+<p>在 INSERT 子句中随意列出列名，但是一旦列出，VALUES中要插入的value1,….valuen需要与column1,…columnn列一一对应。如果类型不同，将无法插入，并且MySQL会产生错误。</p>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO departments(department_id, department_name)
+VALUES (80, &#39;IT&#39;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>情况3：同时插入多条记录</strong></p>
+<p>INSERT语句可以同时向数据表中插入多条记录，插入时指定多个值列表，每个值列表之间用逗号分隔开，基本语法格式如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO table_name 
+VALUES 
+(value1 [,value2, …, valuen]),
+(value1 [,value2, …, valuen]),
+……
+(value1 [,value2, …, valuen]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>或者</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO table_name(column1 [, column2, …, columnn]) 
+VALUES 
+(value1 [,value2, …, valuen]),
+(value1 [,value2, …, valuen]),
+……
+(value1 [,value2, …, valuen]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO offices VALUES
+(1,&quot;上海&quot;,&quot;上海&quot;,&quot;上海&quot;,&quot;123456&quot;),
+(2,&quot;江苏&quot;,&quot;江苏&quot;,&quot;江苏&quot;,&quot;123456&quot;),
+(3,&quot;北京&quot;,&quot;北京&quot;,&quot;北京&quot;,&quot;123456&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>使用INSERT同时插入多条记录时，MySQL会返回一些在执行单行插入时没有的额外信息，这些信息的含义如下：<br>●　Records：表明插入的记录条数。<br>●　Duplicates：表明插入时被忽略的记录，原因可能是这些记录包含了重复的主键值。<br>●　Warnings：表明有问题的数据值，例如发生数据类型转换。</p>
+<blockquote>
+<p>一个同时插入多行记录的INSERT语句等同于多个单行插入的INSERT语句，但是多行的INSERT语句在处理过程中<code>效率更高</code>。因为MySQL执行单条INSERT语句插入多行数据比使用多条INSERT语句快，所以在插入多条记录时最好选择使用单条INSERT语句的方式插入。</p>
+</blockquote>
+<p><strong>小结：</strong></p>
+<ul>
+<li><p><code>VALUES</code>也可以写成<code>VALUE</code>，但是VALUES是标准写法。</p>
+</li>
+<li><p>字符和日期型数据应包含在单引号中。</p>
+</li>
+</ul>
+<h3 id="1-3-方式2：将查询结果插入到表中"><a href="#1-3-方式2：将查询结果插入到表中" class="headerlink" title="1.3 方式2：将查询结果插入到表中"></a>1.3 方式2：将查询结果插入到表中</h3><p>&#x3D;&#x3D;INSERT还可以将SELECT语句查询的结果插入到表中，此时不需要把每一条记录的值一个一个输入，只需要使用一条INSERT语句和一条SELECT语句组成的组合语句即可快速地从一个或多个表中向一个表中插入多行。&#x3D;&#x3D;</p>
+<p>基本语法格式如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO 目标表名
+(tar_column1 [, tar_column2, …, tar_columnn])
+SELECT
+(src_column1 [, src_column2, …, src_columnn])
+FROM 源表名
+[WHERE condition]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li>在 <font color='red'>INSERT 语句中加入子查询。 </font></li>
+<li><font color='red'><strong>不必书写</strong> <strong>VALUES</strong> <strong>子句。</strong></font></li>
+<li><font color='red'>子查询中的值列表应与 INSERT 子句中的列名对应</font>。</li>
+</ul>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> emp2 
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> 
+<span class="token keyword">FROM</span> employees
+<span class="token keyword">WHERE</span> department_id <span class="token operator">=</span> <span class="token number">90</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> sales_reps<span class="token punctuation">(</span>id<span class="token punctuation">,</span> name<span class="token punctuation">,</span> salary<span class="token punctuation">,</span> commission_pct<span class="token punctuation">)</span>
+<span class="token keyword">SELECT</span> employee_id<span class="token punctuation">,</span> last_name<span class="token punctuation">,</span> salary<span class="token punctuation">,</span> commission_pct
+<span class="token keyword">FROM</span>   employees
+<span class="token keyword">WHERE</span>  job_id <span class="token operator">LIKE</span> <span class="token string">'%REP%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="2-更新数据"><a href="#2-更新数据" class="headerlink" title="2. 更新数据"></a>2. 更新数据</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1555425824246.png" srcset="/img/loading.gif" lazyload alt="1555425824246"></p>
+<ul>
+<li>使用 UPDATE 语句更新数据。语法如下：</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">UPDATE</span> table_name
+<span class="token keyword">SET</span> column1<span class="token operator">=</span>value1<span class="token punctuation">,</span> column2<span class="token operator">=</span>value2<span class="token punctuation">,</span> … <span class="token punctuation">,</span> <span class="token keyword">column</span><span class="token operator">=</span>valuen
+<span class="token punctuation">[</span><span class="token keyword">WHERE</span> condition<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li><p>可以一次更新<strong>多条</strong>数据。</p>
+</li>
+<li><p>如果需要回滚数据，需要保证在DML前，进行设置：<strong>SET AUTOCOMMIT &#x3D; FALSE;</strong></p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>使用 <strong>WHERE</strong> 子句指定需要更新的数据。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">UPDATE</span> employees
+<span class="token keyword">SET</span>    department_id <span class="token operator">=</span> <span class="token number">70</span>
+<span class="token keyword">WHERE</span>  employee_id <span class="token operator">=</span> <span class="token number">113</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li>如果省略 WHERE 子句，则表中的所有数据都将被更新。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">UPDATE</span> 	copy_emp
+<span class="token keyword">SET</span>    	department_id <span class="token operator">=</span> <span class="token number">110</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li><strong>更新中的数据完整性错误</strong></li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">UPDATE</span> employees
+<span class="token keyword">SET</span>    department_id <span class="token operator">=</span> <span class="token number">55</span>
+<span class="token keyword">WHERE</span>  department_id <span class="token operator">=</span> <span class="token number">110</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1555426069578.png" srcset="/img/loading.gif" lazyload alt="1555426069578"></p>
+<blockquote>
+<p>说明：不存在 55 号部门</p>
+</blockquote>
+<h2 id="3-删除数据"><a href="#3-删除数据" class="headerlink" title="3. 删除数据"></a>3. 删除数据</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1555426124751.png" srcset="/img/loading.gif" lazyload alt="1555426124751"></p>
+<ul>
+<li>使用 DELETE 语句从表中删除数据</li>
+</ul>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1555426162264.png" srcset="/img/loading.gif" lazyload alt="1555426162264"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">DELETE FROM table_name [WHERE &lt;condition&gt;];<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>table_name指定要执行删除操作的表；“[WHERE <condition>]”为可选参数，指定删除条件，如果没有WHERE子句，DELETE语句将删除表中的所有记录。</p>
+<ul>
+<li>使用 WHERE 子句删除指定的记录。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> departments
+<span class="token keyword">WHERE</span>  department_name <span class="token operator">=</span> <span class="token string">'Finance'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li>如果省略 WHERE 子句，则表中的全部数据将被删除</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span>  copy_emp<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ul>
+<li><strong>删除中的数据完整性错误</strong></li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> departments
+<span class="token keyword">WHERE</span>       department_id <span class="token operator">=</span> <span class="token number">60</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1555426258516.png" srcset="/img/loading.gif" lazyload alt="1555426258516"></p>
+<blockquote>
+<p>说明：You cannot delete a row that contains a primary key that is used as a foreign key in another table.</p>
+</blockquote>
+<h2 id="4-MySQL8新特性：计算列"><a href="#4-MySQL8新特性：计算列" class="headerlink" title="4. MySQL8新特性：计算列"></a>4. MySQL8新特性：计算列</h2><p>什么叫计算列呢？简单来说就是某一列的值是通过别的列计算得来的。例如，a列值为1、b列值为2，c列不需要手动插入，定义a+b的结果为c的值，那么c就是计算列，是通过别的列计算得来的。</p>
+<p>在MySQL 8.0中，CREATE TABLE 和 ALTER TABLE 中都支持增加计算列。下面以CREATE TABLE为例进行讲解。</p>
+<p>举例：定义数据表tb1，然后定义字段id、字段a、字段b和字段c，其中字段c为计算列，用于计算a+b的值。<br>首先创建测试表tb1，语句如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">CREATE TABLE tb1(
+id INT,
+a INT,
+b INT,
+c INT GENERATED ALWAYS AS (a + b) VIRTUAL
+);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>插入演示数据，语句如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">INSERT INTO tb1(a,b) VALUES (100,200);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>查询数据表tb1中的数据，结果如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT * FROM tb1;
++------+------+------+------+
+| id   | a    | b    | c    |
++------+------+------+------+
+| NULL |  100 |  200 |  300 |
++------+------+------+------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>更新数据中的数据，语句如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; UPDATE tb1 SET a &#x3D; 500;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="5-综合案例"><a href="#5-综合案例" class="headerlink" title="5. 综合案例"></a>5. 综合案例</h2><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>书编号</td>
+<td>INT</td>
+</tr>
+<tr>
+<td>name</td>
+<td>书名</td>
+<td>VARCHAR(50)</td>
+</tr>
+<tr>
+<td>authors</td>
+<td>作者</td>
+<td>VARCHAR(100)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>价格</td>
+<td>FLOAT</td>
+</tr>
+<tr>
+<td>pubdate</td>
+<td>出版日期</td>
+<td>YEAR</td>
+</tr>
+<tr>
+<td>note</td>
+<td>说明</td>
+<td>VARCHAR(100)</td>
+</tr>
+<tr>
+<td>num</td>
+<td>库存</td>
+<td>INT</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>authors</th>
+<th>price</th>
+<th>pubdate</th>
+<th>note</th>
+<th>num</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Tal of AAA</td>
+<td>Dickes</td>
+<td>23</td>
+<td>1995</td>
+<td>novel</td>
+<td>11</td>
+</tr>
+<tr>
+<td>2</td>
+<td>EmmaT</td>
+<td>Jane lura</td>
+<td>35</td>
+<td>1993</td>
+<td>joke</td>
+<td>22</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Story of Jane</td>
+<td>Jane Tim</td>
+<td>40</td>
+<td>2001</td>
+<td>novel</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Lovey Day</td>
+<td>George Byron</td>
+<td>20</td>
+<td>2005</td>
+<td>novel</td>
+<td>30</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Old land</td>
+<td>Honore Blade</td>
+<td>30</td>
+<td>2010</td>
+<td>law</td>
+<td>0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>The Battle</td>
+<td>Upton Sara</td>
+<td>30</td>
+<td>1999</td>
+<td>medicine</td>
+<td>40</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Rose Hood</td>
+<td>Richard haggard</td>
+<td>28</td>
+<td>2008</td>
+<td>cartoon</td>
+<td>28</td>
+</tr>
+</tbody></table>
+<p>答案：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#1、创建数据库test01_library
+CREATE DATABASE IF NOT EXISTS test01_library CHARACTER SET &#39;utf8&#39;;
+
+#指定使用哪个数据库
+USE test01_library;
+
+#2、创建表 books
+CREATE TABLE books(
+	id INT,
+	name VARCHAR(50),
+	&#96;authors&#96; VARCHAR(100) ,
+	price FLOAT,
+	pubdate YEAR ,
+	note VARCHAR(100),
+	num INT
+);
+
+#3、向books表中插入记录
+# 1）不指定字段名称，插入第一条记录
+INSERT INTO books 
+VALUES(1,&#39;Tal of AAA&#39;,&#39;Dickes&#39;,23,1995,&#39;novel&#39;,11);
+# 2）指定所有字段名称，插入第二记录
+INSERT INTO books (id,name,&#96;authors&#96;,price,pubdate,note,num)
+VALUES(2,&#39;EmmaT&#39;,&#39;Jane lura&#39;,35,1993,&#39;Joke&#39;,22);
+# 3）同时插入多条记录（剩下的所有记录）
+INSERT INTO books (id,name,&#96;authors&#96;,price,pubdate,note,num) VALUES
+(3,&#39;Story of Jane&#39;,&#39;Jane Tim&#39;,40,2001,&#39;novel&#39;,0),
+(4,&#39;Lovey Day&#39;,&#39;George Byron&#39;,20,2005,&#39;novel&#39;,30),
+(5,&#39;Old land&#39;,&#39;Honore Blade&#39;,30,2010,&#39;Law&#39;,0),
+(6,&#39;The Battle&#39;,&#39;Upton Sara&#39;,30,1999,&#39;medicine&#39;,40),
+(7,&#39;Rose Hood&#39;,&#39;Richard haggard&#39;,28,2008,&#39;cartoon&#39;,28);
+
+# 4、将小说类型(novel)的书的价格都增加5。
+UPDATE books SET price&#x3D;price+5 WHERE note &#x3D; &#39;novel&#39;;
+
+# 5、将名称为EmmaT的书的价格改为40，并将说明改为drama。
+UPDATE books SET price&#x3D;40,note&#x3D;&#39;drama&#39; WHERE name&#x3D;&#39;EmmaT&#39;;
+
+# 6、删除库存为0的记录。
+DELETE FROM books WHERE num&#x3D;0;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql"># 7、统计书名中包含a字母的书
+SELECT * FROM books WHERE name LIKE &#39;%a%&#39;;
+
+# 8、统计书名中包含a字母的书的数量和库存总量
+SELECT COUNT(*),SUM(num) FROM books WHERE name LIKE &#39;%a%&#39;;
+
+# 9、找出“novel”类型的书，按照价格降序排列
+SELECT * FROM books WHERE note &#x3D; &#39;novel&#39; ORDER BY price DESC;
+
+# 10、查询图书信息，按照库存量降序排列，如果库存量相同的按照note升序排列
+SELECT * FROM books ORDER BY num DESC,note ASC;
+
+# 11、按照note分类统计书的数量
+SELECT note,COUNT(*) FROM books GROUP BY note;
+
+# 12、按照note分类统计书的库存量，显示库存量超过30本的
+SELECT note,SUM(num) FROM books GROUP BY note HAVING SUM(num)&gt;30;
+
+# 13、查询所有图书，每页显示5本，显示第二页
+SELECT * FROM books LIMIT 5,5;
+
+# 14、按照note分类统计书的库存量，显示库存量最多的
+SELECT note,SUM(num) sum_num FROM books GROUP BY note ORDER BY sum_num DESC LIMIT 0,1;
+
+# 15、查询书名达到10个字符的书，不包括里面的空格
+SELECT * FROM books WHERE CHAR_LENGTH(REPLACE(name,&#39; &#39;,&#39;&#39;))&gt;&#x3D;10;
+
+&#x2F;*
+16、查询书名和类型，
+ 其中note值为 novel显示小说，law显示法律，medicine显示医药，cartoon显示卡通，joke显示笑话
+*&#x2F;
+SELECT name AS &quot;书名&quot; ,note, CASE note 
+ WHEN &#39;novel&#39; THEN &#39;小说&#39;
+ WHEN &#39;law&#39; THEN &#39;法律&#39;
+ WHEN &#39;medicine&#39; THEN &#39;医药&#39;
+ WHEN &#39;cartoon&#39; THEN &#39;卡通&#39;
+ WHEN &#39;joke&#39; THEN &#39;笑话&#39;
+ END AS &quot;类型&quot;
+FROM books;
+
+
+# 17、查询书名、库存，其中num值超过30本的，显示滞销，大于0并低于10的，显示畅销，为0的显示需要无货
+SELECT name,num,CASE 
+  WHEN num&gt;30 THEN &#39;滞销&#39;
+  WHEN num&gt;0 AND num&lt;10 THEN &#39;畅销&#39;
+  WHEN num&#x3D;0 THEN &#39;无货&#39;
+  ELSE &#39;正常&#39;
+  END AS &quot;库存状态&quot;
+FROM books;
+
+# 18、统计每一种note的库存量，并合计总量
+SELECT IFNULL(note,&#39;合计总库存量&#39;) AS note,SUM(num) FROM books GROUP BY note WITH ROLLUP;
+
+# 19、统计每一种note的数量，并合计总量
+SELECT IFNULL(note,&#39;合计总数&#39;) AS note,COUNT(*) FROM books GROUP BY note WITH ROLLUP;
+
+# 20、统计库存量前三名的图书
+SELECT * FROM books ORDER BY num DESC LIMIT 0,3;
+
+# 21、找出最早出版的一本书
+SELECT * FROM books ORDER BY pubdate ASC LIMIT 0,1;
+
+# 22、找出novel中价格最高的一本书
+SELECT * FROM books WHERE note &#x3D; &#39;novel&#39; ORDER BY price DESC LIMIT 0,1;
+
+# 23、找出书名中字数最多的一本书，不含空格
+SELECT * FROM books ORDER BY CHAR_LENGTH(REPLACE(name,&#39; &#39;,&#39;&#39;)) DESC LIMIT 0,1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h2 id="6-章节练习"><a href="#6-章节练习" class="headerlink" title="6.章节练习"></a>6.章节练习</h2><ol>
+<li><strong>练习1</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#1. 创建数据库dbtest11</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> dbtest11 <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> <span class="token string">'utf8'</span><span class="token punctuation">;</span>
+
+<span class="token comment">#2. 运行以下脚本创建表my_employees</span>
+<span class="token keyword">USE</span> dbtest11<span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> my_employees<span class="token punctuation">(</span>
+id <span class="token keyword">INT</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+first_name <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+last_name <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+userid <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+salary <span class="token keyword">DOUBLE</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> users<span class="token punctuation">(</span>
+id <span class="token keyword">INT</span><span class="token punctuation">,</span>
+userid <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+department_id <span class="token keyword">INT</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">#3. 显示表my_employees的结构</span>
+<span class="token keyword">DESC</span> my_employees<span class="token punctuation">;</span>
+
+<span class="token comment">#4. 向my_employees表中插入下列数据</span>
+ID FIRST_NAME LAST_NAME USERID SALARY
+<span class="token number">1</span> patel Ralph Rpatel <span class="token number">895</span>
+<span class="token number">2</span> Dancs Betty Bdancs <span class="token number">860</span>
+<span class="token number">3</span> Biri Ben Bbiri <span class="token number">1100</span>
+<span class="token number">4</span> Newman Chad Cnewman <span class="token number">750</span>
+<span class="token number">5</span> Ropeburn Audrey Aropebur <span class="token number">1550</span>
+<span class="token comment">#方式一：</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> my_employees
+<span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'patel'</span><span class="token punctuation">,</span><span class="token string">'Ralph'</span><span class="token punctuation">,</span><span class="token string">'Rpatel'</span><span class="token punctuation">,</span><span class="token number">895</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'Dancs'</span><span class="token punctuation">,</span><span class="token string">'Betty'</span><span class="token punctuation">,</span><span class="token string">'Bdancs'</span><span class="token punctuation">,</span><span class="token number">860</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'Biri'</span><span class="token punctuation">,</span><span class="token string">'Ben'</span><span class="token punctuation">,</span><span class="token string">'Bbiri'</span><span class="token punctuation">,</span><span class="token number">1100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token string">'Newman'</span><span class="token punctuation">,</span><span class="token string">'Chad'</span><span class="token punctuation">,</span><span class="token string">'Cnewman'</span><span class="token punctuation">,</span><span class="token number">750</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token string">'Ropeburn'</span><span class="token punctuation">,</span><span class="token string">'Audrey'</span><span class="token punctuation">,</span><span class="token string">'Aropebur'</span><span class="token punctuation">,</span><span class="token number">1550</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">#DELETE FROM my_employees;</span>
+<span class="token comment">#方式二：</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> my_employees
+<span class="token keyword">SELECT</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'patel'</span><span class="token punctuation">,</span><span class="token string">'Ralph'</span><span class="token punctuation">,</span><span class="token string">'Rpatel'</span><span class="token punctuation">,</span><span class="token number">895</span> <span class="token keyword">UNION</span> <span class="token keyword">ALL</span>
+<span class="token keyword">SELECT</span> <span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'Dancs'</span><span class="token punctuation">,</span><span class="token string">'Betty'</span><span class="token punctuation">,</span><span class="token string">'Bdancs'</span><span class="token punctuation">,</span><span class="token number">860</span> <span class="token keyword">UNION</span> <span class="token keyword">ALL</span>
+<span class="token keyword">SELECT</span> <span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'Biri'</span><span class="token punctuation">,</span><span class="token string">'Ben'</span><span class="token punctuation">,</span><span class="token string">'Bbiri'</span><span class="token punctuation">,</span><span class="token number">1100</span> <span class="token keyword">UNION</span> <span class="token keyword">ALL</span>
+<span class="token keyword">SELECT</span> <span class="token number">4</span><span class="token punctuation">,</span><span class="token string">'Newman'</span><span class="token punctuation">,</span><span class="token string">'Chad'</span><span class="token punctuation">,</span><span class="token string">'Cnewman'</span><span class="token punctuation">,</span><span class="token number">750</span> <span class="token keyword">UNION</span> <span class="token keyword">ALL</span>
+<span class="token keyword">SELECT</span> <span class="token number">5</span><span class="token punctuation">,</span><span class="token string">'Ropeburn'</span><span class="token punctuation">,</span><span class="token string">'Audrey'</span><span class="token punctuation">,</span><span class="token string">'Aropebur'</span><span class="token punctuation">,</span><span class="token number">1550</span><span class="token punctuation">;</span>
+
+<span class="token comment">#5. 向users表中插入数据</span>
+<span class="token number">1</span> Rpatel <span class="token number">10</span>
+<span class="token number">2</span> Bdancs <span class="token number">10</span>
+练习<span class="token number">2</span>
+<span class="token number">3</span> Bbiri <span class="token number">20</span>
+<span class="token number">4</span> Cnewman <span class="token number">30</span>
+<span class="token number">5</span> Aropebur <span class="token number">40</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> users <span class="token keyword">VALUES</span>
+<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'Rpatel'</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'Bdancs'</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'Bbiri'</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token string">'Cnewman'</span><span class="token punctuation">,</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token string">'Aropebur'</span><span class="token punctuation">,</span><span class="token number">40</span><span class="token punctuation">)</span>
+<span class="token comment">#6. 将3号员工的last_name修改为“drelxer”</span>
+<span class="token keyword">UPDATE</span> my_employees <span class="token keyword">SET</span> last_name<span class="token operator">=</span><span class="token string">'drelxer'</span> <span class="token keyword">WHERE</span> id <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+
+<span class="token comment">#7. 将所有工资少于900的员工的工资修改为1000</span>
+<span class="token keyword">UPDATE</span> my_employees <span class="token keyword">SET</span> salary<span class="token operator">=</span><span class="token number">1000</span> <span class="token keyword">WHERE</span> salary<span class="token operator">&lt;</span><span class="token number">900</span><span class="token punctuation">;</span>
+
+<span class="token comment">#8. 将userid为Bbiri的user表和my_employees表的记录全部删除</span>
+<span class="token keyword">DELETE</span> u<span class="token punctuation">,</span>e
+<span class="token keyword">FROM</span> users u
+<span class="token keyword">JOIN</span> my_employees e <span class="token keyword">ON</span> u<span class="token punctuation">.</span><span class="token identifier"><span class="token punctuation">`</span>userid<span class="token punctuation">`</span></span><span class="token operator">=</span>e<span class="token punctuation">.</span><span class="token identifier"><span class="token punctuation">`</span>Userid<span class="token punctuation">`</span></span>
+<span class="token keyword">WHERE</span> u<span class="token punctuation">.</span><span class="token identifier"><span class="token punctuation">`</span>userid<span class="token punctuation">`</span></span><span class="token operator">=</span><span class="token string">'Bbiri'</span><span class="token punctuation">;</span>
+
+<span class="token comment">#9. 删除my_employees、users表所有数据</span>
+<span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> my_employees<span class="token punctuation">;</span>
+<span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> users<span class="token punctuation">;</span>
+
+<span class="token comment">#10. 检查所作的修正</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> my_employees<span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> users<span class="token punctuation">;</span>
+
+<span class="token comment">#11. 清空表my_employees</span>
+<span class="token keyword">TRUNCATE</span> <span class="token keyword">TABLE</span> my_employees<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li><strong>练习2</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230408110821997.png" srcset="/img/loading.gif" lazyload alt="image-20230408110821997"></p>
+<p>添加记录：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230408110834284.png" srcset="/img/loading.gif" lazyload alt="image-20230408110834284"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 1. 使用现有数据库dbtest11</span>
+<span class="token keyword">USE</span> dbtest11<span class="token punctuation">;</span>
+<span class="token comment"># 2. 创建表格pet</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> pet<span class="token punctuation">(</span>
+<span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token identifier"><span class="token punctuation">`</span>owner<span class="token punctuation">`</span></span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+species <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+sex <span class="token keyword">CHAR</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+birth <span class="token keyword">YEAR</span><span class="token punctuation">,</span>
+death <span class="token keyword">YEAR</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+id name sex tel addr salary
+<span class="token number">10001</span> 张一一 男 <span class="token number">13456789000</span> 山东青岛 <span class="token number">1001.58</span>
+<span class="token number">10002</span> 刘小红 女 <span class="token number">13454319000</span> 河北保定 <span class="token number">1201.21</span>
+<span class="token number">10003</span> 李四 男 <span class="token number">0751</span><span class="token operator">-</span><span class="token number">1234567</span> 广东佛山 <span class="token number">1004.11</span>
+<span class="token number">10004</span> 刘小强 男 <span class="token number">0755</span><span class="token operator">-</span><span class="token number">5555555</span> 广东深圳 <span class="token number">1501.23</span>
+<span class="token number">10005</span> 王艳 女 <span class="token number">020</span><span class="token operator">-</span><span class="token number">1232133</span> 广东广州 <span class="token number">1405.16</span>
+练习<span class="token number">3</span>
+<span class="token comment"># 3. 添加记录</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> pet <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">'Fluffy'</span><span class="token punctuation">,</span><span class="token string">'harold'</span><span class="token punctuation">,</span><span class="token string">'Cat'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">,</span><span class="token string">'2013'</span><span class="token punctuation">,</span><span class="token string">'2010'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> pet<span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token punctuation">,</span><span class="token identifier"><span class="token punctuation">`</span>owner<span class="token punctuation">`</span></span><span class="token punctuation">,</span>species<span class="token punctuation">,</span>sex<span class="token punctuation">,</span>Birth<span class="token punctuation">)</span>
+<span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">'Claws'</span><span class="token punctuation">,</span><span class="token string">'gwen'</span><span class="token punctuation">,</span><span class="token string">'Cat'</span><span class="token punctuation">,</span><span class="token string">'m'</span><span class="token punctuation">,</span><span class="token string">'2014'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> pet<span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token punctuation">,</span>species<span class="token punctuation">,</span>sex<span class="token punctuation">,</span>Birth<span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">'Buffy'</span><span class="token punctuation">,</span><span class="token string">'Dog'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">,</span><span class="token string">'2009'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> pet<span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token punctuation">,</span><span class="token identifier"><span class="token punctuation">`</span>owner<span class="token punctuation">`</span></span><span class="token punctuation">,</span>species<span class="token punctuation">,</span>sex<span class="token punctuation">,</span>Birth<span class="token punctuation">)</span>
+<span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">'Fang'</span><span class="token punctuation">,</span><span class="token string">'benny'</span><span class="token punctuation">,</span><span class="token string">'Dog'</span><span class="token punctuation">,</span><span class="token string">'m'</span><span class="token punctuation">,</span><span class="token string">'2000'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> pet <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">'bowser'</span><span class="token punctuation">,</span><span class="token string">'diane'</span><span class="token punctuation">,</span><span class="token string">'Dog'</span><span class="token punctuation">,</span><span class="token string">'m'</span><span class="token punctuation">,</span><span class="token string">'2003'</span><span class="token punctuation">,</span><span class="token string">'2009'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> pet<span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token punctuation">,</span>species<span class="token punctuation">,</span>sex<span class="token punctuation">,</span>birth<span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">'Chirpy'</span><span class="token punctuation">,</span><span class="token string">'Bird'</span><span class="token punctuation">,</span><span class="token string">'f'</span><span class="token punctuation">,</span><span class="token string">'2008'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 4. 添加字段:主人的生日owner_birth DATE类型</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> pet <span class="token keyword">ADD</span> <span class="token keyword">COLUMN</span> owner_birth <span class="token keyword">DATE</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 5. 将名称为Claws的猫的主人改为kevin</span>
+<span class="token keyword">UPDATE</span> pet <span class="token keyword">SET</span> <span class="token identifier"><span class="token punctuation">`</span>owner<span class="token punctuation">`</span></span><span class="token operator">=</span><span class="token string">'kevin'</span> <span class="token keyword">WHERE</span> <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token operator">=</span><span class="token string">'Claws'</span> <span class="token operator">AND</span> species<span class="token operator">=</span><span class="token string">'Cat'</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 6. 将没有死的狗的主人改为duck</span>
+<span class="token keyword">UPDATE</span> pet <span class="token keyword">SET</span> <span class="token identifier"><span class="token punctuation">`</span>owner<span class="token punctuation">`</span></span><span class="token operator">=</span><span class="token string">'duck'</span> <span class="token keyword">WHERE</span> species<span class="token operator">=</span><span class="token string">'Dog'</span> <span class="token operator">AND</span> death <span class="token operator">IS</span> <span class="token boolean">NULL</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 7. 查询没有主人的宠物的名字</span>
+<span class="token keyword">SELECT</span> <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span> <span class="token keyword">FROM</span> pet <span class="token keyword">WHERE</span> <span class="token identifier"><span class="token punctuation">`</span>owner<span class="token punctuation">`</span></span> <span class="token operator">IS</span> <span class="token boolean">NULL</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 8. 查询已经死了的cat的姓名，主人，以及去世时间</span>
+<span class="token keyword">SELECT</span> <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token punctuation">,</span><span class="token identifier"><span class="token punctuation">`</span>owner<span class="token punctuation">`</span></span><span class="token punctuation">,</span>death <span class="token keyword">FROM</span> pet <span class="token keyword">WHERE</span> death <span class="token operator">IS</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token operator">AND</span> species <span class="token operator">=</span> <span class="token string">'Cat'</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 9. 删除已经死亡的狗</span>
+<span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> pet <span class="token keyword">WHERE</span> death <span class="token operator">IS</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token operator">and</span> species <span class="token operator">=</span> <span class="token string">'Dog'</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 10. 查询所有宠物信息</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> pet<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li><strong>练习3</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230408111414091.png" srcset="/img/loading.gif" lazyload alt="image-20230408111414091"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 1. 使用dbtest11数据库</span>
+<span class="token keyword">USE</span> dbtest11<span class="token punctuation">;</span>
+
+<span class="token comment"># 2. 创建employee表</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> employee<span class="token punctuation">(</span>
+id <span class="token keyword">INT</span><span class="token punctuation">,</span>
+<span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+sex <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+tel <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+addr <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+salary <span class="token keyword">DOUBLE</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 添加信息</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> employee<span class="token punctuation">(</span>id<span class="token punctuation">,</span><span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token punctuation">,</span>sex<span class="token punctuation">,</span>tel<span class="token punctuation">,</span>addr<span class="token punctuation">,</span>salary<span class="token punctuation">)</span><span class="token keyword">VALUES</span>
+<span class="token punctuation">(</span><span class="token number">10001</span><span class="token punctuation">,</span><span class="token string">'张一一'</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'13456789000'</span><span class="token punctuation">,</span><span class="token string">'山东青岛'</span><span class="token punctuation">,</span><span class="token number">1001.58</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">10002</span><span class="token punctuation">,</span><span class="token string">'刘小红'</span><span class="token punctuation">,</span><span class="token string">'女'</span><span class="token punctuation">,</span><span class="token string">'13454319000'</span><span class="token punctuation">,</span><span class="token string">'河北保定'</span><span class="token punctuation">,</span><span class="token number">1201.21</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">10003</span><span class="token punctuation">,</span><span class="token string">'李四'</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'0751-1234567'</span><span class="token punctuation">,</span><span class="token string">'广东佛山'</span><span class="token punctuation">,</span><span class="token number">1004.11</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">10004</span><span class="token punctuation">,</span><span class="token string">'刘小强'</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'0755-5555555'</span><span class="token punctuation">,</span><span class="token string">'广东深圳'</span><span class="token punctuation">,</span><span class="token number">1501.23</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token number">10005</span><span class="token punctuation">,</span><span class="token string">'王艳'</span><span class="token punctuation">,</span><span class="token string">'男'</span><span class="token punctuation">,</span><span class="token string">'020-1232133'</span><span class="token punctuation">,</span><span class="token string">'广东广州'</span><span class="token punctuation">,</span><span class="token number">1405.16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 3. 查询出薪资在1200~1300之间的员工信息</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> employee <span class="token keyword">WHERE</span> salary <span class="token operator">BETWEEN</span> <span class="token number">1200</span> <span class="token operator">AND</span> <span class="token number">1300</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 4. 查询出姓“刘”的员工的工号，姓名，家庭住址</span>
+<span class="token keyword">SELECT</span> id<span class="token punctuation">,</span>name<span class="token punctuation">,</span>addr <span class="token keyword">FROM</span> employee <span class="token keyword">WHERE</span> <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span> <span class="token operator">LIKE</span> <span class="token string">'刘%'</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 5. 将“李四”的家庭住址改为“广东韶关”</span>
+<span class="token keyword">UPDATE</span> employee <span class="token keyword">SET</span> addr<span class="token operator">=</span><span class="token string">'广东韶关'</span> <span class="token keyword">WHERE</span> <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token operator">=</span><span class="token string">'李四'</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 6. 查询出名字中带“小”的员工</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> employee <span class="token keyword">WHERE</span> <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span> <span class="token operator">LIKE</span> <span class="token string">'%小%'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第11章_数据处理之增删改</div>
+      <div>http://example.com/2021/04/04/MySQL基础-第11章_数据处理之增删改/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年4月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/06/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC12%E7%AB%A0_%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="第12章_数据类型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第12章_数据类型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/03/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC10%E7%AB%A0_%E5%88%9B%E5%BB%BA%E4%B8%8E%E7%AE%A1%E7%90%86%E8%A1%A8/" title="第10章_创建与管理表">
+                        <span class="hidden-mobile">第10章_创建与管理表</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

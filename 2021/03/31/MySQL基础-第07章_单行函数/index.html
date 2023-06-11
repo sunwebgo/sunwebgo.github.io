@@ -1,0 +1,1945 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.1 什么是函数函数在计算机语言的使用中贯穿始终，函数的作用是什么呢？它可以把我们经常使用的代码封装起来，需要的时候直接调用即可。这样既提高了代码效率，又提高了可维护性。在 SQL 中我们也可以使用函数对检索出来的数据进行函数操作。使用这些函数，可以极大地提高用户对数据库的管理效率。  从函数定义的角度出发，我们可以将函数分成内置函数和自定义函数。在 SQL 语言中，同样也包括了内置函数和自定义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第07章_单行函数">
+<meta property="og:url" content="http://example.com/2021/03/31/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC07%E7%AB%A0_%E5%8D%95%E8%A1%8C%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="xhang&#39;s blog">
+<meta property="og:description" content="1.1 什么是函数函数在计算机语言的使用中贯穿始终，函数的作用是什么呢？它可以把我们经常使用的代码封装起来，需要的时候直接调用即可。这样既提高了代码效率，又提高了可维护性。在 SQL 中我们也可以使用函数对检索出来的数据进行函数操作。使用这些函数，可以极大地提高用户对数据库的管理效率。  从函数定义的角度出发，我们可以将函数分成内置函数和自定义函数。在 SQL 语言中，同样也包括了内置函数和自定义">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
+<meta property="article:published_time" content="2021-03-31T14:12:00.000Z">
+<meta property="article:modified_time" content="2023-06-11T11:19:58.687Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
+  
+  
+  
+  <title>第07章_单行函数 - xhang&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第07章_单行函数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-03-31 22:12" pubdate>
+          2021年3月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          21k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          174 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第07章_单行函数</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="1-1-什么是函数"><a href="#1-1-什么是函数" class="headerlink" title="1.1 什么是函数"></a>1.1 什么是函数</h3><p>函数在计算机语言的使用中贯穿始终，函数的作用是什么呢？它可以把我们经常使用的代码封装起来，需要的时候直接调用即可。这样既<code>提高了代码效率</code>，又<code>提高了可维护性</code>。在 SQL 中我们也可以使用函数对检索出来的数据进行函数操作。使用这些函数，可以极大地<code>提高用户对数据库的管理效率</code>。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1554979529525.png" srcset="/img/loading.gif" lazyload alt="1554979529525"></p>
+<p>从函数定义的角度出发，我们可以将函数分成<code>内置函数</code>和<code>自定义函数</code>。在 SQL 语言中，同样也包括了内置函数和自定义函数。内置函数是系统内置的通用函数，而自定义函数是我们根据自己的需要编写的，本章及下一章讲解的是 SQL 的内置函数。</p>
+<h3 id="1-2-不同DBMS函数的差异"><a href="#1-2-不同DBMS函数的差异" class="headerlink" title="1.2 不同DBMS函数的差异"></a>1.2 不同DBMS函数的差异</h3><p>我们在使用 SQL 语言的时候，不是直接和这门语言打交道，而是通过它使用不同的数据库软件，即 DBMS。<strong>DBMS 之间的差异性很大，远大于同一个语言不同版本之间的差异。</strong>实际上，只有很少的函数是被 DBMS 同时支持的。比如，大多数 DBMS 使用（||）或者（+）来做拼接符，而在 MySQL 中的字符串拼接函数为<code>concat()</code>。大部分 DBMS 会有自己特定的函数，这就意味着<strong>采用 SQL 函数的代码可移植性是很差的</strong>，因此在使用函数的时候需要特别注意。</p>
+<h3 id="1-3-MySQL的内置函数及分类"><a href="#1-3-MySQL的内置函数及分类" class="headerlink" title="1.3 MySQL的内置函数及分类"></a>1.3 MySQL的内置函数及分类</h3><p>MySQL提供了丰富的内置函数，这些函数使得数据的维护与管理更加方便，能够更好地提供数据的分析与统计功能，在一定程度上提高了开发人员进行数据分析与统计的效率。</p>
+<p>MySQL提供的内置函数从<code>实现的功能角度</code>可以分为数值函数、字符串函数、日期和时间函数、流程控制函数、加密与解密函数、获取MySQL信息函数、聚合函数等。这里，我将这些丰富的内置函数再分为两类：<code>单行函数</code>、<code>聚合函数（或分组函数）</code>。</p>
+<p><strong>两种SQL函数</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1555433204337.png" srcset="/img/loading.gif" lazyload alt="1555433204337"></p>
+<p><strong>单行函数</strong></p>
+<ul>
+<li>操作数据对象</li>
+<li>接受参数返回一个结果</li>
+<li><strong>只对一行进行变换</strong></li>
+<li><strong>每行返回一个结果</strong></li>
+<li>可以嵌套</li>
+<li>参数可以是一列或一个值</li>
+</ul>
+<h2 id="2-数值函数"><a href="#2-数值函数" class="headerlink" title="2. 数值函数"></a>2. 数值函数</h2><h3 id="2-1-基本函数"><a href="#2-1-基本函数" class="headerlink" title="2.1 基本函数"></a>2.1 基本函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ABS(x)</code></td>
+<td>返回x的绝对值</td>
+</tr>
+<tr>
+<td><code>SIGN(X)</code></td>
+<td>返回X的符号。正数返回1，负数返回-1，0返回0</td>
+</tr>
+<tr>
+<td><code>PI()</code></td>
+<td>返回圆周率的值</td>
+</tr>
+<tr>
+<td><code>CEIL(x)，CEILING(x)</code></td>
+<td>返回大于或等于某个值的最小整数</td>
+</tr>
+<tr>
+<td><code>FLOOR(x)</code></td>
+<td>返回小于或等于某个值的最大整数</td>
+</tr>
+<tr>
+<td><code>LEAST(e1,e2,e3…)</code></td>
+<td>返回列表中的最小值</td>
+</tr>
+<tr>
+<td><code>GREATEST(e1,e2,e3…)</code></td>
+<td>返回列表中的最大值</td>
+</tr>
+<tr>
+<td><code>MOD(x,y)</code></td>
+<td>返回X除以Y后的余数</td>
+</tr>
+<tr>
+<td><code>RAND()</code></td>
+<td>返回0~1的随机值</td>
+</tr>
+<tr>
+<td><code>RAND(x)</code></td>
+<td>返回0~1的随机值，其中x的值用作种子值，相同的X值会产生相同的随机数</td>
+</tr>
+<tr>
+<td><code>ROUND(x)</code></td>
+<td>返回一个对x的值进行四舍五入后，最接近于X的整数</td>
+</tr>
+<tr>
+<td><code>ROUND(x,y)</code></td>
+<td>返回一个对x的值进行四舍五入后最接近X的值，并保留到小数点后面Y位</td>
+</tr>
+<tr>
+<td><code>TRUNCATE(x,y)</code></td>
+<td>返回数字x截断为y位小数的结果，不会四舍五入</td>
+</tr>
+<tr>
+<td><code>SQRT(x)</code></td>
+<td>返回x的平方根。当X的值为负数时，返回NULL</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT ABS(-123),ABS(32),SIGN(-23),SIGN(43),PI(),CEIL(32.32),CEILING(-43.23),FLOOR(32.32),
+FLOOR(-43.23),MOD(12,5)
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211025162304844.png" srcset="/img/loading.gif" lazyload alt="image-20211025162304844"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT RAND(),RAND(),RAND(10),RAND(10),RAND(-1),RAND(-1)
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211025162538958.png" srcset="/img/loading.gif" lazyload alt="image-20211025162538958"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT ROUND(12.33),ROUND(12.343,2),ROUND(12.324,-1),TRUNCATE(12.66,1),TRUNCATE(12.66,-1)
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211025162730421.png" srcset="/img/loading.gif" lazyload alt="image-20211025162730421"></p>
+<h3 id="2-2-角度与弧度互换函数"><a href="#2-2-角度与弧度互换函数" class="headerlink" title="2.2 角度与弧度互换函数"></a>2.2 角度与弧度互换函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RADIANS(x)</td>
+<td>将角度转化为弧度，其中，参数x为角度值</td>
+</tr>
+<tr>
+<td>DEGREES(x)</td>
+<td>将弧度转化为角度，其中，参数x为弧度值</td>
+</tr>
+</tbody></table>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT RADIANS(30),RADIANS(60),RADIANS(90),DEGREES(2*PI()),DEGREES(RADIANS(90))
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h3 id="2-3-三角函数"><a href="#2-3-三角函数" class="headerlink" title="2.3 三角函数"></a>2.3 三角函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SIN(x)</code></td>
+<td>返回x的正弦值，其中，参数x为弧度值</td>
+</tr>
+<tr>
+<td><code>ASIN(x)</code></td>
+<td>返回x的反正弦值，即获取正弦为x的值。如果x的值不在-1到1之间，则返回NULL</td>
+</tr>
+<tr>
+<td><code>COS(x)</code></td>
+<td>返回x的余弦值，其中，参数x为弧度值</td>
+</tr>
+<tr>
+<td><code>ACOS(x)</code></td>
+<td>返回x的反余弦值，即获取余弦为x的值。如果x的值不在-1到1之间，则返回NULL</td>
+</tr>
+<tr>
+<td><code>TAN(x)</code></td>
+<td>返回x的正切值，其中，参数x为弧度值</td>
+</tr>
+<tr>
+<td><code>ATAN(x)</code></td>
+<td>返回x的反正切值，即返回正切值为x的值</td>
+</tr>
+<tr>
+<td><code>ATAN2(m,n)</code></td>
+<td>返回两个参数的反正切值</td>
+</tr>
+<tr>
+<td><code>COT(x)</code></td>
+<td>返回x的余切值，其中，X为弧度值</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<p>ATAN2(M,N)函数返回两个参数的反正切值。<br>与ATAN(X)函数相比，ATAN2(M,N)需要两个参数，例如有两个点point(x1,y1)和point(x2,y2)，使用ATAN(X)函数计算反正切值为ATAN((y2-y1)&#x2F;(x2-x1))，使用ATAN2(M,N)计算反正切值则为ATAN2(y2-y1,x2-x1)。由使用方式可以看出，当x2-x1等于0时，ATAN(X)函数会报错，而ATAN2(M,N)函数则仍然可以计算。</p>
+<p>ATAN2(M,N)函数的使用示例如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT SIN(RADIANS(30)),DEGREES(ASIN(1)),TAN(RADIANS(45)),DEGREES(ATAN(1)),DEGREES(ATAN2(1,1))
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211025163846974.png" srcset="/img/loading.gif" lazyload alt="image-20211025163846974"></p>
+<h3 id="2-4-指数与对数"><a href="#2-4-指数与对数" class="headerlink" title="2.4 指数与对数"></a>2.4 指数与对数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>POW(x,y)，POWER(X,Y)</code></td>
+<td>返回x的y次方</td>
+</tr>
+<tr>
+<td><code>EXP(X)</code></td>
+<td>返回e的X次方，其中e是一个常数，2.718281828459045</td>
+</tr>
+<tr>
+<td><code>LN(X)，LOG(X)</code></td>
+<td>返回以e为底的X的对数，当X &lt;&#x3D; 0 时，返回的结果为NULL</td>
+</tr>
+<tr>
+<td><code>LOG10(X)</code></td>
+<td>返回以10为底的X的对数，当X &lt;&#x3D; 0 时，返回的结果为NULL</td>
+</tr>
+<tr>
+<td><code>LOG2(X)</code></td>
+<td>返回以2为底的X的对数，当X &lt;&#x3D; 0 时，返回NULL</td>
+</tr>
+</tbody></table>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT POW(2,5),POWER(2,4),EXP(2),LN(10),LOG10(10),LOG2(4)
+    -&gt; FROM DUAL;
++----------+------------+------------------+-------------------+-----------+---------+
+| POW(2,5) | POWER(2,4) | EXP(2)           | LN(10)            | LOG10(10) | LOG2(4) |
++----------+------------+------------------+-------------------+-----------+---------+
+|       32 |         16 | 7.38905609893065 | 2.302585092994046 |         1 |       2 |
++----------+------------+------------------+-------------------+-----------+---------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-5-进制间的转换"><a href="#2-5-进制间的转换" class="headerlink" title="2.5 进制间的转换"></a>2.5 进制间的转换</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BIN(x)</td>
+<td>返回x的二进制编码</td>
+</tr>
+<tr>
+<td>HEX(x)</td>
+<td>返回x的十六进制编码</td>
+</tr>
+<tr>
+<td>OCT(x)</td>
+<td>返回x的八进制编码</td>
+</tr>
+<tr>
+<td>CONV(x,f1,f2)</td>
+<td>返回f1进制数变成f2进制数</td>
+</tr>
+</tbody></table>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT BIN(10),HEX(10),OCT(10),CONV(10,2,8)
+    -&gt; FROM DUAL;
++---------+---------+---------+--------------+
+| BIN(10) | HEX(10) | OCT(10) | CONV(10,2,8) |
++---------+---------+---------+--------------+
+| 1010    | A       | 12      | 2            |
++---------+---------+---------+--------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="3-字符串函数"><a href="#3-字符串函数" class="headerlink" title="3. 字符串函数"></a>3. 字符串函数</h2><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ASCII(S)</code></td>
+<td>返回字符串S中的第一个字符的ASCII码值</td>
+</tr>
+<tr>
+<td><code>CHAR_LENGTH(s)</code></td>
+<td>返回字符串s的字符数。作用与CHARACTER_LENGTH(s)相同</td>
+</tr>
+<tr>
+<td><code>LENGTH(s)</code></td>
+<td>返回字符串s的字节数，和字符集有关</td>
+</tr>
+<tr>
+<td><code>CONCAT(s1,s2,......,sn)</code></td>
+<td>连接s1,s2,……,sn为一个字符串</td>
+</tr>
+<tr>
+<td><code>CONCAT_WS(x, s1,s2,......,sn)</code></td>
+<td>同CONCAT(s1,s2,…)函数，但是每个字符串之间要加上x</td>
+</tr>
+<tr>
+<td><code>INSERT(str, idx, len, replacestr)</code></td>
+<td>将字符串str从第idx位置开始，len个字符长的子串替换为字符串replacestr</td>
+</tr>
+<tr>
+<td><code>REPLACE(str, a, b)</code></td>
+<td>用字符串b替换字符串str中所有出现的字符串a</td>
+</tr>
+<tr>
+<td><code>UPPER(s) 或 UCASE(s)</code></td>
+<td>将字符串s的所有字母转成大写字母</td>
+</tr>
+<tr>
+<td><code>LOWER(s)  或LCASE(s)</code></td>
+<td>将字符串s的所有字母转成小写字母</td>
+</tr>
+<tr>
+<td><code>LEFT(str,n)</code></td>
+<td>返回字符串str最左边的n个字符</td>
+</tr>
+<tr>
+<td><code>RIGHT(str,n)</code></td>
+<td>返回字符串str最右边的n个字符</td>
+</tr>
+<tr>
+<td><code>LPAD(str, len, pad)</code></td>
+<td>用字符串pad对str最左边进行填充，直到str的长度为len个字符</td>
+</tr>
+<tr>
+<td><code>RPAD(str ,len, pad)</code></td>
+<td>用字符串pad对str最右边进行填充，直到str的长度为len个字符</td>
+</tr>
+<tr>
+<td><code>LTRIM(s)</code></td>
+<td>去掉字符串s左侧的空格</td>
+</tr>
+<tr>
+<td><code>RTRIM(s)</code></td>
+<td>去掉字符串s右侧的空格</td>
+</tr>
+<tr>
+<td><code>TRIM(s)</code></td>
+<td>去掉字符串s开始与结尾的空格</td>
+</tr>
+<tr>
+<td><code>TRIM(s1 FROM s)</code></td>
+<td>去掉字符串s开始与结尾的s1</td>
+</tr>
+<tr>
+<td><code>TRIM(LEADING s1 FROM s)</code></td>
+<td>去掉字符串s开始处的s1</td>
+</tr>
+<tr>
+<td><code>TRIM(TRAILING s1 FROM s)</code></td>
+<td>去掉字符串s结尾处的s1</td>
+</tr>
+<tr>
+<td><code>REPEAT(str, n)</code></td>
+<td>返回str重复n次的结果</td>
+</tr>
+<tr>
+<td><code>SPACE(n)</code></td>
+<td>返回n个空格</td>
+</tr>
+<tr>
+<td><code>STRCMP(s1,s2)</code></td>
+<td>比较字符串s1,s2的ASCII码值的大小</td>
+</tr>
+<tr>
+<td><code>SUBSTR(s,index,len)</code></td>
+<td>返回从字符串s的index位置其len个字符，作用与SUBSTRING(s,n,len)、MID(s,n,len)相同</td>
+</tr>
+<tr>
+<td><code>LOCATE(substr,str)</code></td>
+<td>返回字符串substr在字符串str中首次出现的位置，作用于POSITION(substr IN str)、INSTR(str,substr)相同。未找到，返回0</td>
+</tr>
+<tr>
+<td><code>ELT(m,s1,s2,…,sn)</code></td>
+<td>返回指定位置的字符串，如果m&#x3D;1，则返回s1，如果m&#x3D;2，则返回s2，如果m&#x3D;n，则返回sn</td>
+</tr>
+<tr>
+<td><code>FIELD(s,s1,s2,…,sn)</code></td>
+<td>返回字符串s在字符串列表中第一次出现的位置</td>
+</tr>
+<tr>
+<td><code>FIND_IN_SET(s1,s2)</code></td>
+<td>返回字符串s1在字符串s2中出现的位置。其中，字符串s2是一个以逗号分隔的字符串</td>
+</tr>
+<tr>
+<td><code>REVERSE(s)</code></td>
+<td>返回s反转后的字符串</td>
+</tr>
+<tr>
+<td><code>NULLIF(value1,value2)</code></td>
+<td>比较两个字符串，如果value1与value2相等，则返回NULL，否则返回value1</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：MySQL中，字符串的位置是从1开始的。</p>
+</blockquote>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT FIELD(&#39;mm&#39;,&#39;hello&#39;,&#39;msm&#39;,&#39;amma&#39;),FIND_IN_SET(&#39;mm&#39;,&#39;hello,mm,amma&#39;)
+    -&gt; FROM DUAL;
++----------------------------------+-----------------------------------+
+| FIELD(&#39;mm&#39;,&#39;hello&#39;,&#39;msm&#39;,&#39;amma&#39;) | FIND_IN_SET(&#39;mm&#39;,&#39;hello,mm,amma&#39;) |
++----------------------------------+-----------------------------------+
+|                                0 |                                 2 |
++----------------------------------+-----------------------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT NULLIF(&#39;mysql&#39;,&#39;mysql&#39;),NULLIF(&#39;mysql&#39;, &#39;&#39;);
++-------------------------+---------------------+
+| NULLIF(&#39;mysql&#39;,&#39;mysql&#39;) | NULLIF(&#39;mysql&#39;, &#39;&#39;) |
++-------------------------+---------------------+
+| NULL                    | mysql               |
++-------------------------+---------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="4-日期和时间函数"><a href="#4-日期和时间函数" class="headerlink" title="4. 日期和时间函数"></a>4. 日期和时间函数</h2><h3 id="4-1-获取日期、时间"><a href="#4-1-获取日期、时间" class="headerlink" title="4.1 获取日期、时间"></a>4.1 获取日期、时间</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CURDATE() ，CURRENT_DATE()</code></td>
+<td>返回当前日期，只包含年、月、日</td>
+</tr>
+<tr>
+<td><code>CURTIME() ， CURRENT_TIME()</code></td>
+<td>返回当前时间，只包含时、分、秒</td>
+</tr>
+<tr>
+<td><code>NOW() / SYSDATE() / CURRENT_TIMESTAMP() / LOCALTIME() / LOCALTIMESTAMP()</code></td>
+<td>返回当前系统日期和时间</td>
+</tr>
+<tr>
+<td><code>UTC_DATE()</code></td>
+<td>返回UTC（世界标准时间）日期</td>
+</tr>
+<tr>
+<td><code>UTC_TIME()</code></td>
+<td>返回UTC（世界标准时间）时间</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT CURDATE(),CURTIME(),NOW(),SYSDATE()+0,UTC_DATE(),UTC_DATE()+0,UTC_TIME(),UTC_TIME()+0
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211025193742633.png" srcset="/img/loading.gif" lazyload alt="image-20211025193742633"></p>
+<h3 id="4-2-日期与时间戳的转换"><a href="#4-2-日期与时间戳的转换" class="headerlink" title="4.2 日期与时间戳的转换"></a>4.2 日期与时间戳的转换</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UNIX_TIMESTAMP()</td>
+<td>以UNIX时间戳的形式返回当前时间。SELECT UNIX_TIMESTAMP() -&gt;1634348884</td>
+</tr>
+<tr>
+<td>UNIX_TIMESTAMP(date)</td>
+<td>将时间date以UNIX时间戳的形式返回。</td>
+</tr>
+<tr>
+<td>FROM_UNIXTIME(timestamp)</td>
+<td>将UNIX时间戳的时间转换为普通格式的时间</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT UNIX_TIMESTAMP(now());
++-----------------------+
+| UNIX_TIMESTAMP(now()) |
++-----------------------+
+|            1576380910 |
++-----------------------+
+1 row in set (0.01 sec)
+
+mysql&gt; SELECT UNIX_TIMESTAMP(CURDATE());
++---------------------------+
+| UNIX_TIMESTAMP(CURDATE()) |
++---------------------------+
+|                1576339200 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT UNIX_TIMESTAMP(CURTIME());
++---------------------------+
+| UNIX_TIMESTAMP(CURTIME()) |
++---------------------------+
+|                1576380969 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT UNIX_TIMESTAMP(&#39;2011-11-11 11:11:11&#39;)
++---------------------------------------+
+| UNIX_TIMESTAMP(&#39;2011-11-11 11:11:11&#39;) |
++---------------------------------------+
+|                            1320981071 |
++---------------------------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT FROM_UNIXTIME(1576380910);
++---------------------------+
+| FROM_UNIXTIME(1576380910) |
++---------------------------+
+| 2019-12-15 11:35:10       |
++---------------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="4-3-获取月份、星期、星期数、天数等函数"><a href="#4-3-获取月份、星期、星期数、天数等函数" class="headerlink" title="4.3 获取月份、星期、星期数、天数等函数"></a>4.3 获取月份、星期、星期数、天数等函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>YEAR(date) &#x2F; MONTH(date) &#x2F; DAY(date)</td>
+<td>返回具体的日期值</td>
+</tr>
+<tr>
+<td>HOUR(time) &#x2F; MINUTE(time) &#x2F; SECOND(time)</td>
+<td>返回具体的时间值</td>
+</tr>
+<tr>
+<td>MONTHNAME(date)</td>
+<td>返回月份：January，…</td>
+</tr>
+<tr>
+<td>DAYNAME(date)</td>
+<td>返回星期几：MONDAY，TUESDAY…..SUNDAY</td>
+</tr>
+<tr>
+<td>WEEKDAY(date)</td>
+<td>返回周几，注意，周1是0，周2是1，。。。周日是6</td>
+</tr>
+<tr>
+<td>QUARTER(date)</td>
+<td>返回日期对应的季度，范围为1～4</td>
+</tr>
+<tr>
+<td>WEEK(date) ， WEEKOFYEAR(date)</td>
+<td>返回一年中的第几周</td>
+</tr>
+<tr>
+<td>DAYOFYEAR(date)</td>
+<td>返回日期是一年中的第几天</td>
+</tr>
+<tr>
+<td>DAYOFMONTH(date)</td>
+<td>返回日期位于所在月份的第几天</td>
+</tr>
+<tr>
+<td>DAYOFWEEK(date)</td>
+<td>返回周几，注意：周日是1，周一是2，。。。周六是7</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT YEAR(CURDATE()),MONTH(CURDATE()),DAY(CURDATE()),
+HOUR(CURTIME()),MINUTE(NOW()),SECOND(SYSDATE())
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211025213504115.png" srcset="/img/loading.gif" lazyload alt="image-20211025213504115"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT MONTHNAME(&#39;2021-10-26&#39;),DAYNAME(&#39;2021-10-26&#39;),WEEKDAY(&#39;2021-10-26&#39;),
+QUARTER(CURDATE()),WEEK(CURDATE()),DAYOFYEAR(NOW()),
+DAYOFMONTH(NOW()),DAYOFWEEK(NOW())
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211025214818623.png" srcset="/img/loading.gif" lazyload alt="image-20211025214818623"></p>
+<h3 id="4-4-日期的操作函数"><a href="#4-4-日期的操作函数" class="headerlink" title="4.4 日期的操作函数"></a>4.4 日期的操作函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EXTRACT(type FROM date)</td>
+<td>返回指定日期中特定的部分，type指定返回的值</td>
+</tr>
+</tbody></table>
+<p>EXTRACT(type FROM date)函数中type的取值与含义：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211012142639469.png" srcset="/img/loading.gif" lazyload alt="image-20211012142639469"></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211012142746444.png" srcset="/img/loading.gif" lazyload alt="image-20211012142746444"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT EXTRACT(MINUTE FROM NOW()),EXTRACT( WEEK FROM NOW()),
+EXTRACT( QUARTER FROM NOW()),EXTRACT( MINUTE_SECOND FROM NOW())
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="4-5-时间和秒钟转换的函数"><a href="#4-5-时间和秒钟转换的函数" class="headerlink" title="4.5 时间和秒钟转换的函数"></a>4.5 时间和秒钟转换的函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TIME_TO_SEC(time)</td>
+<td>将 time 转化为秒并返回结果值。转化的公式为：<code>小时*3600+分钟*60+秒</code></td>
+</tr>
+<tr>
+<td>SEC_TO_TIME(seconds)</td>
+<td>将 seconds 描述转化为包含小时、分钟和秒的时间</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT TIME_TO_SEC(NOW());
++--------------------+
+| TIME_TO_SEC(NOW()) |
++--------------------+
+|               78774 |
++--------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT SEC_TO_TIME(78774);
++--------------------+
+| SEC_TO_TIME(78774) |
++--------------------+
+| 21:52:54            |
++--------------------+
+1 row in set (0.12 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="4-6-计算日期和时间的函数"><a href="#4-6-计算日期和时间的函数" class="headerlink" title="4.6 计算日期和时间的函数"></a>4.6 计算日期和时间的函数</h3><p><strong>第1组：</strong></p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DATE_ADD(datetime, INTERVAL  expr type)，ADDDATE(date,INTERVAL expr type)</td>
+<td>返回与给定日期时间相差INTERVAL时间段的日期时间</td>
+</tr>
+<tr>
+<td>DATE_SUB(date,INTERVAL expr type)，SUBDATE(date,INTERVAL expr type)</td>
+<td>返回与date相差INTERVAL时间间隔的日期</td>
+</tr>
+</tbody></table>
+<p>上述函数中type的取值：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211012143203355.png" srcset="/img/loading.gif" lazyload alt="image-20211012143203355"></p>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT DATE_ADD(NOW(), INTERVAL 1 DAY) AS col1,DATE_ADD(&#39;2021-10-21 23:32:12&#39;,INTERVAL 1 SECOND) AS col2,
+ADDDATE(&#39;2021-10-21 23:32:12&#39;,INTERVAL 1 SECOND) AS col3,
+DATE_ADD(&#39;2021-10-21 23:32:12&#39;,INTERVAL &#39;1_1&#39; MINUTE_SECOND) AS col4,
+DATE_ADD(NOW(), INTERVAL -1 YEAR) AS col5, #可以是负数
+DATE_ADD(NOW(), INTERVAL &#39;1_1&#39; YEAR_MONTH) AS col6 #需要单引号
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT DATE_SUB(&#39;2021-01-21&#39;,INTERVAL 31 DAY) AS col1,
+SUBDATE(&#39;2021-01-21&#39;,INTERVAL 31 DAY) AS col2,
+DATE_SUB(&#39;2021-01-21 02:01:01&#39;,INTERVAL &#39;1 1&#39; DAY_HOUR) AS col3
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>第2组：</strong></p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ADDTIME(time1,time2)</td>
+<td>返回time1加上time2的时间。当time2为一个数字时，代表的是<code>秒</code>，可以为负数</td>
+</tr>
+<tr>
+<td>SUBTIME(time1,time2)</td>
+<td>返回time1减去time2后的时间。当time2为一个数字时，代表的是<code>秒</code>，可以为负数</td>
+</tr>
+<tr>
+<td>DATEDIFF(date1,date2)</td>
+<td>返回date1 - date2的日期间隔天数</td>
+</tr>
+<tr>
+<td>TIMEDIFF(time1, time2)</td>
+<td>返回time1 - time2的时间间隔</td>
+</tr>
+<tr>
+<td>FROM_DAYS(N)</td>
+<td>返回从0000年1月1日起，N天以后的日期</td>
+</tr>
+<tr>
+<td>TO_DAYS(date)</td>
+<td>返回日期date距离0000年1月1日的天数</td>
+</tr>
+<tr>
+<td>LAST_DAY(date)</td>
+<td>返回date所在月份的最后一天的日期</td>
+</tr>
+<tr>
+<td>MAKEDATE(year,n)</td>
+<td>针对给定年份与所在年份中的天数返回一个日期</td>
+</tr>
+<tr>
+<td>MAKETIME(hour,minute,second)</td>
+<td>将给定的小时、分钟和秒组合成时间并返回</td>
+</tr>
+<tr>
+<td>PERIOD_ADD(time,n)</td>
+<td>返回time加上n后的时间</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT ADDTIME(NOW(),20),SUBTIME(NOW(),30),SUBTIME(NOW(),&#39;1:1:3&#39;),DATEDIFF(NOW(),&#39;2021-10-01&#39;),
+TIMEDIFF(NOW(),&#39;2021-10-25 22:10:10&#39;),FROM_DAYS(366),TO_DAYS(&#39;0000-12-25&#39;),
+LAST_DAY(NOW()),MAKEDATE(YEAR(NOW()),12),MAKETIME(10,21,23),PERIOD_ADD(20200101010101,10)
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT ADDTIME(NOW(), 50);
++---------------------+
+| ADDTIME(NOW(), 50)  |
++---------------------+
+| 2019-12-15 22:17:47 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT ADDTIME(NOW(), &#39;1:1:1&#39;);
++-------------------------+
+| ADDTIME(NOW(), &#39;1:1:1&#39;) |
++-------------------------+
+| 2019-12-15 23:18:46     |
++-------------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT SUBTIME(NOW(), &#39;1:1:1&#39;);
++-------------------------+
+| SUBTIME(NOW(), &#39;1:1:1&#39;) |
++-------------------------+
+| 2019-12-15 21:23:50     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT SUBTIME(NOW(), &#39;-1:-1:-1&#39;); 
++----------------------------+
+| SUBTIME(NOW(), &#39;-1:-1:-1&#39;) |
++----------------------------+
+| 2019-12-15 22:25:11        |
++----------------------------+
+1 row in set, 1 warning (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT FROM_DAYS(366);
++----------------+
+| FROM_DAYS(366) |
++----------------+
+| 0001-01-01     |
++----------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT MAKEDATE(2020,1);
++------------------+
+| MAKEDATE(2020,1) |
++------------------+
+| 2020-01-01       |
++------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT MAKEDATE(2020,32);
++-------------------+
+| MAKEDATE(2020,32) |
++-------------------+
+| 2020-02-01        |
++-------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT MAKETIME(1,1,1);
++-----------------+
+| MAKETIME(1,1,1) |
++-----------------+
+| 01:01:01        |
++-----------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT PERIOD_ADD(20200101010101,1);
++------------------------------+
+| PERIOD_ADD(20200101010101,1) |
++------------------------------+
+|               20200101010102 |
++------------------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT TO_DAYS(NOW());
++----------------+
+| TO_DAYS(NOW()) |
++----------------+
+|          737773 |
++----------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>举例：查询 7 天内的新增用户数有多少？</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT COUNT(*) as num FROM new_user WHERE TO_DAYS(NOW())-TO_DAYS(regist_time)&lt;&#x3D;7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="4-7-日期的格式化与解析"><a href="#4-7-日期的格式化与解析" class="headerlink" title="4.7 日期的格式化与解析"></a>4.7 日期的格式化与解析</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DATE_FORMAT(date,fmt)</td>
+<td>按照字符串fmt格式化日期date值</td>
+</tr>
+<tr>
+<td>TIME_FORMAT(time,fmt)</td>
+<td>按照字符串fmt格式化时间time值</td>
+</tr>
+<tr>
+<td>GET_FORMAT(date_type,format_type)</td>
+<td>返回日期字符串的显示格式</td>
+</tr>
+<tr>
+<td>STR_TO_DATE(str, fmt)</td>
+<td>按照字符串fmt对str进行解析，解析为一个日期</td>
+</tr>
+</tbody></table>
+<p>上述<code>非GET_FORMAT</code>函数中fmt参数常用的格式符：</p>
+<table>
+<thead>
+<tr>
+<th>格式符</th>
+<th>说明</th>
+<th>格式符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%Y</td>
+<td>4位数字表示年份</td>
+<td>%y</td>
+<td>表示两位数字表示年份</td>
+</tr>
+<tr>
+<td>%M</td>
+<td>月名表示月份（January,….）</td>
+<td>%m</td>
+<td>两位数字表示月份（01,02,03。。。）</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>缩写的月名（Jan.，Feb.，….）</td>
+<td>%c</td>
+<td>数字表示月份（1,2,3,…）</td>
+</tr>
+<tr>
+<td>%D</td>
+<td>英文后缀表示月中的天数（1st,2nd,3rd,…）</td>
+<td>%d</td>
+<td>两位数字表示月中的天数(01,02…)</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>数字形式表示月中的天数（1,2,3,4,5…..）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%H</td>
+<td>两位数字表示小数，24小时制（01,02..）</td>
+<td>%h和%I</td>
+<td>两位数字表示小时，12小时制（01,02..）</td>
+</tr>
+<tr>
+<td>%k</td>
+<td>数字形式的小时，24小时制(1,2,3)</td>
+<td>%l</td>
+<td>数字形式表示小时，12小时制（1,2,3,4….）</td>
+</tr>
+<tr>
+<td>%i</td>
+<td>两位数字表示分钟（00,01,02）</td>
+<td>%S和%s</td>
+<td>两位数字表示秒(00,01,02…)</td>
+</tr>
+<tr>
+<td>%W</td>
+<td>一周中的星期名称（Sunday…）</td>
+<td>%a</td>
+<td>一周中的星期缩写（Sun.，Mon.,Tues.，..）</td>
+</tr>
+<tr>
+<td>%w</td>
+<td>以数字表示周中的天数(0&#x3D;Sunday,1&#x3D;Monday….)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%j</td>
+<td>以3位数字表示年中的天数(001,002…)</td>
+<td>%U</td>
+<td>以数字表示年中的第几周，（1,2,3。。）其中Sunday为周中第一天</td>
+</tr>
+<tr>
+<td>%u</td>
+<td>以数字表示年中的第几周，（1,2,3。。）其中Monday为周中第一天</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>%T</td>
+<td>24小时制</td>
+<td>%r</td>
+<td>12小时制</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>AM或PM</td>
+<td>%%</td>
+<td>表示%</td>
+</tr>
+</tbody></table>
+<p>GET_FORMAT函数中date_type和format_type参数取值如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20211012145231321.png" srcset="/img/loading.gif" lazyload alt="image-20211012145231321"></p>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT DATE_FORMAT(NOW(), &#39;%H:%i:%s&#39;);
++--------------------------------+
+| DATE_FORMAT(NOW(), &#39;%H:%i:%s&#39;) |
++--------------------------------+
+| 22:57:34                        |
++--------------------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT STR_TO_DATE(&#39;09&#x2F;01&#x2F;2009&#39;,&#39;%m&#x2F;%d&#x2F;%Y&#39;)
+FROM DUAL;
+
+SELECT STR_TO_DATE(&#39;20140422154706&#39;,&#39;%Y%m%d%H%i%s&#39;)
+FROM DUAL;
+
+SELECT STR_TO_DATE(&#39;2014-04-22 15:47:06&#39;,&#39;%Y-%m-%d %H:%i:%s&#39;)
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT GET_FORMAT(DATE, &#39;USA&#39;);
++-------------------------+
+| GET_FORMAT(DATE, &#39;USA&#39;) |
++-------------------------+
+| %m.%d.%Y                |
++-------------------------+
+1 row in set (0.00 sec)
+
+SELECT DATE_FORMAT(NOW(),GET_FORMAT(DATE,&#39;USA&#39;)),
+FROM DUAL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT STR_TO_DATE(&#39;2020-01-01 00:00:00&#39;,&#39;%Y-%m-%d&#39;); 
++-----------------------------------------------+
+| STR_TO_DATE(&#39;2020-01-01 00:00:00&#39;,&#39;%Y-%m-%d&#39;) |
++-----------------------------------------------+
+| 2020-01-01                                    |
++-----------------------------------------------+
+1 row in set, 1 warning (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="5-流程控制函数"><a href="#5-流程控制函数" class="headerlink" title="5. 流程控制函数"></a>5. 流程控制函数</h2><p>流程处理函数可以根据不同的条件，执行不同的处理流程，可以在SQL语句中实现不同的条件选择。MySQL中的流程处理函数主要包括IF()、IFNULL()和CASE()函数。</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IF(value,value1,value2)</td>
+<td>如果value的值为TRUE，返回value1，否则返回value2</td>
+</tr>
+<tr>
+<td>IFNULL(value1, value2)</td>
+<td>如果value1不为NULL，返回value1，否则返回value2</td>
+</tr>
+<tr>
+<td>CASE WHEN 条件1 THEN 结果1 WHEN 条件2 THEN 结果2 …. [ELSE resultn] END</td>
+<td>相当于Java的if…else if…else…</td>
+</tr>
+<tr>
+<td>CASE  expr WHEN 常量值1 THEN 值1 WHEN 常量值1 THEN 值1 …. [ELSE 值n] END</td>
+<td>相当于Java的switch…case…</td>
+</tr>
+</tbody></table>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT IF(1 &gt; 0,&#39;正确&#39;,&#39;错误&#39;)    
+-&gt;正确<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT IFNULL(null,&#39;Hello Word&#39;)
+-&gt;Hello Word<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT CASE 
+　　WHEN 1 &gt; 0
+　　THEN &#39;1 &gt; 0&#39;
+　　WHEN 2 &gt; 0
+　　THEN &#39;2 &gt; 0&#39;
+　　ELSE &#39;3 &gt; 0&#39;
+　　END
+-&gt;1 &gt; 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT CASE 1 
+　　WHEN 1 THEN &#39;我是1&#39;
+　　WHEN 2 THEN &#39;我是2&#39;
+ELSE &#39;你是谁&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT employee_id,salary, CASE WHEN salary&gt;&#x3D;15000 THEN &#39;高薪&#39; 
+				  WHEN salary&gt;&#x3D;10000 THEN &#39;潜力股&#39;  
+				  WHEN salary&gt;&#x3D;8000 THEN &#39;屌丝&#39; 
+				  ELSE &#39;草根&#39; END  &quot;描述&quot;
+FROM employees; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT oid,&#96;status&#96;, CASE &#96;status&#96; WHEN 1 THEN &#39;未付款&#39; 
+								   WHEN 2 THEN &#39;已付款&#39; 
+								   WHEN 3 THEN &#39;已发货&#39;  
+								   WHEN 4 THEN &#39;确认收货&#39;  
+								   ELSE &#39;无效订单&#39; END 
+FROM t_order;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT CASE WHEN 1 &gt; 0 THEN &#39;yes&#39; WHEN 1 &lt;&#x3D; 0 THEN &#39;no&#39; ELSE &#39;unknown&#39; END;
++---------------------------------------------------------------------+
+| CASE WHEN 1 &gt; 0 THEN &#39;yes&#39; WHEN 1 &lt;&#x3D; 0 THEN &#39;no&#39; ELSE &#39;unknown&#39; END |
++---------------------------------------------------------------------+
+| yes                                                                  |
++---------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT CASE WHEN 1 &lt; 0 THEN &#39;yes&#39; WHEN 1 &#x3D; 0 THEN &#39;no&#39; ELSE &#39;unknown&#39; END;  
++--------------------------------------------------------------------+
+| CASE WHEN 1 &lt; 0 THEN &#39;yes&#39; WHEN 1 &#x3D; 0 THEN &#39;no&#39; ELSE &#39;unknown&#39; END |
++--------------------------------------------------------------------+
+| unknown                                                             |
++--------------------------------------------------------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT CASE 1 WHEN 0 THEN 0 WHEN 1 THEN 1 ELSE -1 END;
++------------------------------------------------+
+| CASE 1 WHEN 0 THEN 0 WHEN 1 THEN 1 ELSE -1 END |
++------------------------------------------------+
+|                                               1 |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT CASE -1 WHEN 0 THEN 0 WHEN 1 THEN 1 ELSE -1 END;
++-------------------------------------------------+
+| CASE -1 WHEN 0 THEN 0 WHEN 1 THEN 1 ELSE -1 END |
++-------------------------------------------------+
+|                                               -1 |
++-------------------------------------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT employee_id,12 * salary * (1 + IFNULL(commission_pct,0))
+FROM employees;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT last_name, job_id, salary,
+       CASE job_id WHEN &#39;IT_PROG&#39;  THEN  1.10*salary
+                   WHEN &#39;ST_CLERK&#39; THEN  1.15*salary
+                   WHEN &#39;SA_REP&#39;   THEN  1.20*salary
+       			   ELSE      salary END     &quot;REVISED_SALARY&quot;
+FROM   employees;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1554980865631.png" srcset="/img/loading.gif" lazyload alt="1554980865631"></p>
+<p><strong>练习：查询部门号为 10,20, 30 的员工信息, 若部门号为 10, 则打印其工资的 1.1 倍, 20 号部门, 则打印其工资的 1.2 倍, 30 号部门打印其工资的 1.3 倍数。</strong></p>
+<h2 id="6-加密与解密函数"><a href="#6-加密与解密函数" class="headerlink" title="6. 加密与解密函数"></a>6. 加密与解密函数</h2><p>加密与解密函数主要用于对数据库中的数据进行加密和解密处理，以防止数据被他人窃取。这些函数在保证数据库安全时非常有用。</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PASSWORD(str)</td>
+<td>返回字符串str的加密版本，41位长的字符串。加密结果<code>不可逆</code>，常用于用户的密码加密</td>
+</tr>
+<tr>
+<td>MD5(str)</td>
+<td>返回字符串str的md5加密后的值，也是一种加密方式。若参数为NULL，则会返回NULL</td>
+</tr>
+<tr>
+<td>SHA(str)</td>
+<td>从原明文密码str计算并返回加密后的密码字符串，当参数为NULL时，返回NULL。<code>SHA加密算法比MD5更加安全</code>。</td>
+</tr>
+<tr>
+<td>ENCODE(value,password_seed)</td>
+<td>返回使用password_seed作为加密密码加密value</td>
+</tr>
+<tr>
+<td>DECODE(value,password_seed)</td>
+<td>返回使用password_seed作为加密密码解密value</td>
+</tr>
+</tbody></table>
+<p>可以看到，ENCODE(value,password_seed)函数与DECODE(value,password_seed)函数互为反函数。</p>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT PASSWORD(&#39;mysql&#39;), PASSWORD(NULL);
++-------------------------------------------+----------------+
+| PASSWORD(&#39;mysql&#39;)                         | PASSWORD(NULL) |
++-------------------------------------------+----------------+
+| *E74858DB86EBA20BC33D0AECAE8A8108C56B17FA |                |
++-------------------------------------------+----------------+
+1 row in set, 1 warning (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT md5(&#39;123&#39;)
+-&gt;202cb962ac59075b964b07152d234b70<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">SELECT SHA(&#39;Tom123&#39;)
+-&gt;c7c506980abc31cc390a2438c90861d0f1216d50<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT ENCODE(&#39;mysql&#39;, &#39;mysql&#39;);
++--------------------------+
+| ENCODE(&#39;mysql&#39;, &#39;mysql&#39;) |
++--------------------------+
+| íg　¼　ìÉ                  |
++--------------------------+
+1 row in set, 1 warning (0.01 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT DECODE(ENCODE(&#39;mysql&#39;,&#39;mysql&#39;),&#39;mysql&#39;);
++-----------------------------------------+
+| DECODE(ENCODE(&#39;mysql&#39;,&#39;mysql&#39;),&#39;mysql&#39;) |
++-----------------------------------------+
+| mysql                                   |
++-----------------------------------------+
+1 row in set, 2 warnings (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="7-MySQL信息函数"><a href="#7-MySQL信息函数" class="headerlink" title="7. MySQL信息函数"></a>7. MySQL信息函数</h2><p>MySQL中内置了一些可以查询MySQL信息的函数，这些函数主要用于帮助数据库开发或运维人员更好地对数据库进行维护工作。</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VERSION()</td>
+<td>返回当前MySQL的版本号</td>
+</tr>
+<tr>
+<td>CONNECTION_ID()</td>
+<td>返回当前MySQL服务器的连接数</td>
+</tr>
+<tr>
+<td>DATABASE()，SCHEMA()</td>
+<td>返回MySQL命令行当前所在的数据库</td>
+</tr>
+<tr>
+<td>USER()，CURRENT_USER()、SYSTEM_USER()，SESSION_USER()</td>
+<td>返回当前连接MySQL的用户名，返回结果格式为“主机名@用户名”</td>
+</tr>
+<tr>
+<td>CHARSET(value)</td>
+<td>返回字符串value自变量的字符集</td>
+</tr>
+<tr>
+<td>COLLATION(value)</td>
+<td>返回字符串value的比较规则</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT DATABASE();
++------------+
+| DATABASE() |
++------------+
+| test       |
++------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT DATABASE();
++------------+
+| DATABASE() |
++------------+
+| test       |
++------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT USER(), CURRENT_USER(), SYSTEM_USER(),SESSION_USER();
++----------------+----------------+----------------+----------------+
+| USER()         | CURRENT_USER() | SYSTEM_USER()  | SESSION_USER() |
++----------------+----------------+----------------+----------------+
+| root@localhost | root@localhost | root@localhost | root@localhost |
++----------------+----------------+----------------+----------------+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT CHARSET(&#39;ABC&#39;);
++----------------+
+| CHARSET(&#39;ABC&#39;) |
++----------------+
+| utf8mb4        |
++----------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT COLLATION(&#39;ABC&#39;);
++--------------------+
+| COLLATION(&#39;ABC&#39;)   |
++--------------------+
+| utf8mb4_general_ci |
++--------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="8-其他函数"><a href="#8-其他函数" class="headerlink" title="8. 其他函数"></a>8. 其他函数</h2><p>MySQL中有些函数无法对其进行具体的分类，但是这些函数在MySQL的开发和运维过程中也是不容忽视的。</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FORMAT(value,n)</td>
+<td>返回对数字value进行格式化后的结果数据。n表示<code>四舍五入</code>后保留到小数点后n位</td>
+</tr>
+<tr>
+<td>CONV(value,from,to)</td>
+<td>将value的值进行不同进制之间的转换</td>
+</tr>
+<tr>
+<td>INET_ATON(ipvalue)</td>
+<td>将以点分隔的IP地址转化为一个数字</td>
+</tr>
+<tr>
+<td>INET_NTOA(value)</td>
+<td>将数字形式的IP地址转化为以点分隔的IP地址</td>
+</tr>
+<tr>
+<td>BENCHMARK(n,expr)</td>
+<td>将表达式expr重复执行n次。用于测试MySQL处理expr表达式所耗费的时间</td>
+</tr>
+<tr>
+<td>CONVERT(value USING char_code)</td>
+<td>将value所使用的字符编码修改为char_code</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql"># 如果n的值小于或者等于0，则只保留整数部分
+mysql&gt; SELECT FORMAT(123.123, 2), FORMAT(123.523, 0), FORMAT(123.123, -2); 
++--------------------+--------------------+---------------------+
+| FORMAT(123.123, 2) | FORMAT(123.523, 0) | FORMAT(123.123, -2) |
++--------------------+--------------------+---------------------+
+| 123.12             | 124                | 123                 |
++--------------------+--------------------+---------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT CONV(16, 10, 2), CONV(8888,10,16), CONV(NULL, 10, 2);
++-----------------+------------------+-------------------+
+| CONV(16, 10, 2) | CONV(8888,10,16) | CONV(NULL, 10, 2) |
++-----------------+------------------+-------------------+
+| 10000           | 22B8             | NULL              |
++-----------------+------------------+-------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT INET_ATON(&#39;192.168.1.100&#39;);
++----------------------------+
+| INET_ATON(&#39;192.168.1.100&#39;) |
++----------------------------+
+|                 3232235876 |
++----------------------------+
+1 row in set (0.00 sec)
+
+# 以“192.168.1.100”为例，计算方式为192乘以256的3次方，加上168乘以256的2次方，加上1乘以256，再加上100。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT INET_NTOA(3232235876);
++-----------------------+
+| INET_NTOA(3232235876) |
++-----------------------+
+| 192.168.1.100         |
++-----------------------+
+1 row in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT BENCHMARK(1, MD5(&#39;mysql&#39;));
++----------------------------+
+| BENCHMARK(1, MD5(&#39;mysql&#39;)) |
++----------------------------+
+|                          0 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT BENCHMARK(1000000, MD5(&#39;mysql&#39;)); 
++----------------------------------+
+| BENCHMARK(1000000, MD5(&#39;mysql&#39;)) |
++----------------------------------+
+|                                0 |
++----------------------------------+
+1 row in set (0.20 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">mysql&gt; SELECT CHARSET(&#39;mysql&#39;), CHARSET(CONVERT(&#39;mysql&#39; USING &#39;utf8&#39;));
++------------------+----------------------------------------+
+| CHARSET(&#39;mysql&#39;) | CHARSET(CONVERT(&#39;mysql&#39; USING &#39;utf8&#39;)) |
++------------------+----------------------------------------+
+| utf8mb4          | utf8                                   |
++------------------+----------------------------------------+
+1 row in set, 1 warning (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第07章_单行函数</div>
+      <div>http://example.com/2021/03/31/MySQL基础-第07章_单行函数/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年3月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/01/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC08%E7%AB%A0_%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" title="第08章_聚合函数">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第08章_聚合函数</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/30/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC06%E7%AB%A0_%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" title="第06章_多表查询">
+                        <span class="hidden-mobile">第06章_多表查询</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
