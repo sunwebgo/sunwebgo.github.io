@@ -1,0 +1,1165 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 数据库事务概述1.1 存储引擎支持情况SHOW ENGINES 命令来查看当前 MySQL 支持的存储引擎都有哪些，以及这些存储引擎是否支持事务。 1.2 基本概念事务：&#x3D;&#x3D;一组逻辑操作单元，使数据从一种状态变换到另一种状态。&#x3D;&#x3D; 事务处理的原则：保证所有事务都作为 一个工作单元 来执行，即使出现了故障，都不能改变这种执行方 式。当在一个事务中执行多个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第13章_事务基础知识">
+<meta property="og:url" content="http://example.com/2021/04/26/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC13%E7%AB%A0_%E4%BA%8B%E5%8A%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="xhang&#39;s blog">
+<meta property="og:description" content="1. 数据库事务概述1.1 存储引擎支持情况SHOW ENGINES 命令来查看当前 MySQL 支持的存储引擎都有哪些，以及这些存储引擎是否支持事务。 1.2 基本概念事务：&#x3D;&#x3D;一组逻辑操作单元，使数据从一种状态变换到另一种状态。&#x3D;&#x3D; 事务处理的原则：保证所有事务都作为 一个工作单元 来执行，即使出现了故障，都不能改变这种执行方 式。当在一个事务中执行多个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
+<meta property="article:published_time" content="2021-04-26T07:15:01.000Z">
+<meta property="article:modified_time" content="2023-06-11T12:14:47.649Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
+  
+  
+  
+  <title>第13章_事务基础知识 - xhang&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第13章_事务基础知识"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-04-26 15:15" pubdate>
+          2021年4月26日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          97 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第13章_事务基础知识</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-数据库事务概述"><a href="#1-数据库事务概述" class="headerlink" title="1. 数据库事务概述"></a>1. 数据库事务概述</h2><h3 id="1-1-存储引擎支持情况"><a href="#1-1-存储引擎支持情况" class="headerlink" title="1.1 存储引擎支持情况"></a>1.1 存储引擎支持情况</h3><p><code>SHOW ENGINES</code> 命令来查看当前 MySQL 支持的存储引擎都有哪些，以及这些存储引擎是否支持事务。</p>
+<h3 id="1-2-基本概念"><a href="#1-2-基本概念" class="headerlink" title="1.2 基本概念"></a>1.2 基本概念</h3><p><strong><font color='scarlet'>事务：</font></strong>&#x3D;&#x3D;一组逻辑操作单元，使数据从一种状态变换到另一种状态。&#x3D;&#x3D;</p>
+<p><font color='scarlet'><strong>事务处理的原则：</strong></font>保证所有事务都作为 <code>一个工作单元</code> 来执行，即使出现了故障，都不能改变这种执行方 式。当在一个事务中执行多个操作时，要么所有的事务都被提交( <code>commit</code> )，那么这些修改就 <code>永久</code> 地保 <code>存下来</code>；要么数据库管理系统将 <code>放弃</code> 所作的所有 <code>修改</code> ，整个事务回滚( rollback )到最初状态。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 案例：AA用户给BB用户转账100</span>
+<span class="token keyword">update</span> account <span class="token keyword">set</span> money <span class="token operator">=</span> money <span class="token operator">-</span> <span class="token number">100</span> <span class="token keyword">where</span> name <span class="token operator">=</span> <span class="token string">'AA'</span><span class="token punctuation">;</span>
+<span class="token comment"># 服务器宕机</span>
+<span class="token keyword">update</span> account <span class="token keyword">set</span> money <span class="token operator">=</span> money <span class="token operator">+</span> <span class="token number">100</span> <span class="token keyword">where</span> name <span class="token operator">=</span> <span class="token string">'BB'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h3 id="1-3-事务的ACID特性"><a href="#1-3-事务的ACID特性" class="headerlink" title="1.3 事务的ACID特性"></a>1.3 事务的ACID特性</h3><ul>
+<li><strong><font color='scarlet'>原子性（atomicity）</font></strong></li>
+</ul>
+<p>&#x3D;&#x3D;<font color='scarlet'>原子性是指事务是一个不可分割的工作单位，要么全部提交，要么全部失败回滚。</font>&#x3D;&#x3D;即要么转账成功，要么转账失败，是不存在中间的状态。如果无法保证原子性会怎么样？就会出现数据不一致的情形，A账户减去100元，而B账户增加100元操作失败，系统将无故丢失100元。</p>
+<ul>
+<li><strong><font color='scarlet'>一致性（consistency）</font></strong></li>
+</ul>
+<p>&#x3D;&#x3D;<font color='scarlet'>一致性是指事务执行前后，数据从一个 <code>合法性状态</code> 变换到另外一个 <code>合法性状态</code> 。这意味着所有的约束条件、触发器和外键关系都应该得到满足。</font>&#x3D;&#x3D;</p>
+<p>那什么是合法的数据状态呢？满足 <code>预定的约束</code> 的状态就叫做合法的状态。通俗一点，这状态是由你自己来定义的（比如满足现实世界中的约束）。满足这个状态，数据就是一致的，不满足这个状态，数据就 是不一致的！如果事务中的某个操作失败了，系统就会自动撤销当前正在执行的事务，返回到事务操作 之前的状态。</p>
+<p><strong>举例1：</strong>A账户有200元，转账300元出去，此时A账户余额为-100元。你自然就发现此时数据是不一致的，为什么呢？因为你定义了一个状态，余额这列必须&gt;&#x3D;0。</p>
+<p><strong>举例2：</strong>A账户有200元，转账50元给B账户，A账户的钱扣了，但是B账户因为各种意外，余额并没有增加。你也知道此时的数据是不一致的，为什么呢？因为你定义了一个状态，要求A+B的总余额必须不变。</p>
+<p><strong>举例3：</strong>在数据表中我们将<code>姓名</code>字段设置为<code>唯一性约束</code>，这时当事务进行提交或者事务发生回滚的时候，如果数据表的姓名不唯一，就破坏了事务的一致性要求。</p>
+<ul>
+<li><strong><font color='scarlet'>隔离型（isolation）</font>：</strong></li>
+</ul>
+<p>&#x3D;&#x3D;<font color='scarlet'>事务的隔离性是指一个事务的执行<code>不能被其他事务干扰</code>，即一个事务内部的操作及使用的数据对<code>并发</code>的其他事务是隔离的，并发执行的各个事务之间不能相互干扰。</font>&#x3D;&#x3D;</p>
+<p>如果无法保证隔离性会怎么样？假设A账户有200元，B账户0元。A账户往B账户转账两次，每次金额为50 元，分别在两个事务中执行。如果无法保证隔离性，会出现下面的情形：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">UPDATE</span> accounts <span class="token keyword">SET</span> money <span class="token operator">=</span> money <span class="token operator">-</span> <span class="token number">50</span> <span class="token keyword">WHERE</span> NAME <span class="token operator">=</span> <span class="token string">'AA'</span><span class="token punctuation">;</span>
+<span class="token keyword">UPDATE</span> accounts <span class="token keyword">SET</span> money <span class="token operator">=</span> money <span class="token operator">+</span> <span class="token number">50</span> <span class="token keyword">WHERE</span> NAME <span class="token operator">=</span> <span class="token string">'BB'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515095824571.png" srcset="/img/loading.gif" lazyload alt="image-20230515095824571"></p>
+<ul>
+<li><strong><font color='scarlet'>持久性（durability）</font>：</strong></li>
+</ul>
+<p>&#x3D;&#x3D;<font color='scarlet'>持久性是指一个事务一旦被提交，它对数据库中数据的改变就是<code> 永久性</code>的 ，接下来的其他操作和数据库 故障不应该对其有任何影响。</font>&#x3D;&#x3D;</p>
+<p>持久性是通过 <code>事务日志</code> 来保证的。日志包括了 <code>重做日志</code> 和 <code>回滚日志</code> 。当我们通过事务对数据进行修改 的时候，首先会将数据库的变化信息记录到重做日志中，然后再对数据库中对应的行进行修改。这样做 的好处是，即使数据库系统崩溃，数据库重启后也能找到没有更新到数据库系统中的重做日志，重新执 行，从而使事务具有持久性。</p>
+<blockquote>
+<p>总结</p>
+<p>ACID是事务的四大特征，在这四个特性中，原子性是基础，隔离性是手段，一致性是约束条件， 而持久性是我们的目的。</p>
+<p>数据库事务，其实就是数据库设计者为了方便起见，把需要保证<code>原子性</code>、<code>隔离性</code>、<code>一致性</code>和<code>持久性</code>的一个或多个数据库操作称为一个事务。</p>
+</blockquote>
+<h3 id="1-4-事务的状态"><a href="#1-4-事务的状态" class="headerlink" title="1.4 事务的状态"></a>1.4 事务的状态</h3><p>我们现在知道 <code>事务</code> 是一个抽象的概念，它其实对应着一个或多个数据库操作，MySQL根据这些操作所执 行的不同阶段把 <code>事务</code> 大致划分成几个状态：</p>
+<ul>
+<li><p><strong><font color='scarlet'>活动的（active）</font></strong></p>
+<p>事务对应的数据库操作正在执行过程中时，我们就说该事务处在 <code>活动的</code> 状态。</p>
+</li>
+<li><p><strong><font color='scarlet'>部分提交的（partially committed）</font></strong></p>
+<p>当事务中的最后一个操作执行完成，但由于操作都在内存中执行，所造成的影响并 <code>没有刷新到磁盘</code> 时，我们就说该事务处在 <code>部分提交的</code> 状态。</p>
+</li>
+<li><p><strong><font color='scarlet'>失败的（failed）</font></strong></p>
+<p>当事务处在 <code>活动的</code> 或者 部分提交的 状态时，可能遇到了某些错误（数据库自身的错误、操作系统 错误或者直接断电等）而无法继续执行，或者人为的停止当前事务的执行，我们就说该事务处在 失 败的 状态。</p>
+</li>
+<li><p><strong><font color='scarlet'>中止的（aborted）</font></strong></p>
+<p>如果事务执行了一部分而变为 <code>失败的</code> 状态，那么就需要把已经修改的事务中的操作还原到事务执 行前的状态。换句话说，就是要撤销失败事务对当前数据库造成的影响。我们把这个撤销的过程称之为 <code>回滚</code> 。当 <code>回滚</code> 操作执行完毕时，也就是数据库恢复到了执行事务之前的状态，我们就说该事 务处在了 <code>中止的</code> 状态。</p>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">UPDATE accounts SET money &#x3D; money - 50 WHERE NAME &#x3D; &#39;AA&#39;;
+
+UPDATE accounts SET money &#x3D; money + 50 WHERE NAME &#x3D; &#39;BB&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong><font color='scarlet'>提交的（committed）</font></strong></p>
+<p>当一个处在 <code>部分提交的</code> 状态的事务将修改过的数据都 <code>同步到磁盘</code> 上之后，我们就可以说该事务处在了 <code>提交的</code> 状态。</p>
+<p>一个基本的状态转换图如下所示：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515101028310.png" srcset="/img/loading.gif" lazyload alt="image-20230515101028310"></p>
+<p>图中可见，只有当事务处于<code>提交的</code>或者<code>中止的</code>状态时，一个事务的生命周期才算是结束了。对于已经提交的事务来说，该事务对数据库所做的修改将永久生效，对于处于中止状态的事务，该事务对数据库所做的所有修改都会被回滚到没执行该事务之前的状态。</p>
+</li>
+</ul>
+<h2 id="2-如何使用事务"><a href="#2-如何使用事务" class="headerlink" title="2. 如何使用事务"></a>2. 如何使用事务</h2><p>使用事务有两种方式，分别为 <code>显式事务</code> 和 <code>隐式事务</code> 。</p>
+<h3 id="2-1-显式事务"><a href="#2-1-显式事务" class="headerlink" title="2.1 显式事务"></a>2.1 显式事务</h3><p><strong>步骤1：</strong> 使用关键字<code>START TRANSACTION</code> 或者 <code>BEGIN</code> ，作用是显式开启一个事务。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+<span class="token comment">#或者</span>
+mysql<span class="token operator">></span> <span class="token keyword">START</span> <span class="token keyword">TRANSACTION</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><code>START TRANSACTION</code> 语句相较于 <code>BEGIN</code> 特别之处在于，**<font color='scarlet'>后边能跟随几个 <code>修饰符</code></font>** ：</p>
+<p>① <code>READ ONLY</code> ：标识当前事务是一个 <code>只读事务</code> ，也就是属于该事务的数据库操作只能读取数据，而不能修改数据。</p>
+<blockquote>
+<p>补充：只读事务中只是不允许修改那些其他事务也能访问到的表中的数据，对于临时表来说（我们使用 CREATE TMEPORARY TABLE 创建的表），由于它们只能再当前会话中可见，所有只读事务其实也是可以对临时表进行增、删、改操作的。</p>
+</blockquote>
+<p>② <code>READ WRITE</code> ：标识当前事务是一个 <code>读写事务</code> ，也就是属于该事务的数据库操作既可以读取数据， 也可以修改数据。</p>
+<p>③ <code>WITH CONSISTENT SNAPSHOT</code> ：启动一致性读。</p>
+<p>比如：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">START TRANSACTION READ ONLY; # 开启一个只读事务
+START TRANSACTION READ ONLY, WITH CONSISTENT SNAPSHOT # 开启只读事务和一致性读
+START TRANSACTION READ WRITE, WITH CONSISTENT SNAPSHOT # 开启读写事务和一致性读<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>注意：</p>
+<ul>
+<li><code>READ ONLY</code>和<code>READ WRITE</code>是用来设置所谓的事务<code>访问模式</code>的，就是以只读还是读写的方式来访问数据库中的数据，一个事务的访问模式不能同时即设置为<code>只读</code>的也设置为<code>读写</code>的，所以不能同时把<code>READ ONLY</code>和<code>READ WRITE</code>放到<code>START TRANSACTION</code>语句后边。</li>
+<li>如果我们不显式指定事务的访问模式，那么该事务的访问模式就是<code>读写</code>模式</li>
+</ul>
+<p><strong>步骤2：</strong>一系列事务中的操作（主要是DML，不含DDL）</p>
+<p><strong>步骤3：</strong>提交事务 或 中止事务（即回滚事务）</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL"># 提交事务。当提交事务后，对数据库的修改是永久性的。
+mysql&gt; COMMIT;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL"># 回滚事务。即撤销正在进行的所有没有提交的修改
+mysql&gt; ROLLBACK;
+
+# 将事务回滚到某个保存点。
+mysql&gt; ROLLBACK TO [SAVEPOINT]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>其中关于SAVEPOINT相关操作有：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL"># 在事务中创建保存点，方便后续针对保存点进行回滚。一个事务中可以存在多个保存点。
+SAVEPOINT 保存点名称;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL"># 删除某个保存点
+RELEASE SAVEPOINT 保存点名称;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-2-隐式事务"><a href="#2-2-隐式事务" class="headerlink" title="2.2 隐式事务"></a>2.2 隐式事务</h3><p>MySQL中有一个系统变量 <code>autocommit</code> ：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">SHOW</span> VARIABLES <span class="token operator">LIKE</span> <span class="token string">'autocommit'</span><span class="token punctuation">;</span>
+<span class="token operator">+</span><span class="token comment">---------------+-------+</span>
+<span class="token operator">|</span> Variable_name <span class="token operator">|</span> <span class="token keyword">Value</span> <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">---------------+-------+</span>
+<span class="token operator">|</span> autocommit    <span class="token operator">|</span>  <span class="token keyword">ON</span>   <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">---------------+-------+</span>
+<span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.01</span> sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>当然，如果我们想关闭这种 <code>自动提交</code> 的功能，可以使用下边两种方法之一：</p>
+<ul>
+<li><p>显式的的使用 <code>START TRANSACTION</code> 或者 <code>BEGIN</code> 语句开启一个事务。这样在本次事务提交或者回滚前会暂时关闭掉自动提交的功能。</p>
+</li>
+<li><p>把系统变量 <code>autocommit</code> 的值设置为 <code>OFF</code> ，就像这样：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> autocommit <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">;</span>
+<span class="token comment">#或</span>
+<span class="token keyword">SET</span> autocommit <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+<h3 id="2-3-隐式提交数据的情况"><a href="#2-3-隐式提交数据的情况" class="headerlink" title="2.3 隐式提交数据的情况"></a>2.3 隐式提交数据的情况</h3><ul>
+<li><p><strong><font color='scarlet'>数据定义语言（Data definition language，缩写为：DDL）</font></strong></p>
+<p>数据库对象，指的就是<code>数据库、表、视图、存储过程</code>等结构。当我们<code>CREATE、ALTER、DROP</code>等语句去修改数据库对象时，就会隐式的提交前边语句所属于的事务。即：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+
+<span class="token keyword">SELECT</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment"># 事务中的一条语句</span>
+<span class="token keyword">UPDATE</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment"># 事务中的一条语句</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment"># 事务中的其他语句</span>
+
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment"># 此语句会隐式的提交前边语句所属于的事务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+</li>
+<li><p><strong><font color='scarlet'>隐式使用或修改mysql数据库中的表</font></strong></p>
+<p>当我们使用<code>ALTER USER</code>、<code>CREATE USER</code>、<code>DROP USER</code>、<code>GRANT</code>、<code>RENAME USER</code>、<code>REVOKE</code>、<code>SET PASSWORD</code>等语句时也会隐式的提交前边语句所属于的事务。</p>
+</li>
+<li><p>事务控制或关于锁定的语句</p>
+<p>① **&#x3D;&#x3D;当我们在一个事务还没提交或者回滚时就又使用<code>START TRANSACTION</code>或者 <code>BEGIN </code>语句开启了另一个事务时，会隐式的提交上一个事务&#x3D;&#x3D;**。即：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+
+<span class="token keyword">SELECT</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment"># 事务中的一条语句</span>
+<span class="token keyword">UPDATE</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment"># 事务中的一条语句</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment"># 事务中的其他语句</span>
+
+<span class="token keyword">BEGIN</span><span class="token punctuation">;</span> <span class="token comment"># 此语句会隐式的提交前边语句所属于的事务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>② <strong>&#x3D;&#x3D;当前的 <code>autocommit</code> 系统变量的值为 OFF ，我们手动把它调为 ON 时，也会 隐式的提交前边语句所属的事务&#x3D;&#x3D;。</strong></p>
+<p>③ &#x3D;&#x3D;使用 <code>LOCK TABLES </code>、 <code>UNLOCK TABLES</code> 等关于锁定的语句也会 隐式的提交 前边语句所属的事务&#x3D;&#x3D;。</p>
+</li>
+<li><p><strong><font color='scarlet'>加载数据的语句</font></strong></p>
+<p>使用<code>LOAD DATA</code>语句来批量往数据库中导入数据时，也会<code>隐式的提交</code>前边语句所属的事务。</p>
+</li>
+<li><p><strong><font color='scarlet'>关于MySQL复制的一些语句</font></strong></p>
+<p>使用<code>START SLAVE、STOP SLAVE、RESET SLAVE、CHANGE MASTER TO</code>等语句会隐式的提交前边语句所属的事务</p>
+</li>
+<li><p><strong><font color='scarlet'>其他的一些语句</font></strong></p>
+<p>使用<code>ANALYZE TABLE、CACHE INDEX、CAECK TABLE、FLUSH、LOAD INDEX INTO CACHE、OPTIMIZE TABLE、REPAIR TABLE、RESET</code>等语句也会隐式的提交前边语句所属的事务。</p>
+</li>
+</ul>
+<h3 id="2-4-使用举例1：提交与回滚"><a href="#2-4-使用举例1：提交与回滚" class="headerlink" title="2.4 使用举例1：提交与回滚"></a>2.4 使用举例1：提交与回滚</h3><p>我们看下在 MySQL 的默认状态下，下面这个事务最后的处理结果是什么。</p>
+<p><strong>情况1：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">// 创建表</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">user</span><span class="token punctuation">(</span>name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 开启事务</span>
+<span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+<span class="token comment">// 插入一条数据</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'张三'</span><span class="token punctuation">;</span>
+<span class="token comment">// 查询数据能够查询到,是因为当前SELECT语句和INSERT语句同处于一个事务当中。		</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">user</span><span class="token punctuation">;</span>
+<span class="token comment">// 提交事务</span>
+<span class="token keyword">COMMIT</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 开启新事务</span>
+<span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+<span class="token comment">// 新增数据</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'李四'</span><span class="token punctuation">;</span>
+<span class="token comment">// 新增失败，再同一事务中，数据库中已经存在当前数据</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'李四'</span><span class="token punctuation">;</span>
+<span class="token comment">// 回滚当前事务</span>
+<span class="token keyword">ROLLBACK</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 只能查询到'张三'</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">user</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<p><strong>情况2：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">user</span> <span class="token punctuation">(</span>name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span><span class="token punctuation">;</span>
+<span class="token comment">// 开启显示事务</span>
+<span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+<span class="token comment">// 添加数据</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'张三'</span><span class="token punctuation">;</span>
+<span class="token comment">// 提交事务</span>
+<span class="token keyword">COMMIT</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 自动提交事务（隐式事务）</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'李四'</span><span class="token punctuation">;</span>
+<span class="token comment">// 事务失败</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'李四'</span><span class="token punctuation">;</span>
+<span class="token comment">// 使上述事务停止</span>
+<span class="token keyword">ROLLBACK</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 能够查询到'张三'和'李四'</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">user</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<p><strong>情况3：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">user</span><span class="token punctuation">(</span>name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 设置系统变量</span>
+<span class="token keyword">SET</span> @<span class="token variable">@completion_type</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'张三'</span><span class="token punctuation">;</span>
+<span class="token keyword">COMMIT</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 插入数据</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'李四'</span><span class="token punctuation">;</span>
+<span class="token comment">// 插入失败，事务失败</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token keyword">user</span> <span class="token keyword">SELECT</span> <span class="token string">'李四'</span><span class="token punctuation">;</span>
+<span class="token comment">// 回滚事务</span>
+<span class="token keyword">ROLLBACK</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 只能够查询到'张三'</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">user</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>你能看到相同的SQL代码，只是在事务开始之前设置了<code>SET @@completion_type = 1</code>; ,结果就和我们第一次处理的一样，只有一个“张三”。 这是为什么呢?</p>
+<p>这里我讲解下MySQL中completion_type 参数的作用，实际上这个参数有3种可能:</p>
+<blockquote>
+<ol>
+<li><font color='scarlet'><code>completion=0,</code> 这是默认情况。当我们执行GOMMIT的时候会提交事务，在执行下一个事务时，还需要使用<code>START TRANSACTION 或者BEGIN</code>来开启。</font></li>
+<li><font color='scarlet'><code>completion=1,</code>这种情况下，当我们提交事务后,相当于执行了<code>COMMIT AND CHAIN, </code>也就是开启一个链式事务，即当我们提交事务之后会开启一个相同隔离级别的事务。</font></li>
+<li><font color='scarlet'>completion&#x3D;2 ，这种情况下COMMIT&#x3D;COMMIT AND RELEASE ，也就是当我们提交后，会自动与服务器断开连接。</font></li>
+</ol>
+</blockquote>
+<blockquote>
+<p>当我们设置 autocommit&#x3D;0 时，不论是否采用 START TRANSACTION 或者 BEGIN 的方式来开启事 务，都需要用 COMMIT 进行提交，让事务生效，使用 ROLLBACK 对事务进行回滚。</p>
+<p>当我们设置 autocommit&#x3D;1 时，每条 SQL 语句都会自动进行提交。 不过这时，如果你采用 START TRANSACTION 或者 BEGIN 的方式来显式地开启事务，那么这个事务只有在 COMMIT 时才会生效， 在 ROLLBACK 时才会回滚。</p>
+</blockquote>
+<h3 id="2-5-使用举例2：测试不支持事务的engine"><a href="#2-5-使用举例2：测试不支持事务的engine" class="headerlink" title="2.5 使用举例2：测试不支持事务的engine"></a>2.5 使用举例2：测试不支持事务的engine</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> test1<span class="token punctuation">(</span>i <span class="token keyword">INT</span><span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> test2<span class="token punctuation">(</span>i <span class="token keyword">INT</span><span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span>MYISAM<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>针对于InnoDB表</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">//开启事务</span>
+<span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+<span class="token comment">// 插入一条数据</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> test1 <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 可以查询到数据</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> test1<span class="token punctuation">;</span>
+<span class="token comment">// 回滚</span>
+<span class="token keyword">ROLLBACK</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 查询不到数据</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> test1<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>结果：没有数据</p>
+<p>针对于MYISAM表：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">//开启事务</span>
+<span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+<span class="token comment">// 插入一条数据</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> test1 <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 回滚</span>
+<span class="token keyword">ROLLBACK</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 可以查询到数据</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> test2<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-6-使用举例3：SAVEPOINT"><a href="#2-6-使用举例3：SAVEPOINT" class="headerlink" title="2.6 使用举例3：SAVEPOINT"></a>2.6 使用举例3：SAVEPOINT</h3><p>创建表并添加数据：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> account<span class="token punctuation">(</span>
+id <span class="token keyword">INT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
+NAME <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+balance <span class="token keyword">DECIMAL</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> account<span class="token punctuation">(</span>NAME<span class="token punctuation">,</span>balance<span class="token punctuation">)</span>
+<span class="token keyword">VALUES</span>
+<span class="token punctuation">(</span><span class="token string">'张三'</span><span class="token punctuation">,</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'李四'</span><span class="token punctuation">,</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">BEGIN</span><span class="token punctuation">;</span>
+<span class="token keyword">UPDATE</span> account <span class="token keyword">SET</span> balance <span class="token operator">=</span> balance <span class="token operator">-</span> <span class="token number">100</span> <span class="token keyword">WHERE</span> NAME <span class="token operator">=</span> <span class="token string">'张三'</span><span class="token punctuation">;</span>
+<span class="token keyword">UPDATE</span> account <span class="token keyword">SET</span> balance <span class="token operator">=</span> balance <span class="token operator">-</span> <span class="token number">100</span> <span class="token keyword">WHERE</span> NAME <span class="token operator">=</span> <span class="token string">'张三'</span><span class="token punctuation">;</span>
+<span class="token keyword">SAVEPOINT</span> s1<span class="token punctuation">;</span> <span class="token comment"># 设置保存点</span>
+<span class="token keyword">UPDATE</span> account <span class="token keyword">SET</span> balance <span class="token operator">=</span> balance <span class="token operator">+</span> <span class="token number">1</span> <span class="token keyword">WHERE</span> NAME <span class="token operator">=</span> <span class="token string">'张三'</span><span class="token punctuation">;</span>
+<span class="token keyword">ROLLBACK</span> <span class="token keyword">TO</span> s1<span class="token punctuation">;</span> <span class="token comment"># 回滚到保存点</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>结果：张三：800.00</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ROLLBACK</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>结果：张三：1000.00</p>
+<h2 id="3-事务隔离级别"><a href="#3-事务隔离级别" class="headerlink" title="3. 事务隔离级别"></a>3. 事务隔离级别</h2><p>MySQL是一个 <code>客户端／服务器</code> 架构的软件，对于同一个服务器来说，可以有若干个客户端与之连接，每 个客户端与服务器连接上之后，就可以称为一个会话（ <code>Session</code> ）。每个客户端都可以在自己的会话中 向服务器发出请求语句，一个请求语句可能是某个事务的一部分，也就是对于服务器来说可能同时处理多个事务。事务有 <code>隔离性</code> 的特性，理论上在某个事务 <code>对某个数据进行访问</code> 时，其他事务应该进行<code>排队</code> ，当该事务提交之后，其他事务才可以继续访问这个数据。但是这样对 <code>性能影响太大</code> ，我们既想保持事务的隔离性，又想让服务器在处理访问同一数据的多个事务时 <code>性能尽量高些</code> ，那就看二者如何权衡取 舍了。</p>
+<h3 id="3-1-数据准备"><a href="#3-1-数据准备" class="headerlink" title="3.1 数据准备"></a>3.1 数据准备</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> student <span class="token punctuation">(</span>
+    studentno <span class="token keyword">INT</span><span class="token punctuation">,</span>
+    name <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    class <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>studentno<span class="token punctuation">)</span>
+<span class="token punctuation">)</span> <span class="token keyword">Engine</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>然后向这个表里插入一条数据：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> student <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'小谷'</span><span class="token punctuation">,</span> <span class="token string">'1班'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>现在表里的数据就是这样的：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> student<span class="token punctuation">;</span>
+<span class="token operator">+</span><span class="token comment">-----------+--------+-------+</span>
+<span class="token operator">|</span> studentno <span class="token operator">|</span> name   <span class="token operator">|</span> class <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-----------+--------+-------+</span>
+<span class="token operator">|</span>      <span class="token number">1</span>    <span class="token operator">|</span>   小谷  <span class="token operator">|</span> <span class="token number">1</span>班   <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-----------+--------+-------+</span>
+<span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h3 id="3-2-数据并发问题"><a href="#3-2-数据并发问题" class="headerlink" title="3.2 数据并发问题"></a>3.2 数据并发问题</h3><p>针对事务的隔离性和并发性，我们怎么做取舍呢？先看一下访问相同数据的事务在 <code>不保证串行执行</code> （也 就是执行完一个再执行另一个）的情况下可能会出现哪些问题：</p>
+<p><strong>1. 脏写（ Dirty Write ）</strong></p>
+<p><strong><font color='scarlet'>脏写是指两个或多个并发事务同时修改同一数据的情况下，其中一个事务覆盖了另一个未提交事务所做的修改的数据，这就是脏写。</font></strong></p>
+<p><font color='scarlet'>对于两个事务 Session A、Session B，如果事务Session A <code>修改了</code> 另一个 <code>未提交</code> 事务Session B <code>修改过</code> 的数据，那就意味着发生了 <code>脏写</code>，</font>示意图如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515133142632.png" srcset="/img/loading.gif" lazyload alt="image-20230515133142632"></p>
+<p>Session A 和 Session B 各开启了一个事务，Sesssion B 中的事务先将studentno列为1的记录的name列更新为’李四’，然后Session A中的事务接着又把这条studentno列为1的记录的name列更新为’张三’。如果之后Session B中的事务进行了回滚，那么Session A中的更新也将不复存在，这种现象称之为脏写。</p>
+<p>这时Session A中的事务就没有效果了，明明把数据更新了，最后也提交事务了，最后看到的数据什么变化也没有。这里大家对事务的隔离性比较了解的话，会发现默认隔离级别下，上面Session A中的更新语句会处于等待状态。</p>
+<p><strong>2. 脏读（ Dirty Read ）</strong></p>
+<p><strong><font color='scarlet'>脏读是指一个事务读取了另一个未提交的事务所做的修改，从而导致数据的不一致性。</font></strong></p>
+<p><font color='scarlet'>对于两个事务 Session A、Session B，Session A <code>读取</code> 了已经被 Session B <code>更新</code> 但还 <code>没有被提交</code> 的数据。 之后若 Session B <code>回滚</code> ，Session A <code>读取 </code>的内容就是 <code>临时且无效</code> 的，这就称之为脏读。</font></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515133632533.png" srcset="/img/loading.gif" lazyload alt="image-20230515133632533"></p>
+<p>Session A和Session B各开启了一个事务，Session B中的事务先将studentno列为1的记录的name列更新 为’张三’，然后Session A中的事务再去查询这条studentno为1的记录，如果读到列name的值为’张三’，而 Session B中的事务稍后进行了回滚，那么Session A中的事务相当于读到了一个不存在的数据，这种现象就称之为 <code>脏读</code> 。</p>
+<p><strong>3. 不可重复读（ Non-Repeatable Read ）</strong></p>
+<p><strong><font color='scarlet'>不可重复读指一个事务内，在相同的条件下，多次读取同一数据却得到了不同的结果。</font></strong></p>
+<p>对于两个事务Session A、Session B，Session A <code>读取</code>了一个字段，然后 Session B <code>更新</code>了该字段。 之后 Session A <code>再次读取</code> 同一个字段， <code>值就不同</code> 了。那就意味着发生了不可重复读。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515134432454.png" srcset="/img/loading.gif" lazyload alt="image-20230515134432454"></p>
+<p>我们在Session B中提交了几个 <code>隐式事务</code> （注意是隐式事务，意味着语句结束事务就提交了），这些事务 都修改了studentno列为1的记录的列name的值，每次事务提交之后，如果Session A中的事务都可以查看到最新的值，这种现象也被称之为 <code>不可重复读 </code>。</p>
+<p><strong>4. 幻读（ Phantom ）</strong></p>
+<p><strong><font color='scarlet'>幻读 (Phantom Read) 是指在一个事务中，多次执行相同的查询操作得到了不同的结果集，结果集中不同的行可能是由其他并发事务插入或删除而导致。</font></strong></p>
+<p>对于两个事务Session A、Session B, Session A 从一个表中 <code>读取</code> 了一个字段, 然后 Session B 在该表中 插 入 了一些新的行。 之后, 如果 Session A <code>再次读取</code> 同一个表, 就会多出几行。那就意味着发生了<code>幻读</code>。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515135149007.png" srcset="/img/loading.gif" lazyload alt="image-20230515135149007"></p>
+<p>Session A中的事务先根据条件 studentno &gt; 0这个条件查询表student，得到了name列值为’张三’的记录； 之后Session B中提交了一个 <code>隐式事务</code> ，该事务向表student中插入了一条新记录；之后Session A中的事务 再根据相同的条件 studentno &gt; 0查询表student，得到的结果集中包含Session B中的事务新插入的那条记 录，这种现象也被称之为 幻读 。我们把新插入的那些记录称之为 <code>幻影记录</code> 。</p>
+<h3 id="3-3-SQL中的四种隔离级别"><a href="#3-3-SQL中的四种隔离级别" class="headerlink" title="3.3 SQL中的四种隔离级别"></a>3.3 SQL中的四种隔离级别</h3><p>上面介绍了几种并发事务执行过程中可能遇到的一些问题，这些问题有轻重缓急之分，我们给这些问题 按照严重性来排一下序：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">脏写 > 脏读 > 不可重复读 > 幻读<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>我们愿意舍弃一部分隔离性来换取一部分性能在这里就体现在：设立一些隔离级别，隔离级别越低，并发问题发生的就越多。 <code>SQL标准</code> 中设立了4个 <code>隔离级别</code> ：</p>
+<ul>
+<li><code>READ UNCOMMITTED</code> ：<font color='scarlet'>读未提交</font>，在该隔离级别，所有事务都可以看到其他未提交事务的执行结 果。不能避免脏读、不可重复读、幻读。</li>
+<li><code>READ COMMITTED</code> ：<font color='scarlet'>读已提交</font>，它满足了隔离的简单定义：一个事务只能看见已经提交事务所做 的改变。这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）。可以避免脏读，但不可 重复读、幻读问题仍然存在。</li>
+<li><code>REPEATABLE READ</code> ：<font color='scarlet'>可重复读</font>，事务A在读到一条数据之后，此时事务B对该数据进行了修改并提 交，那么事务A再读该数据，读到的还是原来的内容。可以避免脏读、不可重复读，但幻读问题仍 然存在。这是MySQL的默认隔离级别。</li>
+<li><code>SERIALIZABLE</code> ：<font color='scarlet'>可串行化</font>，确保事务可以从一个表中读取相同的行。在这个事务持续期间，禁止 其他事务对该表执行插入、更新和删除操作。所有的并发问题都可以避免，但性能十分低下。能避 免脏读、不可重复读和幻读。</li>
+</ul>
+<p>**<font color='scarlet'>SQL标准中规定，针对不同的隔离级别，并发事务可以发生不同严重程度的问题</font>**，具体情况如下:</p>
+<table>
+<thead>
+<tr>
+<th>事务隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>read uncommitted(0)</code></td>
+<td>允许</td>
+<td>允许</td>
+<td>允许</td>
+</tr>
+<tr>
+<td><code>read committed(2)</code></td>
+<td>不允许</td>
+<td>允许</td>
+<td>允许</td>
+</tr>
+<tr>
+<td><code>repeatable read(4) </code></td>
+<td>不允许</td>
+<td>不允许</td>
+<td>允许</td>
+</tr>
+<tr>
+<td><code>serializable(8)</code></td>
+<td>不允许</td>
+<td>不允许</td>
+<td>不允许</td>
+</tr>
+</tbody></table>
+<p><strong><font color='red'>隔离级别越高，性能越低。</font></strong></p>
+<p>一般情况下：脏读是不可允许的，不可重复读和幻读是可以被适当允许的。</p>
+<p><strong><font color='scarlet'>虽然说事务的隔离级别能够解决并发情况下事务出现的问题，但是随着事务级别的越来越高，其并发性能也越来越低。</font></strong></p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515140831030.png" srcset="/img/loading.gif" lazyload alt="image-20230515140831030" style="zoom:67%;" />
+
+<h3 id="3-4-MySQL支持的四种隔离级别"><a href="#3-4-MySQL支持的四种隔离级别" class="headerlink" title="3.4 MySQL支持的四种隔离级别"></a>3.4 MySQL支持的四种隔离级别</h3><p>MySQL的默认隔离级别为<code>REPEATABLE READ</code>，我们可以手动修改一下事务的隔离级别。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 查看隔离级别，MySQL 5.7.20的版本之前：</span>
+mysql<span class="token operator">></span> <span class="token keyword">SHOW</span> VARIABLES <span class="token operator">LIKE</span> <span class="token string">'tx_isolation'</span><span class="token punctuation">;</span>
+<span class="token operator">+</span><span class="token comment">---------------+-----------------+</span>
+<span class="token operator">|</span> Variable_name <span class="token operator">|</span> <span class="token keyword">Value</span>           <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">---------------+-----------------+</span>
+<span class="token operator">|</span> tx_isolation  <span class="token operator">|</span> <span class="token keyword">REPEATABLE</span><span class="token operator">-</span><span class="token keyword">READ</span> <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">---------------+-----------------+</span>
+<span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span>
+<span class="token comment"># MySQL 5.7.20版本之后，引入transaction_isolation来替换tx_isolation</span>
+
+<span class="token comment"># 查看隔离级别，MySQL 5.7.20的版本及之后：</span>
+mysql<span class="token operator">></span> <span class="token keyword">SHOW</span> VARIABLES <span class="token operator">LIKE</span> <span class="token string">'transaction_isolation'</span><span class="token punctuation">;</span>
+<span class="token operator">+</span><span class="token comment">-----------------------+-----------------+</span>
+<span class="token operator">|</span> Variable_name         <span class="token operator">|</span> <span class="token keyword">Value</span>           <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-----------------------+-----------------+</span>
+<span class="token operator">|</span> transaction_isolation <span class="token operator">|</span> <span class="token keyword">REPEATABLE</span><span class="token operator">-</span><span class="token keyword">READ</span> <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-----------------------+-----------------+</span>
+<span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.02</span> sec<span class="token punctuation">)</span>
+
+<span class="token comment">#或者不同MySQL版本中都可以使用的：</span>
+<span class="token keyword">SELECT</span> @<span class="token variable">@transaction_isolation</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515142248827.png" srcset="/img/loading.gif" lazyload alt="image-20230515142248827"></p>
+<h3 id="3-5-如何设置事务的隔离级别"><a href="#3-5-如何设置事务的隔离级别" class="headerlink" title="3.5 如何设置事务的隔离级别"></a>3.5 如何设置事务的隔离级别</h3><p><strong>通过下面的语句修改事务的隔离级别：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> <span class="token punctuation">[</span><span class="token keyword">GLOBAL</span><span class="token operator">|</span><span class="token keyword">SESSION</span><span class="token punctuation">]</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION</span> <span class="token keyword">LEVEL</span> 隔离级别<span class="token punctuation">;</span>
+<span class="token comment">#其中，隔离级别格式：</span>
+<span class="token operator">></span> <span class="token keyword">READ</span> <span class="token keyword">UNCOMMITTED</span>
+<span class="token operator">></span> <span class="token keyword">READ</span> <span class="token keyword">COMMITTED</span>
+<span class="token operator">></span> <span class="token keyword">REPEATABLE</span> <span class="token keyword">READ</span>
+<span class="token operator">></span> <span class="token keyword">SERIALIZABLE</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>或者：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> <span class="token punctuation">[</span><span class="token keyword">GLOBAL</span><span class="token operator">|</span><span class="token keyword">SESSION</span><span class="token punctuation">]</span> TRANSACTION_ISOLATION <span class="token operator">=</span> <span class="token string">'隔离级别'</span>
+<span class="token comment">#其中，隔离级别格式：</span>
+<span class="token operator">></span> <span class="token keyword">READ</span><span class="token operator">-</span><span class="token keyword">UNCOMMITTED</span>
+<span class="token operator">></span> <span class="token keyword">READ</span><span class="token operator">-</span><span class="token keyword">COMMITTED</span>
+<span class="token operator">></span> <span class="token keyword">REPEATABLE</span><span class="token operator">-</span><span class="token keyword">READ</span>
+<span class="token operator">></span> <span class="token keyword">SERIALIZABLE</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>关于设置时使用GLOBAL或SESSION的影响：</strong></p>
+<ul>
+<li><p><font color='scarlet'>使用 GLOBAL 关键字（在全局范围影响）</font>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> <span class="token keyword">GLOBAL</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION</span> <span class="token keyword">LEVEL</span> <span class="token keyword">SERIALIZABLE</span><span class="token punctuation">;</span>
+<span class="token comment">#或</span>
+<span class="token keyword">SET</span> <span class="token keyword">GLOBAL</span> TRANSACTION_ISOLATION <span class="token operator">=</span> <span class="token string">'SERIALIZABLE'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>则：</p>
+<ul>
+<li>&#x3D;&#x3D;当前已经存在的会话无效&#x3D;&#x3D;</li>
+<li>&#x3D;&#x3D;只对执行完该语句之后产生的会话起作用&#x3D;&#x3D;</li>
+</ul>
+</li>
+<li><p><font color='scarlet'>使用 <code>SESSION</code> 关键字（在会话范围影响）</font>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> <span class="token keyword">SESSION</span> <span class="token keyword">TRANSACTION</span> <span class="token keyword">ISOLATION</span> <span class="token keyword">LEVEL</span> <span class="token keyword">SERIALIZABLE</span><span class="token punctuation">;</span>
+<span class="token comment">#或</span>
+<span class="token keyword">SET</span> <span class="token keyword">SESSION</span> TRANSACTION_ISOLATION <span class="token operator">=</span> <span class="token string">'SERIALIZABLE'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>则：</p>
+<ul>
+<li>&#x3D;&#x3D;对当前会话的所有后续的事务有效&#x3D;&#x3D;</li>
+<li>&#x3D;&#x3D;如果在事务之间执行，则对后续的事务有效&#x3D;&#x3D;</li>
+<li>&#x3D;&#x3D;该语句可以在已经开启的事务中间执行，但不会影响当前正在执行的事务&#x3D;&#x3D;</li>
+</ul>
+</li>
+</ul>
+<p>如果在服务器启动时想改变事务的默认隔离级别，可以修改启动参数<code>transaction_isolation</code>的值。比如，在启动服务器时指定了<code>transaction_isolation=SERIALIZABLE</code>，那么事务的默认隔离界别就从原来的<code>REPEATABLE-READ</code>变成了<code>SERIALIZABLE</code>。</p>
+<blockquote>
+<p>小结：</p>
+<p>数据库规定了多种事务隔离级别，不同隔离级别对应不同的干扰程度，隔离级别越高，数据一致性就越好，但并发性越弱。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第13章_事务基础知识</div>
+      <div>http://example.com/2021/04/26/MySQL高级-第13章_事务基础知识/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年4月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/27/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC14%E7%AB%A0_MySQL%E4%BA%8B%E5%8A%A1%E6%97%A5%E5%BF%97/" title="第14章_MySQL事务日志">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第14章_MySQL事务日志</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/25/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC12%E7%AB%A0_%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B6%E4%BB%96%E8%B0%83%E4%BC%98%E7%AD%96%E7%95%A5/" title="第12章_数据库其他调优策略">
+                        <span class="hidden-mobile">第12章_数据库其他调优策略</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

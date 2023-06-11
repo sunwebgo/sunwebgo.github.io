@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 逻辑架构剖析1.1MySQL服务端的逻辑架构说明首先MySQL是典型的C&#x2F;S架构，即Clinet&#x2F;Server 架构，服务端程序使用的mysqld。 不论客户端进程和服务器进程是采用哪种方式进行通信，最后实现的效果是：**客户端进程向服务器进程发送一段文本（SQL语句），服务器进程处理后再向客户端进程发送一段文本（处理结果）**。 那服务器进程对客户端进程发送的请求做了什么处理，才">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第04章_逻辑架构">
+<meta property="og:url" content="http://example.com/2021/04/17/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC04%E7%AB%A0_%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="xhang&#39;s blog">
+<meta property="og:description" content="1. 逻辑架构剖析1.1MySQL服务端的逻辑架构说明首先MySQL是典型的C&#x2F;S架构，即Clinet&#x2F;Server 架构，服务端程序使用的mysqld。 不论客户端进程和服务器进程是采用哪种方式进行通信，最后实现的效果是：**客户端进程向服务器进程发送一段文本（SQL语句），服务器进程处理后再向客户端进程发送一段文本（处理结果）**。 那服务器进程对客户端进程发送的请求做了什么处理，才">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
+<meta property="article:published_time" content="2021-04-17T13:59:58.000Z">
+<meta property="article:modified_time" content="2023-06-11T12:14:47.645Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
+  
+  
+  
+  <title>第04章_逻辑架构 - xhang&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第04章_逻辑架构"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-04-17 21:59" pubdate>
+          2021年4月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          99 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第04章_逻辑架构</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-逻辑架构剖析"><a href="#1-逻辑架构剖析" class="headerlink" title="1. 逻辑架构剖析"></a>1. 逻辑架构剖析</h2><h3 id="1-1MySQL服务端的逻辑架构说明"><a href="#1-1MySQL服务端的逻辑架构说明" class="headerlink" title="1.1MySQL服务端的逻辑架构说明"></a>1.1MySQL服务端的逻辑架构说明</h3><p>首先MySQL是典型的C&#x2F;S架构，即<code>Clinet/Server 架构</code>，服务端程序使用的mysqld。</p>
+<p>不论客户端进程和服务器进程是采用哪种方式进行通信，最后实现的效果是：**<font color='red'>客户端进程向服务器进程发送一段文本（SQL语句），服务器进程处理后再向客户端进程发送一段文本（处理结果）</font>**。</p>
+<p>那服务器进程对客户端进程发送的请求做了什么处理，才能产生最后的处理结果呢？这里以查询请求为 例展示：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413215930706.png" srcset="/img/loading.gif" lazyload alt="image-20230413215930706"></p>
+<p>下面具体展开如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413215958231.png" srcset="/img/loading.gif" lazyload alt="image-20230413215958231"></p>
+<blockquote>
+<p><code>Connectors</code>：MySQL服务器之外的客户端程序。</p>
+<p><code>Management Services &amp; Utllities</code>：基础服务组件。</p>
+<p><code>Connection Pool</code>：连接池，提供了多个用户客户端与服务器端交互的线程。</p>
+<p><code>SQL Interface</code>：SQL接口，接收SQL指令，返回结果。</p>
+<p><code>Parser</code>：解析器，语法解析，语义解析，生成语法树。</p>
+<p><code>Optimizer</code>：优化器，核心组件，对sql进行优化。</p>
+<p><code>Caches &amp; Buffers</code>（8.0及以上已经废除）：查询缓存，以键值对的方式缓存查询结果 。</p>
+<p><code>Pluggable Storage Engine</code>：插件式的存储引擎，与底层的文件系统进行交互。</p>
+<p><code>File system</code>：文件系统。</p>
+<p><code>Files &amp; Logs</code>：日志文件。</p>
+</blockquote>
+<h3 id="1-2-Connectors"><a href="#1-2-Connectors" class="headerlink" title="1.2 Connectors"></a>1.2 Connectors</h3><p>Connectors，<font color='red'><strong>指的是不同语言中与SQL的交互</strong></font>。MySQL首先是一个网络程序，在TCP之上定义了自己的应用层协议。所以要使用MySQL，我们可以编写代码，跟MySQL Server <code>建立TCP连接</code>，之后按照其定义好的协议进行交互。或者比较方便的方法是调用SDK，比如Native C API、JDBC、PHP等各语言MySQL Connecotr,或者通过ODBC。但<strong>通过SDK来访问MySQL，本质上还是在TCP连接上通过MySQL协议跟MySQL进行交互</strong>。</p>
+<p><strong>接下来的MySQL Server结构可以分为如下三层：</strong></p>
+<h3 id="1-3-第一层：连接层"><a href="#1-3-第一层：连接层" class="headerlink" title="1.3 第一层：连接层"></a>1.3 第一层：连接层</h3><p>系统（客户端）访问 <code>MySQL</code> 服务器前，做的第一件事就是建立 <code>TCP </code>连接。 经过三次握手建立连接成功后， MySQL 服务器对 TCP 传输过来的账号密码做身份认证、权限获取。</p>
+<ul>
+<li>&#x3D;&#x3D;用户名或密码不对，会收到一个<code>Access denied for user</code>错误，客户端程序结束执行&#x3D;&#x3D;</li>
+<li>&#x3D;&#x3D;用户名密码认证通过，会从<code>权限表</code>查出账号拥有的权限与连接关联，之后的权限判断逻辑，都将依赖于此时读到的权限&#x3D;&#x3D;</li>
+</ul>
+<p>&#x3D;&#x3D;TCP 连接收到请求后，必须要分配给一个线程专门与这个客户端的交互。所以还会有个线程池，去走后面的流程。每一个连接从线程池中获取线程，省去了创建和销毁线程的开销。&#x3D;&#x3D;</p>
+<p><font color='red'>所以<strong>连接管理</strong>的职责是负责认证、管理连接、获取权限信息。</font></p>
+<p>接着我们来思考一个问题：<font color='red'>一个系统只会和MySQL服务器建立一个连接吗?只能有一个系统和MySQL服务器建立连接吗?</font></p>
+<blockquote>
+<p>不是，多个系统都可以和MySQL服务器建立连接,每个系统建立的连接不止一个。所以，为了解决TCP<br>无限创建与TCP频繁创建销毁带来的资源耗尽、性能下降问题。MySQL服务器里有专门的<code>TCP连接池</code>限制连接数，采用<code>长连接模式复用TCP连接</code>，来解决上述问题。</p>
+</blockquote>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413103201129.png" srcset="/img/loading.gif" lazyload alt="image-20230413103201129"></p>
+<p><code>TCP</code>连接收到请求后，必须要分配给一一个线程专门与这个客户端的交互。所以还会有个线程池，去走后面的流程。每一个连接从线程池中获取线程，省去了创建和销毁线程的开销。</p>
+<p>这些内容我们都归纳到MySQL的连接管理组件中。</p>
+<p>所以连接管理的职责是负责认证、管理连接、获取权限信息。</p>
+<h3 id="1-4-第二层：服务层"><a href="#1-4-第二层：服务层" class="headerlink" title="1.4 第二层：服务层"></a>1.4 第二层：服务层</h3><p>第二层架构主要完成大多数的核心服务功能，如SQL接口，并完成<code>缓存的查询</code>，SQL的分析和优化及部分内置函数的执行。所有跨存储引擎的功能也在这一层实现，如过程、函数等。</p>
+<p>在该层，服务器会<code>解析查询</code>并创建相应的内部<code>解析树</code>，并对其完成相应的<code>优化</code>：如确定查询表的顺序，是否利用索引等，最后生成相应的执行操作。</p>
+<p>如果是SELECT语句，服务器还会<code>查询内部的缓存</code>。如果缓存空间足够大，这样在解决大量读操作的环境中能够很好的提升系统的性能。</p>
+<ul>
+<li><p><strong><font color='red'>SQL Interface: SQL接口</font></strong></p>
+<ul>
+<li>&#x3D;&#x3D;接收用户的SQL命令，并且返回用户需要查询的结果&#x3D;&#x3D;。比如SELECT … FROM就是调用SQL Interface</li>
+<li>MySQL支持DML（数据操作语言）、DDL（数据定义语言）、存储过程、视图、触发器、自定 义函数等多种SQL语言接口</li>
+</ul>
+</li>
+<li><p><strong><font color='red'>Parser: 解析器</font></strong></p>
+<ul>
+<li>&#x3D;&#x3D;在解析器中对 SQL 语句进行语法分析、语义分析。&#x3D;&#x3D;将SQL语句分解成数据结构，并将这个结构 传递到后续步骤，以后SQL语句的传递和处理就是基于这个结构的。如果在分解构成中遇到错 误，那么就说明这个SQL语句是不合理的。</li>
+<li>在SQL命令传递到解析器的时候会被解析器验证和解析，并为其<code>创建语法树</code> ，并根据数据字 典丰富查询语法树，会<code>验证该客户端是否具有执行该查询的权限 </code>。创建好语法树后，MySQL还 会对SQl查询进行语法上的优化，进行查询重写。</li>
+</ul>
+</li>
+<li><p><font color='red'><strong>Optimizer: 优化器</strong></font></p>
+<ul>
+<li>SQL语句在语法解析之后、查询之前会使用查询优化器确定 SQL 语句的执行路径，&#x3D;&#x3D;生成一个 执行计划 。&#x3D;&#x3D;</li>
+<li>这个执行计划表明应该<code>使用哪些索引进行查询</code>（全表检索还是使用索引检索），表之间的连接顺序如何，最后会按照执行计划中的步骤调用存储引擎提供的方法来真正的执行查询，并将 查询结果返回给用户。</li>
+<li>它使用“<code> 选取-投影-连接</code> ”策略进行查询。例如：</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> id<span class="token punctuation">,</span>name <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> gender <span class="token operator">=</span> <span class="token string">'女'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="language-none"><code class="language-none">    这个SELECT查询先根据WHERE语句进行 选取 ，而不是将表全部查询出来以后再进行gender过 滤。 这个SELECT查询先根据id和name进行属性 投影 ，而不是将属性全部取出以后再进行过 滤，将这两个查询条件 连接 起来生成最终查询结果。
+</code></pre></div></figure>
+</li>
+<li><p><strong><font color='red'>Caches &amp; Buffers： 查询缓存组件</font></strong></p>
+<ul>
+<li>MySQL内部维持着一些Cache和Buffer，比如Query Cache用来缓存一条SELECT语句的执行结 果，如果能够在其中找到对应的查询结果，那么就不必再进行查询解析、优化和执行的整个过 程了，直接将结果反馈给客户端。</li>
+<li>这个缓存机制是由一系列小缓存组成的。比如表缓存，记录缓存，key缓存，权限缓存等 。 这个<code>查询缓存可以在不同客户端之间共享 。</code></li>
+<li><font color='red'>从MySQL 5.7.20开始，不推荐使用查询缓存，并在 MySQL 8.0中删除 。</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-5-第三层：引擎层"><a href="#1-5-第三层：引擎层" class="headerlink" title="1.5 第三层：引擎层"></a>1.5 第三层：引擎层</h3><p>和其它数据库相比，MySQL有点与众不同，它的架构可以在多种不同场景中应用并发挥良好作用，<code>主要体现在存储引擎的架构上</code>，插件式的存储引擎架构将查询处理和其它的系统任务以及数据的存储提取相分离。这种架构可以根据业务的需求和实际需要选择合适的存储引擎。同时开源的 MySQL还允许开发人员设置自己的存储引擎。</p>
+<p>这种高效的模块化架构为那些希望专门针对特定应用程序需求(例如数据仓库、事务处理或高可用性情况)的人<br>提供了巨大的好处，同时享受使用- -组独立于任何接口和服务的优势存储引擎。</p>
+<p>插件式存储引擎层（ Storage Engines），**<font color='red'>真正的负责了MySQL中数据的存储和提取，对物理服务器级别维护的底层数据执行操作</font>**，服务器通过API与存储引擎进行通信。不同的存储引擎具有的功能不同，这样 我们可以根据自己的实际需要进行选取。</p>
+<p>使用<code>show engines</code>查看当前数据库系统中的引擎</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413104124204.png" srcset="/img/loading.gif" lazyload alt="image-20230413104124204"></p>
+<h3 id="1-6-存储层"><a href="#1-6-存储层" class="headerlink" title="1.6 存储层"></a>1.6 存储层</h3><p>&#x3D;&#x3D;所有的数据，数据库、表的定义，表的每一行的内容，索引，都是存在文件系统上&#x3D;&#x3D;，以<code>文件</code>的方式存在的，并完成与存储引擎的交互。当然有些存储引擎比如InnoDB，也支持不使用文件系统直接管理裸设备，但现代文件系统的实现使得这样做没有必要了。在文件系统之下，可以使用本地磁盘，可以使用 DAS、NAS、SAN等各种存储系统。</p>
+<h3 id="1-7-小结"><a href="#1-7-小结" class="headerlink" title="1.7 小结"></a>1.7 小结</h3><p>MySQL架构图本节开篇所示。下面为了熟悉SQL执行流程方便，我们可以简化如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220016728.png" srcset="/img/loading.gif" lazyload alt="image-20230413220016728"></p>
+<p>简化为三层结构：</p>
+<ol>
+<li>连接层：客户端和服务器端建立连接，客户端发送 SQL 至服务器端；</li>
+<li>SQL 层（服务层）：对 SQL 语句进行查询处理；与数据库文件的存储方式无关；</li>
+<li>存储引擎层：与数据库文件打交道，负责数据的存储和读取。</li>
+</ol>
+<h2 id="2-SQL执行流程"><a href="#2-SQL执行流程" class="headerlink" title="2. SQL执行流程"></a>2. SQL执行流程</h2><h3 id="2-1-MySQL中的SQL执行流程"><a href="#2-1-MySQL中的SQL执行流程" class="headerlink" title="2.1 MySQL中的SQL执行流程"></a>2.1 MySQL中的SQL执行流程</h3><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220031706.png" srcset="/img/loading.gif" lazyload alt="image-20230413220031706"></p>
+<p><strong><font color='red'>MySQL的查询流程：</font></strong></p>
+<ol>
+<li><strong><font color='cornflowerblue'>查询缓存</font><strong>：&#x3D;&#x3D;Server 如果在查询缓存中发现了这条 SQL 语句，就会直接将结果返回给客户端；如果没有，就进入到解析器阶段。&#x3D;&#x3D;</strong><font color='red'>需要说明的是，因为查询缓存往往效率不高，所以在 MySQL8.0 之后就抛弃了这个功能。</font></strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413105232265.png" srcset="/img/loading.gif" lazyload alt="image-20230413105232265"></p>
+<p>MySQL拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。<code>之前执行过的语句及其结果可能会以key-value对的形式，被直接缓存在内存中</code>。key 是查询的语句，value 是查询的结果。&#x3D;&#x3D;如果你的查询能够直接在这个缓存中找到key,那么这个value就会被直接返回给客户端。如果语句不在查询缓存中，就会继续后面的执行阶段。执行完成后， 执行结果会被存入查询缓存中。所以,如果查询命中缓存，MySQL 不需要执行后面的复杂操作，就可以直接返回结果，这个效率会很高。&#x3D;&#x3D;</p>
+<p><strong><font color='red'>大多数情况查询缓存就是个鸡肋，为什么呢?</font></strong></p>
+<p>查询缓存是提前把查询结果缓存起来，这样下次不需要执行就可以直接拿到结果。<font color='red'>需要说明的是，在MySQL中的查询缓存，不是缓存查询计划，而是查询对应的结果。这就意味着查询匹配的鲁棒性大大降低，只有相同的查询<br>操作才会命中查询缓存。两个查询请求在任何字符上的不同(例如:空格、注释、大小写)，都会导致缓存不会命<br>中。因此MySQL的查询缓存命中率不高。</font></p>
+<p>同时，如果查询请求中包含某些系统函数、用户自定义变量和函数，一些系统表,如mysql、<br>information_ schema、performance_ schema数据库中的表,那这个请求就不会被缓存。以某些系统函数举例，可<br>能同样的函数的两次调用会产生不-样的结果，比如函数NOW,每次调用都会产生最新的当前时间，如果在一个<br>查询请求中调用了这个函数，那即使查询请求的文本信息都一样，那不同时间的两次查询也应该得到不同的结<br>果，如果在第一-次查询时就缓存了，那第二次查询的时候直接使用第一次查询的结果就是错误的!</p>
+<p><code>此外，既然是缓存，那就有它缓存失效的时候。MySQL的缓存系统会监测涉及到的每张表，只要该表的结构或者数据被修改,如对该表使用了INSERT、UPDATE、 DELETE、 TRUNCATE TABLE、ALTER TABLE、DROP TABLE或DROP DATABASE 语句，那使用该表的所有高速缓存查询都将变为无效并从高速缓存中删除！对于更新 压力大的数据库来说，查询缓存的命中率会非常低。</code></p>
+<p><font color='red'><strong>总之，因为查询缓存往往弊大于利，查询缓存的失效非常频繁。</strong></font></p>
+<p>&#x3D;&#x3D;一般建议大家在静态表里使用查询缓存，什么叫<code>静态表</code>呢？就是一般我们极少更新的表。&#x3D;&#x3D;比如，一个系统配置表、字典表，这张表上的查询才适合使用查询缓存。好在MySQL也提供了这种“<code>按需使用</code>”的方式。你可以将 my.cnf 参数 query_cache_type 设置成 DEMAND，代表当 sql 语句中有 SQL_CACHE关键字时才缓存。比如：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># query_cache_type 有3个值。 0代表关闭查询缓存OFF，1代表开启ON，2代表(DEMAND)</span>
+query_cache_type<span class="token operator">=</span><span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>这样对于默认的SQL语句都不使用查询缓存。而对于你确定要使用查询缓存的语句，可以供SQL_CACHE显示指定，像下面这个语句一样：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> SQl_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> test <span class="token keyword">WHERE</span> ID<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>查看当前 mysql 实例是否开启缓存机制</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># MySQL5.7中：</span>
+<span class="token keyword">show</span> <span class="token keyword">global</span> variables <span class="token operator">like</span> <span class="token string">"%query_cache_type%"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>监控查询缓存的命中率：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">show</span> <span class="token keyword">status</span> <span class="token operator">like</span> <span class="token string">'%Qcache%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220048429.png" srcset="/img/loading.gif" lazyload alt="image-20230413220048429"></p>
+<p>运行结果解析：</p>
+<p><code>Qcache_free_blocks</code>: 表示查询缓存中海油多少剩余的blocks，如果该值显示较大，则说明查询缓存中的<code>内部碎片</code>过多了，可能在一定的时间进行整理。</p>
+<p><code>Qcache_free_memory</code>: 查询缓存的内存大小，通过这个参数可以很清晰的知道当前系统的查询内存是否够用，DBA可以根据实际情况做出调整。</p>
+<p><code>Qcache_hits</code>: 表示有 <code>多少次命中缓存</code>。我们主要可以通过该值来验证我们的查询缓存的效果。数字越大，缓存效果越理想。</p>
+<p><code>Qcache_inserts</code>: 表示<code>多少次未命中然后插入</code>，意思是新来的SQL请求在缓存中未找到，不得不执行查询处理，执行查询处理后把结果insert到查询缓存中。这样的情况的次数越多，表示查询缓存应用到的比较少，效果也就不理想。当然系统刚启动后，查询缓存是空的，这也正常。</p>
+<p><code>Qcache_lowmem_prunes</code>: 该参数记录有<code>多少条查询因为内存不足而被移除</code>出查询缓存。通过这个值，用户可以适当的调整缓存大小。</p>
+<p><code>Qcache_not_cached</code>: 表示因为query_cache_type的设置而没有被缓存的查询数量。</p>
+<p><code>Qcache_queries_in_cache</code>: 当前缓存中<code>缓存的查询数量</code>。</p>
+<p><code>Qcache_total_blocks</code>: 当前缓存的block数量。</p>
+<ol start="2">
+<li>**<font color='cornflowerblue'>解析器</font>**：在解析器中对 SQL 语句进行语法分析、语义分析。</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220106203.png" srcset="/img/loading.gif" lazyload alt="image-20230413220106203"></p>
+<p>&#x3D;&#x3D;如果没有命中查询缓存，就要开始真正执行语句了。首先，MySQL需要知道你要做什么，因此需要对SQL语句做解析。SQL语句的分析分为词法分析与语法分析。&#x3D;&#x3D;</p>
+<p><code>分析器先做“ </code>词法分析<code> ”。你输入的是由多个字符串和空格组成的一条 SQL 语句，MySQL 需要识别出里面 的字符串分别是什么，代表什么。</code></p>
+<p>MySQL 从你输入的”select”这个关键字识别出来，这是一个查询语 句。它也要把字符串“T”识别成“表名 T”，把字符串“ID”识别成“列 ID”。</p>
+<p><code>接着，要做“ </code>语法分析<code>”。根据词法分析的结果，语法分析器（比如：Bison）会根据语法规则，判断你输 入的这个 SQL 语句是否</code>满足 MySQL 语法<code> 。</code></p>
+<p>select department_id,job_id, avg(salary) from employees group by department_id;</p>
+<p>如果SQL语句正确，则会生成一个这样的语法树：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220116534.png" srcset="/img/loading.gif" lazyload alt="image-20230413220116534"></p>
+<p>下图是SQL分词分析的过程步骤:</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220128376.png" srcset="/img/loading.gif" lazyload alt="image-20230413220128376"></p>
+<p>至此解析器的工作任务也基本圆满了。</p>
+<ol start="3">
+<li>**<font color='cornflowerblue'>优化器</font>**：在优化器中会确定 SQL 语句的执行路径，比如是根据 <code>全表检索</code> ，还是根据 <code>索引检索</code> 等。</li>
+</ol>
+<p>经过解释器，MySQL就知道你要做什么了。在开始执行之前，还要先经过优化器的处理。**<font color='orange'>一条查询可以有很多种执行方式，最后都返回相同的结果。优化器的作用就是找到这其中最好的执行计划</font>**。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413110816862.png" srcset="/img/loading.gif" lazyload alt="image-20230413110816862"></p>
+<p>比如：&#x3D;&#x3D;优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联 (join) 的时候，决定各个表的连接顺序，还有表达式简化、子查询转为连接、外连接转为内连接等。&#x3D;&#x3D;</p>
+<p>举例：如下语句是执行两个表的 join：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test1 <span class="token keyword">join</span> test2 <span class="token keyword">using</span><span class="token punctuation">(</span>ID<span class="token punctuation">)</span>
+<span class="token keyword">where</span> test1<span class="token punctuation">.</span>name<span class="token operator">=</span><span class="token string">'zhangwei'</span> <span class="token operator">and</span> test2<span class="token punctuation">.</span>name<span class="token operator">=</span><span class="token string">'mysql高级课程'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<blockquote>
+<p>方案1：可以先从表 test1 里面取出 name&#x3D;’zhangwei’的记录的 ID 值，再根据 ID 值关联到表 test2，再判<br>断 test2 里面 name的值是否等于 ‘mysql高级课程’。</p>
+<p>方案2：可以先从表 test2 里面取出 name&#x3D;’mysql高级课程’ 的记录的 ID 值，再根据 ID 值关联到 test1，<br>再判断 test1 里面 name的值是否等于 zhangwei。</p>
+<p>这两种执行方法的逻辑结果是一样的，但是执行的效率会有不同，而优化器的作用就是决定选择使用哪一个方案。优化<br>器阶段完成后，这个语句的执行方案就确定下来了，然后进入执行器阶段。<br>如果你还有一些疑问，比如优化器是怎么选择索引的，有没有可能选择错等。后面讲到索引我们再谈。</p>
+</blockquote>
+<p>在查询优化器中，可以分为 <code>逻辑查询</code> 优化阶段和 <code>物理查询</code> 优化阶段。</p>
+<p>逻辑查询优化就是通过改变SQL语句的内容来使得SQL查询更高效，同时为物理查询优化提供更多的候选执行计划。通常采用的方式是对SQL语句进行<code>等价变换</code>，对查询进行<code>重写</code>，而查询重写的数学基础就是关系代数。对条件表达式进行等价谓词重写、条件简化，对视图进行重写，对子查询进行优化，对连接语义进行了外连接消除、嵌套连接消除等。</p>
+<p>物理查询优化是基于关系代数进行的查询重写，而关系代数的每一步都对应着物理计算，这些物理计算往往存在多种算法，因此需要计算各种物理路径的代价，从中选择代价最小的作为执行计划。在这个阶段里，对于单表和多表连接的操作，需要高效地<code>使用索引</code>，提升查询效率。</p>
+<ol start="4">
+<li><strong><font color='cornflowerblue'>执行器</font></strong></li>
+</ol>
+<p>截止到现在，还没有真正去读写真实的表，仅仅只是产出了一个执行计划。于是就进入了执行器阶段 。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220145685.png" srcset="/img/loading.gif" lazyload alt="image-20230413220145685"></p>
+<p>在执行之前需要判断该用户是否 <code>具备权限</code> 。如果没有，就会返回权限错误。如果具备权限，就执行 SQL 查询并返回结果。在 MySQL8.0 以下的版本，如果设置了查询缓存，这时会将查询结果进行缓存。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义,调用<code>存储引擎API</code>对表进行的读写。存储引擎API只是抽象接口，下面还有个存储引擎层，具体实现还是要看表选择的存储引擎。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413111409941.png" srcset="/img/loading.gif" lazyload alt="image-20230413111409941"></p>
+<p>比如：表 test 中，ID 字段没有索引，那么执行器的执行流程是这样的：</p>
+<blockquote>
+<p>调用 InnoDB 引擎接口取这个表的第一行，判断 ID 值是不是1，如果不是则跳过，如果是则将这行存在结果集中；调用引擎接口取“下一行”，重复相同的判断逻辑，直到取到这个表的最后一行。执行器将上述遍历过程中所有满足条件的行组成的记录集作为结果集返回给客户端。</p>
+</blockquote>
+<p>至此，这个语句就执行完成了。对于有索引的表，执行的逻辑也差不多。</p>
+<p>SQL 语句在 MySQL 中的流程是： <code>SQL语句</code>→<code>查询缓存</code>→<code>解析器</code>→<code>优化器</code>→<code>执行器</code> 。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413111619425.png" srcset="/img/loading.gif" lazyload alt="image-20230413111619425"></p>
+<h3 id="2-2-MySQL8中SQL执行原理"><a href="#2-2-MySQL8中SQL执行原理" class="headerlink" title="2.2 MySQL8中SQL执行原理"></a>2.2 MySQL8中SQL执行原理</h3><p>前面的结构图很复杂，我们需要抓取最核心的部分: <code>SQL的执行原理</code>。不同的DBMS的SQL的执行原理是相通<br>的，只是在不同的软件中，各有各的实现路径。</p>
+<p>既然一条SQL语句会经历不同的模块，那我们就来看下，在不同的模块中，SQL 执行所使用的资源(时间)是怎<br>样的。如何在MySQL中对一条SQL语句的执行时间进行分析。</p>
+<h4 id="2-2-1确认profiling是否开启"><a href="#2-2-1确认profiling是否开启" class="headerlink" title="2.2.1确认profiling是否开启"></a>2.2.1确认profiling是否开启</h4><p>了解查询语句底层执行的过程：<code>select @profiling</code> 或者 <code>show variables like &#39;%profiling&#39;</code> 查看是否开启计划。开启它&#x3D;&#x3D;可以让MySQL收集在SQL执行时所使用的资源情况&#x3D;&#x3D;，<font color='red'>即sql的执行细节</font>。命令如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">select</span> @<span class="token variable">@profiling</span><span class="token punctuation">;</span>
+mysql<span class="token operator">></span> <span class="token keyword">show</span> variables <span class="token operator">like</span> <span class="token string">'profiling'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413120347537.png" srcset="/img/loading.gif" lazyload alt="image-20230413120347537"></p>
+<p>profiling&#x3D;0 代表关闭，我们需要把 profiling 打开，即设置为 1：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">set</span> profiling<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413120438306.png" srcset="/img/loading.gif" lazyload alt="image-20230413120438306"></p>
+<h4 id="2-2-2多次执行相同SQL查询"><a href="#2-2-2多次执行相同SQL查询" class="headerlink" title="2.2.2多次执行相同SQL查询"></a>2.2.2多次执行相同SQL查询</h4><p>然后我们执行一个 SQL 查询（你可以执行任何一个 SQL 查询）：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> employees<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h4 id="2-2-3查看profiles"><a href="#2-2-3查看profiles" class="headerlink" title="2.2.3查看profiles"></a>2.2.3查看profiles</h4><p>查看当前会话所产生的所有 profiles：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">show</span> profiles<span class="token punctuation">;</span> <span class="token comment"># 显示最近的几次查询</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413121128380.png" srcset="/img/loading.gif" lazyload alt="image-20230413121128380"></p>
+<h4 id="2-2-4查看profile"><a href="#2-2-4查看profile" class="headerlink" title="2.2.4查看profile"></a>2.2.4查看profile</h4><p>显示执行计划，查看程序的执行步骤：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">show</span> profile<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413121336103.png" srcset="/img/loading.gif" lazyload alt="image-20230413121336103"></p>
+<p>当然你也可以查询指定的 Query ID，比如：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">mysql&gt; show profile for query 7;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>查询 SQL 的执行时间结果和上面是一样的。</p>
+<p>此外，还可以查询更丰富的内容：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">show</span> profile cpu<span class="token punctuation">,</span>block io <span class="token keyword">for</span> query <span class="token number">6</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220213540.png" srcset="/img/loading.gif" lazyload alt="image-20230413220213540"></p>
+<p>继续：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">show</span> profile cpu<span class="token punctuation">,</span>block io <span class="token keyword">for</span> query <span class="token number">7</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220223870.png" srcset="/img/loading.gif" lazyload alt="image-20230413220223870"></p>
+<p>1、除了查看cpu、io阻塞等参数情况，还可以查询下列参数的利用情况。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">Syntax:
+<span class="token keyword">SHOW</span> PROFILE <span class="token punctuation">[</span><span class="token keyword">type</span> <span class="token punctuation">[</span><span class="token punctuation">,</span> <span class="token keyword">type</span><span class="token punctuation">]</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">]</span>
+	<span class="token punctuation">[</span><span class="token keyword">FOR</span> QUERY n<span class="token punctuation">]</span>
+	<span class="token punctuation">[</span><span class="token keyword">LIMIT</span> row_count <span class="token punctuation">[</span><span class="token keyword">OFFSET</span> <span class="token keyword">offset</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+
+<span class="token keyword">type</span>: &#123;
+	<span class="token operator">|</span> <span class="token keyword">ALL</span> <span class="token comment">-- 显示所有参数的开销信息</span>
+	<span class="token operator">|</span> BLOCK IO <span class="token comment">-- 显示IO的相关开销</span>
+	<span class="token operator">|</span> CONTEXT SWITCHES <span class="token comment">-- 上下文切换相关开销</span>
+	<span class="token operator">|</span> CPU <span class="token comment">-- 显示CPU相关开销信息</span>
+	<span class="token operator">|</span> IPC <span class="token comment">-- 显示发送和接收相关开销信息</span>
+	<span class="token operator">|</span> MEMORY <span class="token comment">-- 显示内存相关开销信息</span>
+	<span class="token operator">|</span> PAGE FAULTS <span class="token comment">-- 显示页面错误相关开销信息</span>
+	<span class="token operator">|</span> SOURCE <span class="token comment">-- 显示和Source_function,Source_file,Source_line 相关的开销信息</span>
+	<span class="token operator">|</span> SWAPS <span class="token comment">-- 显示交换次数相关的开销信息</span>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>2、发现两次查询当前情况都一致，说明没有缓存。</p>
+<p><code>在 8.0 版本之后，MySQL 不再支持缓存的查询</code>。一旦数据表有更新，缓存都将清空，因此只有数据表是静态的时候，或者数据表很少发生变化时，使用缓存查询才有价值，否则如果数据表经常更新，反而增加了 SQL 的查询时间。</p>
+<h3 id="2-3-MySQL5-7中SQL执行原理-缓存差别"><a href="#2-3-MySQL5-7中SQL执行原理-缓存差别" class="headerlink" title="2.3 MySQL5.7中SQL执行原理(缓存差别)"></a>2.3 MySQL5.7中SQL执行原理(缓存差别)</h3><p>上述操作在MySQL5.7中测试，发现前后两次相同的sql语句，执行的查询过程仍然是相同的。不是会使用 缓存吗？这里我们需要 显式开启查询缓存模式 。在MySQL5.7中如下设置：</p>
+<h4 id="1-配置文件中开启查询缓存"><a href="#1-配置文件中开启查询缓存" class="headerlink" title="1) 配置文件中开启查询缓存"></a>1) 配置文件中开启查询缓存</h4><p>在 &#x2F;etc&#x2F;my.cnf 中新增一行：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">query_cache_type&#x3D;1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h4 id="2-重启mysql服务"><a href="#2-重启mysql服务" class="headerlink" title="2) 重启mysql服务"></a>2) 重启mysql服务</h4><figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">systemctl restart mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h4 id="3-开启查询执行计划"><a href="#3-开启查询执行计划" class="headerlink" title="3) 开启查询执行计划"></a>3) 开启查询执行计划</h4><p>由于重启过服务，需要重新执行如下指令，开启profiling。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">mysql&gt; set profiling&#x3D;1;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h4 id="4-执行语句两次："><a href="#4-执行语句两次：" class="headerlink" title="4) 执行语句两次："></a>4) 执行语句两次：</h4><figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">mysql&gt; select * from locations;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h4 id="5-查看profiles"><a href="#5-查看profiles" class="headerlink" title="5) 查看profiles"></a>5) 查看profiles</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220247248.png" srcset="/img/loading.gif" lazyload alt="image-20230413220247248"></p>
+<h4 id="6-查看profile"><a href="#6-查看profile" class="headerlink" title="6) 查看profile"></a>6) 查看profile</h4><p>显示执行计划，查看程序的执行步骤：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">mysql&gt; show profile for query 1;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220305992.png" srcset="/img/loading.gif" lazyload alt="image-20230413220305992"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">mysql&gt; show profile for query 2;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220319722.png" srcset="/img/loading.gif" lazyload alt="image-20230413220319722"></p>
+<p>结论不言而喻。执行编号2时，比执行编号1时少了很多信息，从截图中可以看出查询语句直接从缓存中 获取数据。</p>
+<h3 id="2-4-SQL语法顺序"><a href="#2-4-SQL语法顺序" class="headerlink" title="2.4 SQL语法顺序"></a>2.4 SQL语法顺序</h3><p>随着Mysql版本的更新换代，其优化器也在不断的升级，优化器会分析不同执行顺序产生的性能消耗不同 而动态调整执行顺序。</p>
+<h2 id="3-数据库缓冲池（buffer-pool）"><a href="#3-数据库缓冲池（buffer-pool）" class="headerlink" title="3. 数据库缓冲池（buffer pool）"></a>3. 数据库缓冲池（buffer pool）</h2><p><code>InnoDB</code> 存储引擎是以页为单位来管理存储空间的，我们进行的增删改查操作其实本质上都是在访问页面（包括读页面、写页面、创建新页面等操作）。而磁盘 I&#x2F;O 需要消耗的时间很多，而在内存中进行操作，效率则会高很多，为了能让数据表或者索引中的数据随时被我们所用，DBMS 会申请<code>占用内存来作为数据缓冲池</code> ，在真正访问页面之前，需要把在磁盘上的页缓存到内存中的 Buffer Pool 之后才可以访问。</p>
+<p>这样做的好处是可以让磁盘活动最小化，从而 <code>减少与磁盘直接进行 I/O 的时间 </code>。要知道，这种策略对提升 SQL 语句的查询性能来说至关重要。如果索引的数据在缓冲池里，那么访问的成本就会降低很多。</p>
+<h3 id="3-1-缓冲池-vs-查询缓存"><a href="#3-1-缓冲池-vs-查询缓存" class="headerlink" title="3.1 缓冲池 vs 查询缓存"></a>3.1 缓冲池 vs 查询缓存</h3><p>缓冲池和查询缓存是一个东西吗？不是。</p>
+<h4 id="1-缓冲池（Buffer-Pool）"><a href="#1-缓冲池（Buffer-Pool）" class="headerlink" title="1) 缓冲池（Buffer Pool）"></a>1) 缓冲池（Buffer Pool）</h4><p>首先我们需要了解在 InnoDB 存储引擎中，缓冲池都包括了哪些。</p>
+<p>在 InnoDB 存储引擎中有一部分数据会放到内存中，缓冲池则占了这部分内存的大部分，它用来存储各种数据的缓存，如下图所示：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220336613.png" srcset="/img/loading.gif" lazyload alt="image-20230413220336613"></p>
+<p>从图中，你能看到 InnoDB 缓冲池包括了数据页、索引页、插入缓冲、锁信息、自适应 Hash 和数据字典信息等。</p>
+<p><strong>缓存池的重要性：</strong></p>
+<p><strong>缓存原则：</strong></p>
+<p>“ <code>位置 * 频次</code> ”这个原则，可以帮我们对 I&#x2F;O 访问效率进行优化。</p>
+<p>首先，位置决定效率，提供缓冲池就是为了在内存中可以直接访问数据。</p>
+<p>其次，频次决定优先级顺序。因为缓冲池的大小是有限的，比如磁盘有 200G，但是内存只有 16G，缓冲池大小只有 1G，就无法将所有数据都加载到缓冲池里，这时就涉及到优先级顺序，会<code>优先对使用频次高的热数据进行加载 </code>。</p>
+<p><strong>缓冲池的预读特性:</strong></p>
+<p>缓冲池的作用就是提升 I&#x2F;O 效率，而我们进行读取数据的时候存在一个“局部性原理”，也就是说我们使用了一些数据，<strong>大概率还会使用它周围的一些数据</strong>，因此采用“预读”的机制提前加载，可以减少未来可能的磁盘 I&#x2F;O 操作。</p>
+<h4 id="2-查询缓存"><a href="#2-查询缓存" class="headerlink" title="2) 查询缓存"></a>2) 查询缓存</h4><p>那么什么是查询缓存呢？</p>
+<p>查询缓存是提前把 查询结果缓存起来，这样下次不需要执行就可以直接拿到结果。需要说明的是，在 MySQL 中的查询缓存，不是缓存查询计划，而是查询对应的结果。因为命中条件苛刻，而且只要数据表 发生变化，查询缓存就会失效，因此命中率低。</p>
+<h3 id="3-2-缓冲池如何读取数据"><a href="#3-2-缓冲池如何读取数据" class="headerlink" title="3.2 缓冲池如何读取数据"></a>3.2 缓冲池如何读取数据</h3><p>缓冲池管理器会尽量将经常使用的数据保存起来，在数据库进行页面读操作的时候，首先会判断该页面 是否在缓冲池中，如果存在就直接读取，如果不存在，就会通过内存或磁盘将页面存放到缓冲池中再进行读取。</p>
+<p>缓存在数据库中的结构和作用如下图所示：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220350866.png" srcset="/img/loading.gif" lazyload alt="image-20230413220350866"></p>
+<p><strong>如果我们执行 SQL 语句的时候更新了缓存池中的数据，那么这些数据会马上同步到磁盘上吗？</strong></p>
+<p>实际上，当我们对数据库中的记录进行修改的时候，首先会修改缓冲池中页里面的记录信息，然后数据库会<code>以一定的频率刷新</code>到磁盘中。注意并不是每次发生更新操作，都会立即进行磁盘回写。缓冲池会采用一种叫做 <code>checkpoint 的机制</code> 将数据回写到磁盘上，这样做的好处就是提升了数据库的整体性能。</p>
+<p>比如，当<code>缓冲池不够用</code>时，需要释放掉一些不常用的页，此时就可以强行采用checkpoint的方式，将不常用的脏页回写到磁盘上，然后再从缓存池中将这些页释放掉。这里的脏页 (dirty page) 指的是缓冲池中被修改过的页，与磁盘上的数据页不一致。</p>
+<h3 id="3-3-查看-x2F-设置缓冲池的大小"><a href="#3-3-查看-x2F-设置缓冲池的大小" class="headerlink" title="3.3 查看&#x2F;设置缓冲池的大小"></a>3.3 查看&#x2F;设置缓冲池的大小</h3><p>如果你使用的是 MySQL MyISAM 存储引擎，它只缓存索引，不缓存数据，对应的键缓存参数为<code>key_buffer_size</code>，你可以用它进行查看。</p>
+<p>如果你使用的是 InnoDB 存储引擎，可以通过查看 innodb_buffer_pool_size 变量来查看缓冲池的大小。命令如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">show variables like &#39;innodb_buffer_pool_size&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220400758.png" srcset="/img/loading.gif" lazyload alt="image-20230413220400758"></p>
+<p>你能看到此时 InnoDB 的缓冲池大小只有 134217728&#x2F;1024&#x2F;1024&#x3D;128MB。我们可以修改缓冲池大小，比如改为256MB，方法如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">set global innodb_buffer_pool_size &#x3D; 268435456;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>或者：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">[server]
+innodb_buffer_pool_size &#x3D; 268435456<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-4-多个Buffer-Pool实例"><a href="#3-4-多个Buffer-Pool实例" class="headerlink" title="3.4 多个Buffer Pool实例"></a>3.4 多个Buffer Pool实例</h3><figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">[server]
+innodb_buffer_pool_instances &#x3D; 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>这样就表明我们要创建2个 <code>Buffer Pool</code> 实例。</p>
+<p>我们看下如何查看缓冲池的个数，使用命令：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">show variables like &#39;innodb_buffer_pool_instances&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>那每个 Buffer Pool 实例实际占多少内存空间呢？其实使用这个公式算出来的：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">innodb_buffer_pool_size&#x2F;innodb_buffer_pool_instances<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>也就是总共的大小除以实例的个数，结果就是每个 Buffer Pool 实例占用的大小。</p>
+<p>不过也不是说 Buffer Pool 实例创建的越多越好，分别管理各个 Buffer Pool 也是需要性能开销的，InnDB规定：当innodb_buffer_pool_size的值小于1G的时候设置多个实例是无效的，InnoDB会默认把innodb_buffer_pool_instances的值修改为1。而我们鼓励在 Buffer Pool 大于等于 1G 的时候设置多个 Buffer Pool 实例。</p>
+<h3 id="3-5-引申问题"><a href="#3-5-引申问题" class="headerlink" title="3.5 引申问题"></a>3.5 引申问题</h3><p>Buffer Pool是MySQL内存结构中十分核心的一个组成，你可以先把它想象成一个黑盒子。</p>
+<p>黑盒下的更新数据流程</p>
+<p>当我们查询数据的时候，会先去 Buffer Pool 中查询。如果 Buffer Pool 中不存在，存储引擎会先将数据从磁盘加载到 Buffer Pool 中，然后将数据返回给客户端；同理，当我们更新某个数据的时候，如果这个数据不存在于 Buffer Pool，同样会先数据加载进来，然后修改内存的数据。被修改的数据会在之后统一刷入磁盘。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413220412382.png" srcset="/img/loading.gif" lazyload alt="image-20230413220412382"></p>
+<p>我更新到一半突然发生错误了，想要回滚到更新之前的版本，该怎么办？连数据持久化的保证、事务回滚都做不到还谈什么崩溃恢复？</p>
+<p>答案：<strong>Redo Log</strong> &amp; <strong>Undo Log</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第04章_逻辑架构</div>
+      <div>http://example.com/2021/04/17/MySQL高级-第04章_逻辑架构/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年4月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/18/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC05%E7%AB%A0_%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" title="第05章_存储引擎">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第05章_存储引擎</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/17/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC03%E7%AB%A0_%E7%94%A8%E6%88%B7%E4%B8%8E%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="第03章_用户与权限管理">
+                        <span class="hidden-mobile">第03章_用户与权限管理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
