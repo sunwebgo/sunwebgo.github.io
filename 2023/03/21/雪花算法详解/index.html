@@ -1,0 +1,937 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.SnowFlake 雪花算法简介SnowFlake 中文意思为雪花，故称为雪花算法。最早是 Twitter 公司在其内部用于分布式环境下生成唯一 ID。  雪花算法将 64 位二进制位划分为五个部分，分别如下：  符号位：始终为 0，占用 1 位。 时间戳：精确到毫秒级，占用 41 位。 机器 ID：机器 ID 可以划分为两部分，占用 10 位。其中 5 位是数据中心 ID，另外 5 位是机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="雪花算法详解">
+<meta property="og:url" content="http://example.com/2023/03/21/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="xhang&#39;s blog">
+<meta property="og:description" content="1.SnowFlake 雪花算法简介SnowFlake 中文意思为雪花，故称为雪花算法。最早是 Twitter 公司在其内部用于分布式环境下生成唯一 ID。  雪花算法将 64 位二进制位划分为五个部分，分别如下：  符号位：始终为 0，占用 1 位。 时间戳：精确到毫秒级，占用 41 位。 机器 ID：机器 ID 可以划分为两部分，占用 10 位。其中 5 位是数据中心 ID，另外 5 位是机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612182720061.png">
+<meta property="article:published_time" content="2023-03-21T02:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-12T10:52:10.162Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="SnowFlake算法">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612182720061.png">
+  
+  
+  
+  <title>雪花算法详解 - xhang&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="雪花算法详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-21 10:00" pubdate>
+          2023年3月21日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          54 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">雪花算法详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612182720061.png" srcset="/img/loading.gif" lazyload alt="image-20230612182720061"></p>
+<h1 id="1-SnowFlake-雪花算法简介"><a href="#1-SnowFlake-雪花算法简介" class="headerlink" title="1.SnowFlake 雪花算法简介"></a>1.SnowFlake 雪花算法简介</h1><p>SnowFlake 中文意思为雪花，故称为雪花算法。最早是 Twitter 公司在其内部用于分布式环境下生成唯一 ID。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230321091400856.png" srcset="/img/loading.gif" lazyload alt="image-20230321091400856"></p>
+<p>雪花算法将 64 位二进制位划分为五个部分，分别如下：</p>
+<ol>
+<li><strong>符号位</strong>：始终为 0，占用 1 位。</li>
+<li><strong>时间戳</strong>：精确到毫秒级，占用 41 位。</li>
+<li><strong>机器 ID</strong>：机器 ID 可以划分为两部分，占用 10 位。其中 5 位是数据中心 ID，另外 5 位是机器 ID。</li>
+<li><strong>序列号</strong>：序列号可以精确控制单位时间内最大生成的 ID 数量，占用 12 位。</li>
+<li>总共 64 位，除去符号位后剩下 63 位，刚好是一个 Java long 类型的取值范围。</li>
+</ol>
+<h1 id="2-雪花算法各个部分分析"><a href="#2-雪花算法各个部分分析" class="headerlink" title="2.雪花算法各个部分分析"></a>2.雪花算法各个部分分析</h1><ol>
+<li><strong>符号位</strong></li>
+</ol>
+<p>​		因为二进制里第一个bit如果为1，则表示为负数。但是雪花算法生成的long类的数字都是整数，所以第一		个bit统一都是0。</p>
+<ol start="2">
+<li><strong>时间戳</strong></li>
+</ol>
+<p>​		41bit可以表示的数字多达2^41 - 1，也就是可以标识2 ^ 41 - 1个毫秒值，换算成年就是69年的时间。</p>
+<p>​		年 &#x3D; (1L &lt;&lt; 41) &#x2F; (1000L * 60 * 60 * 24 *365) &#x3D; 69</p>
+<ol start="3">
+<li><strong>工作机器ID</strong></li>
+</ol>
+<p>​		工作机器ID有10bit位，就表示这个服务最多部署在2^10台机器上，也就是1024台机器。但是10 bit里5个bit		代表机房id, 5个bit代表机器id。意思就是最多代表2^5个机房(32 个机房)，每个机房里可以代表2^5个机器(32 台		机器)，也可以根据自己公司的实际情况确定。</p>
+<ol start="4">
+<li><strong>序列号</strong></li>
+</ol>
+<p>​		12 bit可以代表的最大正整数是2^12- 1 &#x3D; 4096,也就是说可以用这个12 bit代表的数字来区分同一个毫秒内的<br>​		4096个不同的id。</p>
+<h1 id="3-雪花算法源码"><a href="#3-雪花算法源码" class="headerlink" title="3.雪花算法源码"></a>3.雪花算法源码</h1><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Twitter的SnowFlake算法,使用SnowFlake算法生成一个整数，然后转化为62进制变成一个短地址URL
+ *
+ * https://github.com/beyondfengyu/SnowFlake
+ *
+ * Snowflake生成的是Long类型的ID，一个Long类型占8个字节，每个字节占8比特，也就是说一个Long类型占64个比特。
+ * Snowflake ID组成结构：正数位（占1比特）+ 时间戳（占41比特）+ 机器ID（占5比特）+ 数据中心（占5比特）+ 自增值（占12比特），总共64比特组成的一个Long类型。
+ * ● 第一个bit位（1bit）：Java中long的最高位是符号位代表正负，正数是0，负数是1，一般生成ID都为正数，所以默认为0。
+ * ● 时间戳部分（41bit）：毫秒级的时间，不建议存当前时间戳，而是用（当前时间戳 - 固定开始时间戳）的差值，可以使产生的ID从更小的值开始；41位的时间戳可以使用69年，(1L &lt;&lt; 41) / (1000L * 60 * 60 * 24 * 365) = 69年
+ * ● 工作机器id（10bit）：也被叫做workId，这个可以灵活配置，机房或者机器号组合都可以。
+ * ● 序列号部分（12bit），自增值支持同一毫秒内同一个节点可以生成4096个ID
+ * 根据这个算法的逻辑，只需要将这个算法用Java语言实现出来，封装为一个工具方法，那么各个业务应用可以直接使用该工具方法来获取分布式ID，只需保证每个业务应用有自己的工作机器id即可，而不需要单独去搭建一个获取分布式ID的应用。
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SnowFlakeUtil</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token comment">/**
+     * 起始的时间戳
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">START_TIMESTAMP</span> <span class="token operator">=</span> <span class="token number">1480166465631L</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 每一部分占用的位数
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">SEQUENCE_BIT</span> <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>   <span class="token comment">//序列号占用的位数</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">MACHINE_BIT</span> <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>     <span class="token comment">//机器标识占用的位数</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">DATA_CENTER_BIT</span> <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token comment">//数据中心占用的位数</span>
+
+    <span class="token comment">/**
+     * 每一部分的最大值
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">MAX_SEQUENCE</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1L</span> <span class="token operator">^</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token constant">SEQUENCE_BIT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 4095</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">MAX_MACHINE_NUM</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1L</span> <span class="token operator">^</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token constant">MACHINE_BIT</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">MAX_DATA_CENTER_NUM</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1L</span> <span class="token operator">^</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token constant">DATA_CENTER_BIT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 每一部分向左的位移
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">MACHINE_LEFT</span> <span class="token operator">=</span> <span class="token constant">SEQUENCE_BIT</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">DATA_CENTER_LEFT</span> <span class="token operator">=</span> <span class="token constant">SEQUENCE_BIT</span> <span class="token operator">+</span> <span class="token constant">MACHINE_BIT</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token constant">TIMESTAMP_LEFT</span> <span class="token operator">=</span> <span class="token constant">DATA_CENTER_LEFT</span> <span class="token operator">+</span> <span class="token constant">DATA_CENTER_BIT</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">long</span> dataCenterId<span class="token punctuation">;</span>  <span class="token comment">//数据中心</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> machineId<span class="token punctuation">;</span>     <span class="token comment">//机器标识</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> sequence <span class="token operator">=</span> <span class="token number">0L</span><span class="token punctuation">;</span> <span class="token comment">//序列号</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> lastTimeStamp <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1L</span><span class="token punctuation">;</span>  <span class="token comment">//上一次时间戳</span>
+
+    <span class="token comment">/**
+     * 获取到下一毫秒的时间戳
+     *
+     * @return long
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> <span class="token function">getNextMill</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> mill <span class="token operator">=</span> <span class="token function">getNewTimeStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>mill <span class="token operator">&lt;=</span> lastTimeStamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            mill <span class="token operator">=</span> <span class="token function">getNewTimeStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> mill<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">/**
+     * 获取到当前时间戳
+     *
+     * @return long
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> <span class="token function">getNewTimeStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">/**
+     * 根据指定的数据中心ID和机器标志ID生成指定的序列号
+     *  机器id总共占5位,低12位序号id12位.因此要左移12位
+     *  数据中心id(机房id)占5位,低17位为机器id5位和序号id12位,因此要左移17位
+     * @param dataCenterId 数据中心ID
+     * @param machineId    机器标志ID
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">SnowFlakeUtil</span><span class="token punctuation">(</span><span class="token keyword">long</span> dataCenterId<span class="token punctuation">,</span> <span class="token keyword">long</span> machineId<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>dataCenterId <span class="token operator">></span> <span class="token constant">MAX_DATA_CENTER_NUM</span> <span class="token operator">||</span> dataCenterId <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"DtaCenterId can't be greater than MAX_DATA_CENTER_NUM or less than 0！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>machineId <span class="token operator">></span> <span class="token constant">MAX_MACHINE_NUM</span> <span class="token operator">||</span> machineId <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"MachineId can't be greater than MAX_MACHINE_NUM or less than 0！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>dataCenterId <span class="token operator">=</span> dataCenterId<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>machineId <span class="token operator">=</span> machineId<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">/**
+     * 产生下一个ID
+     * id号只有12位.同一毫秒内最多生产4096个.
+     * 超过时,申请下一个毫秒值
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">long</span> <span class="token function">nextId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token comment">//        1.获取到当前时间戳</span>
+        <span class="token keyword">long</span> currTimeStamp <span class="token operator">=</span> <span class="token function">getNewTimeStamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        2.如果当前时间戳小于上一次ID生成的时间戳,说明系统时钟回退过,这个时候应当抛出异常</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>currTimeStamp <span class="token operator">&lt;</span> lastTimeStamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"Clock moved backwards.  Refusing to generate id"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+<span class="token comment">//        3.在同一毫秒内</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>currTimeStamp <span class="token operator">==</span> lastTimeStamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token comment">//        4.相同毫秒内，序列号自增   MAX_SEQUENCE=4095(12位,序列号最大值)</span>
+<span class="token comment">//          sequence + 1 =4096时sequence为0(相当于4095&amp;4096)</span>
+            sequence <span class="token operator">=</span> <span class="token punctuation">(</span>sequence <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token constant">MAX_SEQUENCE</span><span class="token punctuation">;</span>
+            <span class="token comment">//同一毫秒的序列数已经达到最大</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>sequence <span class="token operator">==</span> <span class="token number">0L</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token comment">//         5.获取下一个毫秒并赋值给当前毫秒</span>
+                currTimeStamp <span class="token operator">=</span> <span class="token function">getNextMill</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">//不同毫秒内，序列号置为0</span>
+            sequence <span class="token operator">=</span> <span class="token number">0L</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        lastTimeStamp <span class="token operator">=</span> currTimeStamp<span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>currTimeStamp <span class="token operator">-</span> <span class="token constant">START_TIMESTAMP</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token constant">TIMESTAMP_LEFT</span> <span class="token comment">//时间戳部分 低22位 数据中心id5位,机器标识id5位,序号id12位,因此左移22位</span>
+                <span class="token operator">|</span> dataCenterId <span class="token operator">&lt;&lt;</span> <span class="token constant">DATA_CENTER_LEFT</span>       <span class="token comment">//数据中心部分</span>
+                <span class="token operator">|</span> machineId <span class="token operator">&lt;&lt;</span> <span class="token constant">MACHINE_LEFT</span>             <span class="token comment">//机器标识部分</span>
+                <span class="token operator">|</span> sequence<span class="token punctuation">;</span>                             <span class="token comment">//序列号部分</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">SnowFlakeUtil</span> snowFlake <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SnowFlakeUtil</span><span class="token punctuation">(</span><span class="token number">2L</span><span class="token punctuation">,</span> <span class="token number">3L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">//10进制</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>snowFlake<span class="token punctuation">.</span><span class="token function">nextId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h1 id="4-时钟回拨问题"><a href="#4-时钟回拨问题" class="headerlink" title="4.时钟回拨问题"></a>4.时钟回拨问题</h1><h2 id="4-1什么是时钟回拨"><a href="#4-1什么是时钟回拨" class="headerlink" title="4.1什么是时钟回拨"></a>4.1什么是时钟回拨</h2><p><font color='red'>时钟回拨（Clock Drift Backwards）是指系统时间向后调整的现象。在计算机系统中，系统时间通常由硬件时钟或软件时钟来维护，而这些时钟有时会因各种原因出现不同程度的偏差，以致于系统时间发生了回拨的情况。</font></p>
+<p><font color='scarlet'>时钟回拨对应用程序和系统运行都有很大的影响，尤其是在需要保证数据一致性和唯一性的场景中。例如，在分布式系统中，如果某个节点的时间回拨了，就可能导致该节点产生了重复的ID或者序列号等数据，从而破坏了系统的正确性和可靠性。</font></p>
+<h2 id="4-2时钟回拨解决方案"><a href="#4-2时钟回拨解决方案" class="headerlink" title="4.2时钟回拨解决方案"></a>4.2时钟回拨解决方案</h2><p>雪花算法中使用的时间戳一般都是基于当前系统时间生成的，因此如果系统时间发生了回拨，则可能会导致生成的ID出现重复。为了解决这个问题，可以采用以下几种方法：</p>
+<blockquote>
+<ol>
+<li><font color='scarlet'>时钟同步</font>：尽量保持系统时间的稳定和精确，避免因系统时间不准确而导致时间回拨。</li>
+<li><font color='scarlet'>时钟后移</font>：当检测到系统时间发生回拨时，可以将时钟向后调整一段时间，以保证新生成的ID不会与之前已经生成的ID重复。</li>
+<li><font color='scarlet'>等待处理</font>：当检测到系统时间发生回拨时，可以暂停ID的生成，并等待系统时间恢复正常之后再重新开始生成ID。</li>
+</ol>
+<p>需要注意的是，在实际应用中，时钟回拨问题可能并不常见，一般只有在出现硬件故障或者系统异常情况时才会发生。因此，在设计时可以根据具体需求和实际情况来选择相应的解决方案。同时，也可以考虑结合其他技术手段，如NTP（网络时间协议）等，来进一步提高系统的时间稳定性和可靠性。</p>
+</blockquote>
+<p>​	</p>
+<h2 id="4-3示例代码"><a href="#4-3示例代码" class="headerlink" title="4.3示例代码"></a>4.3示例代码</h2><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SnowflakeIdGenerator</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 定义起始时间戳</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">START_TIMESTAMP</span> <span class="token operator">=</span> <span class="token number">1620000000000L</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 定义各部分占用位数</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">SEQUENCE_BIT</span> <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span> <span class="token comment">// 序列号占用位数</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">MACHINE_BIT</span> <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment">// 机器码占用位数</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">TIMESTAMP_LEFT_BIT</span> <span class="token operator">=</span> <span class="token constant">SEQUENCE_BIT</span> <span class="token operator">+</span> <span class="token constant">MACHINE_BIT</span><span class="token punctuation">;</span> <span class="token comment">// 时间戳左移位数</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">MAX_SEQUENCE_NUM</span> <span class="token operator">=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token constant">SEQUENCE_BIT</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 序列号最大值</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> <span class="token constant">MAX_MACHINE_ID</span> <span class="token operator">=</span> <span class="token operator">~</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token constant">MACHINE_BIT</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 机器码最大值</span>
+
+    <span class="token comment">// 定义变量</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> sequenceNum <span class="token operator">=</span> <span class="token number">0L</span><span class="token punctuation">;</span> <span class="token comment">// 序列号</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> lastTimestamp <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1L</span><span class="token punctuation">;</span> <span class="token comment">// 上次生成ID的时间戳</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> machineId<span class="token punctuation">;</span> <span class="token comment">// 机器码</span>
+
+    <span class="token comment">// 构造函数</span>
+    <span class="token keyword">public</span> <span class="token class-name">SnowflakeIdGenerator</span><span class="token punctuation">(</span><span class="token keyword">long</span> machineId<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>machineId <span class="token operator">></span> <span class="token constant">MAX_MACHINE_ID</span> <span class="token operator">||</span> machineId <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"Machine ID can't be greater than "</span> <span class="token operator">+</span> <span class="token constant">MAX_MACHINE_ID</span> <span class="token operator">+</span> <span class="token string">" or less than 0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>machineId <span class="token operator">=</span> machineId<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// 获取下一个ID</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">long</span> <span class="token function">nextId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> currentTimestamp <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 获取当前时间戳</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>currentTimestamp <span class="token operator">&lt;</span> lastTimestamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 发生时钟回拨</span>
+            <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                <span class="token function">wait</span><span class="token punctuation">(</span>lastTimestamp <span class="token operator">-</span> currentTimestamp<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 等待时钟追上</span>
+                currentTimestamp <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 重新获取当前时间戳</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>currentTimestamp <span class="token operator">&lt;</span> lastTimestamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 如果还是小于之前的时间戳，说明时钟依然不稳定</span>
+                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"Clock error occurs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>currentTimestamp <span class="token operator">==</span> lastTimestamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 同一毫秒内生成ID</span>
+            sequenceNum <span class="token operator">=</span> <span class="token punctuation">(</span>sequenceNum <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token constant">MAX_SEQUENCE_NUM</span><span class="token punctuation">;</span> <span class="token comment">// 序列号自增</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>sequenceNum <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 超过最大序列号，等待下一毫秒</span>
+                currentTimestamp <span class="token operator">=</span> <span class="token function">waitNextMillis</span><span class="token punctuation">(</span>currentTimestamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 不同毫秒内生成ID</span>
+            sequenceNum <span class="token operator">=</span> <span class="token number">0L</span><span class="token punctuation">;</span> <span class="token comment">// 序列号重置为0</span>
+        <span class="token punctuation">&#125;</span>
+        lastTimestamp <span class="token operator">=</span> currentTimestamp<span class="token punctuation">;</span> <span class="token comment">// 更新上次生成ID的时间戳</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>lastTimestamp <span class="token operator">-</span> <span class="token constant">START_TIMESTAMP</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token constant">TIMESTAMP_LEFT_BIT</span><span class="token punctuation">)</span> <span class="token comment">// 时间戳部分</span>
+                <span class="token operator">|</span> <span class="token punctuation">(</span>machineId <span class="token operator">&lt;&lt;</span> <span class="token constant">SEQUENCE_BIT</span><span class="token punctuation">)</span> <span class="token comment">// 机器码部分</span>
+                <span class="token operator">|</span> sequenceNum<span class="token punctuation">;</span> <span class="token comment">// 序列号部分</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// 等待下一毫秒</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> <span class="token function">waitNextMillis</span><span class="token punctuation">(</span><span class="token keyword">long</span> currentTimestamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> currentTimestamp<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/SnowFlake%E7%AE%97%E6%B3%95/" class="category-chain-item">SnowFlake算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/SnowFlake%E7%AE%97%E6%B3%95/">#SnowFlake算法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>雪花算法详解</div>
+      <div>http://example.com/2023/03/21/雪花算法详解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/23/%E5%BE%AE%E6%9C%8D%E5%8A%A1ELK%E6%97%A5%E5%BF%97%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F/" title="微服务ELK日志监控系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">微服务ELK日志监控系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/17/JWT%E8%AF%A6%E8%A7%A3/" title="JWT详解">
+                        <span class="hidden-mobile">JWT详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

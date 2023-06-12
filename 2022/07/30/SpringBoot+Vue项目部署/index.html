@@ -1,0 +1,1128 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1：项目部署所使用的工具或资源 Xshell：用于在本机Windows界面访问远端不同系统下的服务器。  Xshell官网  x 1package io.renren.modules.app.utils;2​3​4import com.baomidou.mybatisplus.annotation.DbType;5import com.baomidou.mybatisplus.annotation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot+Vue项目部署">
+<meta property="og:url" content="http://example.com/2022/07/30/SpringBoot+Vue%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="xhang&#39;s blog">
+<meta property="og:description" content="1：项目部署所使用的工具或资源 Xshell：用于在本机Windows界面访问远端不同系统下的服务器。  Xshell官网  x 1package io.renren.modules.app.utils;2​3​4import com.baomidou.mybatisplus.annotation.DbType;5import com.baomidou.mybatisplus.annotation">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/0328daae47da4a2695bcfed54643fc8b.png">
+<meta property="article:published_time" content="2022-07-30T02:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-12T10:52:10.158Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="项目">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/0328daae47da4a2695bcfed54643fc8b.png">
+  
+  
+  
+  <title>SpringBoot+Vue项目部署 - xhang&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SpringBoot+Vue项目部署"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-30 10:00" pubdate>
+          2022年7月30日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot+Vue项目部署</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1：项目部署所使用的工具或资源"><a href="#1：项目部署所使用的工具或资源" class="headerlink" title="1：项目部署所使用的工具或资源"></a>1：项目部署所使用的工具或资源</h1><ol>
+<li><p><strong>Xshell</strong>：用于在本机Windows界面访问远端不同系统下的服务器。</p>
+<p> <a target="_blank" rel="noopener" href="https://www.xshell.com/zh/xshell/">Xshell官网</a></p>
+</li>
+<li><p>x 1package io.renren.modules.app.utils;2​3​4import com.baomidou.mybatisplus.annotation.DbType;5import com.baomidou.mybatisplus.annotation.IdType;6import com.baomidou.mybatisplus.generator.AutoGenerator;7import com.baomidou.mybatisplus.generator.config.DataSourceConfig;8import com.baomidou.mybatisplus.generator.config.GlobalConfig;9import com.baomidou.mybatisplus.generator.config.PackageConfig;10import com.baomidou.mybatisplus.generator.config.StrategyConfig;11import com.baomidou.mybatisplus.generator.config.rules.DateType;12import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;13import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;14​15​16import java.util.Collections;17​18&#x2F;**19 * @description: 代码生成器20 * @author: YuanJie21 * @create: 2022-1-31 16:2222 **&#x2F;23​24&#x2F;&#x2F; 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中25public class Generator {26    public static void main(String[] args) {27        &#x2F;&#x2F; 1、创建代码生成器28        AutoGenerator mpg &#x3D; new AutoGenerator();29        mpg.setTemplateEngine(new FreemarkerTemplateEngine());30​31        &#x2F;&#x2F; 2、全局配置32        GlobalConfig gc &#x3D; new GlobalConfig();33        String projectPath &#x3D; System.getProperty(“user.dir”);34        gc.setOutputDir(projectPath + “&#x2F;renren-fast-master&#x2F;src&#x2F;main&#x2F;java”);35        gc.setAuthor(“渊洁”);36        gc.setOpen(false); &#x2F;&#x2F;生成后是否打开资源管理器37        gc.setFileOverride(false); &#x2F;&#x2F;重新生成时文件是否覆盖38        gc.setServiceName(“%sService”); &#x2F;&#x2F;去掉Service接口的首字母I39        gc.setIdType(IdType.ID_WORKER_STR); &#x2F;&#x2F;主键策略40        gc.setDateType(DateType.ONLY_DATE);&#x2F;&#x2F;定义生成的实体类中日期类型41        gc.setSwagger2(false);&#x2F;&#x2F;开启Swagger2模式42​43        mpg.setGlobalConfig(gc);44​45        &#x2F;&#x2F; 3、数据源配置46        DataSourceConfig dsc &#x3D; new DataSourceConfig();47        dsc.setUrl(“jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;pdsu_test?useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;serverTimezone&#x3D;Asia&#x2F;Shanghai&amp;rewriteBatchedStatements&#x3D;true”);48        dsc.setDriverName(“com.mysql.cj.jdbc.Driver”);49        dsc.setUsername(“root”);50        dsc.setPassword(“WJHwjh20010825.”);51        dsc.setDbType(DbType.MYSQL);52        mpg.setDataSource(dsc);53​54        &#x2F;&#x2F; 4、包配置55        PackageConfig pc &#x3D; new PackageConfig();56        pc.setModuleName(null); &#x2F;&#x2F;模块名57        pc.setParent(“io.renren.modules.app”);58        pc.setController(“controller”);59        pc.setEntity(“entity”);60        pc.setService(“service”);61        pc.setMapper(“dao”);62        mpg.setPackageInfo(pc);63​64        &#x2F;&#x2F; 5、策略配置65        StrategyConfig strategy &#x3D; new StrategyConfig();66        strategy.setInclude(“tb_article”);&#x2F;&#x2F;对那一张表生成代码67        strategy.setNaming(NamingStrategy.underline_to_camel);&#x2F;&#x2F;数据库表映射到实体的命名策略68        strategy.setTablePrefix(pc.getModuleName() + “_”); &#x2F;&#x2F;生成实体时去掉表前缀69​70        strategy.setColumnNaming(NamingStrategy.underline_to_camel);&#x2F;&#x2F;数据库表字段映射到实体的命名策略71        strategy.setEntityLombokModel(true); &#x2F;&#x2F; lombok 模型 @Accessors(chain &#x3D; true) setter链式操作72​73        strategy.setRestControllerStyle(true); &#x2F;&#x2F;restful api风格控制器74        strategy.setControllerMappingHyphenStyle(true); &#x2F;&#x2F;url中驼峰转连字符75​76        mpg.setStrategy(strategy);77​78        &#x2F;&#x2F; 6、执行79        mpg.execute();80    }81}82​83​84​java</p>
+<figure><div class="code-wrapper"><pre class="language-none"><code class="language-none">    [Xftp官网](https://www.xshell.com/zh/xftp/)
+</code></pre></div></figure>
+</li>
+<li><p><strong>Postman</strong>：Postman是一个<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95&spm=1001.2101.3001.7020">接口测试</a>工具，本次部署中用于测试后端接口。</p>
+<figure><div class="code-wrapper"><pre class="language-none"><code class="language-none">    相较于Postman，可以有更好的选择即ApiFox。在本次部署中为方便采用Postman。
+</code></pre></div></figure>
+</li>
+<li><p><strong>Nginx</strong>：Nginx是一个高性能的 HTTP 和<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86&spm=1001.2101.3001.7020">反向代理</a>服务器，可以作为静态页面的 web 服务器</p>
+</li>
+<li><p><strong>ECS服务器或者轻量应用服务器：</strong><br>  <font color=red size=3> 可以选择大厂云服务器供应商，如阿里、腾讯、华为。</font>本次部署中采用腾讯云服务器。</p>
+<p>我购买的云服务器配置是2核2GB，镜像为CentOS 7.6</p>
+</li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a4c4d6c041674d3c9b52c9d55803757a.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+
+<h1 id="2：SpringBoot项目部署"><a href="#2：SpringBoot项目部署" class="headerlink" title="2：SpringBoot项目部署"></a>2：SpringBoot项目部署</h1><h2 id="2-1更改跨域配置"><a href="#2-1更改跨域配置" class="headerlink" title="2.1更改跨域配置"></a>2.1更改跨域配置</h2><p>&#x3D;&#x3D;将跨域配置修改为云服务器的公网ip&#x3D;&#x3D;</p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5572a9ddd36e406495cd139100f28ae5.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+
+<h2 id="2-2项目打包"><a href="#2-2项目打包" class="headerlink" title="2.2项目打包"></a>2.2项目打包</h2><ol>
+<li><strong>首先打开maven，在maven生命周期选择clear选项，clear命令是maven的清除命令，这一步的<font color='red'>目的是为了清空target目录下的所有内容。</font></strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612164056909.png" srcset="/img/loading.gif" lazyload alt="image-20230612164056909"></p>
+<ol start="2">
+<li><strong>选择package选项，将项目打成jar包。</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/82c9800e33cd402d9390fb99d37e66e5.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="3">
+<li><strong>控制台出现BUILD SUCCESS就表示打包成功</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/650b92d81fb046c99f395b0f0d841fc2.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="4">
+<li><strong>查看target目录，找到打包好的项目jar包。</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/4ba6f4bd2b5e42b4805b250e136e8f8a.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+<h2 id="2-3部署jar包"><a href="#2-3部署jar包" class="headerlink" title="2.3部署jar包"></a>2.3部署jar包</h2><h3 id="2-3-1上传jar包和静态资源文件"><a href="#2-3-1上传jar包和静态资源文件" class="headerlink" title="2.3.1上传jar包和静态资源文件"></a>2.3.1上传jar包和静态资源文件</h3><ol>
+<li><strong>查看SpringBoot项目服务端口：我的是8090</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/0cb6f3bd5e204f7b965eaecf25ead924.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="2">
+<li><strong>在控制台开放相应端口</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/23aed84e51384efdbd9081873bd235d0.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 67%;" />
+
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e445d9356159462abc53861e46b4ca9e.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="3">
+<li><strong>打开Xshell，输入云服务器公网ip创建一个新的会话。</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/d45af4763b944c07877a351608564e6a.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="4">
+<li><strong>双击刚刚创建的会话进行连接，输入用户名和密码</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5b9c7c933a8645bb825610827ee2fd91.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5880f4f0c56e491d855e953ff72adee2.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="5">
+<li><strong>密码如果忘记的话到控制台中进行修改：</strong></li>
+</ol>
+<p><strong>连接成功：</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/6a04ded8f0d8419cbfc6a45786c01ce4.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="6">
+<li><strong>创建新目录，<font color='red'>并将jar包通过Xftp传输到新创建的目录当中</font>，&#x3D;&#x3D;如果有静态资源的话就传输到jar包的同级目录下：&#x3D;&#x3D;</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e95f4744da964f7d8d93ffb061242d95.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/f196573210ea491cb3e039cb4b998f85.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/207ca780c8654abc972793c054a5794d.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:67%;" />
+
+
+<h3 id="2-3-2安装JDK"><a href="#2-3-2安装JDK" class="headerlink" title="2.3.2安装JDK"></a>2.3.2安装JDK</h3><p>jdk官网：<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/">Java Downloads | Oracle</a></p>
+<p><strong>下载Linux版本：</strong></p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/6086d8eec6cc4e2c9331b551b0edc46a.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
+
+<ol>
+<li><strong>将JDK传输到项目目录</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/4c8a0780908d44358fe0300c718cb50f.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="2">
+<li><strong>解压至自定义目录（一般是 &#x2F;usr&#x2F;local）</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">tar -xzvf jdk-8u291-linux-x64.tar.gz -C /usr/local/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<ol start="3">
+<li><strong>配置环境变量。进入到&#x2F;etc目录下，用vim编辑器在 profile 文件中添加四个变量。</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">export JAVA_HOME</span><span class="token punctuation">=</span><span class="token value attr-value">/usr/local/jdk1.8.0_291</span>
+<span class="token key attr-name">export JRE_HOME</span><span class="token punctuation">=</span><span class="token value attr-value">$JAVA_HOME/jre</span>
+<span class="token key attr-name">export CLASSPATH</span><span class="token punctuation">=</span><span class="token value attr-value">.:$JAVA_HOME/lib:$JRE_HOME/lib</span>
+<span class="token key attr-name">export PATH</span><span class="token punctuation">=</span><span class="token value attr-value">/bin:/usr/bin:$PATH:$JAVA_HOME/bin:$PATH</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a52f3aba42924ee7ab1e405b83337f8b.png" srcset="/img/loading.gif" lazyload><br>JDK11环境配置</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">export JAVA_HOME</span><span class="token punctuation">=</span><span class="token value attr-value">/usr/local/jdk-11.0.18</span>
+<span class="token key attr-name">export CLASSPATH</span><span class="token punctuation">=</span><span class="token value attr-value">.:$JAVA_HOME/lib</span>
+<span class="token key attr-name">export PATH</span><span class="token punctuation">=</span><span class="token value attr-value">$JAVA_HOME/bin:$PATH</span>
+export JAVA_HOME CLASSPATH PATH<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><strong>4. 刷新配置</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">source /etc/profile
+
+**四：查看jdk是否安装成功**
+java -version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/2b45712c61664c0aa639cb6d66ef5da0.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2-3-3安装MySQL"><a href="#2-3-3安装MySQL" class="headerlink" title="2.3.3安装MySQL"></a>2.3.3安装MySQL</h3><ol>
+<li><strong>在控制台开发MySQL服务端口3306</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/98d084630daa489583549e6273c8a923.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<ol start="2">
+<li><strong>在jar包同级目录下创建目录用于存放MySQL安装包</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/78cc355801cd4152acca3e0d965692d0.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li><strong>将MySQL安装包传输到刚刚创建的目录下，并解压</strong></li>
+</ol>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1zrf-Tq4HC8i4N9yZ95rEIg?pwd=xha8">MySQL安装包百度云地址（版本8.0.26）</a><br>                 提取码：xha8</p>
+</blockquote>
+<p>解压命令：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">tar -xvf mysql-8.0.26-1.el7.x86_64.rpm-bundle.tar <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/25de1af2146440dbafb87b9b66c928b6.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li><strong>查看解压后的MySQL压缩包</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1b6a3c4fffc44bcbaabf250a966d5162.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="5">
+<li><strong>&#x3D;&#x3D;清空linux自带的数据库&#x3D;&#x3D;（<font color='red'>因为CentOS自带一个老版本的mariadb-libs与当前mysql包的冲突，故需要先卸载，再安装）</font></strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">rpm <span class="token operator">-</span>qa <span class="token operator">|</span> grep Mysql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">rpm <span class="token operator">-</span>qa <span class="token operator">|</span> grep mariadb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e0cdf31fd8454149b9896e9ae4e369c2.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>卸载已有的数据库：（卸载会把这个包的依赖包也一起卸载）</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">yum <span class="token operator">-</span>y remove mariadb<span class="token operator">-</span>libs<span class="token punctuation">.</span>x86_64<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/b663ce36965643a281cd8a62dc8c1143.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="6">
+<li><strong>开始安装 mysql，依次执行下述命令</strong></li>
+</ol>
+<p>安装依赖：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">yum install libaio<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>依次执行以下命令：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">rpm <span class="token operator">-</span>ivh mysql<span class="token operator">-</span>community<span class="token operator">-</span>common<span class="token operator">-</span><span class="token number">8.0</span><span class="token number">.25</span><span class="token operator">-</span><span class="token number">1.</span>el7<span class="token punctuation">.</span>x86_64<span class="token punctuation">.</span>rpm
+rpm <span class="token operator">-</span>ivh mysql<span class="token operator">-</span>community<span class="token operator">-</span>client<span class="token operator">-</span>plugins<span class="token operator">-</span><span class="token number">8.0</span><span class="token number">.25</span><span class="token operator">-</span><span class="token number">1.</span>el7<span class="token punctuation">.</span>x86_64<span class="token punctuation">.</span>rpm 
+rpm <span class="token operator">-</span>ivh mysql<span class="token operator">-</span>community<span class="token operator">-</span>libs<span class="token operator">-</span><span class="token number">8.0</span><span class="token number">.25</span><span class="token operator">-</span><span class="token number">1.</span>el7<span class="token punctuation">.</span>x86_64<span class="token punctuation">.</span>rpm 
+rpm <span class="token operator">-</span>ivh mysql<span class="token operator">-</span>community<span class="token operator">-</span>client<span class="token operator">-</span><span class="token number">8.0</span><span class="token number">.25</span><span class="token operator">-</span><span class="token number">1.</span>el7<span class="token punctuation">.</span>x86_64<span class="token punctuation">.</span>rpm 
+rpm <span class="token operator">-</span>ivh mysql<span class="token operator">-</span>community<span class="token operator">-</span>server<span class="token operator">-</span><span class="token number">8.0</span><span class="token number">.25</span><span class="token operator">-</span><span class="token number">1.</span>el7<span class="token punctuation">.</span>x86_64<span class="token punctuation">.</span>rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="7">
+<li><strong>查看MySQL的安装情况：</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">rpm <span class="token operator">-</span>qa<span class="token operator">|</span>grep <span class="token operator">-</span>i mysql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/9b87f8283a6d424695720df372b5cfdd.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="8">
+<li><strong>启动MySQL服务并查看服务状态</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">systemctl <span class="token keyword">start</span> mysqld<span class="token punctuation">.</span>service
+systemctl <span class="token keyword">status</span> mysqld<span class="token punctuation">.</span>service <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/0778608b0380414bab8a960d8c230d7b.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="9">
+<li><strong>查看MySQL初始化密码</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">grep <span class="token string">"password"</span> <span class="token operator">/</span>var<span class="token operator">/</span>log<span class="token operator">/</span>mysqld<span class="token punctuation">.</span>log<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e276607a0e4240979904ca00598f447b.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="10">
+<li><strong>登录MySQL并修改初始密码</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">mysql <span class="token operator">-</span>u root <span class="token operator">-</span>p<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/d9e0b3bb83e441a8843dfb821a494e78.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>修改密码：</strong></p>
+<p>注意：&#x3D;&#x3D;此数据库的密码要和jar包项目所连接的数据库的密码相同，否则会连接不上&#x3D;&#x3D;</p>
+<p><font color='red'>mysql8.0之后的版本加入密码安全度检测机制，如果设置密码过于简单会导致报错</font></p>
+<p>下面将更改MySQL的密码安全设置：</p>
+<ol>
+<li><strong>首先查看当前MySQL的密码安全设置</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SHOW</span> VARIABLES <span class="token operator">LIKE</span> <span class="token string">'validate_password%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/14c3570dbe9742fe86092e6127e2c54d.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="2">
+<li><strong>更改密码长为6，密码安全策略等级为LOW</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> <span class="token keyword">global</span> validate_password<span class="token punctuation">.</span>length<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> <span class="token keyword">global</span> validate_password<span class="token punctuation">.</span>policy<span class="token operator">=</span>LOW<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/bdf432fb8a1d4c1b8631b5b560844464.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li><strong>查看更改后的密码安全设置</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/7fb9d4c48aff4ec1ad0173719e39d468.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li><strong>更改密码</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">USER</span> <span class="token string">'root'</span><span class="token variable">@'localhost'</span> IDENTIFIED <span class="token keyword">BY</span> <span class="token string">'密码'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/4a3088c5173e4415afe6dd63b289bae2.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2-3-4导入sql文件资源"><a href="#2-3-4导入sql文件资源" class="headerlink" title="2.3.4导入sql文件资源"></a>2.3.4导入sql文件资源</h3><ol>
+<li><strong>打开Navicat，<font color='skyblue'>右键数据库-&gt;转储sql文件-&gt;结构和数据</font></strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/78bd5b843b944c8db6f1a9571fd99662.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="2">
+<li><strong>将sql文件通过Xftp传输到项目目录中</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/6f7fa87223d84539b6ebad007d93768a.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="3">
+<li><strong>创建数据库</strong></li>
+</ol>
+<p>&#x3D;&#x3D;<font color='red'>切记：创建的数据库名要和SpringBoot中配置文件当中配置的数据库url的数据库名保持一致。</font>&#x3D;&#x3D;</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">create database 数据库名;
+show databases;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/c74f72d8ad764cdaa0fac6f8b03594d7.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="4">
+<li><strong>进入创建的数据库，导入sql文件资源</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">use</span> 数据库名<span class="token punctuation">;</span>
+source <span class="token keyword">sql</span>文件相对路径<span class="token operator">/</span><span class="token keyword">sql</span>文件名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/db66daff847943989ec22631c0e63209.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+
+<p><strong>查询测试：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表名<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/4f1c9d1e8f2543359c6fcdad7fbfd76c.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="2-3-5运行jar包"><a href="#2-3-5运行jar包" class="headerlink" title="2.3.5运行jar包"></a>2.3.5运行jar包</h3><ol>
+<li><strong>进入jar包目录下</strong></li>
+</ol>
+<p>&#x3D;&#x3D;<font color='cornflowerblue'>nohup 英文全称 no hang up（不挂起），用于在系统后台不挂断地运行命令，退出终端不会影响程序的运行。</font>&#x3D;&#x3D;</p>
+<p>执行命令：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">nohup java <span class="token operator">-</span>jar myMusic<span class="token operator">-</span><span class="token number">0.0</span><span class="token number">.1</span><span class="token operator">-</span><span class="token constant">SNAPSHOT</span><span class="token punctuation">.</span>jar <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/9462593b1e9d4a1697d460388cc9be0e.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/641f3b6980e64c4b85f2a8cfcc79a8c0.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<ol start="2">
+<li><strong>查看日志文件</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">cat <span class="token operator">-</span>n nohup<span class="token punctuation">.</span>out<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>后端项目已经成功在8090端口运行</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/87ca0b271f8e49288be4ca76c1faee43.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><font color='red'>三：注意：如果操作不当导致jar包并没有在相应端口运行，但是已经占用进程的情况，再次运行jar包会报错的解决方案，</font></p>
+<p>查看当前所有进程</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">ps sux<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a1b67b7c90834707ae785b46820f68e4.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>杀死该进程：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">kill <span class="token operator">-</span><span class="token number">9</span> 进程<span class="token constant">ID</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>再次执行运行jar包命令即可。</p>
+<h2 id="2-4接口测试"><a href="#2-4接口测试" class="headerlink" title="2.4接口测试"></a>2.4接口测试</h2><ol>
+<li><strong>打开Postman，输入要测试的接口，显示测试成功</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/9fbd1b14d07e4c65b311af1d5bb82c15.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:67%;" />
+
+
+
+<p>在nohub.out日志文件中可以查看到日志信息（&#x3D;&#x3D;需要在SpringBoot配置文件中配置mybatis-plus的日志文件&#x3D;&#x3D;）</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/fe0e0b1a2a904772b0ece3b0b6e90321.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h1 id="3-Vue项目部署"><a href="#3-Vue项目部署" class="headerlink" title="3.Vue项目部署"></a>3.Vue项目部署</h1><h2 id="3-1更改代理服务器、axios、Vuex配置"><a href="#3-1更改代理服务器、axios、Vuex配置" class="headerlink" title="3.1更改代理服务器、axios、Vuex配置"></a>3.1更改代理服务器、axios、Vuex配置</h2><blockquote>
+<p>将上述三种的url路径由原来的localhost（本地化部署时）更改为云服务器公网IP</p>
+</blockquote>
+<ol>
+<li><strong>代理服务器</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/bc9f0141e64a449c91352b2add296df5.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="2">
+<li><strong>axios接口配置</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/27a13cab847d4f05838fb9aeb1aec443.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:67%;" />
+
+
+
+<ol start="3">
+<li><strong>Vuex</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/39128fd985cd4f239de485c0d42d8cf3.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:67%;" />
+
+
+<h2 id="3-2将项目打包上传到云服务器"><a href="#3-2将项目打包上传到云服务器" class="headerlink" title="3.2将项目打包上传到云服务器"></a>3.2将项目打包上传到云服务器</h2><ol>
+<li><strong>打开控制台，输入以下命令打包</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">npm run build<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/df2ef09a72354f81b7cddd7307bd483c.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="2">
+<li><strong><font color='red'>在项目根目录下会自动生成一个dist文件夹</font></strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/8e24809009b943a79e885416ead7065e.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="3">
+<li><font color='cornflowerblue'><strong>有两个Vue项目的另一个和上述操作一样，将两个dist文件分别重命名，等待Nginx安装完成后上传到服务器</strong></font></li>
+</ol>
+<h2 id="3-3Nginx安装"><a href="#3-3Nginx安装" class="headerlink" title="3.3Nginx安装"></a>3.3Nginx安装</h2><p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1hPSRTHlOb5i5RLUhQjDY6w?pwd=xha8">Nginx百度云网盘地址</a></p>
+<p>提取码：xha8</p>
+<ol>
+<li><strong>将下载好的Nginx安装包发送到服务器中项目的根目录下</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/8a52d92774cc4a1ab6b3580f0b70a3b5.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="2">
+<li><strong>解压安装包到当前目录</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">tar <span class="token operator">-</span>xzvf nginx<span class="token operator">-</span><span class="token number">1.18</span><span class="token number">.0</span><span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/f8bc66609a404aab89af36eaf8b10ede.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>安装包可以删除</p>
+<ol start="3">
+<li><strong>安装相应依赖</strong></li>
+</ol>
+<p>安装gcc</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">yum install -y gcc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p> 安装perl库</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">yum install -y pcre pcre-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p> 安装zlib库</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">yum install -y zlib zlib-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li><strong>进入到nginx-1.18.0目录下，并执行以下命令</strong></li>
+</ol>
+<p> 源码编译安装</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">./configure<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p> 执行make命令</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">make<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p> 执行make install命令</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">make install<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>安装完成</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/2433614f95374bb99e5552a6501d9839.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="5">
+<li><strong>启动Nginx服务</strong></li>
+</ol>
+<p>进入到以下目录并执行.&#x2F;nginx命令启动Nginx服务</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">cd /usr/local/nginx/sbin/
+./nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a779845aeed94c0aac2adf62ff9ecff6.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>在本地输入云服务器公网ip，出现以下界面就表示Nginx安装成功。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e8c041c021184754994e492d455092da.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="3-4部署第一个Vue项目"><a href="#3-4部署第一个Vue项目" class="headerlink" title="3.4部署第一个Vue项目"></a>3.4部署第一个Vue项目</h2><h3 id="3-4-1将已经打包好的dist文件传送到nginx以下指定目录"><a href="#3-4-1将已经打包好的dist文件传送到nginx以下指定目录" class="headerlink" title="3.4.1将已经打包好的dist文件传送到nginx以下指定目录"></a>3.4.1将已经打包好的dist文件传送到nginx以下指定目录</h3><figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">cd /usr/local/nginx/html<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/2849fb32c94e4e32aec2e7a254fa6179.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="3-4-1修改nginx-conf配置文件"><a href="#3-4-1修改nginx-conf配置文件" class="headerlink" title="3.4.1修改nginx.conf配置文件"></a>3.4.1修改nginx.conf配置文件</h3><ol>
+<li><strong>进入到nginx目录下的conf目录，找到nginx.conf配置文件</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/4c28164288004d958da36bb32e02b8a3.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="2">
+<li><strong>使用vim编辑 nginx.conf配置文件</strong></li>
+</ol>
+<blockquote>
+<p>解决Vue项目部署后刷新404的问题</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">try_files $uri $uri/ /index.html;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/d1c6b801f5054041852450110e69d3ee.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="3">
+<li><strong>在控制台开发相应端口</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a8554d7c9af140f1b4539d8e7117337d.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="4">
+<li><strong>保存并退出，进入nginx的sbin目录下重启Nginx服务</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">./nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/fa782654432f454b8d1afc73c1fd4cf8.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="5">
+<li><strong>在本机浏览器输入公网ip和端口进行测试</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/328c1fd64f1b4b8988d1f87505e9df87.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="3-5部署第二个Vue项目"><a href="#3-5部署第二个Vue项目" class="headerlink" title="3.5部署第二个Vue项目"></a>3.5部署第二个Vue项目</h2><ol>
+<li><strong>通过vim编辑器进入nginx.conf配置文件，复制server部分，放在上一个server下面</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/131af90c6298444780b2b4e48e65200f.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="2">
+<li><strong>在控制台开发相应端口</strong></li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/ed6153c861dd4ef2a959024eea62c815.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<ol start="3">
+<li><strong>保存并退出，进入nginx的sbin目录下重启Nginx服务</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">./nginx -s reload<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5ccc462934a544a7b0195ed2bc66ff13.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ol start="4">
+<li><strong>在本机浏览器输入公网ip和端口进行测试</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/0328daae47da4a2695bcfed54643fc8b.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>&#x3D;&#x3D;<font color='cornflowerblue'>项目部署完成啦</font>&#x3D;&#x3D;</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/faae9a686de64e9a84051439ddd04049.png" srcset="/img/loading.gif" lazyload alt="&lt;img src=&quot;SpringBoot+Vue项目部署.assets/7479848120d00c122fbbf41fa0f9030f.jpg&quot; alt=&quot;查看源图像&quot; style=&quot;zoom:50%;&quot; /&gt;"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/SpringBoot/" class="category-chain-item">SpringBoot</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/SpringBoot/Vue/" class="category-chain-item">Vue</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/SpringBoot/">#SpringBoot</a>
+      
+        <a href="/tags/Vue/">#Vue</a>
+      
+        <a href="/tags/%E9%A1%B9%E7%9B%AE/">#项目</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SpringBoot+Vue项目部署</div>
+      <div>http://example.com/2022/07/30/SpringBoot+Vue项目部署/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/20/Typora%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E9%98%BF%E9%87%8C%E4%BA%91%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8OSS/" title="Typora图片上传阿里云对象存储OSS">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Typora图片上传阿里云对象存储OSS</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/10/SpringBoot/" title="SpringBoot2.0">
+                        <span class="hidden-mobile">SpringBoot2.0</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
