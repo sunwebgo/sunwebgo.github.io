@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-06T23:34:07.000Z">
-<meta property="article:modified_time" content="2023-06-13T06:30:02.384Z">
+<meta property="article:modified_time" content="2023-06-13T07:45:32.055Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -261,12 +261,20 @@
         
         
         
-          295 分钟
+          296 分钟
         
       </span>
     
 
     
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
     
   </div>
 
@@ -317,8 +325,7 @@
 </ul>
 <h3 id="1-2-什么时候使用this"><a href="#1-2-什么时候使用this" class="headerlink" title="1.2 什么时候使用this"></a>1.2 什么时候使用this</h3><h4 id="1-2-1-实例方法或构造器中使用当前对象的成员"><a href="#1-2-1-实例方法或构造器中使用当前对象的成员" class="headerlink" title="1.2.1 实例方法或构造器中使用当前对象的成员"></a>1.2.1 实例方法或构造器中使用当前对象的成员</h4><p>在实例方法或构造器中，如果使用当前类的成员变量或成员方法可以在其前面添加this，增强程序的可读性。不过，通常我们都习惯省略this。</p>
 <p>但是，当形参与成员变量同名时，如果在方法内或构造器内需要使用成员变量，必须添加this来表明该变量是类的成员变量。即：我们可以用this来区分<code>成员变量</code>和<code>局部变量</code>。比如：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503102947013.png" srcset="/img/loading.gif" lazyload alt="image-20220503102947013" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503102947013.png" srcset="/img/loading.gif" lazyload></p>
 <p>另外，使用this访问属性和方法时，如果在本类中未找到，会从父类中查找。这个在继承中会讲到。</p>
 <p>举例1：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Person</span><span class="token punctuation">&#123;</span>		<span class="token comment">// 定义Person类</span>
@@ -455,15 +462,12 @@
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220808191154534.png" srcset="/img/loading.gif" lazyload alt="image-20220808191154534"></p>
 <p><strong>练习2：</strong></p>
 <p>（1）按照如下的UML类图，创建相应的类，提供必要的结构：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323211412409.png" srcset="/img/loading.gif" lazyload alt="image-20220323211412409" style="zoom:50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323211412409.png" srcset="/img/loading.gif" lazyload></p>
 <p>在提款方法withdraw()中，需要判断用户余额是否能够满足提款数额的要求，如果不能，应给出提示。deposit()方法表示存款。</p>
 <p>（2）按照如下的UML类图，创建相应的类，提供必要的结构</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323211454372.png" srcset="/img/loading.gif" lazyload alt="image-20220323211454372" style="zoom:50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323211454372.png" srcset="/img/loading.gif" lazyload></p>
 <p>（3）按照如下的UML类图，创建相应的类，提供必要的结构</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323211521808.png" srcset="/img/loading.gif" lazyload alt="image-20220323211521808" style="zoom:50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323211521808.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li><p>addCustomer 方法必须依照参数（姓，名）构造一个新的 Customer对象，然后把它放到 customer 数组中。还必须把 numberOfCustomer 属性的值加 1。</p>
 </li>
@@ -474,40 +478,35 @@
 </ul>
 <p>（4）创建BankTest类，进行测试。</p>
 <p>内存解析图：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323211653907.png" srcset="/img/loading.gif" lazyload alt="image-20220323211653907" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323211653907.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="2-面向对象特征二：继承-Inheritance"><a href="#2-面向对象特征二：继承-Inheritance" class="headerlink" title="2. 面向对象特征二：继承(Inheritance)"></a>2. 面向对象特征二：继承(Inheritance)</h2><h3 id="2-1-继承的概述"><a href="#2-1-继承的概述" class="headerlink" title="2.1 继承的概述"></a>2.1 继承的概述</h3><h4 id="2-1-1-生活中的继承"><a href="#2-1-1-生活中的继承" class="headerlink" title="2.1.1 生活中的继承"></a>2.1.1 生活中的继承</h4><ul>
 <li>财产继承：</li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323215921441.png" srcset="/img/loading.gif" lazyload alt="image-20220323215921441" style="zoom: 50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323215921441.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li>绿化：前人栽树，后人乘凉</li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220520171727778.png" srcset="/img/loading.gif" lazyload alt="image-20220520171727778" style="zoom: 50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220520171727778.png" srcset="/img/loading.gif" lazyload></p>
 <p>“绿水青山，就是金山银山”</p>
 <ul>
-<li><p>样貌：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323220246746.png" srcset="/img/loading.gif" lazyload alt="image-20220323220246746" style="zoom: 50%;" />
-</li>
-<li><p>继承之外，是不是还可以”<code>进化</code>“：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323220537644.png" srcset="/img/loading.gif" lazyload alt="image-20220323220537644" style="zoom: 50%;" /></li>
+<li>样貌：</li>
 </ul>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323220246746.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>继承之外，是不是还可以”<code>进化</code>“：</li>
+</ul>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323220537644.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>继承有延续（下一代延续上一代的基因、财富）、扩展（下一代和上一代又有所不同）的意思。</p>
 </blockquote>
 <h4 id="2-1-2-Java中的继承"><a href="#2-1-2-Java中的继承" class="headerlink" title="2.1.2 Java中的继承"></a>2.1.2 Java中的继承</h4><p>&#x3D;&#x3D;<strong><font color='red'>继承就是子类继承父类，子类拥有父类的属性和方法。</font></strong>&#x3D;&#x3D;但是由于封装性的影响，子类不能直接访问父类当中的私有属性和私有方法。</p>
 <p><strong>角度一：从上而下</strong></p>
 <p>为描述和处理<strong>个人</strong>信息，定义类Person：</p>
- <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323220923386.png" srcset="/img/loading.gif" lazyload alt="image-20220323220923386" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323220923386.png" srcset="/img/loading.gif" lazyload></p>
 <p>为描述和处理<strong>学生</strong>信息，定义类Student：</p>
- <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323221001495.png" srcset="/img/loading.gif" lazyload alt="image-20220323221001495" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323221001495.png" srcset="/img/loading.gif" lazyload></p>
 <p>通过继承，简化Student类的定义：</p>
- <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323221050791.png" srcset="/img/loading.gif" lazyload alt="image-20220323221050791" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323221050791.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>说明：Student类继承了父类Person的所有属性和方法，并增加了一个属性school。Person中的属性和方法，Student都可以使用。</p>
 </blockquote>
@@ -517,8 +516,7 @@
 <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E7%8C%AB%E7%8B%97%E7%BB%A7%E6%89%BF2.jpg" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
 
 <p>再举例：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323221436571.png" srcset="/img/loading.gif" lazyload alt="image-20220323221436571" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323221436571.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="2-1-3-继承的好处"><a href="#2-1-3-继承的好处" class="headerlink" title="2.1.3 继承的好处"></a>2.1.3 继承的好处</h4><ul>
 <li><p>&#x3D;&#x3D;继承的出现减少了代码冗余，提高了代码的复用性。&#x3D;&#x3D;</p>
 </li>
@@ -616,8 +614,7 @@
 <p><strong>3、<font color='red'>在Java 中，继承的关键字用的是“extends”，即子类不是父类的子集，而是对父类的“扩展”</font></strong></p>
 <p>子类在继承父类以后，还可以定义自己特有的方法，这就可以看做是<font color='red'>对父类功能上的扩展</font>。</p>
 <p><strong>4、Java支持多层继承(继承体系)</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323225441417.png" srcset="/img/loading.gif" lazyload alt="image-20220323225441417" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323225441417.png" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 <span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">A</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 <span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token keyword">extends</span> <span class="token class-name">B</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
@@ -638,10 +635,8 @@
 <span class="token keyword">class</span> <span class="token class-name">E</span> <span class="token keyword">extends</span> <span class="token class-name">A</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><strong>6、Java只支持单继承，不支持多重继承</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220514162507692.png" srcset="/img/loading.gif" lazyload alt="image-20220514162507692" style="zoom:67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220523201405061.png" srcset="/img/loading.gif" lazyload alt="image-20220523201405061" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220514162507692.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220523201405061.png" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 <span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">A</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 
@@ -650,8 +645,7 @@
 <span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token keyword">extends</span> <span class="token class-name">A</span><span class="token punctuation">,</span><span class="token class-name">B</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>	<span class="token comment">//error</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <h3 id="2-5-练习"><a href="#2-5-练习" class="headerlink" title="2.5 练习"></a>2.5 练习</h3><p><strong>练习1：</strong>定义一个学生类Student，它继承自Person类</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323231804928.png" srcset="/img/loading.gif" lazyload alt="image-20220323231804928" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323231804928.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>练习2：</strong></p>
 <p>(1)定义一个ManKind类，包括</p>
 <ul>
@@ -669,8 +663,7 @@
 </ul>
 <p>(3)定义类KidsTest，在类的main方法中实例化Kids的对象someKid，用该对象访问其父类的成员变量及方法。</p>
 <p><strong>练习3：</strong>根据下图实现类。在CylinderTest类中创建Cylinder类的对象，设置圆柱的底面半径和高，并输出圆柱的体积。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323231942361.png" srcset="/img/loading.gif" lazyload alt="image-20220323231942361" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220323231942361.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="3-方法的重写（override-x2F-overwrite）"><a href="#3-方法的重写（override-x2F-overwrite）" class="headerlink" title="3. 方法的重写（override&#x2F;overwrite）"></a>3. 方法的重写（override&#x2F;overwrite）</h2><p><strong><font color='red'>父类的所有方法子类都会继承，但是当某个方法被继承到子类之后，子类觉得父类原来的实现不适合于自己当前的类，该怎么办呢？</font></strong>&#x3D;&#x3D;子类可以对从父类中继承来的方法进行改造，我们称为方法的<code>重写 (override、overwrite)</code>。也称为方法的<code>重置</code>、<code>覆盖</code>。&#x3D;&#x3D;</p>
 <p>在程序执行时，子类的方法将覆盖父类的方法。</p>
 <h3 id="3-1-方法重写举例"><a href="#3-1-方法重写举例" class="headerlink" title="3.1 方法重写举例"></a>3.1 方法重写举例</h3><p>比如新的手机增加来电显示头像的功能，代码如下：</p>
@@ -1213,10 +1206,8 @@
 <h2 id="6-子类对象实例化全过程"><a href="#6-子类对象实例化全过程" class="headerlink" title="6. 子类对象实例化全过程"></a>6. 子类对象实例化全过程</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003713230.png" srcset="/img/loading.gif" lazyload alt="image-20220324003713230"></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Dog</span> dog <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token string">"小花"</span><span class="token punctuation">,</span><span class="token string">"小红"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003735416.png" srcset="/img/loading.gif" lazyload alt="image-20220324003735416" style="zoom:80%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003813163.png" srcset="/img/loading.gif" lazyload alt="image-20220324003813163" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003735416.png" srcset="/img/loading.gif" lazyload></p>
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003813163.png%EF%BC%89">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003813163.png）</a></p>
 <p>举例：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Creature</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">public</span> <span class="token class-name">Creature</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -1403,8 +1394,7 @@ e<span class="token punctuation">.</span>school <span class="token operator">=</
 <h3 id="7-4-向上转型与向下转型"><a href="#7-4-向上转型与向下转型" class="headerlink" title="7.4 向上转型与向下转型"></a>7.4 向上转型与向下转型</h3><p>对于由于多态的原因—&#x3D;&#x3D;父类引用指向子类对象，声明的为父类类型，但是引用的却是子类对象，导致子类中的特有方法不能够被调用。&#x3D;&#x3D;的问题，可以使用类的向上、向下转型。</p>
 <h4 id="7-4-1-为什么要类型转换"><a href="#7-4-1-为什么要类型转换" class="headerlink" title="7.4.1 为什么要类型转换"></a>7.4.1 为什么要类型转换</h4><p>因为多态，就一定会有把子类对象赋值给父类变量的时候，这个时候，在<code>编译期间</code>，就会出现类型转换的现象。</p>
 <p>但是，使用父类变量接收了子类对象之后，我们就<code>不能调用</code>子类拥有，而父类没有的方法了。这也是多态给我们带来的一点”小麻烦”。所以，想要调用子类特有的方法，必须做类型转换，使得<code>编译通过</code>。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324235337563.png" srcset="/img/loading.gif" lazyload alt="image-20220324235337563" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324235337563.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li><p><strong>向上转型</strong>：当左边的变量的类型（父类） &gt; 右边对象&#x2F;变量的类型（子类），我们就称为向上转型</p>
 <ul>
@@ -1705,11 +1695,9 @@ e<span class="token punctuation">.</span><span class="token function">getInfo</s
 
 <p>建立InstanceTest 类，在类中定义方法method(Person e);<br>在method中:<br>(1)根据e的类型调用相应类的getInfo()方法。<br>(2)根据e的类型执行：<br>如果e为Person类的对象，输出：<br>“a person”;<br>如果e为Student类的对象，输出：<br>“a student”<br>“a person ”<br>如果e为Graduate类的对象，输出：<br>“a graduated student”<br>“a student”<br>“a person”</p>
 <p><strong>练习3</strong>：定义三个类，父类GeometricObject代表几何形状，子类Circle代表圆形，MyRectangle代表矩形。定义一个测试类GeometricTest，编写equalsArea方法测试两个对象的面积是否相等（注意方法的参数类型，利用动态绑定技术），编写displayGeometricObject方法显示对象的面积（注意方法的参数类型，利用动态绑定技术）。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220325000034619.png" srcset="/img/loading.gif" lazyload alt="image-20220325000034619" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220325000034619.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="8-Object-类的使用"><a href="#8-Object-类的使用" class="headerlink" title="8. Object 类的使用"></a>8. Object 类的使用</h2><h3 id="8-1-如何理解根父类"><a href="#8-1-如何理解根父类" class="headerlink" title="8.1 如何理解根父类"></a>8.1 如何理解根父类</h3><p>类 <code>java.lang.Object</code>是类层次结构的根类，即所有其它类的父类。每个类都使用 <code>Object</code> 作为超类。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503104750655.png" srcset="/img/loading.gif" lazyload alt="image-20220503104750655" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503104750655.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li><p>Object类型的变量与除Object以外的任意引用数据类型的对象都存在多态引用</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">method</span><span class="token punctuation">(</span><span class="token class-name">Object</span> obj<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>…<span class="token punctuation">&#125;</span> <span class="token comment">//可以接收任何类作为其参数</span>
@@ -1748,9 +1736,10 @@ e<span class="token punctuation">.</span><span class="token function">getInfo</s
 </ul>
 <p><strong>equals()：</strong>所有类都继承了Object，也就获得了equals()方法。还可以重写。</p>
 <ul>
-<li><p><font color='red'>只能比较引用类型，Object类源码中equals()的作用与“&#x3D;&#x3D;”相同：比较是否指向同一个对象。</font></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220226101655293.png" srcset="/img/loading.gif" lazyload alt="image-20220503104750655" style="zoom:67%;" />
-</li>
+<li><font color='red'>只能比较引用类型，Object类源码中equals()的作用与“&#x3D;&#x3D;”相同：比较是否指向同一个对象。</font></li>
+</ul>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220226101655293.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
 <li><p>格式:obj1.equals(obj2)</p>
 </li>
 <li><p>特例：当用equals()方法进行比较时，对类File、String、Date及包装类（Wrapper Class）来说，是比较类型及内容而不考虑引用的是否是同一个对象；</p>
@@ -1924,10 +1913,8 @@ e<span class="token punctuation">.</span><span class="token function">getInfo</s
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><strong>练习</strong>：定义两个类，父类GeometricObject代表几何形状，子类Circle代表圆形。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220325002959156.png" srcset="/img/loading.gif" lazyload alt="image-20220325002959156" style="zoom:67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220325002932102.png" srcset="/img/loading.gif" lazyload alt="image-20220325002932102" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220325002959156.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220325002932102.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="3、clone"><a href="#3、clone" class="headerlink" title="3、clone()"></a>3、clone()</h4><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//Object类的clone()的使用</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CloneTest</span> <span class="token punctuation">&#123;</span>
 	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
