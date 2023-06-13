@@ -25,10 +25,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612095947200.png">
 <meta property="article:published_time" content="2022-06-15T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-06-13T13:39:56.706Z">
+<meta property="article:modified_time" content="2023-06-13T15:00:54.187Z">
 <meta property="article:author" content="Xu huaiang">
-<meta property="article:tag" content="框架">
 <meta property="article:tag" content="Spring">
+<meta property="article:tag" content="框架">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612095947200.png">
   
@@ -274,7 +274,7 @@
         
         
         
-          1096 分钟
+          1094 分钟
         
       </span>
     
@@ -919,57 +919,55 @@
 <span class="token comment">&lt;!-- 解决方案一：使用XML实体来代替 --></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>expression<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>a <span class="token entity named-entity" title="&lt;">&amp;lt;</span> b<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h5 id="④CDATA节"><a href="#④CDATA节" class="headerlink" title="④CDATA节"></a>④CDATA节</h5><figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>expression<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token comment">&lt;!-- 解决方案二：使用CDATA节 --></span>
-    <span class="token comment">&lt;!-- CDATA中的C代表Character，是文本、字符的含义，CDATA就表示纯文本数据 --></span>
-    <span class="token comment">&lt;!-- XML解析器看到CDATA节就知道这里是纯文本，就不会当作XML标签或属性来解析 --></span>
-    <span class="token comment">&lt;!-- 所以CDATA节中写什么符号都随意 --></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span><span class="token cdata">&lt;![CDATA[a &lt; b]]></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h5 id="④CDATA节"><a href="#④CDATA节" class="headerlink" title="④CDATA节"></a>④CDATA节</h5><figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">```
 
 
 
-<h4 id="3-2-6、实验五：为对象类型属性赋值"><a href="#3-2-6、实验五：为对象类型属性赋值" class="headerlink" title="3.2.6、实验五：为对象类型属性赋值"></a>3.2.6、实验五：为对象类型属性赋值</h4><p><strong>①创建班级类Clazz</strong></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>spring6<span class="token punctuation">.</span>bean</span>
+#### 3.2.6、实验五：为对象类型属性赋值
+
+**①创建班级类Clazz**
+
+```java
+package com.atguigu.spring6.bean
     
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Clazz</span> <span class="token punctuation">&#123;</span>
+public class Clazz &#123;
 
-    <span class="token keyword">private</span> <span class="token class-name">Integer</span> clazzId<span class="token punctuation">;</span>
+    private Integer clazzId;
 
-    <span class="token keyword">private</span> <span class="token class-name">String</span> clazzName<span class="token punctuation">;</span>
+    private String clazzName;
 
-    <span class="token keyword">public</span> <span class="token class-name">Integer</span> <span class="token function">getClazzId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> clazzId<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    public Integer getClazzId() &#123;
+        return clazzId;
+    &#125;
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setClazzId</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> clazzId<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>clazzId <span class="token operator">=</span> clazzId<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    public void setClazzId(Integer clazzId) &#123;
+        this.clazzId = clazzId;
+    &#125;
 
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getClazzName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> clazzName<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    public String getClazzName() &#123;
+        return clazzName;
+    &#125;
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setClazzName</span><span class="token punctuation">(</span><span class="token class-name">String</span> clazzName<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>clazzName <span class="token operator">=</span> clazzName<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    public void setClazzName(String clazzName) &#123;
+        this.clazzName = clazzName;
+    &#125;
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token string">"Clazz&#123;"</span> <span class="token operator">+</span>
-                <span class="token string">"clazzId="</span> <span class="token operator">+</span> clazzId <span class="token operator">+</span>
-                <span class="token string">", clazzName='"</span> <span class="token operator">+</span> clazzName <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
-                <span class="token char">'&#125;'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+    @Override
+    public String toString() &#123;
+        return "Clazz&#123;" +
+                "clazzId=" + clazzId +
+                ", clazzName='" + clazzName + '\'' +
+                '&#125;';
+    &#125;
 
-    <span class="token keyword">public</span> <span class="token class-name">Clazz</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token punctuation">&#125;</span>
+    public Clazz() &#123;
+    &#125;
 
-    <span class="token keyword">public</span> <span class="token class-name">Clazz</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> clazzId<span class="token punctuation">,</span> <span class="token class-name">String</span> clazzName<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>clazzId <span class="token operator">=</span> clazzId<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>clazzName <span class="token operator">=</span> clazzName<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+    public Clazz(Integer clazzId, String clazzName) &#123;
+        this.clazzId = clazzId;
+        this.clazzName = clazzName;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><strong>②修改Student类</strong></p>
 <p>在Student类中添加以下代码：</p>
@@ -5504,9 +5502,9 @@ use `spring`<span class="token punctuation">;</span>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%A1%86%E6%9E%B6/">#框架</a>
-      
         <a href="/tags/Spring/">#Spring</a>
+      
+        <a href="/tags/%E6%A1%86%E6%9E%B6/">#框架</a>
       
     </div>
   
