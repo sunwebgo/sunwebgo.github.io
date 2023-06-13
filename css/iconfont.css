@@ -15,11 +15,12 @@
 
 .icon-QQ1:before {
   content: "\e73e";
-  color: #3e75c3;
+  color: #30a5dd;
 }
 
 .icon-github:before {
   content: "\e72a";
+  color: #3e75c3;
 }
 
 .icon-wangyi:before {
