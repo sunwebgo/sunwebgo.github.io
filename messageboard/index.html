@@ -17,16 +17,18 @@
   <meta name="keywords" content="">
   
     <meta property="og:type" content="website">
-<meta property="og:title" content="标签 - 部署">
-<meta property="og:url" content="http://example.com/tags/%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:title" content="messageboard">
+<meta property="og:url" content="http://example.com/messageboard/index.html">
 <meta property="og:site_name" content="xhang&#39;s blog">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-13T07:47:52.000Z">
+<meta property="article:modified_time" content="2023-06-13T08:29:12.803Z">
 <meta property="article:author" content="Xu huaiang">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>标签 - 部署 - xhang&#39;s blog</title>
+  <title>messageboard - xhang&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,13 +215,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/landscape.png') no-repeat center center; background-size: cover;">
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/index.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="标签 - 部署"></span>
+            <span id="subtitle" data-typed-text="留言板"></span>
           
         </div>
 
@@ -246,23 +248,38 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 1 篇文章</p>
-  <hr>
+<article class="page-content">
+  
+
   
   
-    
+  
+    <article id="comments" lazyload>
       
-      <p class="h5">2022</p>
-    
-    <a href="/2022/08/30/Docker/" class="list-group-item list-group-item-action">
-      <time>08-30</time>
-      <div class="list-group-item-title">Docker</div>
-    </a>
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '95f5e2f07676baa3fe02a52a426a1b5c'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
   
-</div>
 
 
+</article>
 
 
 

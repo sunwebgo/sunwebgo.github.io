@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-05-01T02:19:07.000Z">
-<meta property="article:modified_time" content="2023-06-13T07:45:32.067Z">
+<meta property="article:modified_time" content="2023-06-13T08:29:12.795Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -140,7 +140,7 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
+                <i class="iconfont icon-zhuye"></i>
                 <span>首页</span>
               </a>
             </li>
@@ -152,7 +152,7 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
+                <i class="iconfont icon-guidang1"></i>
                 <span>归档</span>
               </a>
             </li>
@@ -164,7 +164,7 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
+                <i class="iconfont icon-fenlei"></i>
                 <span>分类</span>
               </a>
             </li>
@@ -176,7 +176,7 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
+                <i class="iconfont icon-biaoqian"></i>
                 <span>标签</span>
               </a>
             </li>
@@ -187,8 +187,20 @@
           
           
             <li class="nav-item">
+              <a class="nav-link" href="/messageboard/">
+                <i class="iconfont icon-liuyanban-05"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
               <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
+                <i class="iconfont icon-guanyuwomen"></i>
                 <span>关于</span>
               </a>
             </li>
@@ -488,7 +500,7 @@ ALTER USER 'slave1'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
 
 <blockquote>
 <p>注意：在从机执行show slave status\G时报错：</p>
-<p>Last_IO_Error: error connecting to master ‘<a href="mailto:&#115;&#x6c;&#97;&#118;&#x65;&#x31;&#64;&#49;&#x39;&#50;&#46;&#49;&#54;&#x38;&#46;&#x31;&#46;&#49;&#x35;&#x30;">&#115;&#x6c;&#97;&#118;&#x65;&#x31;&#64;&#49;&#x39;&#50;&#46;&#49;&#54;&#x38;&#46;&#x31;&#46;&#49;&#x35;&#x30;</a>:3306’ - retry-time: 60 retries: 1 message:</p>
+<p>Last_IO_Error: error connecting to master ‘<a href="mailto:&#x73;&#108;&#97;&#118;&#x65;&#x31;&#x40;&#49;&#x39;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#x31;&#46;&#49;&#53;&#x30;">&#x73;&#108;&#97;&#118;&#x65;&#x31;&#x40;&#49;&#x39;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#x31;&#46;&#49;&#53;&#x30;</a>:3306’ - retry-time: 60 retries: 1 message:</p>
 <p>Authentication plugin ‘caching_sha2_password’ reported error: Authentication requires secure connection.</p>
 </blockquote>
 <p>查询Master的状态，并记录下File和Position的值。</p>
