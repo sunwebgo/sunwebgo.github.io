@@ -1,4 +1,7 @@
 # 基于Hexo框架和Fluid主题实现的静态博客站点
+网站地址：https://xhablog.online
+Hexo官网：https://hexo.io/
+Fluid主题用户手册：https://fluid-dev.github.io/hexo-fluid-docs/start/
 
 # 1.安装前的环境准备
 
