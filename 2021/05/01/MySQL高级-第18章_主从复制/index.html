@@ -20,12 +20,12 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="第18章_主从复制">
 <meta property="og:url" content="http://example.com/2021/05/01/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC18%E7%AB%A0_%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/index.html">
-<meta property="og:site_name" content="xhang&#39;s blog">
+<meta property="og:site_name" content="xhang′s blog">
 <meta property="og:description" content="1. 主从复制概述1.1 如何提升数据库并发能力在实际工作中，我们常常将Redis作为缓存与MySQL配合来使用，当有请求的时候，首先会从缓存中进行查找，如果存在就直接取出。如果不存在再访问数据库，这样就提升了读取的效率，也减少了对后端数据库的访问压力。Redis的缓存架构是高并发架构中非常重要的一环。  此外，一般应用对数据库而言都是“ 读多写少 ”，也就说对数据库读取数据的压力比较大，有一个思">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-05-01T02:19:07.000Z">
-<meta property="article:modified_time" content="2023-06-14T06:01:29.392Z">
+<meta property="article:modified_time" content="2023-06-14T06:56:25.422Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -34,7 +34,7 @@
   
   
   
-  <title>第18章_主从复制 - xhang&#39;s blog</title>
+  <title>第18章_主从复制 - xhang′s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -121,7 +121,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>xhang&#39;s blog</strong>
+      <strong>xhang′s blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -512,7 +512,7 @@ ALTER USER 'slave1'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
 
 <blockquote>
 <p>注意：在从机执行show slave status\G时报错：</p>
-<p>Last_IO_Error: error connecting to master ‘<a href="mailto:&#x73;&#x6c;&#97;&#118;&#101;&#x31;&#x40;&#49;&#x39;&#x32;&#x2e;&#x31;&#x36;&#x38;&#46;&#49;&#x2e;&#49;&#x35;&#48;">&#x73;&#x6c;&#97;&#118;&#101;&#x31;&#x40;&#49;&#x39;&#x32;&#x2e;&#x31;&#x36;&#x38;&#46;&#49;&#x2e;&#49;&#x35;&#48;</a>:3306’ - retry-time: 60 retries: 1 message:</p>
+<p>Last_IO_Error: error connecting to master ‘<a href="mailto:&#115;&#x6c;&#97;&#118;&#101;&#49;&#x40;&#49;&#x39;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#x31;&#46;&#x31;&#53;&#48;">&#115;&#x6c;&#97;&#118;&#101;&#49;&#x40;&#49;&#x39;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#x31;&#46;&#x31;&#53;&#48;</a>:3306’ - retry-time: 60 retries: 1 message:</p>
 <p>Authentication plugin ‘caching_sha2_password’ reported error: Authentication requires secure connection.</p>
 </blockquote>
 <p>查询Master的状态，并记录下File和Position的值。</p>
