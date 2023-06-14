@@ -16,16 +16,16 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. java.io.File类的使用1.1 概述 File类及本章下的各种流，都定义在java.io包下。 一个File对象代表硬盘或网络中可能存在的一个文件或者文件目录（俗称文件夹），与平台无关。（体会万事万物皆对象） File 能新建、删除、重命名文件和目录，但 File 不能访问文件内容本身。如果需要访问文件内容本身，则需要使用输入&#x2F;输出流。 File对象可以作为参数传递给">
+    <meta name="description" content="1. java.io.File类的使用1.1 概述 File类及本章下的各种流，都定义在java.io包下。 一个File对象代表硬盘或网络中可能存在的一个文件或者文件目录（俗称文件夹），与平台无关。（体会万事万物皆对象） File 能新建、删除、重命名文件和目录，但 File 不能访问文件内容本身。如果需要访问文件内容本身，则需要使用输入&#x2F;输出流。 File对象可以作为参数传递给流">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第14章_File类与IO流">
 <meta property="og:url" content="http://example.com/2021/03/18/Java%E5%9F%BA%E7%A1%80-%E7%AC%AC14%E7%AB%A0_File%E7%B1%BB%E4%B8%8EIO%E6%B5%81/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="1. java.io.File类的使用1.1 概述 File类及本章下的各种流，都定义在java.io包下。 一个File对象代表硬盘或网络中可能存在的一个文件或者文件目录（俗称文件夹），与平台无关。（体会万事万物皆对象） File 能新建、删除、重命名文件和目录，但 File 不能访问文件内容本身。如果需要访问文件内容本身，则需要使用输入&#x2F;输出流。 File对象可以作为参数传递给">
+<meta property="og:description" content="1. java.io.File类的使用1.1 概述 File类及本章下的各种流，都定义在java.io包下。 一个File对象代表硬盘或网络中可能存在的一个文件或者文件目录（俗称文件夹），与平台无关。（体会万事万物皆对象） File 能新建、删除、重命名文件和目录，但 File 不能访问文件内容本身。如果需要访问文件内容本身，则需要使用输入&#x2F;输出流。 File对象可以作为参数传递给流">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-18T11:18:07.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.127Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.971Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -285,7 +285,7 @@
         
         
         
-          434 分钟
+          435 分钟
         
       </span>
     
@@ -336,8 +336,7 @@
             
               <div class="markdown-body">
                 
-                <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E7%AC%AC3%E9%98%B6%E6%AE%B5%EF%BC%9AJava%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8-%E7%AC%AC15%E7%AB%A0.png" srcset="/img/loading.gif" lazyload alt="第3阶段：Java高级应用-第15章" style="zoom:67%;" />
-
+                <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E7%AC%AC3%E9%98%B6%E6%AE%B5%EF%BC%9AJava%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8-%E7%AC%AC15%E7%AB%A0.png" srcset="/img/loading.gif" lazyload></p>
 <hr>
 <h2 id="1-java-io-File类的使用"><a href="#1-java-io-File类的使用" class="headerlink" title="1. java.io.File类的使用"></a>1. java.io.File类的使用</h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><ul>
 <li>File类及本章下的各种流，都定义在java.io包下。</li>
@@ -450,8 +449,7 @@
 <blockquote>
 <p>如果File对象代表的文件或目录存在，则File对象实例初始化时，就会用硬盘中对应文件或目录的属性信息（例如，时间、类型等）为File对象的属性赋值，否则除了路径和名称，File对象的其他属性将会保留默认值。</p>
 </blockquote>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412215446368.png" srcset="/img/loading.gif" lazyload alt="image-20220412215446368" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412215446368.png" srcset="/img/loading.gif" lazyload></p>
 <p>举例：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>file</span><span class="token punctuation">;</span>
 
@@ -749,7 +747,7 @@ newDir\newDirb删除：<span class="token boolean">true</span><span aria-hidden=
 <h2 id="2-IO流原理及流的分类"><a href="#2-IO流原理及流的分类" class="headerlink" title="2. IO流原理及流的分类"></a>2. IO流原理及流的分类</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412224132724.png" srcset="/img/loading.gif" lazyload alt="image-20220412224132724"></p>
 <h3 id="2-1-Java-IO原理"><a href="#2-1-Java-IO原理" class="headerlink" title="2.1 Java IO原理"></a>2.1 Java IO原理</h3><ul>
 <li><p>Java程序中，对于数据的输入&#x2F;输出操作以“<code>流(stream)</code>” 的方式进行，可以看做是一种数据的流动。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503123117300.png" srcset="/img/loading.gif" lazyload alt="image-20220503123117300" style="zoom: 80%;" />
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503123117300.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 <li><p>I&#x2F;O流中的I&#x2F;O是<code>Input/Output</code>的缩写， I&#x2F;O技术是非常实用的技术，用于处理设备之间的数据传输。如读&#x2F;写文件，网络通讯等。</p>
 <ul>
@@ -797,8 +795,7 @@ newDir\newDirb删除：<span class="token boolean">true</span><span aria-hidden=
 </li>
 </ul>
 <p>小结：图解</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412225253349.png" srcset="/img/loading.gif" lazyload alt="image-20220412225253349" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412225253349.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="2-3-流的API"><a href="#2-3-流的API" class="headerlink" title="2.3 流的API"></a>2.3 流的API</h3><ul>
 <li>Java的IO流共涉及40多个类，实际上非常规则，都是从如下4个抽象基类派生的。</li>
 </ul>
@@ -1759,8 +1756,7 @@ abcde<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 <p>针对文本文件，现在使用一个字节流进行数据的读入，希望将数据显示在控制台上。此时针对包含中文的文本数据，可能会出现乱码。</p>
 <h3 id="6-2-转换流的理解"><a href="#6-2-转换流的理解" class="headerlink" title="6.2 转换流的理解"></a>6.2 转换流的理解</h3><p><strong>作用：转换流是字节与字符间的桥梁！</strong></p>
 <p>具体来说：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412231533768.png" srcset="/img/loading.gif" lazyload alt="image-20220412231533768" style="zoom:85%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412231533768.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="6-3-InputStreamReader-与-OutputStreamWriter"><a href="#6-3-InputStreamReader-与-OutputStreamWriter" class="headerlink" title="6.3 InputStreamReader 与 OutputStreamWriter"></a>6.3 InputStreamReader 与 OutputStreamWriter</h3><ul>
 <li><p><strong>InputStreamReader</strong></p>
 <ul>
@@ -2106,8 +2102,7 @@ abcde<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 </ul>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/3_xuliehua.jpg" srcset="/img/loading.gif" lazyload style="zoom:70%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/3_xuliehua.jpg">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/3_xuliehua.jpg</a>“ style&#x3D;”zoom:70%;” &#x2F;&gt;</p>
 <h3 id="7-4-如何实现序列化机制"><a href="#7-4-如何实现序列化机制" class="headerlink" title="7.4 如何实现序列化机制"></a>7.4 如何实现序列化机制</h3><p>如果需要让某个对象支持序列化机制，则必须让对象所属的类及其属性是可序列化的，为了让某个类是可序列化的，该类必须实现<code>java.io.Serializable </code> 接口。<code>Serializable</code> 是一个<code>标记接口</code>，不实现此接口的类将不会使任何状态序列化或反序列化，会抛出<code>NotSerializableException</code> 。</p>
 <ul>
 <li>如果对象的某个属性也是引用数据类型，那么如果该属性也要序列化的话，也要实现<code>Serializable</code> 接口</li>
@@ -2341,8 +2336,7 @@ abcde<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 </ul>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503123603551.png" srcset="/img/loading.gif" lazyload alt="image-20220503123603551" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503123603551.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="8-其他流的使用"><a href="#8-其他流的使用" class="headerlink" title="8. 其他流的使用"></a>8. 其他流的使用</h2><h3 id="8-1-标准输入、输出流"><a href="#8-1-标准输入、输出流" class="headerlink" title="8.1 标准输入、输出流"></a>8.1 标准输入、输出流</h3><ul>
 <li>System.in和System.out分别代表了系统标准的输入和输出设备</li>
 <li>默认输入设备是：键盘，输出设备是：显示器</li>
@@ -2422,8 +2416,7 @@ abcde<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 
 <p><strong>练习：</strong></p>
 <p>Create a program named MyInput.java: Contain the methods for reading int, double, float, boolean, short, byte and String values from the keyboard.</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412232254819.png" srcset="/img/loading.gif" lazyload alt="image-20220412232254819" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220412232254819.png" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>java</span><span class="token punctuation">;</span>
 <span class="token comment">// MyInput.java: Contain the methods for reading int, double, float, boolean, short, byte and</span>
 <span class="token comment">// string values from the keyboard</span>

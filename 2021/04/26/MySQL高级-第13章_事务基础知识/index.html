@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-26T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.139Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.979Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -725,8 +725,7 @@ balance <span class="token keyword">DECIMAL</span><span class="token punctuation
 <p><strong><font color='red'>隔离级别越高，性能越低。</font></strong></p>
 <p>一般情况下：脏读是不可允许的，不可重复读和幻读是可以被适当允许的。</p>
 <p><strong><font color='scarlet'>虽然说事务的隔离级别能够解决并发情况下事务出现的问题，但是随着事务级别的越来越高，其并发性能也越来越低。</font></strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515140831030.png" srcset="/img/loading.gif" lazyload alt="image-20230515140831030" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515140831030.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="3-4-MySQL支持的四种隔离级别"><a href="#3-4-MySQL支持的四种隔离级别" class="headerlink" title="3.4 MySQL支持的四种隔离级别"></a>3.4 MySQL支持的四种隔离级别</h3><p>MySQL的默认隔离级别为<code>REPEATABLE READ</code>，我们可以手动修改一下事务的隔离级别。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 查看隔离级别，MySQL 5.7.20的版本之前：</span>
 mysql<span class="token operator">></span> <span class="token keyword">SHOW</span> VARIABLES <span class="token operator">LIKE</span> <span class="token string">'tx_isolation'</span><span class="token punctuation">;</span>

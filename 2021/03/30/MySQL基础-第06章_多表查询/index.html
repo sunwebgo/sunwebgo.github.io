@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-03-30T11:34:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.131Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.975Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -386,8 +386,7 @@ SELECT 107*27 FROM dual;<span aria-hidden="true" class="line-numbers-rows"><span
 
 <p><font color='red'>我们把上述多表查询中出现的问题称为：笛卡尔积的错误。</font></p>
 <h3 id="1-2-笛卡尔积（或交叉连接）的理解"><a href="#1-2-笛卡尔积（或交叉连接）的理解" class="headerlink" title="1.2 笛卡尔积（或交叉连接）的理解"></a>1.2 笛卡尔积（或交叉连接）的理解</h3><p>笛卡尔乘积是一个数学运算。假设我有两个集合 X 和 Y，那么 X 和 Y 的笛卡尔积就是 X 和 Y 的所有可能组合，也就是第一个对象来自于 X，第二个对象来自于 Y 的所有可能。组合的个数即为两个集合中元素个数的乘积数。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/302046364841977.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/302046364841977.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>SQL92中，笛卡尔积也称为<code>交叉连接</code>，英文是 <code>CROSS JOIN</code>。在 SQL99 中也是使用 CROSS JOIN表示交叉连接。它的作用就是可以把任意表进行连接，即使这两张表不相关。在MySQL中如下情况会出现笛卡尔积：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#查询员工姓名和所在部门名称
 SELECT last_name,department_name FROM employees,departments;
@@ -686,12 +685,10 @@ UNION [ALL]
 SELECT column,... FROM table2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><strong>UNION操作符</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1554979317187.png" srcset="/img/loading.gif" lazyload alt="1554979317187" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1554979317187.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		<font color='red'>UNION 操作符返回两个查询的结果集的并集，去除重复记录。</font></p>
 <p><strong>UNION ALL操作符</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1554979343634.png" srcset="/img/loading.gif" lazyload alt="1554979343634" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1554979343634.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		<font color='red'>UNION ALL操作符返回两个查询的结果集的并集。对于两个结果集的重复部分，不去重。</font></p>
 <blockquote>
 <p>注意：<font color='red'><strong>执行UNION ALL语句时所需要的资源比UNION语句少，因为去重操作需要消耗系统资源。如果明确知道合并数据后的结果数据不存在重复数据，或者不需要去除重复的数据，则尽量使用UNION ALL语句，以提高数据查询的效率。</strong></font></p>
@@ -710,8 +707,7 @@ SELECT * FROM employees  WHERE department_id&gt;90;<span aria-hidden="true" clas
 UNION ALL
 SELECT id,tname FROM t_usmale WHERE tGender&#x3D;&#39;male&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h2 id="5-7种SQL-JOINS的实现"><a href="#5-7种SQL-JOINS的实现" class="headerlink" title="5. 7种SQL JOINS的实现"></a>5. 7种SQL JOINS的实现</h2><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1554979255233.png" srcset="/img/loading.gif" lazyload alt="1554979255233" style="zoom:80%;" />
-
+<h2 id="5-7种SQL-JOINS的实现"><a href="#5-7种SQL-JOINS的实现" class="headerlink" title="5. 7种SQL JOINS的实现"></a>5. 7种SQL JOINS的实现</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1554979255233.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="5-7-1-代码实现"><a href="#5-7-1-代码实现" class="headerlink" title="5.7.1 代码实现"></a>5.7.1 代码实现</h3><figure><div class="code-wrapper"><pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#中图：内连接 A∩B
 SELECT
 	e.last_name,

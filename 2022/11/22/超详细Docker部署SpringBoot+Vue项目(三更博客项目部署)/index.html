@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/spring-docker-logo3.png">
 <meta property="article:published_time" content="2022-11-22T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.147Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.991Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="SpringBoot">
@@ -385,7 +385,7 @@
 </ol>
 <h1 id="2-前置工作"><a href="#2-前置工作" class="headerlink" title="2.前置工作"></a>2.前置工作</h1><h2 id="2-1修改后端配置文件ip"><a href="#2-1修改后端配置文件ip" class="headerlink" title="2.1修改后端配置文件ip"></a>2.1修改后端配置文件ip</h2><p><strong>修改后端项目的application.yaml文件，将MySQL服务和Redis服务的localhost修改为服务器ip</strong></p>
 <h2 id="2-2修改前端Vue项目运行端口"><a href="#2-2修改前端Vue项目运行端口" class="headerlink" title="2.2修改前端Vue项目运行端口"></a>2.2修改前端Vue项目运行端口</h2><p>​		前台Vue项目修改项目运行端口是在<code>config</code>文件夹下的<code>index.js</code>文件当中，运行端口由原来的80变为8093</p>
-<p>​		<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120141647866.png" srcset="/img/loading.gif" lazyload alt="image-20221120141647866" style="zoom:80%;" /></p>
+<p>​		<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120141647866.png" srcset="/img/loading.gif" lazyload></p>
 <p>后台Vue项目修改项目运行端口是在<code>vue.config.js</code>文件当中，运行端口由原来的8081变为8094</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120141934752.png" srcset="/img/loading.gif" lazyload alt="image-20221120141934752"></p>
 <h2 id="2-3修改前端对应的服务器ip"><a href="#2-3修改前端对应的服务器ip" class="headerlink" title="2.3修改前端对应的服务器ip"></a>2.3修改前端对应的服务器ip</h2><ol>
@@ -394,13 +394,11 @@
 <li><p><strong>前台Vue项目</strong></p>
 </li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120142925735.png" srcset="/img/loading.gif" lazyload alt="image-20221120142925735" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120142925735.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>后台Vue项目</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120142906304.png" srcset="/img/loading.gif" lazyload alt="image-20221120142906304" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120142906304.png" srcset="/img/loading.gif" lazyload></p>
 <p>将原来的开发环境和生产环境的<code>VUE_APP_BASE_API</code>都更改为你的服务器ip和后端子模块端口</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221121092519962.png" srcset="/img/loading.gif" lazyload alt="image-20221121092519962"></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221121092622761.png" srcset="/img/loading.gif" lazyload alt="image-20221121092622761"></p>
@@ -523,8 +521,7 @@
 <ol start="6">
 <li><strong><font color='red'>在本地测试，放在Nginx里面测试发现后台只有登录和左边menu能够显现，原因是因为Route目录下的index.js有问题，只有<code>/login</code>和<code>/dashborad</code></font></strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221121175832671.png" srcset="/img/loading.gif" lazyload alt="image-20221121175832671" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221121175832671.png" srcset="/img/loading.gif" lazyload></p>
 <p>由于添加的Route有些多，所以可以直接在Gitee中克隆我的后台项目：</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://gitee.com/xu-huaiang/sg-vue-admin">https://gitee.com/xu-huaiang/sg-vue-admin</a></p>
@@ -558,9 +555,7 @@
 
 <h2 id="2-7配置安全组规则"><a href="#2-7配置安全组规则" class="headerlink" title="2.7配置安全组规则"></a>2.7配置安全组规则</h2><p>在云服务器的安全组中添加规则</p>
 <p>我这里是华为云ECS，添加的是入方向规则</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120112943062.png" srcset="/img/loading.gif" lazyload alt="image-20221120112943062" style="zoom:80%;" />
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120143543134.png" srcset="/img/loading.gif" lazyload alt="image-20221120143543134"></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120112943062.png" srcset="/img/loading.gif" lazyload><br><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120143543134.png" srcset="/img/loading.gif" lazyload alt="image-20221120143543134"></p>
 <h1 id="3-Docker安装"><a href="#3-Docker安装" class="headerlink" title="3.Docker安装"></a>3.Docker安装</h1><p>Docker运行环境要求系统为64位、Linux系统内核版本为 3.8以上</p>
 <p>查看自己虚拟机的内核：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">cat /etc/redhat-release<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
@@ -596,14 +591,10 @@ yum -y install gcc-c++<span aria-hidden="true" class="line-numbers-rows"><span><
 <p>查看docker版本信息</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">docker version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221119171428170.png" srcset="/img/loading.gif" lazyload alt="image-20221119171428170" style="zoom:80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221119171428170.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>七：阿里云镜像加速配置</strong></p>
 <p>为了提高镜像的拉取、发布的速度，可以配置阿里云镜像加速</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/659545bb15fe5db8e045233c63e910fd.png" srcset="/img/loading.gif" lazyload alt="image-20221006134917410" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/659545bb15fe5db8e045233c63e910fd.png" srcset="/img/loading.gif" lazyload></p>
 <p>查看加速器地址</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122104845082.png" srcset="/img/loading.gif" lazyload alt="image-20221122104845082"></p>
 <p>在CentOS下配置镜像加速器</p>
@@ -879,8 +870,7 @@ networks:
 <li><strong>登录MySQL</strong></li>
 </ol>
 <p>​		密码就是在docker-compose.yml文件当中进行配置的</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120114617345.png" srcset="/img/loading.gif" lazyload alt="image-20221120114617345" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120114617345.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="4">
 <li><strong>使用对应的数据库，导入sql文件</strong></li>
 </ol>
@@ -897,8 +887,7 @@ source /var/lib/mysql/sg_blog.sql;<span aria-hidden="true" class="line-numbers-r
 <p><code>因为docker拉取的redis镜像是没有redis.conf文件的。</code>因此，就需要我们官网上找一个相对应版本的的redis.conf配置文件</p>
 <p>redis配置文件官网<a target="_blank" rel="noopener" href="https://redis.io/docs/manual/config/">Redis configuration | Redis</a></p>
 <p><strong>因为我的redis版本是6.0.8，所以我选择6.0.的配置文件</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120131905474.png" srcset="/img/loading.gif" lazyload alt="image-20221120131905474" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120131905474.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong>进入<code>/app/redis</code>目录下</strong></li>
 </ol>
@@ -908,8 +897,7 @@ source /var/lib/mysql/sg_blog.sql;<span aria-hidden="true" class="line-numbers-r
 vim redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 
 <p>在vim模式下 <code>:set paste</code>粘贴的文本数据不会乱</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120172409885.png" srcset="/img/loading.gif" lazyload alt="image-20221120172409885" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120172409885.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li>修改配置文件内容</li>
 </ol>
@@ -939,7 +927,7 @@ vim redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <li><strong>使用ApiFox进行接口测试（postman也可以）</strong></li>
 </ol>
 <p>​		&#x3D;&#x3D;测试通过&#x3D;&#x3D;</p>
-<p>​	<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120145234960.png" srcset="/img/loading.gif" lazyload alt="image-20221120145234960" style="zoom: 67%;" /></p>
+<p>​	<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221120145234960.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li>将已经打包好的前端项目放到本地Nginx里面测试</li>
 </ol>
@@ -976,8 +964,7 @@ vim redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <ol start="7">
 <li>访问对应的ip+端口号</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122085112706.png" srcset="/img/loading.gif" lazyload alt="image-20221122085112706" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122085112706.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		如果你的后台出现问题：</p>
 <p>​		<strong>问题一：访问405，解决方案请看2.3章的第3步</strong></p>
 <p>​		<strong>问题二：页面只有<code>/login</code>和<code>/dashborad</code>请求，其他页面是空白，解决方案请看2.4章的第6步</strong></p>
@@ -1026,8 +1013,7 @@ vim redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 
 
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122085812919.png" srcset="/img/loading.gif" lazyload alt="image-20221122085812919" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122085812919.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong><font color='red'>记得root路径为容器内的dist文件路径</font></strong></p>
 <h1 id="10-项目测试"><a href="#10-项目测试" class="headerlink" title="10.项目测试"></a>10.项目测试</h1><p>访问对应ip和端口，查看项目是否有问题</p>
 <p><strong>前台</strong></p>
@@ -1039,22 +1025,17 @@ vim redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <ol>
 <li><strong>再阿里云中点击镜像容器服务，创建个人实例，再点击创建命名空间</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122093612920.png" srcset="/img/loading.gif" lazyload alt="image-20221122093612920" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122093612920.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong>点击镜像仓库，创建镜像仓库（）</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122093825428.png" srcset="/img/loading.gif" lazyload alt="image-20221122093825428" style="zoom: 50%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122093919985.png" srcset="/img/loading.gif" lazyload alt="image-20221122093919985" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122093825428.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122093919985.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>查看操作镜像仓库操作指南</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122094120741.png" srcset="/img/loading.gif" lazyload alt="image-20221122094120741" style="zoom:67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122100254023.png" srcset="/img/loading.gif" lazyload alt="image-20221122100254023" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122094120741.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221122100254023.png" srcset="/img/loading.gif" lazyload></p>
 <p>​	</p>
 <ol start="4">
 <li><strong>另一个镜像也一样，查看已经创建的仓库和镜像</strong></li>

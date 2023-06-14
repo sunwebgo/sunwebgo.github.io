@@ -16,16 +16,16 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="3.1. 运行时数据区3.1.1. 概述本节主要讲的是运行时数据区，也就是下图这部分，它是在类加载完成后的阶段   内存是非常重要的系统资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。 我们通过磁盘或者网络IO得到的数据，都需要先加载到内存中，然后CPU从内存中获取数据进行读取，也就是说内存充当了CPU和磁盘之间的桥梁 JVM内存布局规定了Java在运行过程中内存申请、分">
+    <meta name="description" content="3.1. 运行时数据区3.1.1. 概述本节主要讲的是运行时数据区，也就是下图这部分，它是在类加载完成后的阶段  内存是非常重要的系统资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。 我们通过磁盘或者网络IO得到的数据，都需要先加载到内存中，然后CPU从内存中获取数据进行读取，也就是说内存充当了CPU和磁盘之间的桥梁 JVM内存布局规定了Java在运行过程中内存申请、分配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第03章_运行时数据区">
 <meta property="og:url" content="http://example.com/2022/05/12/JVM-%E7%AC%AC03%E7%AB%A0_%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="3.1. 运行时数据区3.1.1. 概述本节主要讲的是运行时数据区，也就是下图这部分，它是在类加载完成后的阶段   内存是非常重要的系统资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。 我们通过磁盘或者网络IO得到的数据，都需要先加载到内存中，然后CPU从内存中获取数据进行读取，也就是说内存充当了CPU和磁盘之间的桥梁 JVM内存布局规定了Java在运行过程中内存申请、分">
+<meta property="og:description" content="3.1. 运行时数据区3.1.1. 概述本节主要讲的是运行时数据区，也就是下图这部分，它是在类加载完成后的阶段  内存是非常重要的系统资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。 我们通过磁盘或者网络IO得到的数据，都需要先加载到内存中，然后CPU从内存中获取数据进行读取，也就是说内存充当了CPU和磁盘之间的桥梁 JVM内存布局规定了Java在运行过程中内存申请、分配">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-12T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.123Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.967Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -275,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          2.8k 字
         
       </span>
     
@@ -286,7 +286,7 @@
         
         
         
-          23 分钟
+          24 分钟
         
       </span>
     
@@ -338,14 +338,12 @@
               <div class="markdown-body">
                 
                 <h2 id="3-1-运行时数据区"><a href="#3-1-运行时数据区" class="headerlink" title="3.1. 运行时数据区"></a>3.1. 运行时数据区</h2><h3 id="3-1-1-概述"><a href="#3-1-1-概述" class="headerlink" title="3.1.1. 概述"></a>3.1.1. 概述</h3><p>本节主要讲的是运行时数据区，也就是下图这部分，它是在类加载完成后的阶段</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230525090342082.png" srcset="/img/loading.gif" lazyload alt="image-20230525090342082" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230525090342082.png" srcset="/img/loading.gif" lazyload></p>
 <p>内存是非常重要的系统资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。</p>
 <p>我们通过磁盘或者网络IO得到的数据，都需要先加载到内存中，然后CPU从内存中获取数据进行读取，也就是说内存充当了CPU和磁盘之间的桥梁</p>
 <p>JVM内存布局规定了Java在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行。不同的JVM对于内存的划分方式和管理机制存在着部分差异。</p>
 <p>结合JVM虚拟机规范，来探讨一下经典的JVM内存布局。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230525090446835.png" srcset="/img/loading.gif" lazyload alt="image-20230525090446835" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230525090446835.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230525090547523.png" srcset="/img/loading.gif" lazyload alt="image-20230525090547523"></p>
 <p><strong><font color='scarlet'>Java虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程对应的数据区域会随着线程开始和结束而创建和销毁。</font></strong></p>
 <p>灰色的为单独线程私有的，红色的为多个线程共享的。即：</p>
@@ -355,8 +353,7 @@
 <ul>
 <li>&#x3D;&#x3D;线程私有：独立包括虚拟机栈、本地方法栈和堆空间&#x3D;&#x3D;</li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204724409.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204724409.png">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204724409.png</a>“ &#x2F;&gt;</p>
 <p>每个JVM只有一个Runtime实例。即为运行时环境。</p>
 <h3 id="3-1-2-线程"><a href="#3-1-2-线程" class="headerlink" title="3.1.2. 线程"></a>3.1.2. 线程</h3><p>&#x3D;&#x3D;线程是一个程序里的运行单元。JVM允许一个应用有多个线程并行的执行。&#x3D;&#x3D;在Hotspot JVM里，每个线程都与操作系统的本地线程直接映射。</p>
 <p>当一个Java线程准备好执行以后，此时一个操作系统的本地线程也同时创建。Java线程执行终止后，本地线程也会回收。</p>
@@ -389,8 +386,7 @@
 <li>它是唯一一个在Java虚拟机规范中没有规定任何OutofMemoryError情况的区域。</li>
 </ol>
 </blockquote>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230525090805338.png" srcset="/img/loading.gif" lazyload alt="image-20230525090805338" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230525090805338.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="3-2-3字节码解读"><a href="#3-2-3字节码解读" class="headerlink" title="3.2.3字节码解读"></a>3.2.3字节码解读</h3><p>对于以下代码：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Practise05</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>

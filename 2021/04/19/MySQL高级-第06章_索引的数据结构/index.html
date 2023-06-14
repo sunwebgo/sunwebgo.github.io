@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-19T08:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.135Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.979Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -539,8 +539,7 @@
 <p>如果把完整的用户记录放到叶子结点是可以不用回表。但是<code>太占地方</code>了，<font color='red'>相当于每建立一课B+树都需要把所有的用户记录再都拷贝一遍，这就有点太浪费存储空间了。</font></p>
 <p>因为这种按照<code>非主键列</code>建立的B+树需要一次回表操作才可以定位到完整的用户记录，所以这种B+树也被称为<code>二级索引</code>，或者辅助索引。由于使用的是c2列的大小作为B+树的排序规则，所以我们也称这个B+树为c2列简历的索引。</p>
 <p>非聚簇索引的存在不影响数据在聚簇索引中的组织，所以一张表可以有多个非聚簇索引。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413224904495.png" srcset="/img/loading.gif" lazyload alt="image-20230413224904495" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413224904495.png" srcset="/img/loading.gif" lazyload></p>
 <p>小结：聚簇索引与非聚簇索引的原理不同，在使用上也有一些区别：</p>
 <blockquote>
 <ol>
@@ -723,8 +722,7 @@
 <p>Hash索引存在着很多限制，&#x3D;&#x3D;相比之下在数据库中B+树索引的使用面会更广，&#x3D;&#x3D;不过也有一些场景采用 Hash索引效率更高，比如在键值型(Key-Value) 数据库中，Redis 存储的核心就是Hash 表。</p>
 <p>MySQL中的Memory存储引擎支持Hash存储，如果我们需要用到查询的临时表时,就可以选择Memory存储引<br>擎,把某个字段设置为Hash索引，比如字符串类型的字段,进行Hash计算之后长度可以缩短到几个字节。当字<br>段的重复度低，而且经常需要进行等值查询的时候，采用Hash索引是个不错的选择。</p>
 <p>另外，InnoDB 本身不支持Hash索引，但是提供<code>自适应Hash索引(Adaptive Hash Index)</code>。什么情况下才会使用自适应Hash索引呢?如果某个数据经常被访问，当满足一定条件的时候, 就会将这个数据页的地址存放到Hash表中。这样下次查询的时候，就可以直接找到这个页面的所在位置。这样让B+树也具备了Hash索引的优点。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413225348300.png" srcset="/img/loading.gif" lazyload alt="image-20230413225348300" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413225348300.png" srcset="/img/loading.gif" lazyload></p>
 <p>&#x3D;&#x3D;采用自适应 Hash 索引目的是方便根据 SQL 的查询条件加速定位到叶子节点，特别是当 B+ 树比较深的时候，通过自适应 Hash 索引可以明显提高数据的检索效率。&#x3D;&#x3D;</p>
 <p>我们可以通过 innodb_adaptive_hash_index 变量来查看是否开启了自适应 Hash，比如：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">show</span> variables <span class="token operator">like</span> <span class="token string">'%adaptive_hash_index'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>

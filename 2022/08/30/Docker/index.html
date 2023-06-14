@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/Docker_Logo.jpg">
 <meta property="article:published_time" content="2022-08-30T07:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.123Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.967Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="容器">
@@ -1408,8 +1408,7 @@ master_port<span class="token operator">=</span><span class="token number">3307<
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5c2261c321ea3f7fcdf2bc9dd32dd9f6.png" srcset="/img/loading.gif" lazyload alt="image-20221008161940529"></p>
 <h3 id="18-4-3主从容错"><a href="#18-4-3主从容错" class="headerlink" title="18.4.3主从容错"></a>18.4.3主从容错</h3><figure><div class="code-wrapper"><pre class="language-none"><code class="language-none">当主节点宕机之后，它的从节点会转换为主节点。
 </code></pre></div></figure>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221008165204209.png" srcset="/img/loading.gif" lazyload alt="image-20221008165204209" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221008165204209.png" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="language-none"><code class="language-none">    &lt;font color=&#39;red&#39;&gt;测试，停止主节点6381，查看其和它的从节点6386的状态&lt;/font&gt;
 
     6381连接失败，其从节点6386变为主节点。
@@ -1485,8 +1484,7 @@ master_port<span class="token operator">=</span><span class="token number">3307<
 
 <h1 id="19-Dockerfile"><a href="#19-Dockerfile" class="headerlink" title="19.Dockerfile"></a>19.Dockerfile</h1><h2 id="19-1Dockerfile简介"><a href="#19-1Dockerfile简介" class="headerlink" title="19.1Dockerfile简介"></a>19.1Dockerfile简介</h2><p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/">Dockerfile reference | Docker Documentation</a></p>
 <p>&#x3D;&#x3D;Dockerfile是用来<font color='red'>构建Docker镜像的文本文件</font>，是由一条条构建镜像所需的指令和参数构成的脚本&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1660012864805-18937b87-0167-4c81-9d75-f485a61c5304.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1660012864805-18937b87-0167-4c81-9d75-f485a61c5304.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>构建Docker镜像的步骤：</strong></p>
 <ol>
 <li>编写Dockerfile文件</li>
@@ -1802,15 +1800,11 @@ EXPOSE 8090<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 </tr>
 </tbody></table>
 <h3 id="21-5-2bridge网络模式"><a href="#21-5-2bridge网络模式" class="headerlink" title="21.5.2bridge网络模式"></a>21.5.2bridge网络模式</h3><p>Docker 服务默认会创建一个 docker0 网桥（其上有一个 docker0 内部接口），该桥接网络的名称为docker0，它在内核层连通了其他的物理或虚拟网卡，这就将所有容器和本地主机都放到同一个物理网络。Docker 默认指定了 docker0 接口 的 IP 地址和子网掩码，让主机和容器之间。&#x3D;&#x3D;宿主机和容器之间、容器与容器之间可以通过网桥docer0(bridge)相互通信&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009114027019.png" srcset="/img/loading.gif" lazyload alt="image-20221009114027019" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009114027019.png" srcset="/img/loading.gif" lazyload></p>
 <p>查看bridge网桥</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">docker network inspect bridge<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009114624965.png" srcset="/img/loading.gif" lazyload alt="image-20221009114624965" style="zoom: 80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009114624965.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>使用tomcat镜像创建两个容器，宿主机端口分别是8081和8082，容器端口都是8080</strong></p>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/5e55cf57d8d97e0067bfba0148cd1866.png" srcset="/img/loading.gif" lazyload alt="image-20221009115505373"></p>
 <p><strong>进入容器t1，查看网络模式</strong></p>
@@ -1825,13 +1819,11 @@ EXPOSE 8090<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1b1b076884cbfad9799a067139003291.png" srcset="/img/loading.gif" lazyload alt="image-20221009120535691"></p>
 <p>&#x3D;&#x3D;综上可以看出，容器内都有一个网络模式和网桥进行相连，实现和宿主机两两匹配验证。&#x3D;&#x3D;</p>
 <h3 id="21-5-3host网络模式"><a href="#21-5-3host网络模式" class="headerlink" title="21.5.3host网络模式"></a>21.5.3host网络模式</h3><p>&#x3D;&#x3D;容器将不会获得一个独立的Network Namespace， 而是和宿主机共用一个Network Namespace。<font color='red'>容器将不会虚拟出自己的网卡而是使用宿主机的IP和端口。</font>&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009132204235.png" srcset="/img/loading.gif" lazyload alt="image-20221009132204235" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009132204235.png" srcset="/img/loading.gif" lazyload></p>
 <p>在之前搭建redis分片集群的时候，各个redis主从节点使用的网络模式就是host</p>
 <p><img src="https://img-blog.csdnimg.cn/img_convert/41808345fc707f6e29f441225340cc45.png" srcset="/img/loading.gif" lazyload alt="image-20221009132613993"></p>
 <p>可以发现各个主从节点并没有对应的端口，即指定端口并没有意义，而是和宿主机公用ip和端口号。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009132722275.png" srcset="/img/loading.gif" lazyload alt="image-20221009132722275" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009132722275.png" srcset="/img/loading.gif" lazyload></p>
 <p>使用host网络模式创建tomcat镜像</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">docker run -d -p 8083:8080 --network</span><span class="token punctuation">=</span><span class="token value attr-value">host --name t3 tomcat:8.0.53</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -1845,8 +1837,7 @@ EXPOSE 8090<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/b638861285d1f366420c8022c35ce402.png" srcset="/img/loading.gif" lazyload alt="image-20221009134305926"></p>
 <h3 id="21-5-4none网络模式"><a href="#21-5-4none网络模式" class="headerlink" title="21.5.4none网络模式"></a>21.5.4none网络模式</h3><p>在none模式下，<font color='red'>并不为Docker容器进行任何网络配置</font>。 也就是说，这个Docker容器没有网卡、IP、路由等信息，只有一个lo需要我们自己为Docker容器添加网卡、配置IP等。</p>
 <h3 id="21-5-5container网络模式"><a href="#21-5-5container网络模式" class="headerlink" title="21.5.5container网络模式"></a>21.5.5container网络模式</h3><p><font color='red'>新建的容器和已经存在的一个容器共享一个网络ip配置而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围等</font>。&#x3D;&#x3D;同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009135306812.png" srcset="/img/loading.gif" lazyload alt="image-20221009135306812" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009135306812.png" srcset="/img/loading.gif" lazyload></p>
 <p>测试：</p>
 <p>创建一个tomcat容器，再创建第二个tomcat容器，创建第二个容器的时候指定使用第一个tomcat容器的网络配置。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">docker run -d -p 8084:8080 --name t4 tomcat:8.0.19
@@ -2090,10 +2081,8 @@ portainer/portainer<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <li><strong>访问宿主机ip加protainer端口号</strong></li>
 </ol>
 <p>输入密码</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009180906699.png" srcset="/img/loading.gif" lazyload alt="image-20221009180906699" style="zoom: 67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009181052635.png" srcset="/img/loading.gif" lazyload alt="image-20221009181052635" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009180906699.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221009181052635.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/7841c2bd8f2688b55bc7add10bd2f7a9.png" srcset="/img/loading.gif" lazyload alt="image-20221009181252455"></p>
 <p>可以查看到镜像、容器、网络等等。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/6e60613eecc6bd1ddbccb891027e9e9f.png" srcset="/img/loading.gif" lazyload alt="image-20221009181308692"></p>

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/0328daae47da4a2695bcfed54643fc8b.png">
 <meta property="article:published_time" content="2022-07-30T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.143Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.987Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="SpringBoot">
 <meta property="article:tag" content="Vue">
@@ -276,7 +276,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.2k 字
+          7.4k 字
         
       </span>
     
@@ -287,7 +287,7 @@
         
         
         
-          60 分钟
+          62 分钟
         
       </span>
     
@@ -356,13 +356,9 @@
 <p>我购买的云服务器配置是2核2GB，镜像为CentOS 7.6</p>
 </li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a4c4d6c041674d3c9b52c9d55803757a.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a4c4d6c041674d3c9b52c9d55803757a.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="2：SpringBoot项目部署"><a href="#2：SpringBoot项目部署" class="headerlink" title="2：SpringBoot项目部署"></a>2：SpringBoot项目部署</h1><h2 id="2-1更改跨域配置"><a href="#2-1更改跨域配置" class="headerlink" title="2.1更改跨域配置"></a>2.1更改跨域配置</h2><p>&#x3D;&#x3D;将跨域配置修改为云服务器的公网ip&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5572a9ddd36e406495cd139100f28ae5.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5572a9ddd36e406495cd139100f28ae5.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="2-2项目打包"><a href="#2-2项目打包" class="headerlink" title="2.2项目打包"></a>2.2项目打包</h2><ol>
 <li><strong>首先打开maven，在maven生命周期选择clear选项，clear命令是maven的清除命令，这一步的<font color='red'>目的是为了清空target目录下的所有内容。</font></strong></li>
 </ol>
@@ -374,14 +370,11 @@
 <ol start="3">
 <li><strong>控制台出现BUILD SUCCESS就表示打包成功</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/650b92d81fb046c99f395b0f0d841fc2.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/650b92d81fb046c99f395b0f0d841fc2.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="4">
 <li><strong>查看target目录，找到打包好的项目jar包。</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/4ba6f4bd2b5e42b4805b250e136e8f8a.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/4ba6f4bd2b5e42b4805b250e136e8f8a.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="2-3部署jar包"><a href="#2-3部署jar包" class="headerlink" title="2.3部署jar包"></a>2.3部署jar包</h2><h3 id="2-3-1上传jar包和静态资源文件"><a href="#2-3-1上传jar包和静态资源文件" class="headerlink" title="2.3.1上传jar包和静态资源文件"></a>2.3.1上传jar包和静态资源文件</h3><ol>
 <li><strong>查看SpringBoot项目服务端口：我的是8090</strong></li>
 </ol>
@@ -389,22 +382,17 @@
 <ol start="2">
 <li><strong>在控制台开放相应端口</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/23aed84e51384efdbd9081873bd235d0.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e445d9356159462abc53861e46b4ca9e.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/23aed84e51384efdbd9081873bd235d0.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e445d9356159462abc53861e46b4ca9e.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>打开Xshell，输入云服务器公网ip创建一个新的会话。</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/d45af4763b944c07877a351608564e6a.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/d45af4763b944c07877a351608564e6a.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="4">
 <li><strong>双击刚刚创建的会话进行连接，输入用户名和密码</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5b9c7c933a8645bb825610827ee2fd91.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5880f4f0c56e491d855e953ff72adee2.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5b9c7c933a8645bb825610827ee2fd91.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/5880f4f0c56e491d855e953ff72adee2.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="5">
 <li><strong>密码如果忘记的话到控制台中进行修改：</strong></li>
 </ol>
@@ -413,17 +401,12 @@
 <ol start="6">
 <li><strong>创建新目录，<font color='red'>并将jar包通过Xftp传输到新创建的目录当中</font>，&#x3D;&#x3D;如果有静态资源的话就传输到jar包的同级目录下：&#x3D;&#x3D;</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e95f4744da964f7d8d93ffb061242d95.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/f196573210ea491cb3e039cb4b998f85.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/207ca780c8654abc972793c054a5794d.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:67%;" />
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/e95f4744da964f7d8d93ffb061242d95.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/f196573210ea491cb3e039cb4b998f85.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/207ca780c8654abc972793c054a5794d.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="2-3-2安装JDK"><a href="#2-3-2安装JDK" class="headerlink" title="2.3.2安装JDK"></a>2.3.2安装JDK</h3><p>jdk官网：<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/">Java Downloads | Oracle</a></p>
 <p><strong>下载Linux版本：</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/6086d8eec6cc4e2c9331b551b0edc46a.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/6086d8eec6cc4e2c9331b551b0edc46a.png">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/6086d8eec6cc4e2c9331b551b0edc46a.png</a>“  &#x2F;&gt;</p>
 <ol>
 <li><strong>将JDK传输到项目目录</strong></li>
 </ol>
@@ -455,8 +438,7 @@ java -version<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <h3 id="2-3-3安装MySQL"><a href="#2-3-3安装MySQL" class="headerlink" title="2.3.3安装MySQL"></a>2.3.3安装MySQL</h3><ol>
 <li><strong>在控制台开发MySQL服务端口3306</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/98d084630daa489583549e6273c8a923.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/98d084630daa489583549e6273c8a923.png">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/98d084630daa489583549e6273c8a923.png</a>“ &#x2F;&gt;</p>
 <ol start="2">
 <li><strong>在jar包同级目录下创建目录用于存放MySQL安装包</strong></li>
 </ol>
@@ -574,9 +556,7 @@ show databases;<span aria-hidden="true" class="line-numbers-rows"><span></span><
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">use</span> 数据库名<span class="token punctuation">;</span>
 source <span class="token keyword">sql</span>文件相对路径<span class="token operator">/</span><span class="token keyword">sql</span>文件名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/db66daff847943989ec22631c0e63209.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/db66daff847943989ec22631c0e63209.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>查询测试：</strong></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表名<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -608,10 +588,7 @@ source <span class="token keyword">sql</span>文件相对路径<span class="toke
 <h2 id="2-4接口测试"><a href="#2-4接口测试" class="headerlink" title="2.4接口测试"></a>2.4接口测试</h2><ol>
 <li><strong>打开Postman，输入要测试的接口，显示测试成功</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/9fbd1b14d07e4c65b311af1d5bb82c15.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/9fbd1b14d07e4c65b311af1d5bb82c15.png" srcset="/img/loading.gif" lazyload></p>
 <p>在nohub.out日志文件中可以查看到日志信息（&#x3D;&#x3D;需要在SpringBoot配置文件中配置mybatis-plus的日志文件&#x3D;&#x3D;）</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/fe0e0b1a2a904772b0ece3b0b6e90321.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h1 id="3-Vue项目部署"><a href="#3-Vue项目部署" class="headerlink" title="3.Vue项目部署"></a>3.Vue项目部署</h1><h2 id="3-1更改代理服务器、axios、Vuex配置"><a href="#3-1更改代理服务器、axios、Vuex配置" class="headerlink" title="3.1更改代理服务器、axios、Vuex配置"></a>3.1更改代理服务器、axios、Vuex配置</h2><blockquote>
@@ -624,23 +601,17 @@ source <span class="token keyword">sql</span>文件相对路径<span class="toke
 <ol start="2">
 <li><strong>axios接口配置</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/27a13cab847d4f05838fb9aeb1aec443.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/27a13cab847d4f05838fb9aeb1aec443.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>Vuex</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/39128fd985cd4f239de485c0d42d8cf3.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述" style="zoom:67%;" />
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/39128fd985cd4f239de485c0d42d8cf3.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="3-2将项目打包上传到云服务器"><a href="#3-2将项目打包上传到云服务器" class="headerlink" title="3.2将项目打包上传到云服务器"></a>3.2将项目打包上传到云服务器</h2><ol>
 <li><strong>打开控制台，输入以下命令打包</strong></li>
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">npm run build<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/df2ef09a72354f81b7cddd7307bd483c.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/df2ef09a72354f81b7cddd7307bd483c.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong><font color='red'>在项目根目录下会自动生成一个dist文件夹</font></strong></li>
 </ol>
@@ -653,8 +624,7 @@ source <span class="token keyword">sql</span>文件相对路径<span class="toke
 <ol>
 <li><strong>将下载好的Nginx安装包发送到服务器中项目的根目录下</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/8a52d92774cc4a1ab6b3580f0b70a3b5.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/8a52d92774cc4a1ab6b3580f0b70a3b5.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong>解压安装包到当前目录</strong></li>
 </ol>
@@ -713,13 +683,11 @@ source <span class="token keyword">sql</span>文件相对路径<span class="toke
 </blockquote>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">try_files $uri $uri/ /index.html;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/d1c6b801f5054041852450110e69d3ee.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/d1c6b801f5054041852450110e69d3ee.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>在控制台开发相应端口</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a8554d7c9af140f1b4539d8e7117337d.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/a8554d7c9af140f1b4539d8e7117337d.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="4">
 <li><strong>保存并退出，进入nginx的sbin目录下重启Nginx服务</strong></li>
 </ol>
@@ -733,13 +701,11 @@ source <span class="token keyword">sql</span>文件相对路径<span class="toke
 <h2 id="3-5部署第二个Vue项目"><a href="#3-5部署第二个Vue项目" class="headerlink" title="3.5部署第二个Vue项目"></a>3.5部署第二个Vue项目</h2><ol>
 <li><strong>通过vim编辑器进入nginx.conf配置文件，复制server部分，放在上一个server下面</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/131af90c6298444780b2b4e48e65200f.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/131af90c6298444780b2b4e48e65200f.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong>在控制台开发相应端口</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/ed6153c861dd4ef2a959024eea62c815.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/ed6153c861dd4ef2a959024eea62c815.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>保存并退出，进入nginx的sbin目录下重启Nginx服务</strong></li>
 </ol>

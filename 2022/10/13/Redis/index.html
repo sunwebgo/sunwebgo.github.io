@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101201859716.png">
 <meta property="article:published_time" content="2022-10-13T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.139Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.983Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="NoSQL">
 <meta property="article:tag" content="Redis">
@@ -287,7 +287,7 @@
         
         
         
-          807 分钟
+          812 分钟
         
       </span>
     
@@ -1659,8 +1659,7 @@
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929171149126.png" srcset="/img/loading.gif" lazyload alt="image-20220929171149126"></p>
 <p>解决分布式锁误删的方案：&#x3D;&#x3D;在释放锁之前判断Redis缓存当中线程号是否和当前线程的线程号相同，相同就是放，不同就不释放。&#x3D;&#x3D;</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929173645529.png" srcset="/img/loading.gif" lazyload alt="image-20220929173645529"></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-9-29%2017-45-17.gif" srcset="/img/loading.gif" lazyload alt="GIF 2022-9-29 17-45-17" style="zoom:80%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-9-29%2017-45-17.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-9-29%2017-45-17.gif</a>“ alt&#x3D;”GIF 2022-9-29 17-45-17” &#x2F;&gt;</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929174620218.png" srcset="/img/loading.gif" lazyload alt="image-20220929174620218"></p>
 <h2 id="14-6解决分布式锁的误删问题"><a href="#14-6解决分布式锁的误删问题" class="headerlink" title="14.6解决分布式锁的误删问题"></a>14.6解决分布式锁的误删问题</h2><p>需求：修改之前的分布式锁实现，满足：</p>
 <p><font color='red'>1.在获取锁时存入线程标示（可以用UUID表示）</font></p>
@@ -3039,8 +3038,7 @@
 <h3 id="17-7-4库存超卖问题-多线程并发问题-分析"><a href="#17-7-4库存超卖问题-多线程并发问题-分析" class="headerlink" title="17.7.4库存超卖问题(多线程并发问题)分析"></a>17.7.4库存超卖问题(多线程并发问题)分析</h3><p>就是在高并发的场景下，可能会有多个线程同时进行查询，当商品数量仅剩1个时，多个线程同时查询，都判断为1，都会进行下单。 </p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220928132007688.png" srcset="/img/loading.gif" lazyload alt="image-20220928132007688"></p>
 <p>使用ApiFox测试接口是否可用：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220928130317459.png" srcset="/img/loading.gif" lazyload alt="image-20220928130317459" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220928130317459.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220928130526594.png" srcset="/img/loading.gif" lazyload alt="image-20220928130526594"></p>
 <p>模拟高并发场景下，库存的超卖问题</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220928123601022.png" srcset="/img/loading.gif" lazyload alt="image-20220928123601022"></p>
@@ -3785,8 +3783,7 @@ redis<span class="token punctuation">.</span><span class="token function">call</
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-1%2022-07-17.gif" srcset="/img/loading.gif" lazyload alt="GIF 2022-10-1 22-07-17" style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-1%2022-07-17.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-1%2022-07-17.gif</a>“ alt&#x3D;”GIF 2022-10-1 22-07-17” &#x2F;&gt;</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221001221314975.png" srcset="/img/loading.gif" lazyload alt="image-20221001221314975"></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221001221332473.png" srcset="/img/loading.gif" lazyload alt="image-20221001221332473"></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221001220925594.png" srcset="/img/loading.gif" lazyload alt="image-20221001220925594"></p>
@@ -3994,8 +3991,7 @@ redis<span class="token punctuation">.</span><span class="token function">call</
         <span class="token keyword">return</span> <span class="token class-name">Result</span><span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>count <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-2%2016-41-56.gif" srcset="/img/loading.gif" lazyload alt="GIF 2022-10-2 16-41-56" style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-2%2016-41-56.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-2%2016-41-56.gif</a>“ alt&#x3D;”GIF 2022-10-2 16-41-56” &#x2F;&gt;</p>
 <p>关注成功，数据库插入一条数据</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221002164309404.png" srcset="/img/loading.gif" lazyload alt="image-20221002164309404"></p>
 <h3 id="17-8-6共同关注"><a href="#17-8-6共同关注" class="headerlink" title="17.8.6共同关注"></a>17.8.6共同关注</h3><p>&#x3D;&#x3D;共同关注就是当前登录的用户和查看的博主共同关注的人&#x3D;&#x3D;</p>
@@ -4236,8 +4232,7 @@ redis<span class="token punctuation">.</span><span class="token function">call</
 
 
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%208-31-38.gif" srcset="/img/loading.gif" lazyload alt="GIF 2022-10-3 8-31-38" style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%208-31-38.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%208-31-38.gif</a>“ alt&#x3D;”GIF 2022-10-3 8-31-38” &#x2F;&gt;</p>
 <h2 id="17-9附近商户"><a href="#17-9附近商户" class="headerlink" title="17.9附近商户"></a>17.9附近商户</h2><h3 id="17-9-1GEO数据结构概念"><a href="#17-9-1GEO数据结构概念" class="headerlink" title="17.9.1GEO数据结构概念"></a>17.9.1GEO数据结构概念</h3><p><code>GEO就是Geolocation(地理坐标)的简写形式</code>。Redis在3.2版本中加入了对GEO的支持，允许存储地理坐标信息，帮助我们根据经纬度来检索数据。常见的命令有：</p>
 <p><a target="_blank" rel="noopener" href="https://redis.io/commands/geoadd">GEOADD</a>：添加一个地理空间信息，包含：经度（longitude）、纬度（latitude）、值（member）</p>
 <p><a target="_blank" rel="noopener" href="https://redis.io/commands/geodist">GEODIST</a>：计算指定的两个点之间的距离并返回</p>
@@ -4368,8 +4363,7 @@ redis<span class="token punctuation">.</span><span class="token function">call</
         <span class="token keyword">return</span> <span class="token class-name">Result</span><span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>shops<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%2012-50-42.gif" srcset="/img/loading.gif" lazyload alt="GIF 2022-10-3 12-50-42" style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%2012-50-42.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%2012-50-42.gif</a>“ alt&#x3D;”GIF 2022-10-3 12-50-42” &#x2F;&gt;</p>
 <h2 id="17-10用户签到"><a href="#17-10用户签到" class="headerlink" title="17.10用户签到"></a>17.10用户签到</h2><h3 id="17-10-1BitMap的用法"><a href="#17-10-1BitMap的用法" class="headerlink" title="17.10.1BitMap的用法"></a>17.10.1BitMap的用法</h3><p>假如我们用一张表来存储用户签到信息，其结构应该如下：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221003125403603.png" srcset="/img/loading.gif" lazyload alt="image-20221003125403603"></p>
 <p>假如有1000万用户，平均每人每年签到次数为10次，则这张表一年的数据量为 1亿条</p>
@@ -5128,8 +5122,7 @@ logfile /opt/6379/run.log<span aria-hidden="true" class="line-numbers-rows"><spa
 <li><code>create</code>：代表是创建集群</li>
 <li><code>--replicas 1</code>或者<code>--cluster-replicas 1</code> ：指定集群中每个master的副本个数为1，此时<code>节点总数 ÷ (replicas + 1)</code> 得到的就是master的数量。因此节点列表中的前n个就是master，其它节点都是slave节点，随机分配到不同master</li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005163603507.png" srcset="/img/loading.gif" lazyload alt="image-20221005163603507" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005163603507.png" srcset="/img/loading.gif" lazyload></p>
 <p>查看集群状态</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">redis-cli -p 7001 cluster nodes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -5171,8 +5164,7 @@ logfile /opt/6379/run.log<span aria-hidden="true" class="line-numbers-rows"><spa
 </ul>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005172740944.png" srcset="/img/loading.gif" lazyload alt="image-20221005172740944"></p>
 <h3 id="18-5-3集群伸缩"><a href="#18-5-3集群伸缩" class="headerlink" title="18.5.3集群伸缩"></a>18.5.3集群伸缩</h3><p>redis-cli –cluster提供了很多操作集群的命令，可以通过下面方式查看</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005173401793.png" srcset="/img/loading.gif" lazyload alt="image-20221005173401793" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005173401793.png" srcset="/img/loading.gif" lazyload></p>
 <p>向集群中添加一个新的master节点，并向其中存储 num &#x3D; 10</p>
 <p>需求：</p>
 <ul>
@@ -5188,8 +5180,7 @@ logfile /opt/6379/run.log<span aria-hidden="true" class="line-numbers-rows"><spa
 <p>后面指定已经存在的集群节点</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">redis-cli --cluster add-node 192.168.26.133:7004 192.168.26.133:7001<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005175240778.png" srcset="/img/loading.gif" lazyload alt="image-20221005175240778" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005175240778.png" srcset="/img/loading.gif" lazyload></p>
 <p>查看集群状态</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">redis-cli -p 7001 cluster nodes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -5199,8 +5190,7 @@ logfile /opt/6379/run.log<span aria-hidden="true" class="line-numbers-rows"><spa
 <p>根据命名查看帮助文档</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">redis-cli --cluster help <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005180316290.png" srcset="/img/loading.gif" lazyload alt="image-20221005180316290" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005180316290.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005180520807.png" srcset="/img/loading.gif" lazyload alt="image-20221005180520807"></p>
 <p>删除节点</p>
 <p>首先将节点的插槽转移</p>

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-21T02:19:07.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.131Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.975Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -620,8 +620,7 @@
 <li>必须覆盖重写抽象<code>run</code>方法，所以方法名称、方法参数、方法返回值<strong>不得不</strong>再写一遍，且不能写错；</li>
 <li>而实际上，<strong>似乎只有方法体才是关键所在</strong>。</li>
 </ul>
-<h3 id="2-3-好用的lambda表达式"><a href="#2-3-好用的lambda表达式" class="headerlink" title="2.3 好用的lambda表达式"></a>2.3 好用的lambda表达式</h3><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.jpg" srcset="/img/loading.gif" lazyload alt="lambda表达式" style="zoom:67%;" />
-
+<h3 id="2-3-好用的lambda表达式"><a href="#2-3-好用的lambda表达式" class="headerlink" title="2.3 好用的lambda表达式"></a>2.3 好用的lambda表达式</h3><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.jpg" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221111213355625.png" srcset="/img/loading.gif" lazyload alt="image-20221111213355625"></p>
 <h3 id="2-4-Lambda-及其使用举例"><a href="#2-4-Lambda-及其使用举例" class="headerlink" title="2.4 Lambda 及其使用举例"></a>2.4 Lambda 及其使用举例</h3><p>Lambda 是一个<strong>匿名函数</strong>，我们可以把 Lambda 表达式理解为是<strong>一段可以传递的代码</strong>（将代码像数据一样进行传递）。使用它可以写出更简洁、更灵活的代码。作为一种更紧凑的代码风格，使Java的语言表达能力得到了提升。</p>
 <ul>
@@ -791,8 +790,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <h3 id="2-6-关于类型推断"><a href="#2-6-关于类型推断" class="headerlink" title="2.6 关于类型推断"></a>2.6 关于类型推断</h3><p>在语法格式三 Lambda 表达式中的参数类型都是由编译器推断得出的。Lambda 表达式中无需指定类型，程序依然可以编译，这是因为 javac 根据程序的上下文，在后台推断出了参数的类型。Lambda 表达式的类型依赖于上下文环境，是由编译器推断出来的。这就是所谓的“<code>类型推断</code>”。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220527103215741.png" srcset="/img/loading.gif" lazyload alt="image-20220527103215741" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220527103215741.png" srcset="/img/loading.gif" lazyload></p>
 <p>举例：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -830,14 +828,11 @@
 <li>简单的说，在Java8中，Lambda表达式就是一个函数式接口的实例。这就是Lambda表达式和函数式接口的关系。也就是说，只要一个对象是函数式接口的实例，那么该对象就可以用Lambda表达式来表示。</li>
 </ul>
 <h3 id="3-3-举例"><a href="#3-3-举例" class="headerlink" title="3.3 举例"></a>3.3 举例</h3><p>举例1：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220527111442115.png" srcset="/img/loading.gif" lazyload alt="image-20220527111442115" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220527111442115.png" srcset="/img/loading.gif" lazyload></p>
 <p>举例2：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220527111621424.png" srcset="/img/loading.gif" lazyload alt="image-20220527111621424" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220527111621424.png" srcset="/img/loading.gif" lazyload></p>
 <p>作为参数传递 Lambda 表达式：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220527111751485.png" srcset="/img/loading.gif" lazyload alt="image-20220527111751485" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220527111751485.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>作为参数传递 Lambda 表达式：为了将 Lambda 表达式作为参数传递，接收Lambda 表达式的参数类型必须是与该 Lambda 表达式兼容的函数式接口的类型。</p>
 </blockquote>
@@ -1779,8 +1774,7 @@
 <h3 id="5-4-Stream的操作三个步骤"><a href="#5-4-Stream的操作三个步骤" class="headerlink" title="5.4 Stream的操作三个步骤"></a>5.4 Stream的操作三个步骤</h3><p><strong>1- 创建 Stream</strong><br>一个数据源（如：集合、数组），获取一个流</p>
 <p><strong>2- 中间操作</strong><br>每次处理都会返回一个持有结果的新Stream，即中间操作的方法返回值仍然是Stream类型的对象。因此中间操作可以是个<code>操作链</code>，可对数据源的数据进行n次处理，但是在终结操作前，并不会真正执行。</p>
 <p><strong>3- 终止操作(终端操作)</strong><br>终止操作的方法返回值类型就不再是Stream了，因此一旦执行终止操作，就结束整个Stream操作了。一旦执行终止操作，就执行中间操作链，最终产生结果并结束Stream。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220514180803311.png" srcset="/img/loading.gif" lazyload alt="image-20220514180803311" style="zoom: 50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220514180803311.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="5-4-1-创建Stream实例"><a href="#5-4-1-创建Stream实例" class="headerlink" title="5.4.1 创建Stream实例"></a>5.4.1 创建Stream实例</h4><p><strong>方式一：通过集合</strong></p>
 <p>Java8 中的 Collection 接口被扩展，提供了两个获取流的方法：</p>
 <ul>

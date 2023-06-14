@@ -16,16 +16,16 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="我们之前学习的程序在没有跳转语句的情况下，都是由上至下沿着一条路径依次执行。现在想要设计一个程序，可以同时有多条执行路径同时执行。比如，一边游戏，一边qq聊天，一边听歌，怎么设计？   要解决上述问题，需要使用多进程或者多线程来解决。 1. 相关概念1.1 程序、进程与线程 程序（program）：&#x3D;&#x3D;为完成特定任务，用某种语言编写的一组指令的集合。即指一段静态的代码，静">
+    <meta name="description" content="我们之前学习的程序在没有跳转语句的情况下，都是由上至下沿着一条路径依次执行。现在想要设计一个程序，可以同时有多条执行路径同时执行。比如，一边游戏，一边qq聊天，一边听歌，怎么设计？  要解决上述问题，需要使用多进程或者多线程来解决。 1. 相关概念1.1 程序、进程与线程 程序（program）：&#x3D;&#x3D;为完成特定任务，用某种语言编写的一组指令的集合。即指一段静态的代码，静态对">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第09章_多线程">
 <meta property="og:url" content="http://example.com/2021/03/11/Java%E5%9F%BA%E7%A1%80-%E7%AC%AC09%E7%AB%A0_%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="我们之前学习的程序在没有跳转语句的情况下，都是由上至下沿着一条路径依次执行。现在想要设计一个程序，可以同时有多条执行路径同时执行。比如，一边游戏，一边qq聊天，一边听歌，怎么设计？   要解决上述问题，需要使用多进程或者多线程来解决。 1. 相关概念1.1 程序、进程与线程 程序（program）：&#x3D;&#x3D;为完成特定任务，用某种语言编写的一组指令的集合。即指一段静态的代码，静">
+<meta property="og:description" content="我们之前学习的程序在没有跳转语句的情况下，都是由上至下沿着一条路径依次执行。现在想要设计一个程序，可以同时有多条执行路径同时执行。比如，一边游戏，一边qq聊天，一边听歌，怎么设计？  要解决上述问题，需要使用多进程或者多线程来解决。 1. 相关概念1.1 程序、进程与线程 程序（program）：&#x3D;&#x3D;为完成特定任务，用某种语言编写的一组指令的集合。即指一段静态的代码，静态对">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-11T11:34:07.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.127Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.971Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -336,12 +336,10 @@
             
               <div class="markdown-body">
                 
-                <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E7%AC%AC3%E9%98%B6%E6%AE%B5%EF%BC%9AJava%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8-%E7%AC%AC10%E7%AB%A0.png" srcset="/img/loading.gif" lazyload alt="第3阶段：Java高级应用-第10章" style="zoom: 50%;" />
-
+                <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E7%AC%AC3%E9%98%B6%E6%AE%B5%EF%BC%9AJava%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8-%E7%AC%AC10%E7%AB%A0.png" srcset="/img/loading.gif" lazyload></p>
 <hr>
 <p>我们之前学习的程序在没有跳转语句的情况下，都是由上至下沿着一条路径依次执行。现在想要设计一个程序，可以同时有多条执行路径同时执行。比如，<code>一边游戏，一边qq聊天，一边听歌</code>，怎么设计？</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/c3dcb61e3b.png" srcset="/img/loading.gif" lazyload alt="c3dcb61e3b" style="zoom:50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/c3dcb61e3b.png" srcset="/img/loading.gif" lazyload></p>
 <p>要解决上述问题，需要使用<code>多进程</code>或者<code>多线程</code>来解决。</p>
 <h2 id="1-相关概念"><a href="#1-相关概念" class="headerlink" title="1. 相关概念"></a>1. 相关概念</h2><h3 id="1-1-程序、进程与线程"><a href="#1-1-程序、进程与线程" class="headerlink" title="1.1 程序、进程与线程"></a>1.1 程序、进程与线程</h3><ul>
 <li><p><strong>程序（program）</strong>：&#x3D;&#x3D;为完成特定任务，用某种语言编写的<code>一组指令的集合</code>。即指<code>一段静态的代码</code>，静态对象。&#x3D;&#x3D;</p>
@@ -357,7 +355,7 @@
 <li><p><strong>线程（thread）</strong>：&#x3D;&#x3D;进程可进一步细化为线程，是程序内部的<code>一条执行路径</code>。一个进程中至少有一个线程。&#x3D;&#x3D;</p>
 <ul>
 <li><p>一个进程同一时间若<code>并行</code>执行多个线程，就是支持多线程的。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331233204504.png" srcset="/img/loading.gif" lazyload alt="image-20220331233204504" style="zoom:67%;" />
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331233204504.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 <li><p>线程作为<code>CPU调度和执行的最小单位</code>。</p>
 </li>
@@ -366,8 +364,7 @@
 <li><p>下图中，红框的蓝色区域为线程独享，黄色区域为线程共享。</p>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220514175737426.png" srcset="/img/loading.gif" lazyload alt="image-20220514175737426" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220514175737426.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>注意：</p>
 <p>不同的进程之间是不共享内存的。</p>
@@ -377,14 +374,11 @@
 </ul>
 <h3 id="1-2-查看进程和线程"><a href="#1-2-查看进程和线程" class="headerlink" title="1.2 查看进程和线程"></a>1.2 查看进程和线程</h3><p>我们可以在电脑底部任务栏，右键—–&gt;打开任务管理器，可以查看当前任务的进程：</p>
 <p>1、每个应用程序的运行都是一个进程</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E8%BF%9B%E7%A8%8B%E6%A6%82%E5%BF%B5.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E8%BF%9B%E7%A8%8B%E6%A6%82%E5%BF%B5.png" srcset="/img/loading.gif" lazyload></p>
 <p>2、一个应用程序的多次运行，就是多个进程</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1563267431480.png" srcset="/img/loading.gif" lazyload alt="1563267431480" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1563267431480.png" srcset="/img/loading.gif" lazyload></p>
 <p>3、&#x3D;&#x3D;一个进程中包含多个线程&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1563270525077.png" srcset="/img/loading.gif" lazyload alt="1563270525077" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1563270525077.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="1-3-线程调度"><a href="#1-3-线程调度" class="headerlink" title="1.3 线程调度"></a>1.3 线程调度</h3><ul>
 <li><p><strong>分时调度</strong></p>
 <p>所有线程<code>轮流使用</code> CPU 的使用权，并且平均分配每个线程占用 CPU 的时间。</p>
@@ -414,11 +408,12 @@
 <h3 id="1-6-并行与并发"><a href="#1-6-并行与并发" class="headerlink" title="1.6 并行与并发"></a>1.6 并行与并发</h3><ul>
 <li><p><strong>并行（parallel）</strong>：指两个或多个事件在<code>同一时刻</code>发生（同时发生）。&#x3D;&#x3D;指在同一时刻，有<code>多条指令</code>在<code>多个CPU</code>上<code>同时</code>执行。比如：多个人同时做不同的事。&#x3D;&#x3D;</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401000804242.png" srcset="/img/loading.gif" lazyload alt="image-20220401000804242"></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220513181758585.png" srcset="/img/loading.gif" lazyload alt="image-20220513181758585" style="zoom: 50%;" />
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220513181758585.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 <li><p><strong>并发（concurrency）</strong>：指两个或多个事件在<code>同一个时间段内</code>发生。&#x3D;&#x3D;即在一段时间内，有<code>多条指令</code>在<code>单个CPU</code>上<code>快速轮换、交替</code>执行。&#x3D;&#x3D;</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401000515678.png" srcset="/img/loading.gif" lazyload alt="image-20220401000515678"></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220513181815978.png" srcset="/img/loading.gif" lazyload alt="image-20220513181815978" style="zoom:50%;" /></li>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220513181815978.png" srcset="/img/loading.gif" lazyload></p>
+</li>
 </ul>
 <p><strong><font color='red'>简单来说，如果在多个处理器上同时完成任务，则称为并行；如果在一个处理器上在不同时间点完成多个任务，则称为并发。</font></strong></p>
 <h2 id="2-创建和启动线程"><a href="#2-创建和启动线程" class="headerlink" title="2.创建和启动线程"></a>2.创建和启动线程</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><ul>
@@ -562,10 +557,7 @@
 <p>在启动的多线程的时候，需要先通过Thread类的构造方法Thread(Runnable target) 构造出对象，然后调用Thread对象的start()方法来运行多线程代码。</p>
 <p>实际上，所有的多线程代码都是通过运行Thread的start()方法来运行的。因此，不管是继承Thread类还是实现<br>Runnable接口来实现多线程，最终还是通过Thread的对象的API来控制线程的，熟悉Thread类的API是进行多线程编程的基础。</p>
 <p>说明：Runnable对象仅仅作为Thread对象的target，Runnable实现类里包含的run()方法仅作为线程执行体。<br>而实际的线程对象依然是Thread实例，只是该Thread线程负责执行其target的run()方法。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401222212377.png" srcset="/img/loading.gif" lazyload alt="image-20220401222212377"  />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401222212377.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="2-5-对比Thread和Runnable两种方式"><a href="#2-5-对比Thread和Runnable两种方式" class="headerlink" title="2.5 对比Thread和Runnable两种方式"></a>2.5 对比Thread和Runnable两种方式</h3><p><strong>联系</strong></p>
 <p>Thread类实际上也是实现了Runnable接口的类。即：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Thread</span> <span class="token keyword">extends</span> <span class="token class-name">Object</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
@@ -990,10 +982,7 @@
 </li>
 </ul>
 <p>CPU需要在多条线程之间切换，于是线程状态会多次在运行、阻塞、就绪之间切换。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401002307038.png" srcset="/img/loading.gif" lazyload alt="image-20220401002307038" style="zoom: 67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401002307038.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>1.新建</strong></p>
 <p>当一个Thread类或其子类的对象被声明并创建时，新生的线程对象处于新建状态。此时它和其他Java对象一样，仅仅由JVM为其分配了内存，并初始化了实例变量的值。此时的线程对象并没有任何线程的动态特征，程序也不会执行它的线程体run()。</p>
 <p><strong>2.就绪</strong></p>
@@ -1119,10 +1108,7 @@
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220524195035355.png" srcset="/img/loading.gif" lazyload alt="image-20220524195035355"></p>
 <h2 id="5-线程安全问题及解决"><a href="#5-线程安全问题及解决" class="headerlink" title="5. 线程安全问题及解决"></a>5. 线程安全问题及解决</h2><h3 id="5-1线程安全问题概述"><a href="#5-1线程安全问题概述" class="headerlink" title="5.1线程安全问题概述"></a>5.1线程安全问题概述</h3><p>当我们使用多个线程访问<strong>同一资源</strong>（可以是同一个变量、同一个文件、同一条记录等）的时候，若多个线程<code>只有读操作</code>，那么不会发生线程安全问题。但是如果多个线程中对资源有<code>读和写</code>的操作，就容易出现线程安全问题。</p>
 <p>举例：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401233218326.png" srcset="/img/loading.gif" lazyload alt="image-20220401233218326" style="zoom:67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401233218326.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="5-2-同一个资源问题和线程安全问题"><a href="#5-2-同一个资源问题和线程安全问题" class="headerlink" title="5.2 同一个资源问题和线程安全问题"></a>5.2 同一个资源问题和线程安全问题</h3><p>案例：</p>
 <p>火车站要卖票，我们模拟火车站的卖票过程。因为疫情期间，本次列车的座位共100个（即，只能出售100张火车票）。我们来模拟车站的售票窗口，实现多个窗口同时售票的过程。注意：不能出现错票、重票。</p>
 <p>示例代码：</p>

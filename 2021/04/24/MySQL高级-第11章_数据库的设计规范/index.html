@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-24T04:43:56.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.139Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.979Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -556,8 +556,7 @@
 <li>订单详情实体</li>
 </ul>
 <p>其中， <code>用户</code> 和 <code>商品分类</code> 是强实体，因为它们不需要依赖其他任何实体。而其他属于弱实体，因为它们 虽然都可以独立存在，但是它们都依赖用户这个实体，因此都是弱实体。知道了这些要素，我们就可以 给电商业务创建 ER 模型了，如图：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515074523866.png" srcset="/img/loading.gif" lazyload alt="image-20230515074523866" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230515074523866.png" srcset="/img/loading.gif" lazyload></p>
 <p>在这个图中，地址和用户之间的添加关系，是一对多的关系，而商品和商品详情示一对1的关系，商品和 订单是多对多的关系。 这个 ER 模型，包括了 8个实体之间的 8种关系。</p>
 <p>（1）用户可以在电商平台添加多个地址；</p>
 <p>（2）用户只能拥有一个购物车；</p>

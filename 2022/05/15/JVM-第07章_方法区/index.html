@@ -16,16 +16,16 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="7.1. 栈、堆、方法区的交互关系  对于以下图片   将对象的类型加载到方法区 如果当前对象是存在于一个方法当中，则person变量存储在虚拟机栈当中 创建的对象存储在堆内存当中    堆、栈和方法区之间的交互关系如下：  对于Java虚拟机栈中的局部变量表中的对象引用指向堆空间当中的对象实例，其中堆空间中的对象实例 当中存在到对象类型数据的指针，其指向了方法区当中对应的对象类型。">
+    <meta name="description" content="7.1. 栈、堆、方法区的交互关系 对于以下图片   将对象的类型加载到方法区 如果当前对象是存在于一个方法当中，则person变量存储在虚拟机栈当中 创建的对象存储在堆内存当中    堆、栈和方法区之间的交互关系如下：  对于Java虚拟机栈中的局部变量表中的对象引用指向堆空间当中的对象实例，其中堆空间中的对象实例 当中存在到对象类型数据的指针，其指向了方法区当中对应的对象类型。   7.2方">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第07章_方法区">
 <meta property="og:url" content="http://example.com/2022/05/15/JVM-%E7%AC%AC07%E7%AB%A0_%E6%96%B9%E6%B3%95%E5%8C%BA/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="7.1. 栈、堆、方法区的交互关系  对于以下图片   将对象的类型加载到方法区 如果当前对象是存在于一个方法当中，则person变量存储在虚拟机栈当中 创建的对象存储在堆内存当中    堆、栈和方法区之间的交互关系如下：  对于Java虚拟机栈中的局部变量表中的对象引用指向堆空间当中的对象实例，其中堆空间中的对象实例 当中存在到对象类型数据的指针，其指向了方法区当中对应的对象类型。">
+<meta property="og:description" content="7.1. 栈、堆、方法区的交互关系 对于以下图片   将对象的类型加载到方法区 如果当前对象是存在于一个方法当中，则person变量存储在虚拟机栈当中 创建的对象存储在堆内存当中    堆、栈和方法区之间的交互关系如下：  对于Java虚拟机栈中的局部变量表中的对象引用指向堆空间当中的对象实例，其中堆空间中的对象实例 当中存在到对象类型数据的指针，其指向了方法区当中对应的对象类型。   7.2方">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-15T12:42:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.123Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.967Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -275,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.3k 字
+          9.4k 字
         
       </span>
     
@@ -286,7 +286,7 @@
         
         
         
-          78 分钟
+          79 分钟
         
       </span>
     
@@ -338,8 +338,7 @@
               <div class="markdown-body">
                 
                 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204318272.png" srcset="/img/loading.gif" lazyload alt="image-20230603204318272"></p>
-<h2 id="7-1-栈、堆、方法区的交互关系"><a href="#7-1-栈、堆、方法区的交互关系" class="headerlink" title="7.1. 栈、堆、方法区的交互关系"></a>7.1. 栈、堆、方法区的交互关系</h2><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204724409.png" srcset="/img/loading.gif" lazyload alt="image-20230603204724409" style="zoom:67%;" />
-
+<h2 id="7-1-栈、堆、方法区的交互关系"><a href="#7-1-栈、堆、方法区的交互关系" class="headerlink" title="7.1. 栈、堆、方法区的交互关系"></a>7.1. 栈、堆、方法区的交互关系</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204724409.png" srcset="/img/loading.gif" lazyload></p>
 <p>对于以下图片</p>
 <blockquote>
 <ul>
@@ -353,10 +352,7 @@
 <blockquote>
 <p>对于Java虚拟机栈中的局部变量表中的对象引用指向堆空间当中的对象实例，其中堆空间中的对象实例 当中存在<code>到对象类型数据的指针</code>，其指向了方法区当中对应的对象类型。</p>
 </blockquote>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603210226813.png" srcset="/img/loading.gif" lazyload alt="image-20230603210226813" style="zoom: 80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603210226813.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="7-2方法区概述"><a href="#7-2方法区概述" class="headerlink" title="7.2方法区概述"></a>7.2方法区概述</h2><h3 id="7-2-1方法区的位置"><a href="#7-2-1方法区的位置" class="headerlink" title="7.2.1方法区的位置"></a>7.2.1方法区的位置</h3><p>《Java虚拟机规范》中明确说明：“尽管所有的方法区在逻辑上是属于堆的一部分，但一些简单的实现可能不会选择去进行垃圾收集或者进行压缩。”但对于HotSpotJVM而言，方法区还有一个别名叫做Non-Heap（非堆），目的就是要和堆分开。</p>
 <p>所以，<font color='scarlet'>方法区看作是一块独立于Java堆的内存空间</font>。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603223359903.png" srcset="/img/loading.gif" lazyload alt="image-20230603223359903"></p>
@@ -379,8 +375,7 @@
 <h3 id="7-2-3-HotSpot中方法区的演进"><a href="#7-2-3-HotSpot中方法区的演进" class="headerlink" title="7.2.3. HotSpot中方法区的演进"></a>7.2.3. HotSpot中方法区的演进</h3><p>在jdk7及以前，习惯上把方法区，称为永久代。jdk8开始，<font color='red'>使用元空间取代了永久代。</font></p>
 <p>本质上，<font color='scarlet'>方法区和永久代并不等价</font>。仅是对hotspot而言的。《Java虚拟机规范》对如何实现方法区，不做统一要求。例如：BEA JRockit &#x2F; IBM J9 中不存在永久代的概念。</p>
 <p>现在来看，当年使用永久代，不是好的idea。导致Java程序更容易OOM（超过<code>-XX:MaxPermsize</code>上限）</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603224736788.png" srcset="/img/loading.gif" lazyload alt="image-20230603224736788" style="zoom: 50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603224736788.png" srcset="/img/loading.gif" lazyload></p>
 <p>而到了JDK8，终于完全废弃了永久代的概念，改用与JRockit、J9一样在本地内存中实现的元空间（Metaspace）来代替</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603224817854.png" srcset="/img/loading.gif" lazyload alt="image-20230603224817854"></p>
 <p><font color='scarlet'>元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代最大的区别在于：&#x3D;&#x3D;元空间不在虚拟机设置的内存中，而是使用本地内存。&#x3D;&#x3D;</font></p>
@@ -577,13 +572,10 @@
 <p>类型信息：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083355078.png" srcset="/img/loading.gif" lazyload alt="image-20230604083355078"></p>
 <p>域信息：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083510427.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083510427.png">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083510427.png</a>“ &#x2F;&gt;</p>
 <p>方法信息：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083723393.png" srcset="/img/loading.gif" lazyload alt="image-20230604083723393" style="zoom:67%;" />
-
-<h3 id="7-4-3-运行时常量池-VS-常量池"><a href="#7-4-3-运行时常量池-VS-常量池" class="headerlink" title="7.4.3. 运行时常量池 VS 常量池"></a>7.4.3. 运行时常量池 VS 常量池</h3><h4 id="7-4-3-1运行时常量池和常量池的关系"><a href="#7-4-3-1运行时常量池和常量池的关系" class="headerlink" title="7.4.3.1运行时常量池和常量池的关系"></a>7.4.3.1运行时常量池和常量池的关系</h4><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090356494.png" srcset="/img/loading.gif" lazyload alt="image-20230604090356494" style="zoom: 50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083723393.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="7-4-3-运行时常量池-VS-常量池"><a href="#7-4-3-运行时常量池-VS-常量池" class="headerlink" title="7.4.3. 运行时常量池 VS 常量池"></a>7.4.3. 运行时常量池 VS 常量池</h3><h4 id="7-4-3-1运行时常量池和常量池的关系"><a href="#7-4-3-1运行时常量池和常量池的关系" class="headerlink" title="7.4.3.1运行时常量池和常量池的关系"></a>7.4.3.1运行时常量池和常量池的关系</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090356494.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <ol>
 <li><code>常量池 (Constant Pool)</code>:<font color='scarlet'>是指在编译期间就已经确定好的常量数据</font>，例如全局变量、函数参数等，这些数据会被存储在一个专门的数据结构中，以便在编译期间就能够计算出它们的地址。目的是减少编译器期间的运算量。</li>
@@ -599,8 +591,7 @@
 <li><p>字节码文件，内部包含了常量池</p>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090918352.png" srcset="/img/loading.gif" lazyload alt="image-20230604090918352" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090918352.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="7-4-3-2常量池"><a href="#7-4-3-2常量池" class="headerlink" title="7.4.3.2常量池"></a>7.4.3.2常量池</h4><p>一个有效的字节码文件中除了包含类的版本信息、字段、方法以及接口等描述符信息外，还包含一项信息就是常量池表（Constant Pool Table），<font color='scarlet'>包括各种字面量和对类型、域和方法的<code>符号引用</code></font>，以便在编译期间就能根据符号引用获取到直接引用。</p>
 <p><font color='scarlet'>常量池、可以看做是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量等类型。即根据符号引用找到直接引用。</font></p>
 <ol>
@@ -619,15 +610,12 @@
 <ol>
 <li>根据符号引用指向类引用，创建一个<code>StringBuilder</code>类</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094651212.png" srcset="/img/loading.gif" lazyload alt="image-20230604094651212" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094651212.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li>符号引用指向字符串值，指向字符串常量</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094958453.png" srcset="/img/loading.gif" lazyload alt="image-20230604094958453" style="zoom:67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604095059386.png" srcset="/img/loading.gif" lazyload alt="image-20230604095059386" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094958453.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604095059386.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="7-4-3-3运行时常量池"><a href="#7-4-3-3运行时常量池" class="headerlink" title="7.4.3.3运行时常量池"></a>7.4.3.3运行时常量池</h4><blockquote>
 <ul>
 <li><p><font color='scarlet'>运行时常量池（Runtime Constant Pool）是方法区的一部分。</font></p>
@@ -758,18 +746,15 @@
 <ol>
 <li>所以说JDK1.6及之前<code>字符串常量池</code>是在<code>方法区</code>当中的的<code>运行时常量池</code>当中，而<code>静态变量</code>就是存储在方法区当中</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124541613.png" srcset="/img/loading.gif" lazyload alt="image-20230604124541613" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124541613.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li>​	JDK1.7的时候分别将<code>字符串常量池</code>和<code>静态变量</code>从<code>方法区常量池</code>和<code>方法区</code>中移到<code>堆空间</code>中。</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124559313.png" srcset="/img/loading.gif" lazyload alt="image-20230604124559313" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124559313.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li>JDK1.8及之后使用元空间代替了永久代，并使用本地内存。字符串常量池和静态变量依旧存在于堆空间中。</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124643175.png" srcset="/img/loading.gif" lazyload alt="image-20230604124643175" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124643175.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="7-6为什么要使用元空间替换永久代"><a href="#7-6为什么要使用元空间替换永久代" class="headerlink" title="7.6为什么要使用元空间替换永久代"></a>7.6为什么要使用元空间替换永久代</h2><ol>
 <li><strong>降低OOM</strong></li>
 </ol>

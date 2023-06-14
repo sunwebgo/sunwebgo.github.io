@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612180436748.png">
 <meta property="article:published_time" content="2023-02-21T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.147Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.991Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="项目">
 <meta property="article:tag" content="SpringCloud">
@@ -289,7 +289,7 @@
         
         
         
-          1472 分钟
+          1473 分钟
         
       </span>
     
@@ -428,15 +428,13 @@
 <p><strong>轮询：</strong> 为第一个请求选择健康池中的第一个后端服务器，然后按顺序往后依次选择，直到最后一个，然后循环</p>
 <p><strong>最小链接：</strong> 优先选择连接数最少，也就是压力最小的后端服务器，在会话较长的情况下可以考虑采取这种方式</p>
 <p><strong>散列：</strong> 根据请求源的ip散列（hash）来选择要转发的服务器。这种方式可以一定程度上保证特定用户能连接到相同的服务器。如果你的应用需要处理状态而要求用户能连接到和之前相同的服务器，可以考虑采取这种方式</p>
-<h2 id="5-5服务注册-x2F-发现-amp-注册中心"><a href="#5-5服务注册-x2F-发现-amp-注册中心" class="headerlink" title="5.5服务注册&#x2F;发现&amp;注册中心"></a>5.5服务注册&#x2F;发现&amp;注册中心</h2><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228100316356.png" srcset="/img/loading.gif" lazyload alt="image-20221228100316356" style="zoom:80%;" />
-
+<h2 id="5-5服务注册-x2F-发现-amp-注册中心"><a href="#5-5服务注册-x2F-发现-amp-注册中心" class="headerlink" title="5.5服务注册&#x2F;发现&amp;注册中心"></a>5.5服务注册&#x2F;发现&amp;注册中心</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228100316356.png" srcset="/img/loading.gif" lazyload></p>
 <p>A服务调用B服务，A服务并不知道B服务当前在哪几台服务器有，那些正常的，哪些服务以及下线。解决这个问题可以引入注册中心。如果某些服务下线，我们其他人可以实时感知到其他服务的状态，从而避免调用不可用的服务</p>
 <h2 id="5-6配置中心"><a href="#5-6配置中心" class="headerlink" title="5.6配置中心"></a>5.6配置中心</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228100328619.png" srcset="/img/loading.gif" lazyload alt="image-20221228100328619"></p>
 <p>每一个服务最终都有大量的配置，并且每个服务器都可能部署在多台机器上。我们经常需要变更配置，我们可以让每个服务在配置中心获取自己的配置。</p>
 <p>配置中心用来集中管理微服务的配置信息</p>
 <h2 id="5-7服务熔断-amp-服务降级"><a href="#5-7服务熔断-amp-服务降级" class="headerlink" title="5.7服务熔断&amp;服务降级"></a>5.7服务熔断&amp;服务降级</h2><p>在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228100344911.png" srcset="/img/loading.gif" lazyload alt="image-20221228100344911" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228100344911.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="5-7-1服务熔断"><a href="#5-7-1服务熔断" class="headerlink" title="5.7.1服务熔断"></a>5.7.1服务熔断</h3><p>设置服务的超时，当被调用的服务经常失败到达某个阈值，我们可以开启断路保护机制，后来的请求不再去调用这个服务。本地直接返回默认的数据</p>
 <h3 id="5-7-2服务降级"><a href="#5-7-2服务降级" class="headerlink" title="5.7.2服务降级"></a>5.7.2服务降级</h3><p>在运维期间，当系统处于高峰期，系统资源紧张，我们可以让非核心业务降级运行。</p>
 <p><strong>降级：</strong>某些服务不处理，或者简单处理【抛异常、返回null、调用Mock数据、调用Fallback处理逻辑】</p>
@@ -492,13 +490,11 @@ systemctl enable docker<span aria-hidden="true" class="line-numbers-rows"><span>
 <li><strong>阿里云镜像加速配置</strong></li>
 </ol>
 <p>为了提高镜像的拉取、发布的速度，可以配置阿里云镜像加速</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/659545bb15fe5db8e045233c63e910fd.png" srcset="/img/loading.gif" lazyload alt="image-20221006134917410" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/659545bb15fe5db8e045233c63e910fd.png" srcset="/img/loading.gif" lazyload></p>
 <p>查看加速器地址</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/325f98d2df03929449ea3ac44b4224e8.png" srcset="/img/loading.gif" lazyload alt="image-20221006135701267"></p>
 <p>在CentOS下配置镜像加速器</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/de6f5b048d1afa84eb98b7ba936b5915.png" srcset="/img/loading.gif" lazyload alt="image-20221006135829472" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/de6f5b048d1afa84eb98b7ba936b5915.png" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">mkdir <span class="token operator">-</span>p <span class="token operator">/</span>etc<span class="token operator">/</span>docker
 cd <span class="token operator">/</span>etc<span class="token operator">/</span>docker    
 tee <span class="token operator">/</span>etc<span class="token operator">/</span>docker<span class="token operator">/</span>daemon<span class="token punctuation">.</span>json <span class="token operator">&lt;&lt;</span><span class="token operator">-</span><span class="token char">'EOF'</span>
@@ -611,8 +607,7 @@ redis:6.0.8<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 <ol start="4">
 <li><strong>修改配置文件，修改数据库配置信息</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228200610900.png" srcset="/img/loading.gif" lazyload alt="image-20221228200610900" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228200610900.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong><code>renren-fast-vue</code>放到VS Code当中，并设置node.js环境</strong></li>
 </ol>
@@ -669,8 +664,7 @@ Get-ExecutionPolicy -List，查看权限正常
 </ol>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228215719035.png" srcset="/img/loading.gif" lazyload alt="image-20221228215719035"></p>
 <p><strong>对应的数据库表名：</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228215823757.png" srcset="/img/loading.gif" lazyload alt="image-20221228215823757" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221228215823757.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>全选，生成对应业务文件，粘贴到项目中即可</strong></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221229134516477.png" srcset="/img/loading.gif" lazyload alt="image-20221229134516477"></p>
 <p>​	</p>
@@ -731,10 +725,7 @@ docker pull mysql:8.0.19<span aria-hidden="true" class="line-numbers-rows"><span
 --name nacos nacos/nacos-server:v2.1.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>​		查看容器的日志信息：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221223135251792.png" srcset="/img/loading.gif" lazyload alt="image-20221223135251792" style="zoom:80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221223135251792.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="5">
 <li><strong>开放8848端口，重启防火墙</strong></li>
 </ol>
@@ -786,8 +777,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <h2 id="10-6OpenFeign服务调用"><a href="#10-6OpenFeign服务调用" class="headerlink" title="10.6OpenFeign服务调用"></a>10.6OpenFeign服务调用</h2><h3 id="10-6-1OpenFeign配置"><a href="#10-6-1OpenFeign配置" class="headerlink" title="10.6.1OpenFeign配置"></a>10.6.1OpenFeign配置</h3><ol>
 <li><strong>openfeign版本支持时间</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221231110631832.png" srcset="/img/loading.gif" lazyload alt="image-20221231110631832" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221231110631832.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong>添加openfeign依赖</strong></li>
 </ol>
@@ -802,13 +792,9 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 </ol>
 <p>​		在启动类上添加<code>@EnableFeignClients</code>注解</p>
 <p>​		使用<code>@FeignClient</code>注解标明要调用哪个模块</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230108152741862.png" srcset="/img/loading.gif" lazyload alt="image-20230108152741862" style="zoom:80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230108152741862.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		对应的被调用的服务模块接口</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230108152717259.png" srcset="/img/loading.gif" lazyload alt="image-20230108152717259" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230108152717259.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="10-6-2OpenFeign超时控制"><a href="#10-6-2OpenFeign超时控制" class="headerlink" title="10.6.2OpenFeign超时控制"></a>10.6.2OpenFeign超时控制</h3><p><font color='red'>高版本的OpenFeign依赖的默认等待时间为60秒钟</font></p>
 <p>如果有一个业务的逻辑流程过于复杂超过了60秒钟，客户端就会报错。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230131205854470.png" srcset="/img/loading.gif" lazyload alt="image-20230131205854470"></p>
@@ -943,8 +929,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <p>​			<font color='red'>新建两个分组，但是是两个相同的文件名</font></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222190359598.png" srcset="/img/loading.gif" lazyload alt="image-20221222190359598"></p>
 <p>在配置文件中指定分组和当前环境：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222190635417.png" srcset="/img/loading.gif" lazyload alt="image-20221222190635417" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222190635417.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222190722073.png" srcset="/img/loading.gif" lazyload alt="image-20221222190722073"></p>
 <ol start="3">
 <li><strong>Namespace方案</strong></li>
@@ -953,12 +938,10 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222191123262.png" srcset="/img/loading.gif" lazyload alt="image-20221222191123262"></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222191219733.png" srcset="/img/loading.gif" lazyload alt="image-20221222191219733"></p>
 <p><strong><font color='red'>配置管理中显现的有命名空间：</font></strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222191415179.png" srcset="/img/loading.gif" lazyload alt="image-20221222191415179" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222191415179.png" srcset="/img/loading.gif" lazyload></p>
 <p>选中DEV_NAMESPACES命名空间，找到命名空间ID并配置到配置文件当中</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222192239174.png" srcset="/img/loading.gif" lazyload alt="image-20221222192239174"></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222192303802.png" srcset="/img/loading.gif" lazyload alt="image-20221222192303802" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222192303802.png" srcset="/img/loading.gif" lazyload></p>
 <p>在此命名空间下创建三个配置，文件名相同，分别位于不同的组</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221222192931578.png" srcset="/img/loading.gif" lazyload alt="image-20221222192931578"></p>
 <p>此时的配置文件</p>
@@ -1129,8 +1112,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <h4 id="10-10-2-2熔断降级"><a href="#10-10-2-2熔断降级" class="headerlink" title="10.10.2.2熔断降级"></a>10.10.2.2熔断降级</h4><p><strong><font color='cornflowerblue'>Sentinel熔断降级会在调用链路中某个资源出现不稳定状态时(例如调用超时或异常比例升高) , 对这个资源的调用进行限制让请求快速失败,避免影响到其它的资源而导致级联错误。</font></strong></p>
 <p><strong><font color='red'>什么是熔断降级</font></strong></p>
 <p>除了流量控制以外，降低调用链路中的不稳定资源也是 Sentinel 的使命之一。由于调用关系的复杂性，如果调用链路中的某个资源出现了不稳定，最终会导致请求发生堆积。这个问题和 <a target="_blank" rel="noopener" href="https://github.com/Netflix/Hystrix/wiki#what-problem-does-hystrix-solve">Hystrix</a> 里面描述的问题是一样的。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221223142635879.png" srcset="/img/loading.gif" lazyload alt="image-20221223142635879" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221223142635879.png" srcset="/img/loading.gif" lazyload></p>
 <p>&#x3D;&#x3D;Sentinel 和 Hystrix 的原则是一致的: 当调用链路中某个资源出现不稳定，例如，表现为 timeout，异常比例升高的时候，则对这个资源的调用进行限制，并让请求快速失败，避免影响到其它的资源，最终产生雪崩的效果。&#x3D;&#x3D;</p>
 <p><strong><font color='red'>熔断降级设计理念</font></strong></p>
 <p>在限制的手段上，Sentinel 和 Hystrix 采取了完全不一样的方法。</p>
@@ -1335,10 +1317,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <h3 id="10-10-9网关流控"><a href="#10-10-9网关流控" class="headerlink" title="10.10.9网关流控"></a>10.10.9网关流控</h3><ol>
 <li><strong>Sentinel 支持对 Spring Cloud Gateway、Zuul 等主流的 API Gateway 进行限流。</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230220104808215.png" srcset="/img/loading.gif" lazyload alt="image-20230220104808215" style="zoom: 67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230220104808215.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong>添加sentinel和gateway的整合依赖</strong></li>
 </ol>
@@ -1355,8 +1334,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <p><strong>新增网关流控规则</strong></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230220231551577.png" srcset="/img/loading.gif" lazyload alt="image-20230220231551577"></p>
 <p><strong>API名称对应的就是网关断言id</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230221090133739.png" srcset="/img/loading.gif" lazyload alt="image-20230221090133739" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230221090133739.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="10-10-10自定义网关流控返回规则"><a href="#10-10-10自定义网关流控返回规则" class="headerlink" title="10.10.10自定义网关流控返回规则"></a>10.10.10自定义网关流控返回规则</h3><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>csp<span class="token punctuation">.</span>sentinel<span class="token punctuation">.</span>adapter<span class="token punctuation">.</span>gateway<span class="token punctuation">.</span>sc<span class="token punctuation">.</span>callback<span class="token punctuation">.</span></span><span class="token class-name">BlockRequestHandler</span></span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>csp<span class="token punctuation">.</span>sentinel<span class="token punctuation">.</span>adapter<span class="token punctuation">.</span>gateway<span class="token punctuation">.</span>sc<span class="token punctuation">.</span>callback<span class="token punctuation">.</span></span><span class="token class-name">GatewayCallbackManager</span></span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
@@ -1386,11 +1364,9 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230221094001931.png" srcset="/img/loading.gif" lazyload alt="image-20230221094001931"></p>
 <h2 id="10-11Sleuth-ZipKin服务链路追踪"><a href="#10-11Sleuth-ZipKin服务链路追踪" class="headerlink" title="10.11Sleuth+ZipKin服务链路追踪"></a>10.11Sleuth+ZipKin服务链路追踪</h2><h3 id="10-11-1问题引出"><a href="#10-11-1问题引出" class="headerlink" title="10.11.1问题引出"></a>10.11.1问题引出</h3><p>&#x3D;&#x3D;在微服务框架中，一个由客户端发起的请求在后端系统中会经过多个不同的的服务节点调用来协同产生最后的请求结果。&#x3D;&#x3D;<strong><font color='red'>每一个前端请求都会形成一条复杂的分布式服务调用链路，链路中的任何一环出现高延时或错误都会引起整个请求最后的失败。</font></strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221221215325632.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221221215325632.png">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221221215325632.png</a>“ &#x2F;&gt;</p>
 <h3 id="10-11-2链路追踪是什么"><a href="#10-11-2链路追踪是什么" class="headerlink" title="10.11.2链路追踪是什么"></a>10.11.2链路追踪是什么</h3><p>&#x3D;&#x3D;Spring Cloud Sleuth提供了一完整的服务跟踪的解决方案，在分布式系统中提供追踪解决方案并且兼容支持了<strong>zipkin（可视化）</strong>。&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221221213955858.png" srcset="/img/loading.gif" lazyload alt="image-20221221213955858" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221221213955858.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="10-11-3完整调用链路"><a href="#10-11-3完整调用链路" class="headerlink" title="10.11.3完整调用链路"></a>10.11.3完整调用链路</h3><p> 表示一请求链路，一条链路通过**<font color='red'>Trace Id唯一标识</font><strong>，Span标识发起的请求信息，</strong>各span通过parent id 关联起来**</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221221220949968.png" srcset="/img/loading.gif" lazyload alt="image-20221221220949968"></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221221221017455.png" srcset="/img/loading.gif" lazyload alt="image-20221221221017455"></p>
@@ -1517,14 +1493,8 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <blockquote>
 <p>是一个 sun 的一个标准 j2ee 设计模式， 这个模式中有个接口就是 DAO ，它负持久 层的操作。为业务层提供接口。此对象用于访问数据库。通常和 PO 结合使用， DAO 中包 含了各种数据库的操作方法。通过它的方法 , 结合 PO 对数据库进行相关的操作。夹在业 务逻辑与数据库资源中间。配合 VO, 提供数据库的 CRUD 操作</p>
 </blockquote>
-<h2 id="11-6正向代理与反向代理"><a href="#11-6正向代理与反向代理" class="headerlink" title="11.6正向代理与反向代理"></a>11.6正向代理与反向代理</h2><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118102929945.png" srcset="/img/loading.gif" lazyload alt="image-20230118102929945" style="zoom:80%;" />
-
-
-
-<h2 id="11-7Nginx配置文件"><a href="#11-7Nginx配置文件" class="headerlink" title="11.7Nginx配置文件"></a>11.7Nginx配置文件</h2><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118102947246.png" srcset="/img/loading.gif" lazyload alt="image-20230118102947246" style="zoom:80%;" />
-
-
-
+<h2 id="11-6正向代理与反向代理"><a href="#11-6正向代理与反向代理" class="headerlink" title="11.6正向代理与反向代理"></a>11.6正向代理与反向代理</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118102929945.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="11-7Nginx配置文件"><a href="#11-7Nginx配置文件" class="headerlink" title="11.7Nginx配置文件"></a>11.7Nginx配置文件</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118102947246.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="11-8Nginx动静分离"><a href="#11-8Nginx动静分离" class="headerlink" title="11.8Nginx动静分离"></a>11.8Nginx动静分离</h2><p>为了提供接口性能，提高响应速度，实现Nginx动静分离，Nginx直接返回静态资源：</p>
 <ul>
 <li>将所有项目的静态资源都应该放在nginx里面 </li>
@@ -1539,16 +1509,9 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118162335235.png" srcset="/img/loading.gif" lazyload alt="image-20230118162335235"></p>
 <p>修改项目中静态资源的访问路径：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118161252555.png" srcset="/img/loading.gif" lazyload alt="image-20230118161252555" style="zoom: 67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118161325796.png" srcset="/img/loading.gif" lazyload alt="image-20230118161325796" style="zoom:80%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118161508599.png" srcset="/img/loading.gif" lazyload alt="image-20230118161508599" style="zoom: 80%;" />
-
-
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118161252555.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118161325796.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118161508599.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="11-9性能测试指标"><a href="#11-9性能测试指标" class="headerlink" title="11.9性能测试指标"></a>11.9性能测试指标</h2><ul>
 <li><strong>响应时间</strong>（Response Time: RT）<br>响应时间指用户从客户端发起一个请求开始，到客户端接收到从服务器端返回的响<br>应结束，整个过程所耗费的时间。</li>
 <li><strong>HPS</strong>（Hits Per Second） ：每秒点击次数，单位是次&#x2F;秒。</li>
@@ -1587,12 +1550,8 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 </ul>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118143727201.png" srcset="/img/loading.gif" lazyload alt="image-20230118143727201" style="zoom:80%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118143750716.png" srcset="/img/loading.gif" lazyload alt="image-20230118143750716" style="zoom:80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118143727201.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118143750716.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="11-9-3jconsole和jvisualvm"><a href="#11-9-3jconsole和jvisualvm" class="headerlink" title="11.9.3jconsole和jvisualvm"></a>11.9.3jconsole和jvisualvm</h3><p>Jdk 的两个小工具 jconsole、jvisualvm（升级版的 jconsole）;通过命令行启动，可监控本地和 远程应用。远程应用需要配置</p>
 <p>jvisualvm的功能：</p>
 <ul>
@@ -1611,15 +1570,9 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 </li>
 </ul>
 <p><strong>Cache接口：</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230119204331137.png" srcset="/img/loading.gif" lazyload alt="image-20230119204331137" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230119204331137.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>CacheManager接口：</strong></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230119204238110.png" srcset="/img/loading.gif" lazyload alt="image-20230119204238110" style="zoom:80%;" />
-
-
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230119204238110.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li><p><strong>Cache 接口为缓存的组件规范定义，包含缓存的各种操作集合</strong>； Cache 接 口 下 Spring 提 供 了 各 种 xxxCache 的 实 现 ； 如 RedisCache ， EhCacheCache , ConcurrentMapCache 等；</p>
 </li>
@@ -2629,10 +2582,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <ol start="2">
 <li><strong>创建应用</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230130220738982.png" srcset="/img/loading.gif" lazyload alt="image-20230130220738982" style="zoom: 67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230130220738982.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="11-16-3-2查看OAuth文档说明"><a href="#11-16-3-2查看OAuth文档说明" class="headerlink" title="11.16.3.2查看OAuth文档说明"></a>11.16.3.2<strong>查看OAuth文档说明</strong></h4><p>​		<strong><font color='red'>授权码模式</font></strong></p>
 <ul>
 <li><p>应用通过 浏览器 或 Webview 将用户引导到码云三方认证页面上（ <strong>GET请求</strong> ）</p>
@@ -3067,8 +3017,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <h3 id="11-21-3Exchange接口"><a href="#11-21-3Exchange接口" class="headerlink" title="11.21.3Exchange接口"></a>11.21.3Exchange接口</h3><p>Exchange接口时创建交换机对象的接口，其实现类就就是创建对应的交换机：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230203210516113.png" srcset="/img/loading.gif" lazyload alt="image-20230203210516113"></p>
 <h3 id="11-21-4AmqpAdmin接口"><a href="#11-21-4AmqpAdmin接口" class="headerlink" title="11.21.4AmqpAdmin接口"></a>11.21.4AmqpAdmin接口</h3><h4 id="11-21-3-1AmqpAdmin概述"><a href="#11-21-3-1AmqpAdmin概述" class="headerlink" title="11.21.3.1AmqpAdmin概述"></a>11.21.3.1AmqpAdmin概述</h4><p>&#x3D;&#x3D;AmqpAdmin是一个接口。是Rabbitmq的系统管理功能，能够创建、删除Queue， Exchange， Binding&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230203210123321.png" srcset="/img/loading.gif" lazyload alt="image-20230203210123083" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230203210123321.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="11-21-3-2声明交换机"><a href="#11-21-3-2声明交换机" class="headerlink" title="11.21.3.2声明交换机"></a>11.21.3.2声明交换机</h4><blockquote>
 <p><code>DirectExchange</code>参数说明：</p>
 <p><code>String name</code>：交换机名称</p>
@@ -3260,8 +3209,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <li><strong>none</strong>：禁止发布确定模式，是默认值</li>
 <li><strong>simple</strong>：和单个发布确定的模式相同</li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221023161952041.png" srcset="/img/loading.gif" lazyload alt="image-20221023161952041" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221023161952041.png" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
   <span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
     <span class="token key atrule">host</span><span class="token punctuation">:</span> 192.168.26.142
@@ -3816,8 +3764,7 @@ docker rm seata-server<span aria-hidden="true" class="line-numbers-rows"><span><
 <li><p><strong>创建数据库，导入sql文件</strong></p>
 <p>创建数据库：seata</p>
 <p>sql文件github地址</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221225185314394.png" srcset="/img/loading.gif" lazyload alt="image-20221225185314394" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221225185314394.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		导入sql文件</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221225185737091.png" srcset="/img/loading.gif" lazyload></p>
 </li>
@@ -4169,8 +4116,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 
 
 <p>每个数据库下再增加**<font color='red'>回滚日志表</font>font&gt;**：日志表位置</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221226131854716.png" srcset="/img/loading.gif" lazyload alt="image-20221226131854716" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221226131854716.png" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token identifier"><span class="token punctuation">`</span>undo_log<span class="token punctuation">`</span></span>
 <span class="token punctuation">(</span>
     <span class="token identifier"><span class="token punctuation">`</span>branch_id<span class="token punctuation">`</span></span>     <span class="token keyword">BIGINT</span>       <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">COMMENT</span> <span class="token string">'branch transaction id'</span><span class="token punctuation">,</span>
@@ -4908,19 +4854,13 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <li>沙箱环境拥有完全独立的数据体系，沙箱环境下返回的数据（例如用户 ID 等）在生产环境中都是不存在的，开发者不可将沙箱环境返回的数据与生产环境中的数据混淆</li>
 </ul>
 <p>沙箱应用：<a target="_blank" rel="noopener" href="https://openhome.alipay.com/develop/sandbox/app">https://openhome.alipay.com/develop/sandbox/app</a></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211183535932.png" srcset="/img/loading.gif" lazyload alt="image-20230211183535932" style="zoom: 67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211183535932.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="11-31内网穿透"><a href="#11-31内网穿透" class="headerlink" title="11.31内网穿透"></a>11.31内网穿透</h2><h3 id="11-31-1内网穿透概念"><a href="#11-31-1内网穿透概念" class="headerlink" title="11.31.1内网穿透概念"></a>11.31.1内网穿透概念</h3><p>内网，就是在公司或者家庭内部，建立的<strong>局域网络</strong>，可以实现多台电脑之间的资源共享，包括设备、资料、数据等。而外网则是通过一个网关与其它的网络系统连接，相对于内网而言，这种网络系统称之为外部网络，常见的就是我们日常使用的互联网。</p>
 <p><strong><font color='cornflowerblue'>一般而言，在没有固定公网IP的情况下，外网设备无法直接访问内网设备。而内网穿透技术，顾名思义就是能让外网的设备找到处于内网的设备，从而实现数据通信。</font></strong></p>
 <h3 id="11-31-2内网穿透的原理"><a href="#11-31-2内网穿透的原理" class="headerlink" title="11.31.2内网穿透的原理"></a>11.31.2内网穿透的原理</h3><p>内网穿透，又称为NAT穿透。NAT背后的设备，它们的主要特点是 ，可以访问外网，但不能被外网设备有效访问。基于这一特点，NAT穿透技术是让NAT背后的设备，先访问指定的外网服务器，由指定的外网服务器搭建桥梁，打通内、外网设备的访问通道，实现外网设备访问到内网设备。</p>
 <p>该技术除了可以访问隐藏在NAT后的设备，同样可以穿透防火墙。这是因为防火墙一般只拦截了入站没有拦截出站，所以也可以让防火墙内的设备对外提供服务。</p>
 <p>由于内网设备并不是与外网设备直接相连，所以在安全性上是毋庸置疑的，内网穿透可以说是安全与效率兼得。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211192837339.png" srcset="/img/loading.gif" lazyload alt="image-20230211192837339" style="zoom:80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211192837339.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="11-31-3内网穿透的应用场景"><a href="#11-31-3内网穿透的应用场景" class="headerlink" title="11.31.3内网穿透的应用场景"></a>11.31.3内网穿透的应用场景</h3><ol>
 <li>开发测试（微信、支付宝） </li>
 <li>智慧互联 </li>
@@ -4936,15 +4876,13 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <p>本地地址就表示当前映射的为127.0.0.1:8080，本机的项目地址需要运行在当前路径下</p>
 </li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230213163117331.png" srcset="/img/loading.gif" lazyload alt="image-20230213163117331" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230213163117331.png" srcset="/img/loading.gif" lazyload></p>
 <p>生成的隧道：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230213163300380.png" srcset="/img/loading.gif" lazyload alt="image-20230213163300380"></p>
 <ol start="3">
 <li><strong><font color='red'>如果使用的是支付宝的支付成功跳转页面</font>，就将生成的公网地址添加到SDK的配置当中当中</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212193408011.png" srcset="/img/loading.gif" lazyload alt="image-20230212193408011" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212193408011.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="11-31-5内网穿透联调"><a href="#11-31-5内网穿透联调" class="headerlink" title="11.31.5内网穿透联调"></a>11.31.5内网穿透联调</h3><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230213123218475.png" srcset="/img/loading.gif" lazyload alt="image-20230213123218475"></p>
 <p>由于nginx做反向代理的时候是需要获取到请求的Host地址的，以此来反向代理给网关：</p>
 <p>下面就是浏览器请求头中携带Host，反向代理给网关</p>
@@ -4972,12 +4910,9 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <ol start="4">
 <li><strong>下载密钥工具，生成公钥、私钥</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211182530067.png" srcset="/img/loading.gif" lazyload alt="image-20230211182530067" style="zoom: 67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211182849378.png" srcset="/img/loading.gif" lazyload alt="image-20230211182849378" style="zoom:80%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211183929141.png" srcset="/img/loading.gif" lazyload alt="image-20230211183929141" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211182530067.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211182849378.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211183929141.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="5">
 <li><strong>将私钥放入到Demo中的<code>AlipayConfig</code>中</strong></li>
 </ol>
@@ -4997,10 +4932,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <ol start="8">
 <li><strong>将支付宝公钥放入Demo</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211190330710.png" srcset="/img/loading.gif" lazyload alt="image-20230211190330710" style="zoom: 67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230211190330710.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		<strong>商户私钥和公钥：</strong>私钥在Demo中，公钥在沙箱应用中生成对应的支付宝公钥。</p>
 <p>​		<strong>支付宝私钥和公钥：</strong>公钥由商户的公钥生成，私钥由支付宝管理。</p>
 <h3 id="11-32-2业务搭建"><a href="#11-32-2业务搭建" class="headerlink" title="11.32.2业务搭建"></a>11.32.2业务搭建</h3><ol>
@@ -5212,28 +5144,20 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <ol start="2">
 <li><strong>使用沙箱账号进行登录</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212190333842.png" srcset="/img/loading.gif" lazyload alt="image-20230212190333842" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212190333842.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>跳转到付款页面</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212190426376.png" srcset="/img/loading.gif" lazyload alt="image-20230212190426376" style="zoom:67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212190426376.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="4">
 <li><strong>支付成功，跳转到指定的同步通知页面</strong></li>
 </ol>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212190513105.png" srcset="/img/loading.gif" lazyload alt="image-20230212190513105"></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212210644382.png" srcset="/img/loading.gif" lazyload alt="image-20230212210644382" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212210644382.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="5">
 <li><strong>沙箱账号余额改变</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212190624473.png" srcset="/img/loading.gif" lazyload alt="image-20230212190624473" style="zoom:67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230212190624473.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="11-32-4支付宝异步通知和验签"><a href="#11-32-4支付宝异步通知和验签" class="headerlink" title="11.32.4支付宝异步通知和验签"></a>11.32.4支付宝异步通知和验签</h3><p><a target="_blank" rel="noopener" href="https://opendocs.alipay.com/open/270/105902#%E5%BC%82%E6%AD%A5%E9%80%9A%E7%9F%A5%E5%8F%82%E6%95%B0">https://opendocs.alipay.com/open/270/105902#%E5%BC%82%E6%AD%A5%E9%80%9A%E7%9F%A5%E5%8F%82%E6%95%B0</a></p>
 <ol>
 <li><strong>异步通知说明</strong></li>
@@ -5249,10 +5173,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <ol start="3">
 <li><strong>异步通知返回的参数信息</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230213165533244.png" srcset="/img/loading.gif" lazyload alt="image-20230213165533244" style="zoom: 67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230213165533244.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="4">
 <li><strong>配置好异步通知请求路径，返回success</strong></li>
 </ol>
@@ -5287,8 +5208,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>查看支付宝返回的参数</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230213165203399.png" srcset="/img/loading.gif" lazyload alt="image-20230213165203399" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230213165203399.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="5">
 <li><strong>封装支付宝异步通知的返回对象</strong></li>
 </ol>
@@ -5679,8 +5599,7 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>测试：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230102184547503.png" srcset="/img/loading.gif" lazyload alt="image-20230102184547503" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230102184547503.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="12-2循环查库优化"><a href="#12-2循环查库优化" class="headerlink" title="12.2循环查库优化"></a>12.2循环查库优化</h2><p>将在循环中多次操作数据库的操作变成查询数据库一次</p>
 <p>将在stream流中操作的循环查库的方式抽取成方法</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118170438852.png" srcset="/img/loading.gif" lazyload alt="image-20230118170438852"></p>
@@ -6639,13 +6558,11 @@ spring<span class="token operator">:</span>
 <h3 id="13-4-2对象存储上传方式"><a href="#13-4-2对象存储上传方式" class="headerlink" title="13.4.2对象存储上传方式"></a>13.4.2对象存储上传方式</h3><ol>
 <li><strong>普通上传方式</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104121633250.png" srcset="/img/loading.gif" lazyload alt="image-20230104121633250" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104121633250.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong>服务端签名后直传方式</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104121658232.png" srcset="/img/loading.gif" lazyload alt="image-20230104121658232" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104121658232.png" srcset="/img/loading.gif" lazyload></p>
 <p>阿里云提供的<code>服务端签名后直传</code>方式</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104130635325.png" srcset="/img/loading.gif" lazyload alt="image-20230104130635325"></p>
 <h3 id="13-4-3服务端签名直传实现方案"><a href="#13-4-3服务端签名直传实现方案" class="headerlink" title="13.4.3服务端签名直传实现方案"></a>13.4.3服务端签名直传实现方案</h3><p>采用<code>SpringCloud Alibaba</code>的<strong>阿里云对象存储</strong>服务进行数据云存储</p>
@@ -6666,12 +6583,8 @@ spring<span class="token operator">:</span>
 <li><strong>在nacos配置中心添加对象存储的配置</strong></li>
 </ol>
 <p>上传文件到指定目录下：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104152903401.png" srcset="/img/loading.gif" lazyload alt="image-20230104152903401" style="zoom:80%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104153821833.png" srcset="/img/loading.gif" lazyload alt="image-20230104153821833" style="zoom:80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104152903401.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104153821833.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="4">
 <li><strong>对应的控制层，用以获取到对应的服务端签名等信息</strong></li>
 </ol>
@@ -6762,10 +6675,7 @@ spring<span class="token operator">:</span>
 </ol>
 <p>​		数据安全-&gt;跨域设置</p>
 <p>​		测试阶段来源设置为<code>*</code>，等项目上线后修改为后端的地址</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104142115354.png" srcset="/img/loading.gif" lazyload alt="image-20230104142115354" style="zoom:67%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104142115354.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="13-5JSR303数据校验"><a href="#13-5JSR303数据校验" class="headerlink" title="13.5JSR303数据校验"></a>13.5JSR303数据校验</h2><h3 id="13-5-1概述"><a href="#13-5-1概述" class="headerlink" title="13.5.1概述"></a>13.5.1概述</h3><p>JSR是Java Specification Requests的缩写，意思是Java 规范提案</p>
 <p><font color='red'>JSR-303 是JAVA EE 6 中的一项子规范</font>，叫做Bean Validation，即，JSR 303，<code>Bean Validation规范</code> ，为Bean验证定义了元数据模型和API.。默认的元数据模型是通过Annotations来描述的，但是也可以使用XML来重载或者扩展。</p>
 <p><strong>使用的依赖：</strong></p>
@@ -6782,8 +6692,7 @@ spring<span class="token operator">:</span>
 <li><code>@NotEmpty</code> 能够处理字符串、集合类型</li>
 <li><code>@NotBlank</code> 能够处理任意类型，且不能为空格</li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104172048533.png" srcset="/img/loading.gif" lazyload alt="image-20230104172048533" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104172048533.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong><font color='red'>JSR303是一种规范，而Hibernate 对其做了实现</font></strong></p>
 <p>Hibernate 中填充一部分</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104172104072.png" srcset="/img/loading.gif" lazyload alt="image-20230104172104072"></p>
@@ -6794,8 +6703,7 @@ spring<span class="token operator">:</span>
 <ol start="2">
 <li><strong>在控制层对应的方法参数中添加<code>@Valid</code>校验注解</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104173636690.png" srcset="/img/loading.gif" lazyload alt="image-20230104173636690" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230104173636690.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>使用apifox进行空数据测试</strong></li>
 </ol>
@@ -7475,15 +7383,13 @@ spring<span class="token operator">:</span>
 
 <h2 id="13-12Nginx配置反向代理"><a href="#13-12Nginx配置反向代理" class="headerlink" title="13.12Nginx配置反向代理"></a>13.12Nginx配置反向代理</h2><h3 id="13-12-1在本机电脑做ip-域名映射："><a href="#13-12-1在本机电脑做ip-域名映射：" class="headerlink" title="13.12.1在本机电脑做ip-域名映射："></a>13.12.1在本机电脑做ip-域名映射：</h3><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230120125642823.png" srcset="/img/loading.gif" lazyload alt="image-20230120125642823"></p>
 <h3 id="13-12-2Nginx配置反向代理到本机地址"><a href="#13-12-2Nginx配置反向代理到本机地址" class="headerlink" title="13.12.2Nginx配置反向代理到本机地址"></a>13.12.2Nginx配置反向代理到本机地址</h3><p>当在nginx.conf文件中未找到<code>server</code>块时，根据提示是在<code>conf.d</code>文件夹下，该文件夹下默认有一个<code>default.conf</code>文件，可以复制该文件。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118110245948.png" srcset="/img/loading.gif" lazyload alt="image-20230118110245948" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118110245948.png" srcset="/img/loading.gif" lazyload></p>
 <p>在server中配置，当访问gulimall.com域名时，就反向代理到本机的10000端口</p>
 <p><font color='red'><strong>这里的ip地址可以配置为本机的ip地址，也可以是虚拟网卡地址</strong></font></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118104914819.png" srcset="/img/loading.gif" lazyload alt="image-20230118104914819"></p>
 <h3 id="13-12-3Nginx配置反向代理到网关"><a href="#13-12-3Nginx配置反向代理到网关" class="headerlink" title="13.12.3Nginx配置反向代理到网关"></a>13.12.3Nginx配置反向代理到网关</h3><p>代理步骤：&#x3D;&#x3D;<code>nginx</code>首先做好负载均衡（upstream）和反向代理（proxy）。然后发送请求到<code>nginx</code>，<code>nginx</code>根据反向代理规则反向代理到网关，网关根据断言规则转到对应的服务。&#x3D;&#x3D;</p>
 <p>在<code>nginx.conf</code>文件中添加<code>upstream块</code>，<code>gulimall</code>是upstream名，<code>server</code>配置的是本机网关地址</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118110908461.png" srcset="/img/loading.gif" lazyload alt="image-20230118110908461" style="zoom: 80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118110908461.png" srcset="/img/loading.gif" lazyload></p>
 <p>在<code>conf.d</code>文件夹下修改对应文件的<code>server</code>块，配置反向代理到网关</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230118114530464.png" srcset="/img/loading.gif" lazyload alt="image-20230118114530464"></p>
 <p>在网关模块添加新的配置，	</p>
@@ -7785,13 +7691,11 @@ spring<span class="token operator">:</span>
 <li><strong>购买短信服务</strong></li>
 </ol>
 <p>	</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230129145345805.png" srcset="/img/loading.gif" lazyload alt="image-20230129145345805" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230129145345805.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li><strong>查看提供的API</strong></li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230129150141784.png" srcset="/img/loading.gif" lazyload alt="image-20230129150141784" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230129150141784.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li><strong>在配置文件当中写入配置信息</strong></li>
 </ol>
@@ -8119,10 +8023,7 @@ spring<span class="token operator">:</span>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230108161832243.png" srcset="/img/loading.gif" lazyload alt="image-20230108161832243"></p>
 <p>​		添加要启动的微服务</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230108161922971.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="14-2指定每个微服务所占的最大内存"><a href="#14-2指定每个微服务所占的最大内存" class="headerlink" title="14.2指定每个微服务所占的最大内存"></a>14.2指定每个微服务所占的最大内存</h2><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230108162235461.png" srcset="/img/loading.gif" lazyload alt="image-20230108162235461" style="zoom:80%;" />
-
-
-
+<h2 id="14-2指定每个微服务所占的最大内存"><a href="#14-2指定每个微服务所占的最大内存" class="headerlink" title="14.2指定每个微服务所占的最大内存"></a>14.2指定每个微服务所占的最大内存</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230108162235461.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>

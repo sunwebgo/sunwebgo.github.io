@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612172744333.png">
 <meta property="article:published_time" content="2022-09-10T07:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.123Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.967Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Git">
 <meta property="article:tag" content="版本控制">
@@ -345,13 +345,11 @@
 <p>​		版本控制其实最重要的是可以<font color='orange'>记录文件修改历史记录</font>，从而能够让用户查看历史版本，方便版本切换。</p>
 <p>​      为什么要使用版本控制：</p>
 <p>​					&#x3D;&#x3D;个人开发过渡到团队协作&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173113750.png" srcset="/img/loading.gif" lazyload alt="image-20220918173113750" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173113750.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="2：集中式版本控制和分布式版本控制"><a href="#2：集中式版本控制和分布式版本控制" class="headerlink" title="2：集中式版本控制和分布式版本控制"></a>2：集中式版本控制和分布式版本控制</h1><h2 id="2-1集中式版本控制"><a href="#2-1集中式版本控制" class="headerlink" title="2.1集中式版本控制"></a>2.1集中式版本控制</h2><p><font color='red'>集中化的版本控制系统都有一个单一的集中管理的服务器</font>，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。</p>
 <p>这种做法带来了许多好处，<font color='cornflowerblue'>每个人都可以在一定程度上看到项目中的其他人正在做些什么。而管理员也可以轻松掌控每个开发者的权限，并且管理一个集中化的版本控制系统，要远比在各个客户端上维护本地数据库来得轻松容易。</font></p>
 <p>事分两面，有好有坏。这么做显而易见的缺点是&#x3D;&#x3D;中央服务器的单点故障&#x3D;&#x3D;。如果服务器宕机一小时，那么在这一小时内，谁都无法提交更新，也就无法协同工作</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173345066.png" srcset="/img/loading.gif" lazyload alt="image-20220918173345066" style="zoom: 33%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173345066.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="2-2分布式版本控制"><a href="#2-2分布式版本控制" class="headerlink" title="2.2分布式版本控制"></a>2.2分布式版本控制</h2><p>像 Git 这种分布式版本控制工具，<font color='red'>客户端提取的不是最新版本的文件快照，而是把代码仓库完整地镜像下来（本地库）</font>。这样任何一处协同工作用的文件发生故障，事后都可以用其他客户端的本地仓库进行恢复。因为每个客户端的每一次文件提取操作，实际上都是一次对整个文件仓库的完整备份。分布式的版本控制系统出现之后,解决了集中式版本控制系统的缺陷:</p>
 <ol>
 <li><p>&#x3D;&#x3D;服务器断网的情况下也可以进行开发（因为版本控制是在本地进行的）&#x3D;&#x3D;</p>
@@ -359,14 +357,9 @@
 <li><p>&#x3D;&#x3D;每个客户端保存的也都是整个完整的项目（包含历史记录，更加安全）&#x3D;&#x3D;</p>
 </li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173414605.png" srcset="/img/loading.gif" lazyload alt="image-20220918173414605" style="zoom:33%;" />
-
-<h1 id="3：Git简史"><a href="#3：Git简史" class="headerlink" title="3：Git简史"></a>3：Git简史</h1><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173708599.png" srcset="/img/loading.gif" lazyload alt="image-20220918173708599" style="zoom: 67%;" />
-
-
-
-<h1 id="4：Git工作机制"><a href="#4：Git工作机制" class="headerlink" title="4：Git工作机制"></a>4：Git工作机制</h1><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173823117.png" srcset="/img/loading.gif" lazyload alt="image-20220918173823117" style="zoom: 50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173414605.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="3：Git简史"><a href="#3：Git简史" class="headerlink" title="3：Git简史"></a>3：Git简史</h1><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173708599.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="4：Git工作机制"><a href="#4：Git工作机制" class="headerlink" title="4：Git工作机制"></a>4：Git工作机制</h1><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918173823117.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="5：Git和代码托管中心"><a href="#5：Git和代码托管中心" class="headerlink" title="5：Git和代码托管中心"></a>5：Git和代码托管中心</h1><p>代码托管中心是基于&#x3D;&#x3D;网络服务器的远程代码仓库&#x3D;&#x3D;，一般我们简单称为远程库。</p>
 <p>局域网：</p>
 <ul>
@@ -378,8 +371,7 @@
 <li>Gitee码云</li>
 </ul>
 <h1 id="6：Git的安装"><a href="#6：Git的安装" class="headerlink" title="6：Git的安装"></a>6：Git的安装</h1><p>去官网下载：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918175311350.png" srcset="/img/loading.gif" lazyload alt="image-20220918175311350" style="zoom:50%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918175311350.png" srcset="/img/loading.gif" lazyload></p>
 <p>安装成功：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220918181622010.png" srcset="/img/loading.gif" lazyload alt="image-20220918181622010"></p>
 <p>在电脑桌面右键打开Git命令行客户端，输入git –version查看git版本信息。</p>
@@ -531,10 +523,7 @@ git log <span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <p>查看文件内容，文件内容为第一个版本内容：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919105456672.png" srcset="/img/loading.gif" lazyload alt="image-20220919105456672"></p>
 <p>&#x3D;&#x3D;<font color='red'>Git 切换版本，底层其实是移动的 HEAD 指针，具体原理如下图所示</font>&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919110247385.png" srcset="/img/loading.gif" lazyload alt="image-20220919110247385" style="zoom: 50%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919110247385.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="8：Git分支"><a href="#8：Git分支" class="headerlink" title="8：Git分支"></a>8：Git分支</h1><h2 id="8-1公司中服务器的运行模式"><a href="#8-1公司中服务器的运行模式" class="headerlink" title="8.1公司中服务器的运行模式"></a>8.1公司中服务器的运行模式</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919110505705.png" srcset="/img/loading.gif" lazyload alt="image-20220919110505705"></p>
 <h2 id="8-1什么是分支"><a href="#8-1什么是分支" class="headerlink" title="8.1什么是分支"></a>8.1什么是分支</h2><p><font color='orange'>在版本控制过程中，同时推进多个任务，为每个任务，我们就可以创建每个任务的单独分支</font>。<font color='cornflowerblue'>使用分支意味着程序员可以把自己的工作从开发主线上分离开来，开发自己分支的时候，不会影响主线分支的运行</font>。对于初学者而言，分支可以简单理解为副本，一个分支就是一个单独的副本。<font color='red'>（分支底层其实也是指针的引用）</font></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919110723245.png" srcset="/img/loading.gif" lazyload alt="image-20220919110723245"></p>
@@ -615,10 +604,7 @@ git log <span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <h2 id="8-4切换分支的本质"><a href="#8-4切换分支的本质" class="headerlink" title="8.4切换分支的本质"></a>8.4切换分支的本质</h2><p>&#x3D;&#x3D;<font color='cornflowerblue'>切换分支的本质就是移动 HEAD 指针</font>。&#x3D;&#x3D;</p>
 <p>master、hot-fix <font color='red'>其实都是指向具体版本记录的指针</font>。当前所在的分支，其实是由 HEAD决定的。<font color='orange'>所以创建分支的本质就是多创建一个指针。</font></p>
 <p>HEAD 如果指向 master，那么我们现在就在 master 分支上。HEAD 如果指向 hotfix，那么我们现在就在 hotfix 分支上。</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919134217824.png" srcset="/img/loading.gif" lazyload alt="image-20220919134217824" style="zoom: 80%;" />
-
-
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919134217824.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="9：Git团队协作机制"><a href="#9：Git团队协作机制" class="headerlink" title="9：Git团队协作机制"></a>9：Git团队协作机制</h1><h2 id="9-1团队内协作"><a href="#9-1团队内协作" class="headerlink" title="9.1团队内协作"></a>9.1团队内协作</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919160159925.png" srcset="/img/loading.gif" lazyload alt="image-20220919160159925"></p>
 <h2 id="9-2跨团队协作"><a href="#9-2跨团队协作" class="headerlink" title="9.2跨团队协作"></a>9.2跨团队协作</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919160209990.png" srcset="/img/loading.gif" lazyload alt="image-20220919160209990"></p>
 <h1 id="10：GitHub操作"><a href="#10：GitHub操作" class="headerlink" title="10：GitHub操作"></a>10：GitHub操作</h1><p><a target="_blank" rel="noopener" href="https://github.com/"> GitHub</a></p>
@@ -627,8 +613,7 @@ git log <span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <h2 id="10-1创建远程仓库"><a href="#10-1创建远程仓库" class="headerlink" title="10.1创建远程仓库"></a>10.1创建远程仓库</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919161739355.png" srcset="/img/loading.gif" lazyload alt="image-20220919161739355"></p>
 <p>远程库的名字一般和本地仓库的名字保持一致</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919161947174.png" srcset="/img/loading.gif" lazyload alt="image-20220919161947174"></p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919165438738.png" srcset="/img/loading.gif" lazyload alt="image-20220919165438738" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919165438738.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220919165530849.png" srcset="/img/loading.gif" lazyload alt="image-20220919165530849"></p>
 <h2 id="10-2远程仓库的基本操作"><a href="#10-2远程仓库的基本操作" class="headerlink" title="10.2远程仓库的基本操作"></a>10.2远程仓库的基本操作</h2><table>
 <thead>

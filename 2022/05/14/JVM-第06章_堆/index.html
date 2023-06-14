@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-14T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T07:22:19.123Z">
+<meta property="article:modified_time" content="2023-06-14T13:18:22.967Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -286,7 +286,7 @@
         
         
         
-          107 分钟
+          109 分钟
         
       </span>
     
@@ -351,8 +351,7 @@
 <li>&#x3D;&#x3D;堆，是GC（Garbage Collection，垃圾收集器）执行垃圾回收的重点区域。&#x3D;&#x3D;</li>
 </ul>
 </blockquote>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529105327331.png" srcset="/img/loading.gif" lazyload alt="image-20230529105327331" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529105327331.png" srcset="/img/loading.gif" lazyload></p>
 <p>​</p>
 <h2 id="6-2-虚拟机栈、堆和方法区的关系"><a href="#6-2-虚拟机栈、堆和方法区的关系" class="headerlink" title="6.2. 虚拟机栈、堆和方法区的关系"></a>6.2. 虚拟机栈、堆和方法区的关系</h2><ul>
 <li>虚拟机栈存储的是方法调用过程中的临时数据和调用者的地址信息。</li>
@@ -363,8 +362,7 @@
 <h2 id="6-3-堆内存细分"><a href="#6-3-堆内存细分" class="headerlink" title="6.3. 堆内存细分"></a>6.3. 堆内存细分</h2><p>Java 7及之前堆内存逻辑上分为三部分：<code>新生代+老年代+永久代</code></p>
 <p>Java 8及之后堆内存逻辑上分为三部分：<code>新生代+老年代+元空间</code></p>
 <p>约定：&#x3D;&#x3D;新生区（代）&lt;&#x3D;&gt;年轻代 、 养老区&lt;&#x3D;&gt;老年区（代）、 永久区&lt;&#x3D;&gt;永久代&#x3D;&#x3D;</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529112532128.png" srcset="/img/loading.gif" lazyload alt="image-20230529112532128" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529112532128.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="6-4-堆内存设置和Visual-VM-虚拟机监视器"><a href="#6-4-堆内存设置和Visual-VM-虚拟机监视器" class="headerlink" title="6.4.堆内存设置和Visual VM(虚拟机监视器)"></a>6.4.堆内存设置和Visual VM(虚拟机监视器)</h2><p>Java堆区用于存储Java对象实例，那么堆的大小在JVM启动时就已经设定好了，大家可以通过选项”-Xmx”和”-Xms”来进行设置。</p>
 <blockquote>
 <ul>
@@ -388,10 +386,8 @@
 <ol>
 <li>在<code>Configurations</code>设置堆内存大小</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529121818461.png" srcset="/img/loading.gif" lazyload alt="image-20230529121818461" style="zoom: 67%;" />
-
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529122106046.png" srcset="/img/loading.gif" lazyload alt="image-20230529122106046" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529121818461.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529122106046.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li>启动main方法，并打开<code>Visual VM</code></li>
 </ol>
@@ -437,8 +433,7 @@
 </ul>
 <p>Java堆区进一步细分的话，可以划分为年轻代（YoungGen）和老年代（oldGen）</p>
 <p>其中年轻代又可以划分为<code>Eden</code>区、<code>Survivor0</code>区和<code>Survivor1</code>区（有时也叫做from区、to区）</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529144830330.png" srcset="/img/loading.gif" lazyload alt="image-20230529144830330" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529144830330.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="6-6-2年轻代和老年代的结构占比"><a href="#6-6-2年轻代和老年代的结构占比" class="headerlink" title="6.6.2年轻代和老年代的结构占比"></a>6.6.2年轻代和老年代的结构占比</h3><p>配置新生代与老年代在堆结构的占比。</p>
 <ul>
 <li><p>默认<code>-XX:NewRatio=2</code>，表示新生代占1，老年代占2，新生代占整个堆的1&#x2F;3</p>
@@ -446,8 +441,7 @@
 <li><p>可以修改<code>-XX:NewRatio=4</code>，表示新生代占1，老年代占4，新生代占整个堆的1&#x2F;5</p>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529145612460.png" srcset="/img/loading.gif" lazyload alt="image-20230529145612460" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529145612460.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="6-6-3年轻代中edeu区和survivor0、survivor1区结构占比"><a href="#6-6-3年轻代中edeu区和survivor0、survivor1区结构占比" class="headerlink" title="6.6.3年轻代中edeu区和survivor0、survivor1区结构占比"></a>6.6.3年轻代中edeu区和survivor0、survivor1区结构占比</h3><p>在HotSpot中，Eden空间和另外两个survivor空间缺省所占的比例是8：1：1，但是事实上却不是该比例，是由于<code>自适应策略</code>。</p>
 <p>当然开发人员可以通过选项“<code>-xx:SurvivorRatio</code>”调整这个空间比例。比如<code>-xx:SurvivorRatio=8</code></p>
 <p><font color='scarlet'>几乎所有的Java对象都是在Eden区被new出来的。绝大部分的Java对象的销毁都在新生代进行了。</font></p>
@@ -484,11 +478,9 @@
 </li>
 </ol>
 </blockquote>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529152048195.png" srcset="/img/loading.gif" lazyload alt="image-20230529152048195" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529152048195.png" srcset="/img/loading.gif" lazyload></p>
 <p>流程图如下：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529152337492.png" srcset="/img/loading.gif" lazyload alt="image-20230529152337492" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529152337492.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>总结</strong></p>
 <blockquote>
 <ul>
@@ -534,8 +526,7 @@
 <li>对<code>Eden</code>区进行垃圾回收的同时，对<code>survivor</code>区也进行垃圾回收，将超过阈值（15次）的对象放入老年代。</li>
 <li>当老年代内存满的时候就会出现<code>OutOfMemoryError</code>异常。</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202023-5-29%2016-17-57.gif" srcset="/img/loading.gif" lazyload alt="GIF 2023-5-29 16-17-57" style="zoom: 67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202023-5-29%2016-17-57.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202023-5-29%2016-17-57.gif</a>“ alt&#x3D;”GIF 2023-5-29 16-17-57”  &#x2F;&gt;</p>
 <p>根据图表，对<code>堆中对象的分配过程</code>进行分析：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529163609819.png" srcset="/img/loading.gif" lazyload alt="image-20230529163609819"></p>
 <h2 id="6-5-Minor-GC，MajorGC、Full-GC"><a href="#6-5-Minor-GC，MajorGC、Full-GC" class="headerlink" title="6.5. Minor GC，MajorGC、Full GC"></a>6.5. Minor GC，MajorGC、Full GC</h2><h3 id="6-5-1Minor-GC，MajorGC、Full-GC的区别"><a href="#6-5-1Minor-GC，MajorGC、Full-GC的区别" class="headerlink" title="6.5.1Minor GC，MajorGC、Full GC的区别"></a>6.5.1Minor GC，MajorGC、Full GC的区别</h3><p>JVM在进行GC时，并非每次都对上面三个内存区域一起回收的，大部分时候回收的都是指<code>新生代</code>。</p>
@@ -575,8 +566,7 @@
 <li><p><strong><font color='scarlet'>Minor GC会引发STW，暂停其它用户的线程，等垃圾回收结束，用户线程才恢复运行</font></strong></p>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529184110448.png" srcset="/img/loading.gif" lazyload alt="image-20230529184110448" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529184110448.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="6-5-1-2老年代GC（Major-GC-x2F-Full-GC）触发机制"><a href="#6-5-1-2老年代GC（Major-GC-x2F-Full-GC）触发机制" class="headerlink" title="6.5.1.2老年代GC（Major GC &#x2F; Full GC）触发机制"></a>6.5.1.2老年代GC（Major GC &#x2F; Full GC）触发机制</h4><ul>
 <li>指发生在老年代的GC，对象从老年代消失时，我们说 “Major GC” 或 “Full GC” 发生了</li>
 <li>出现了Major Gc，经常会伴随至少一次的Minor GC（但非绝对的，在Paralle1 Scavenge收集器的收集策略里就有直接进行MajorGC的策略选择过程）<ul>
@@ -679,8 +669,7 @@
 <li><p>据我所知所有OpenJDK衍生出来的JVM都提供了TLAB的设计。</p>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230530094824299.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
-
+<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230530094824299.png">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230530094824299.png</a>“ &#x2F;&gt;</p>
 <h3 id="6-8-3-TLAB的再说明"><a href="#6-8-3-TLAB的再说明" class="headerlink" title="6.8.3. TLAB的再说明"></a>6.8.3. TLAB的再说明</h3><ul>
 <li><p>尽管不是所有的对象实例都能够在TLAB中成功分配内存，但JVM确实是将TLAB作为内存分配的首选。</p>
 </li>
@@ -691,8 +680,7 @@
 <li><p>一旦对象在TLAB空间分配内存失败时，JVM就会尝试着通过使用加锁机制确保数据操作的原子性，从而直接在Eden空间中分配内存。</p>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230530095341803.png" srcset="/img/loading.gif" lazyload alt="image-20230530095341803" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230530095341803.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="6-9-小结：堆空间的参数设置"><a href="#6-9-小结：堆空间的参数设置" class="headerlink" title="6.9. 小结：堆空间的参数设置"></a>6.9. 小结：堆空间的参数设置</h2><p>官网地址：<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html</a></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 详细的参数内容会在JVM下篇：性能监控与调优篇中进行详细介绍，这里先熟悉下</span>
 <span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">+</span><span class="token class-name">PrintFlagsInitial</span>  <span class="token comment">//查看所有的参数的默认初始值</span>
