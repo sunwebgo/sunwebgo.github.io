@@ -1,0 +1,1008 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <link rel="icon" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.String字符串1.1String的不可变性以下代码执行后输出结果为（ ） public class ClassTest&amp;#123;      String str &#x3D; new String(&quot;hello&quot;);      char[] ch &#x3D; &amp;#123;&#39;a&#39;,&#39;b&#39;,&#39;c&#39;&amp;#125;;      public void fun(String str, char ch[])&amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nowcoder Java专项练习">
+<meta property="og:url" content="https://xhablog.online/2023/03/22/Nowcoder%20Java%E4%B8%93%E9%A1%B9%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:site_name" content="xhang′s blog">
+<meta property="og:description" content="1.String字符串1.1String的不可变性以下代码执行后输出结果为（ ） public class ClassTest&amp;#123;      String str &#x3D; new String(&quot;hello&quot;);      char[] ch &#x3D; &amp;#123;&#39;a&#39;,&#39;b&#39;,&#39;c&#39;&amp;#125;;      public void fun(String str, char ch[])&amp;#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
+<meta property="article:published_time" content="2023-03-22T02:19:07.000Z">
+<meta property="article:modified_time" content="2023-06-17T10:38:29.904Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
+  
+  
+  
+  <title>Nowcoder Java专项练习 - xhang′s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xhablog.online","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang′s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-zhuye"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-guidang1"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-fenlei"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-biaoqian"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messageboard/">
+                <i class="iconfont icon-liuyanban-05"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-youqinglianjie"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-guanyuwomen"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/index.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Nowcoder Java专项练习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-22 10:19" pubdate>
+          2023年3月22日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Nowcoder Java专项练习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-String字符串"><a href="#1-String字符串" class="headerlink" title="1.String字符串"></a>1.String字符串</h1><h2 id="1-1String的不可变性"><a href="#1-1String的不可变性" class="headerlink" title="1.1String的不可变性"></a>1.1String的不可变性</h2><p><strong>以下代码执行后输出结果为（ ）</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ClassTest</span><span class="token punctuation">&#123;</span>
+     <span class="token class-name">String</span> str <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ch <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token char">'a'</span><span class="token punctuation">,</span><span class="token char">'b'</span><span class="token punctuation">,</span><span class="token char">'c'</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fun</span><span class="token punctuation">(</span><span class="token class-name">String</span> str<span class="token punctuation">,</span> <span class="token keyword">char</span> ch<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+     str<span class="token operator">=</span><span class="token string">"world"</span><span class="token punctuation">;</span>
+     ch<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token char">'d'</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     <span class="token class-name">ClassTest</span> test1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     test1<span class="token punctuation">.</span><span class="token function">fun</span><span class="token punctuation">(</span>test1<span class="token punctuation">.</span>str<span class="token punctuation">,</span>test1<span class="token punctuation">.</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>test1<span class="token punctuation">.</span>str <span class="token operator">+</span> <span class="token string">" and "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>test1<span class="token punctuation">.</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span>
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<blockquote>
+<p>答案：hello and dbc</p>
+<p>解析：</p>
+<p>String类型和数组都为引用数据类型。在main函数中调用fun方法传入的是str和ch的堆内存地址。</p>
+<p>但是对于str，String类型被<code>final</code>修饰，不能够被继承，也就是值不能够被修改。<code>String str = new String(&quot;hello&quot;);</code>这段代码创建了两个对象，一个是在堆空间创建了一个String类型的str变量，另一个是在堆空间的字符串常量池中添加“hello”字符串。</p>
+<p><font color='scarlet'>在fun方法中，将“world”赋值给<code>形参str</code>，只是在堆内存中开辟了一个新的内存地址，str指向了新的内存地址，但是成员属性str指向堆内存的地址并没有改变，所以还是“hello”。</font></p>
+<p>而ch[0]指向的是堆内存中对应地址的对象的内容，所以值发生改变。</p>
+</blockquote>
+<h1 id="2-子父类问题"><a href="#2-子父类问题" class="headerlink" title="2.子父类问题"></a>2.子父类问题</h1><h2 id="2-1子父类和权限修饰符"><a href="#2-1子父类和权限修饰符" class="headerlink" title="2.1子父类和权限修饰符"></a>2.1子父类和权限修饰符</h2><p><strong>以下代码的输出的是（）</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span><span class="token punctuation">&#123;</span>
+	<span class="token keyword">private</span> <span class="token class-name">String</span> name <span class="token operator">=</span> <span class="token string">"Person"</span><span class="token punctuation">;</span>
+	<span class="token keyword">int</span> age<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Child</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span><span class="token punctuation">&#123;</span>
+	<span class="token keyword">public</span> <span class="token class-name">String</span> grade<span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+		<span class="token class-name">Person</span> p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Child</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<blockquote>
+<p>答案：编译出错</p>
+<p>解析：<font color='scarlet'>父类private的成员变量，根据权限修饰符的访问控制范围，只有在类内部才能被访问，就算是他的子类，也不能访问。</font></p>
+<p>这里如果将Person p &#x3D; new Child();改成Person p &#x3D; new Person();代码依然无法通过编译，因为子类作用域中访问不到父类的私有变量，无法为其生成正确的字节码。另外，<font color='scarlet'>一个Java文件中不能有两个public类。</font></p>
+</blockquote>
+<h2 id="2-2子父类执行顺序"><a href="#2-2子父类执行顺序" class="headerlink" title="2.2子父类执行顺序"></a>2.2子父类执行顺序</h2><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">Object</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">static</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Load B"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Create B"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token keyword">extends</span> <span class="token class-name">B</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">static</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Load A"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Create A"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Testclass</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">new</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<blockquote>
+<p>答案 ：</p>
+<p>LoadB</p>
+<p>LoadA</p>
+<p>CreateB</p>
+<p>CreateA</p>
+<p>子父类的执行顺序：</p>
+<ul>
+<li>父类静态成员和静态初始化块，按在代码中出现的顺序依次执行。</li>
+<li>子类静态成员和静态初始化块，按在代码中出现的顺序依次执行。</li>
+<li>父类实例成员和实例初始化块，按在代码中出现的顺序依次执行。</li>
+<li>执行父类构造方法。</li>
+<li>子类实例成员和实例初始化块，按在代码中出现的顺序依次执行。</li>
+<li>执行子类构造方法。</li>
+</ul>
+</blockquote>
+<h2 id="2-3两同两小一大原则"><a href="#2-3两同两小一大原则" class="headerlink" title="2.3两同两小一大原则"></a>2.3两同两小一大原则</h2><blockquote>
+<ol>
+<li><strong>两同</strong>：<font color='scarlet'>子类的方法名和参数列表必须和父类完全一致</font></li>
+<li><strong>两小</strong>：<font color='scarlet'>子类的访问权限必须大于等于父类的访问权限；子类抛出的异常类型必须小于等于父类抛出的异常类型</font></li>
+<li><strong>一大</strong>：<font color='scarlet'>子类的返回值必须小于等于父类的返回值类型（协变性）</font></li>
+</ol>
+</blockquote>
+<h1 id="3-多重继承的概念体现方式"><a href="#3-多重继承的概念体现方式" class="headerlink" title="3.多重继承的概念体现方式"></a>3.多重继承的概念体现方式</h1><blockquote>
+<ol>
+<li>实现一个或多个接口</li>
+<li>继承一个类并实现一个或多个接口</li>
+<li>通过内部类去继承其他类</li>
+</ol>
+</blockquote>
+<h1 id="4-抽象类和接口的区别"><a href="#4-抽象类和接口的区别" class="headerlink" title="4.抽象类和接口的区别"></a>4.抽象类和接口的区别</h1><blockquote>
+<ol>
+<li><strong>对于定义方式</strong>：抽象类是一个类，可以包含有成员变量、成员方法和构造方法；而接口仅包含定义的常量和成员方法，没有方法体实现，也没有成员变量。</li>
+<li><strong>对于继承实现方式</strong>：一个类只能继承一个抽象类，而一个类可以同时实现多个接口。</li>
+<li><strong>对于抽象方法</strong>：抽象类可以定义抽象方法和非抽象方法，而接口仅能定义为抽象方法。</li>
+<li><strong>对于方法的实现</strong>：实现接口的类必须实现接口的所有方法，而继承抽象类的类必须实现所有的抽象方法（否则子类也必须声明为抽象方法），非抽象方法可以不实现。</li>
+</ol>
+</blockquote>
+<h1 id="5-权限修饰符"><a href="#5-权限修饰符" class="headerlink" title="5.权限修饰符"></a>5.权限修饰符</h1><h2 id="5-1外部类、内部类和局部内部类的权限修饰符"><a href="#5-1外部类、内部类和局部内部类的权限修饰符" class="headerlink" title="5.1外部类、内部类和局部内部类的权限修饰符"></a>5.1外部类、内部类和局部内部类的权限修饰符</h2><table>
+<thead>
+<tr>
+<th>类</th>
+<th>权限修饰符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>外部类</td>
+<td>public、缺省(default)</td>
+</tr>
+<tr>
+<td>内部类</td>
+<td>public、protected、缺省(default)、private</td>
+</tr>
+<tr>
+<td>局部内部类</td>
+<td>没有权限修饰符，只能在当前方法或语句块中访问</td>
+</tr>
+</tbody></table>
+<h1 id="6-构造函数调用or继承？"><a href="#6-构造函数调用or继承？" class="headerlink" title="6.构造函数调用or继承？"></a>6.构造函数调用or继承？</h1><p>构造函数不能被继承，<font color='scarlet'>构造方法只能被显式或隐式的调用</font>。</p>
+<h1 id="7-类型转化"><a href="#7-类型转化" class="headerlink" title="7.类型转化"></a>7.类型转化</h1><h2 id="7-1包装类类型转化"><a href="#7-1包装类类型转化" class="headerlink" title="7.1包装类类型转化"></a>7.1包装类类型转化</h2><p>以下语句返回值为 true 的是（）</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Integeral</span> <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">,</span>a2 <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">;</span>
+<span class="token class-name">Integer</span> b1 <span class="token operator">=</span> <span class="token number">2017</span><span class="token punctuation">,</span>b2 <span class="token operator">=</span> <span class="token number">2017</span><span class="token punctuation">;</span>
+<span class="token class-name">Integerc1</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span><span class="token number">17</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Integer</span> c2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span><span class="token number">17</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Integer</span> d1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span><span class="token number">2017</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> d2 <span class="token operator">=</span> <span class="token number">2017</span><span class="token punctuation">;</span>
+<span class="token class-name">A</span><span class="token punctuation">.</span> al<span class="token operator">==</span>a2
+<span class="token class-name">B</span><span class="token punctuation">.</span> d1<span class="token operator">==</span><span class="token class-name"><span class="token namespace">d2 <span class="token punctuation">.</span></span>
+C</span><span class="token punctuation">.</span> b1<span class="token operator">==</span> <span class="token operator">=</span>b2
+<span class="token class-name">D</span><span class="token punctuation">.</span> c1<span class="token operator">==</span>c2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<blockquote>
+<p>答案：AB</p>
+<p>对于A选项：a1、a2赋值给Integer类型，自动装箱。对于–128到127（默认是127）之间的值，Integer.valueOf(int i) 返回的是缓存的Integer对象（并不是新建对象），变量所指向的是同一个对象，所以a1&#x3D;&#x3D;a2返回true</p>
+<p>选项B：d1为包装类Integer，而d2为int类型，Integer和int比较，Integer类型的数据会自动拆箱，所以B正确。b1、b2、c1、c2都创建的新对象，内存地址不同，C、D错误。</p>
+</blockquote>
+<h1 id="8-Java-中final、finally和finalize的区别"><a href="#8-Java-中final、finally和finalize的区别" class="headerlink" title="8.Java 中final、finally和finalize的区别"></a>8.Java 中final、finally和finalize的区别</h1><blockquote>
+<ol>
+<li><code>final</code>是一个关键字，可以用来修饰类、方法或变量。<br>当一个类被声明为final时，表示该类不能被继承。当一个方法被声明为final时，表示该方法不能被子类重写。当一个变量被声明为final时，表示该变量是一个常量，不能再被修改。</li>
+<li><code>finally</code> 是一个关键字，用于与 “try” 或 “catch” 一起使用，表示无论是否发生异常，都需要执行其中的代码块。</li>
+<li><code>finalize</code> 是一个方法名，用于垃圾回收（GC）。在 Java 中，当对象不再被引用时，GC 会尝试清除该对象的内存，但在清除之前会调用该对象的 finalize() 方法进行资源回收。</li>
+</ol>
+</blockquote>
+<h1 id="9-x3D-x3D-和equals-的区别"><a href="#9-x3D-x3D-和equals-的区别" class="headerlink" title="9.&#x3D;&#x3D;和equals()的区别"></a>9.&#x3D;&#x3D;和equals()的区别</h1><p><strong>1.  &#x3D;&#x3D;操作符</strong><br><code>==</code>操作符专门用来比较变量的值是否相同。</p>
+<ul>
+<li><strong>基本数据类型</strong>：比较的是他们的值是否相同。</li>
+<li><strong>引用数据类型</strong>：比较的是他们的内存地址是否同一地址。<br>引用类型对象变量其实是一个引用，它们的值是指向对象所在的内存地址，而不是对象本身。</li>
+</ul>
+<p><strong>2. equals方法</strong><br><code>equals</code>方法常用来比较对象的内容是否相同。</p>
+<p>Java当中所有的类都是继承于Object这个超类的，在Object类中定义的equals方法：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">Object</span> obj<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li><strong>未重写equals方法的类</strong>：Object中的equals方法实际使用的也是&#x3D;&#x3D;操作符，比较的是他们的内存地址是否同一地址。</li>
+<li><strong>重写了equals方法的类</strong>：实现该类自己的equals方法比较逻辑（一般是比较对象的内容是否相同）。比如：<ul>
+<li>String：比较字符串内容，内容相同则相同；</li>
+<li>Integer：比较对应的基本数据类型int的值是否相同（&#x3D;&#x3D;操作符）。</li>
+</ul>
+</li>
+</ul>
+<h1 id="10-Map接口和Entry接口的关系"><a href="#10-Map接口和Entry接口的关系" class="headerlink" title="10.Map接口和Entry接口的关系"></a>10.Map接口和Entry接口的关系</h1><p>Map接口和Entry接口是Java编程语言中的两个接口，两者之间存在一定的关系。</p>
+<p>&#x3D;&#x3D;具体来说，Map.Entry接口是Map接口的一个内部接口，它表示Map对象中的一个键值对（即一条记录）。 Map接口提供了访问Map对象中各个记录的方法，而Map.Entry接口则提供了访问记录中键和值的方法。&#x3D;&#x3D;</p>
+<p>因此，当我们需要对Map对象中的各个记录进行遍历或操作时，通常需要使用Map.Entry接口和Map接口配合使用。 例如：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Copy</span> code
+<span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 添加几条记录</span>
+map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"three"</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 遍历Map对象，对各个记录进行操作</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span> entry <span class="token operator">:</span> map<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">String</span> key <span class="token operator">=</span> entry<span class="token punctuation">.</span><span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Integer</span> value <span class="token operator">=</span> entry<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// do something with key and value</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>在这个示例中，我们先创建了一个Map对象，并添加了几条记录。 然后使用entrySet()方法获取Map对象中所有的记录，遍历每个记录（即每个Map.Entry对象），并使用getKey()和getValue()方法获取每个记录的键和值。 我们可以根据这些键值对执行任何想要的操作。</p>
+<h1 id="11-通配符和泛型的区别"><a href="#11-通配符和泛型的区别" class="headerlink" title="11.通配符和泛型的区别"></a>11.通配符和泛型的区别</h1><p>通配符和泛型都是Java中用来处理不确定类型的关键字，但它们之间有以下区别：</p>
+<blockquote>
+<ol>
+<li>使用位置：泛型通常用来指定类、方法或接口的参数类型，而通配符则通常用在作为函数参数的类型上。</li>
+<li>粒度：泛型是“更粗”的类型，它可以指定具体的数据类型，如List<String>，而通配符是“更细”的类型，它表示某些不确定类型的集合，如List&lt;?&gt;。</li>
+<li>操作范围：使用泛型的代码可以对特定类型的对象进行操作，而使用通配符的代码则只能进行局部的一些操作，例如遍历集合。</li>
+<li>单一性：通配符是一种单一的类型，可以表示任意类型的集合，而泛型可以指定一个或多个具体的类型参数。</li>
+<li>语法：泛型使用&lt;&gt;表示类型参数，而通配符使用?表示未知的类型。通配符可以使用extends关键字限制类型范围，例如List&lt;? extends Number&gt;表示仅能包含Number及其子类类型的集合。</li>
+</ol>
+<p>总体而言，泛型和通配符都是Java中非常重要的类型处理机制。泛型要更灵活一些，它能够具体地指定类型，通常用于类、方法或接口声明。而通配符则是更简单的处理机制，它用于对多个不同类型的对象进行操作。</p>
+</blockquote>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/">#Java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Nowcoder Java专项练习</div>
+      <div>https://xhablog.online/2023/03/22/Nowcoder Java专项练习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/23/%E5%BE%AE%E6%9C%8D%E5%8A%A1ELK%E6%97%A5%E5%BF%97%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F/" title="微服务ELK日志监控系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">微服务ELK日志监控系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/21/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/" title="雪花算法详解">
+                        <span class="hidden-mobile">雪花算法详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '54f859c976cc6347a619b08f94a902fb'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span><svg t="1686650467734" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4406" width="13" height="13"><path d="M926.991 337.678c-22.571-53.364-54.877-101.283-96.021-142.426-41.143-41.143-89.062-73.449-142.426-96.02-55.266-23.375-113.953-35.228-174.434-35.228-60.48 0-119.168 11.852-174.433 35.228-53.364 22.571-101.283 54.877-142.426 96.02s-73.449 89.062-96.02 142.426c-23.375 55.265-35.228 113.953-35.228 174.433 0 60.48 11.852 119.168 35.228 174.434 22.571 53.364 54.877 101.283 96.02 142.426 41.143 41.144 89.062 73.449 142.426 96.021 55.265 23.375 113.953 35.228 174.433 35.228 60.48 0 119.168-11.853 174.434-35.228 53.364-22.571 101.283-54.877 142.426-96.021 41.144-41.143 73.449-89.062 96.021-142.426 23.375-55.266 35.228-113.953 35.228-174.434 0-60.48-11.853-119.168-35.228-174.433z m-412.88 558.541c-211.797 0-384.107-172.31-384.107-384.107 0-211.797 172.31-384.107 384.107-384.107 211.798 0 384.107 172.31 384.107 384.107 0.001 211.797-172.309 384.107-384.107 384.107z" p-id="4407"></path><path d="M514.111 290.829c51.918 0 102.431 18.428 142.233 51.889 13.528 11.375 33.715 9.626 45.086-3.902 11.373-13.527 9.626-33.713-3.902-45.086-51.316-43.142-116.456-66.901-183.417-66.901-76.201 0-147.842 29.675-201.725 83.557-53.883 53.883-83.558 125.523-83.558 201.725s29.675 147.843 83.558 201.726 125.523 83.558 201.725 83.558c66.961 0 132.1-23.76 183.417-66.901 13.528-11.372 15.275-31.559 3.902-45.086s-31.559-15.275-45.086-3.902c-39.803 33.462-90.315 51.89-142.233 51.89-122.015 0-221.282-99.268-221.282-221.283 0-122.017 99.267-221.284 221.282-221.284z" p-id="4408"></path></svg>2021 - 2023</span> <span>本站由</span> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <span>&</span> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <span>强力驱动</span> 
+      <!--《添加网站运行时间 -->
+<br/>
+
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+    <script>
+      var now = new Date();
+
+      function createtime() {
+        //此处修改你的建站时间或者网站上线时间
+        var grt = new Date('06/09/2023 8:00:00');
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+          hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+          mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+          snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = " 本站已破天荒的安全运行 " + dnum + " 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+      }
+      setInterval("createtime()", 250);
+    </script>
+
+<!-- 添加网站运行时间》-->
+<br/>
+<span style="font-weight: initial">文章总字数2202k</span>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
