@@ -16,16 +16,16 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.1. 前言作为Java工程师的你曾被伤害过吗？你是否也遇到过这些问题？   运行着的线上系统突然卡死，系统无法访问，甚至直接OOM  想解决线上JVM GC问题，但却无从下手  新项目上线，对各种JVM参数设置一脸茫然，直接默认吧然后就JJ了  每次面试之前都要重新背一遍JVM的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优VM参数，如何解决GC、OOM等问题，一脸懵逼">
+    <meta name="description" content="1.1. 前言作为Java工程师的你曾被伤害过吗？你是否也遇到过这些问题？   运行着的线上系统突然卡死，系统无法访问，甚至直接OOM  想解决线上JVM GC问题，但却无从下手  新项目上线，对各种JVM参数设置一脸茫然，直接默认吧然后就JJ了  每次面试之前都要重新背一遍JVM的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优JVM参数，如何解决GC、OOM等问题，一脸懵逼">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第01章_JVM与Java体系结构">
 <meta property="og:url" content="https://xhablog.online/2022/05/10/JVM-%E7%AC%AC01%E7%AB%A0_JVM%E4%B8%8EJava%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="1.1. 前言作为Java工程师的你曾被伤害过吗？你是否也遇到过这些问题？   运行着的线上系统突然卡死，系统无法访问，甚至直接OOM  想解决线上JVM GC问题，但却无从下手  新项目上线，对各种JVM参数设置一脸茫然，直接默认吧然后就JJ了  每次面试之前都要重新背一遍JVM的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优VM参数，如何解决GC、OOM等问题，一脸懵逼">
+<meta property="og:description" content="1.1. 前言作为Java工程师的你曾被伤害过吗？你是否也遇到过这些问题？   运行着的线上系统突然卡死，系统无法访问，甚至直接OOM  想解决线上JVM GC问题，但却无从下手  新项目上线，对各种JVM参数设置一脸茫然，直接默认吧然后就JJ了  每次面试之前都要重新背一遍JVM的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优JVM参数，如何解决GC、OOM等问题，一脸懵逼">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-10T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-30T08:52:19.031Z">
+<meta property="article:modified_time" content="2023-06-30T15:37:24.131Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -275,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.9k 字
+          9.1k 字
         
       </span>
     
@@ -286,7 +286,7 @@
         
         
         
-          74 分钟
+          77 分钟
         
       </span>
     
@@ -346,7 +346,7 @@
 </li>
 <li><p>新项目上线，对各种JVM参数设置一脸茫然，直接默认吧然后就JJ了</p>
 </li>
-<li><p>每次面试之前都要重新背一遍JVM的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优VM参数，如何解决GC、OOM等问题，一脸懵逼</p>
+<li><p>每次面试之前都要重新背一遍JVM的一些原理概念性的东西，然而面试官却经常问你在实际项目中如何调优JVM参数，如何解决GC、OOM等问题，一脸懵逼</p>
 </li>
 </ul>
 </blockquote>
@@ -477,25 +477,20 @@
 </li>
 </ul>
 <p>无论是系统虚拟机还是程序虚拟机，在上面运行的软件都被限制于虚拟机提供的资源中。</p>
-<h3 id="1-4-2Java虚拟机"><a href="#1-4-2Java虚拟机" class="headerlink" title="1.4.2Java虚拟机"></a>1.4.2Java虚拟机</h3><ul>
-<li><p><strong><font color='scarlet'>Java虚拟机是一台执行Java字节码的虚拟计算机，它拥有独立的运行机制，其运行的Java字节码也未必由Java语言编译而成。</font></strong></p>
-</li>
-<li><p>JVM平台的各种语言可以共享Java虚拟机带来的跨平台性、优秀的垃圾回器，以及可靠的即时编译器。</p>
-</li>
-<li><p>Java技术的核心就是Java虚拟机（JVM，Java Virtual Machine），因为所有的Java程序都运行在Java虚拟机内部。</p>
-</li>
-</ul>
-<p><strong>作用</strong></p>
-<p>&#x3D;&#x3D;Java虚拟机就是二进制字节码的运行环境，负责装载字节码到其内部，解释&#x2F;编译为对应平台上的机器指令执行。&#x3D;&#x3D;每一条Java指令，Java虚拟机规范中都有详细定义，如怎么取操作数，怎么处理操作数，处理结果放在哪里。</p>
-<p><strong>特点</strong></p>
-<ul>
-<li><p>&#x3D;&#x3D;一次编译，到处运行&#x3D;&#x3D;</p>
-</li>
-<li><p>&#x3D;&#x3D;自动内存管理&#x3D;&#x3D;</p>
-</li>
-<li><p>&#x3D;&#x3D;自动垃圾回收功能&#x3D;&#x3D;</p>
-</li>
-</ul>
+<h3 id="1-4-2Java虚拟机"><a href="#1-4-2Java虚拟机" class="headerlink" title="1.4.2Java虚拟机"></a>1.4.2Java虚拟机</h3><p>JVM（Java Virtual Machine）是Java虚拟机的缩写，<font color='scarlet'>它是Java程序运行的基础环境和平台</font>。<font color='cornflowerblue'>JVM是一个软件程序，它可以将Java字节码解释或编译成特定计算机系统的机器码，使得Java程序可以在不同的计算机平台上运行。</font></p>
+<p>JVM提供了Java程序运行所需的各种关键功能，包括<code>内存管理</code>、<code>垃圾回收</code>、<code>即时编译</code>、<code>安全性检查</code>、<code>线程管理</code>和<code>异常处理</code>等。它在运行Java程序时，负责加载字节码文件、创建和管理线程、执行字节码指令以及处理异常等。</p>
+<p>JVM的主要组成部分包括以下几个方面：</p>
+<blockquote>
+<ol>
+<li>类加载器（ClassLoader）：负责将Java类的字节码加载到JVM中，并创建对应的Class对象。</li>
+<li>运行时数据区：包括堆、方法区、虚拟机栈、本地方法栈、程序计数器，用于存储程序运行时所需的数据。</li>
+<li>执行引擎：负责执行字节码指令，并将其转换为机器码，可以采用解释执行或即时编译的方式。</li>
+<li>垃圾回收器（Garbage Collector）：负责自动回收不再使用的内存空间，确保内存的有效利用。</li>
+<li>本地方法接口（Native Interface）：允许Java代码与其他编程语言（如C、C++）进行交互。</li>
+<li>JIT编译器（Just-In-Time Compiler）：将热点代码（经常执行的代码）编译成机器码，以提高执行效率。</li>
+</ol>
+</blockquote>
+<p>通过JVM的存在，Java程序可以具有平台无关性，只需编写一次程序，然后可以在任何安装了JVM的操作系统上运行。<font color='scarlet'>这是因为JVM负责将Java代码转换成特定平台的机器码，屏蔽了底层硬件和操作系统的差异，使得Java程序具有跨平台的特性。</font></p>
 <h3 id="1-4-3JVM的位置"><a href="#1-4-3JVM的位置" class="headerlink" title="1.4.3JVM的位置"></a>1.4.3JVM的位置</h3><p><strong><font color='scarlet'>JVM是运行在操作系统之上的，它与硬件之间没有直接的交互。</font></strong></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230524194442506.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong><font color='scarlet'>JDK的构成</font></strong></p>
@@ -514,7 +509,7 @@
 <li><strong>简图</strong></li>
 </ol>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230524195053787.png" srcset="/img/loading.gif" lazyload><br>2. <strong>详细图</strong></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230524195141030.png" srcset="/img/loading.gif" lazyload alt="image-20230524195141030"></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(11).jpg" srcset="/img/loading.gif" lazyload></p>
 <h2 id="1-6-Java代码执行流程"><a href="#1-6-Java代码执行流程" class="headerlink" title="1.6. Java代码执行流程"></a>1.6. Java代码执行流程</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230524200138176.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="1-7-JVM的架构模型"><a href="#1-7-JVM的架构模型" class="headerlink" title="1.7. JVM的架构模型"></a>1.7. JVM的架构模型</h2><p>Java编译器输入的指令流基本上是一种基于**<code>栈的指令集架构</code>**，另外一种指令集架构则是基于<code>寄存器的指令集架构</code>。</p>
 <p>具体来说：这两种架构之间的区别：</p>
