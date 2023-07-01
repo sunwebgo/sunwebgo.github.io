@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2023-06-24T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-07-01T02:24:01.481Z">
+<meta property="article:modified_time" content="2023-07-01T02:30:58.425Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -493,13 +493,11 @@
 <ol>
 <li>&#x3D;&#x3D;PC寄存器（程序计数器）记录指令地址，执行引擎根据PC寄存器当中的指令地址执行指令操作，将15压入操作数栈当中。&#x3D;&#x3D;</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230527223601967.png" srcset="/img/loading.gif" lazyload alt="image-20230527223601967" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230527223601967.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="2">
 <li>&#x3D;&#x3D;指令地址向下移动，变量15出栈，放入到局部变量表中索引为1的位置（索引的位置为<code>this</code>变量，因为该方法为实例方法）。&#x3D;&#x3D;</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230527223724501.png" srcset="/img/loading.gif" lazyload alt="image-20230527223724501" style="zoom:80%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230527223724501.png" srcset="/img/loading.gif" lazyload></p>
 <ol start="3">
 <li>&#x3D;&#x3D;指令地址向下移动，变量8入栈。&#x3D;&#x3D;</li>
 </ol>
@@ -593,8 +591,7 @@
 </ul>
 <p>Java堆区进一步细分的话，可以划分为年轻代（YoungGen）和老年代（oldGen）</p>
 <p>其中年轻代又可以划分为<code>Eden</code>区、<code>Survivor0</code>区和<code>Survivor1</code>区（有时也叫做from区、to区）</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529144830330.png" srcset="/img/loading.gif" lazyload alt="image-20230529144830330" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529144830330.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="2-5-3-2年轻代和老年代的结构占比"><a href="#2-5-3-2年轻代和老年代的结构占比" class="headerlink" title="2.5.3.2年轻代和老年代的结构占比"></a>2.5.3.2年轻代和老年代的结构占比</h4><p>配置新生代与老年代在堆结构的占比。</p>
 <ul>
 <li><p>默认<code>-XX:NewRatio=2</code>，表示新生代占1，老年代占2，新生代占整个堆的1&#x2F;3</p>
@@ -602,8 +599,7 @@
 <li><p>可以修改<code>-XX:NewRatio=4</code>，表示新生代占1，老年代占4，新生代占整个堆的1&#x2F;5</p>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529145612460.png" srcset="/img/loading.gif" lazyload alt="image-20230529145612460" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529145612460.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="2-5-3-3年轻代中edeu区和survivor0、survivor1区结构占比"><a href="#2-5-3-3年轻代中edeu区和survivor0、survivor1区结构占比" class="headerlink" title="2.5.3.3年轻代中edeu区和survivor0、survivor1区结构占比"></a>2.5.3.3年轻代中edeu区和survivor0、survivor1区结构占比</h4><p>在HotSpot中，Eden空间和另外两个survivor空间缺省所占的比例是8：1：1，但是事实上却不是该比例，是由于<code>自适应策略</code>。</p>
 <p>当然开发人员可以通过选项“<code>-xx:SurvivorRatio</code>”调整这个空间比例。比如<code>-xx:SurvivorRatio=8</code></p>
 <p><font color='scarlet'>几乎所有的Java对象都是在Eden区被new出来的。绝大部分的Java对象的销毁都在新生代进行了。</font></p>
@@ -635,11 +631,9 @@
 </li>
 </ol>
 </blockquote>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529152048195.png" srcset="/img/loading.gif" lazyload alt="image-20230529152048195" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529152048195.png" srcset="/img/loading.gif" lazyload></p>
 <p>流程图如下：</p>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529152337492.png" srcset="/img/loading.gif" lazyload alt="image-20230529152337492" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529152337492.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>总结</strong></p>
 <blockquote>
 <ul>
@@ -685,8 +679,7 @@
 <li>对<code>Eden</code>区进行垃圾回收的同时，对<code>survivor</code>区也进行垃圾回收，将超过阈值（15次）的对象放入老年代。</li>
 <li>当老年代内存满的时候就会出现<code>OutOfMemoryError</code>异常。</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202023-5-29%2016-17-57.gif" srcset="/img/loading.gif" lazyload alt="GIF 2023-5-29 16-17-57" style="zoom: 67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202023-5-29%2016-17-57.gif" srcset="/img/loading.gif" lazyload></p>
 <p>根据图表，对<code>堆中对象的分配过程</code>进行分析：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529163609819.png" srcset="/img/loading.gif" lazyload alt="image-20230529163609819"></p>
 <h3 id="2-5-5Minor-GC，MajorGC、Full-GC"><a href="#2-5-5Minor-GC，MajorGC、Full-GC" class="headerlink" title="2.5.5Minor GC，MajorGC、Full GC"></a>2.5.5Minor GC，MajorGC、Full GC</h3><p>JVM在进行GC时，并非每次都对上面三个内存区域一起回收的，大部分时候回收的都是指<code>新生代</code>。</p>
@@ -726,8 +719,7 @@
 <li><p><strong><font color='scarlet'>Minor GC会引发STW，暂停其它用户的线程，等垃圾回收结束，用户线程才恢复运行</font></strong></p>
 </li>
 </ul>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529184110448.png" srcset="/img/loading.gif" lazyload alt="image-20230529184110448" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529184110448.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="2-5-6-2老年代GC（Major-GC-x2F-Full-GC）触发机制"><a href="#2-5-6-2老年代GC（Major-GC-x2F-Full-GC）触发机制" class="headerlink" title="2.5.6.2老年代GC（Major GC &#x2F; Full GC）触发机制"></a>2.5.6.2老年代GC（Major GC &#x2F; Full GC）触发机制</h4><ul>
 <li>指发生在老年代的GC，对象从老年代消失时，我们说 “Major GC” 或 “Full GC” 发生了</li>
 <li>出现了Major Gc，经常会伴随至少一次的Minor GC（但非绝对的，在Paralle1 Scavenge收集器的收集策略里就有直接进行MajorGC的策略选择过程）<ul>
@@ -801,8 +793,7 @@
 </li>
 </ol>
 </blockquote>
-<h3 id="2-6-6-运行时常量池-VS-常量池"><a href="#2-6-6-运行时常量池-VS-常量池" class="headerlink" title="2.6.6 运行时常量池 VS 常量池"></a>2.6.6 运行时常量池 VS 常量池</h3><h4 id="2-6-6-1运行时常量池和常量池的关系"><a href="#2-6-6-1运行时常量池和常量池的关系" class="headerlink" title="2.6.6.1运行时常量池和常量池的关系"></a>2.6.6.1运行时常量池和常量池的关系</h4><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090356494.png" srcset="/img/loading.gif" lazyload alt="image-20230604090356494" style="zoom: 50%;" />
-
+<h3 id="2-6-6-运行时常量池-VS-常量池"><a href="#2-6-6-运行时常量池-VS-常量池" class="headerlink" title="2.6.6 运行时常量池 VS 常量池"></a>2.6.6 运行时常量池 VS 常量池</h3><h4 id="2-6-6-1运行时常量池和常量池的关系"><a href="#2-6-6-1运行时常量池和常量池的关系" class="headerlink" title="2.6.6.1运行时常量池和常量池的关系"></a>2.6.6.1运行时常量池和常量池的关系</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090356494.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <ol>
 <li><code>常量池 (Constant Pool)</code>:<font color='scarlet'>是指在编译期间就已经确定好的常量数据</font>，例如全局变量、函数参数等，这些数据会被存储在一个专门的数据结构中，以便在编译期间就能够计算出它们的地址。目的是减少编译器期间的运算量。</li>
@@ -841,18 +832,9 @@
 <ol>
 <li>所以说JDK1.6及之前<code>字符串常量池</code>是在<code>方法区</code>当中的<code>运行时常量池</code>当中，而<code>静态变量</code>就是存储在方法区当中</li>
 </ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124541613.png" srcset="/img/loading.gif" lazyload alt="image-20230604124541613" style="zoom:67%;" />
-
-<ol start="2">
-<li>​	JDK1.7的时候分别将<code>字符串常量池</code>和<code>静态变量</code>从<code>方法区常量池</code>和<code>方法区</code>中移到<code>堆空间</code>中。</li>
-</ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124559313.png" srcset="/img/loading.gif" lazyload alt="image-20230604124559313" style="zoom:67%;" />
-
-<ol start="3">
-<li>JDK1.8及之后使用元空间代替了永久代，并使用本地内存。字符串常量池和静态变量依旧存在于堆空间中。</li>
-</ol>
-<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124643175.png" srcset="/img/loading.gif" lazyload alt="image-20230604124643175" style="zoom:67%;" />
-
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124541613.png" srcset="/img/loading.gif" lazyload><br>2. ​	JDK1.7的时候分别将<code>字符串常量池</code>和<code>静态变量</code>从<code>方法区常量池</code>和<code>方法区</code>中移到<code>堆空间</code>中。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124559313.png" srcset="/img/loading.gif" lazyload><br>3. JDK1.8及之后使用元空间代替了永久代，并使用本地内存。字符串常量池和静态变量依旧存在于堆空间中。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124643175.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="2-6-8为什么要使用元空间替换永久代"><a href="#2-6-8为什么要使用元空间替换永久代" class="headerlink" title="2.6.8为什么要使用元空间替换永久代"></a>2.6.8为什么要使用元空间替换永久代</h3><ol>
 <li><strong>降低OOM</strong></li>
 </ol>
