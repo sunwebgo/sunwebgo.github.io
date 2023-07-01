@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-12T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-30T15:37:24.131Z">
+<meta property="article:modified_time" content="2023-07-01T02:24:01.477Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -275,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10k 字
+          11k 字
         
       </span>
     
@@ -286,7 +286,7 @@
         
         
         
-          87 分钟
+          88 分钟
         
       </span>
     
@@ -530,7 +530,7 @@
 <p>这样的代码是错误的，没有赋值不能够使用 。</p>
 <h5 id="4-2-3-2-5-补充说明"><a href="#4-2-3-2-5-补充说明" class="headerlink" title="4.2.3.2.5 补充说明"></a>4.2.3.2.5 补充说明</h5><p>在栈帧中，与性能调优关系最为密切的部分就是前面提到的局部变量表。在方法执行时，虚拟机使用局部变量表完成方法的传递。</p>
 <p>局部变量表中的变量也是重要的垃圾回收根节点，只要被局部变量表中直接或间接引用的对象都不会被回收。</p>
-<h4 id="4-2-3-3操作数栈（Operand-Stack）"><a href="#4-2-3-3操作数栈（Operand-Stack）" class="headerlink" title="4.2.3.3操作数栈（Operand Stack）"></a>4.2.3.3操作数栈（Operand Stack）</h4><p>每一个独立的栈帧除了包含局部变量表以外，还包含一个<code>后进先出（Last-In-First-Out）的 操作数栈</code>，也可以称之为表达式栈（Expression Stack）</p>
+<h4 id="4-2-3-3操作数栈（Operand-Stack）"><a href="#4-2-3-3操作数栈（Operand-Stack）" class="headerlink" title="4.2.3.3操作数栈（Operand Stack）"></a>4.2.3.3操作数栈（Operand Stack）</h4><p>每一个独立的栈帧除了包含局部变量表以外，还包含一个<code>后进先出（Last-In-First-Out）的 操作数栈</code>，也可以称之为表达式栈（Expression Stack）。**<font color='scarlet'>操作数栈，用来存储计算过程中的操作数的临时存储区域。</font>**</p>
 <p><font color='scarlet'>操作数栈，在方法执行过程中，根据字节码指令，往栈中写入数据或提取数据，即入栈（push）和 出栈（pop）</font></p>
 <ul>
 <li><p><font color='scarlet'>某些字节码指令将值压入操作数栈，其余的字节码指令将操作数取出栈。使用它们后再把结果压入栈</font></p>
@@ -547,19 +547,18 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>字节码指令信息</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">public void testAddOperation<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">public void testAddOperation(); 
     Code:
-    <span class="token number">0</span>: bipush <span class="token number">15</span>
-    <span class="token number">2</span>: istore_1 
-    <span class="token number">3</span>: bipush <span class="token number">8</span>
-    <span class="token number">5</span>: istore_2 
-    <span class="token number">6</span>:iload_1 
-    <span class="token number">7</span>:iload_2 
-    <span class="token number">8</span>:iadd
-    <span class="token number">9</span>:istore_3 
-    <span class="token number">10</span>:return<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+    0: bipush 15 //将int类型的常量15压入操作数栈中
+    2: istore_1  //常量15出栈，存储到局部变量表中
+    3: bipush 8  //将int类型的常量8压入操作数栈中
+    5: istore_2  //常量8出栈，存储到局部变量表中
+    6:iload_1    //将局部变量表中索引为1的数据压入到操作数栈中
+    7:iload_2 	 //将局部变量表中索引为2的数据压入到操作数栈中
+    8:iadd       //相加操作
+    9:istore_3   //相加结果出栈，将相加结果存储到局部变量表中索引为3的位置
+    10:return<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p><strong><font color='scarlet'>操作数栈，主要用于保存计算过程的中间结果，同时作为计算过程中变量临时的存储空间。</font></strong></p>
 <p>操作数栈就是JVM执行引擎的一个工作区，当一个方法刚开始执行的时候，一个新的栈帧也会随之被创建出来，这个方法的操作数栈是空的。</p>
 <p>每一个操作数栈都会拥有一个明确的栈深度用于存储数值，其所需的最大深度在编译期就定义好了，保存在方法的Code属性中，为max_stack的值。</p>
 <p>栈中的任何一个元素都是可以任意的Java数据类型</p>
@@ -599,12 +598,12 @@
 </ol>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230527224634525.png" srcset="/img/loading.gif" lazyload alt="image-20230527224634525"></p>
 <ol start="5">
-<li>&#x3D;&#x3D;指令地址向下移动，分别取出<code>局部变量表</code>中的15和8，并进行入栈&#x3D;&#x3D;</li>
+<li>&#x3D;&#x3D;指令地址向下移动，分别取出<code>局部变量表</code>中索引为1和2位置的数据，也就是15和8，并进行入栈&#x3D;&#x3D;</li>
 </ol>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230527225017624.png" srcset="/img/loading.gif" lazyload alt="image-20230527225017624"></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230527224942393.png" srcset="/img/loading.gif" lazyload alt="image-20230527224942393"></p>
 <ol start="6">
-<li>&#x3D;&#x3D;指令地址向下移动，执行add操作，并将相加结果23入栈&#x3D;&#x3D;</li>
+<li>&#x3D;&#x3D;指令地址向下移动，分别取出<code>局部变量表</code>中索引为1和2位置的数据，也就是15和8，并进行入栈&#x3D;&#x3D;</li>
 </ol>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230527225434150.png" srcset="/img/loading.gif" lazyload alt="image-20230527225434150"></p>
 <ol start="7">
@@ -1038,7 +1037,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2275k</span>
+<span style="font-weight: initial">文章总字数2287k</span>
 
     </div>
   
