@@ -267,75 +267,6 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/04/20/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC07%E7%AB%A0_InnoDB%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" target="_self">
-          <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png" srcset="/img/loading.gif" lazyload alt="第07章_InnoDB数据存储结构">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/20/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC07%E7%AB%A0_InnoDB%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" target="_self">
-          第07章_InnoDB数据存储结构
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt " href="/2021/04/20/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC07%E7%AB%A0_InnoDB%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" target="_self">
-        <div>
-          1. 数据库的存储结构：页索引结构给我们提供了高效的索引方式,不过索引信息以及数据记录都是保存在文件上的，确切说是存储在页结构中。另一方面，索引是在存储引擎中实现的, MySQL服务器上的存储引擎负责对表中数据的读取和写入工作。不同存储引擎中存放的格式一般是不同的, 甚至有的存储引擎比如Memory都不用磁盘来存储数据。由于InnoDB是MySQL的默认存储引擎，所以本章剖析InnoDB存储引擎的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-20 10:19" pubdate>
-              2021-04-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">#MySQL</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/04/19/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC06%E7%AB%A0_%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" target="_self">
           <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png" srcset="/img/loading.gif" lazyload alt="第06章_索引的数据结构">
         </a>
@@ -953,6 +884,75 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/04/10/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC15%E7%AB%A0_%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%87%BD%E6%95%B0/" target="_self">
+          <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png" srcset="/img/loading.gif" lazyload alt="第15章_存储过程与函数">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/10/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC15%E7%AB%A0_%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%87%BD%E6%95%B0/" target="_self">
+          第15章_存储过程与函数
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2021/04/10/MySQL%E5%9F%BA%E7%A1%80-%E7%AC%AC15%E7%AB%A0_%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%87%BD%E6%95%B0/" target="_self">
+        <div>
+          MySQL从5.0版本开始支持存储过程和函数。存储过程和函数能够将复杂的SQL逻辑封装在一起，应用程序无须关注存储过程和函数内部复杂的SQL逻辑，而只需要简单地调用存储过程和函数即可。 1. 存储过程概述1.1 理解含义：存储过程的英文是 Stored Procedure。&#x3D;&#x3D;它的思想很简单，就是一组经过预先编译的 SQL 语句的封装。&#x3D;&#x3D; 执行过程：存储
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-10 12:43" pubdate>
+              2021-04-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">#MySQL</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
@@ -1045,7 +1045,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2388k</span>
+<span style="font-weight: initial">文章总字数2297k</span>
 
     </div>
   
