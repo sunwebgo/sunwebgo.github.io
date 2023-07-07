@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-16T12:03:07.000Z">
-<meta property="article:modified_time" content="2023-07-07T01:18:48.325Z">
+<meta property="article:modified_time" content="2023-07-07T11:23:34.916Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -275,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          5.8k 字
         
       </span>
     
@@ -286,7 +286,7 @@
         
         
         
-          25 分钟
+          49 分钟
         
       </span>
     
@@ -415,35 +415,41 @@
 <li>对齐填充</li>
 </ul>
 </blockquote>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230605112045996.png" srcset="/img/loading.gif" lazyload alt="image-20230605112045996"></p>
-<h3 id="8-2-1-对象头（Header）"><a href="#8-2-1-对象头（Header）" class="headerlink" title="8.2.1. 对象头（Header）"></a>8.2.1. 对象头（Header）</h3><p>对象头包含了两部分，分别是<code>运行时元数据</code>（Mark Word）和<code>类型指针</code>。如果是数组，还需要记录数组的长度。</p>
-<h4 id="8-2-1-1运行时元数据"><a href="#8-2-1-1运行时元数据" class="headerlink" title="8.2.1.1运行时元数据"></a>8.2.1.1运行时元数据</h4><ul>
-<li>哈希值（HashCode）</li>
-<li>GC分代年龄</li>
-<li>线程持有的锁</li>
-<li>锁状态标志</li>
-<li>偏向线程ID</li>
-<li>偏向时间戳</li>
-</ul>
-<h4 id="8-2-1-2类型指针"><a href="#8-2-1-2类型指针" class="headerlink" title="8.2.1.2类型指针"></a>8.2.1.2类型指针</h4><p>指向类元数据InstanceKlass，确定该对象所属的类型。</p>
-<h3 id="8-2-2-实例数据（Instance-Data）"><a href="#8-2-2-实例数据（Instance-Data）" class="headerlink" title="8.2.2. 实例数据（Instance Data）"></a>8.2.2. 实例数据（Instance Data）</h3><p>它是对象真正存储的有效信息，包括程序代码中定义的各种类型的字段（包括从父类继承下来的和本身拥有的字段）</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230707115724601.png" srcset="/img/loading.gif" lazyload alt="image-20230707115724601"></p>
+<h3 id="8-2-1-对象头（Header）"><a href="#8-2-1-对象头（Header）" class="headerlink" title="8.2.1. 对象头（Header）"></a>8.2.1. 对象头（Header）</h3><p>对象头包含了两部分，分别是<code>对象标记</code>（Mark Word）和<code>类型指针</code>（Class Pointer）。如果是数组，还需要记录数组的长度。</p>
+<p><strong>对象头（Object Header）</strong>的大小取决于JVM的架构和对象本身。在32位的JVM中，对象头的大小至少为8字节，包括4字节的对象标记（Mark Word）和4字节的类型指针（Klass Word）。而在64位的JVM中，对象头的大小至少为12字节或16字节，具体取决于是否开启了指针压缩（CompressedOops）。如果开启了指针压缩，对象头的大小为12字节，包括8字节的对象标记和4字节的类型指针；如果没有开启指针压缩，对象头的大小为16字节，包括8字节的对象标记和8字节的类型指针。</p>
+<p><font color='scarlet'>此外，如果对象是一个数组，那么对象头还需要额外的4个或8个字节来存储数组长度（Array Length），具体取决于JVM的架构和是否开启了指针压缩。</font></p>
+<h4 id="8-2-1-1对象标记（Mark-Word）"><a href="#8-2-1-1对象标记（Mark-Word）" class="headerlink" title="8.2.1.1对象标记（Mark Word）"></a>8.2.1.1对象标记（Mark Word）</h4><p>对象标记（Mark Word）的大小也取决于JVM的架构。在32位的JVM中，对象标记的大小为32位，也就是4字节。而在64位的JVM中，对象标记的大小为64位，也就是8字节。</p>
+<blockquote>
 <ul>
-<li><p><font color='scarlet'>相同宽度的字段总是被分配在一起</font></p>
-</li>
-<li><p><font color='scarlet'>父类中定义的变量会出现在子类之前</font></p>
-</li>
-<li><p>如果CompactFields参数为true（默认为true）：子类的窄变量可能插入到父类变量的空隙</p>
-</li>
+<li><strong>哈希值（HashCode）</strong>：用于确定对象在哈希表中的位置。可以通过调用对象的<code>hashCode()</code>方法来获取对象的哈希值。</li>
+<li><strong>GC分代年龄</strong>：用于确定对象是否需要在垃圾回收时晋升到老年代。</li>
+<li><strong>线程持有的锁</strong>：用于确定哪个线程持有了对象的锁。</li>
+<li><strong>锁状态标志</strong>：用于确定对象的锁状态，例如无锁、偏向锁、轻量级锁或重量级锁。</li>
+<li><strong>偏向线程ID</strong>：用于确定哪个线程持有了对象的偏向锁。</li>
+<li><strong>偏向时间戳</strong>：用于记录偏向锁的获取时间。</li>
 </ul>
-<h3 id="8-2-3-对齐填充（Padding）"><a href="#8-2-3-对齐填充（Padding）" class="headerlink" title="8.2.3. 对齐填充（Padding）"></a>8.2.3. 对齐填充（Padding）</h3><p>不是必须的，也没有特别的含义，仅仅起到占位符的作用</p>
+</blockquote>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/v2-773175d3d55668daf774d1b0fd0427b1_720w.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="8-2-1-2类型指针"><a href="#8-2-1-2类型指针" class="headerlink" title="8.2.1.2类型指针"></a>8.2.1.2类型指针</h4><p>类型指针（Klass Word）的大小取决于JVM的架构。在32位的JVM中，类型指针的大小为32位，也就是4字节。而在64位的JVM中，类型指针的大小为64位，也就是8字节。<font color='scarlet'>不过，在64位的JVM中，可以通过开启<code>指针压缩（CompressedOops）</code>来减小类型指针的大小，将其压缩至32位（4字节）。</font></p>
+<p>可以通过添加JVM参数来显式配置<code>指针压缩</code>。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">+</span><span class="token class-name">UseCompressedOops</span>  <span class="token comment">// 开启指针压缩</span>
+<span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">-</span><span class="token class-name">UseCompressedOops</span>  <span class="token comment">// 关闭指针压缩</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="8-2-1-3数组长度"><a href="#8-2-1-3数组长度" class="headerlink" title="8.2.1.3数组长度"></a>8.2.1.3数组长度</h4><p>只有数组对象才有。数组长度（Array Length）的大小也取决于JVM的架构。在32位的JVM中，数组长度的大小为32位，也就是4字节。而在64位的JVM中，数组长度的大小为64位，也就是8字节。<font color='scarlet'>不过，在64位的JVM中，可以通过<code>开启指针压缩（CompressedOops）</code>来减小数组长度的大小，将其压缩至32位（4字节）。</font></p>
+<h3 id="8-2-2-实例数据（Instance-Data）"><a href="#8-2-2-实例数据（Instance-Data）" class="headerlink" title="8.2.2. 实例数据（Instance Data）"></a>8.2.2. 实例数据（Instance Data）</h3><p><font color='read'>实例数据中存储了对象的有效信息，包括从父类继承的信息和子类中定义的信息。</font><font color='scarlet'>实例数据部分的大小取决于对象所属类中定义的字段类型和数量。</font></p>
+<ul>
+<li><font color='scarlet'>相同宽度的字段总是被分配在一起</font></li>
+<li><font color='scarlet'>父类中定义的变量会出现在子类之前</font></li>
+</ul>
+<h3 id="8-2-3-对齐填充（Padding）"><a href="#8-2-3-对齐填充（Padding）" class="headerlink" title="8.2.3. 对齐填充（Padding）"></a>8.2.3. 对齐填充（Padding）</h3><p><strong>对齐填充（Padding）</strong><font color='scarlet'>是对象内存布局中的另一部分。它并不是必然存在的，也没有特别的含义，它仅仅起着占位符的作用。</font></p>
+<p><font color='scarlet'>由于HotSpot VM的自动内存管理系统要求对象起始地址必须是8字节的整数倍，也就是对象的大小必须是8字节的整数倍。</font><font color='read'>因此当对象实例数据部分没有对齐的话，就需要通过对齐填充来补全。如果对象的大小就是8字节的整数倍，那么就不用再进行对齐填充了。</font></p>
 <h3 id="8-2-4对象内存布局图示"><a href="#8-2-4对象内存布局图示" class="headerlink" title="8.2.4对象内存布局图示"></a>8.2.4对象内存布局图示</h3><p>对于以下程序：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Customer</span><span class="token punctuation">&#123;</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token class-name">Customer</span> cust <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Customer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>对于以上代码</p>
 <blockquote>
@@ -457,6 +463,116 @@
 </ol>
 </blockquote>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230605114648347.png" srcset="/img/loading.gif" lazyload alt="image-20230605114648347"></p>
+<h3 id="8-2-5对象内存布局示例"><a href="#8-2-5对象内存布局示例" class="headerlink" title="8.2.5对象内存布局示例"></a>8.2.5对象内存布局示例</h3><h4 id="8-2-5-1JOL工具介绍"><a href="#8-2-5-1JOL工具介绍" class="headerlink" title="8.2.5.1JOL工具介绍"></a>8.2.5.1JOL工具介绍</h4><p><strong>JOL (Java Object Layout)</strong> 是<font color='scarlet'>一个分析 JVM 中<code>对象内存布局</code>的工具</font>。可以查看<font color='read'>对象的内存布局、内存踪迹和引用</font>。这使得 JOL 的分析比其它工具更精确。通过 OpenJDK 官方提供的 JOL 工具，我们即可很方便分析、了解一个 Java 对象在内存当中的具体布局情况</p>
+<p>使用：在Maven中引入<code>JOL</code>依赖</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- JOL依赖 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.openjdk.jol<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jol-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.9<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h4 id="8-2-5-2查看对象的内存布局信息"><a href="#8-2-5-2查看对象的内存布局信息" class="headerlink" title="8.2.5.2查看对象的内存布局信息"></a>8.2.5.2查看对象的内存布局信息</h4><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OFFSET</td>
+<td>偏移量，也就是到这个字段位置所占用的byte数</td>
+</tr>
+<tr>
+<td>SIZE</td>
+<td>该类型字节大小</td>
+</tr>
+<tr>
+<td>TYPE</td>
+<td>Class中定义的类型</td>
+</tr>
+<tr>
+<td>DESCRIPTION</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>VALUE</td>
+<td>内存中的值</td>
+</tr>
+</tbody></table>
+<ol>
+<li><strong>只有对象头</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">&#123;</span>
+
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JOLDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">User</span> user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        查看对象内部信息</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">ClassLayout</span><span class="token punctuation">.</span><span class="token function">parseInstance</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toPrintable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230707143144012.png" srcset="/img/loading.gif" lazyload alt="image-20230707143144012"></p>
+<p>由于该对象是一个空对象。查看对象的内存布局发现只有对象头信息。因为对象头在64bit的JVM当中最少为12或者是16bit（12bit就是开启了<code>指针压缩</code>，将<code>类型指针由8bit压缩到了4bit</code>）。则<code>0-4和4-8</code>是就是对象标记(Mark Word)，<code>8-12</code>就是被压缩后的<code>类型指针</code>。</p>
+<p><font color='scarlet'>由于JVM要求对象的起始地址要为<code>8字节</code>的整数倍，也就是对象大小要为<code>8字节</code>的整数倍。当前为<code>12字节</code>，所以采取<code>对齐填充</code>将对象大小由12字节增大到16字节。</font></p>
+<ol start="2">
+<li><strong>对象添加字段，含有对象头+实例数据</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> married<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JOLDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">User</span> user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        查看对象内部信息</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">ClassLayout</span><span class="token punctuation">.</span><span class="token function">parseInstance</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toPrintable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230707150132966.png" srcset="/img/loading.gif" lazyload alt="image-20230707150132966"></p>
+<p>从上图可以看出，<code>对象头</code>占用12字节。实例数据中int类型的字段age占用4字节，boolean类型的字段married占用1字节，所用一共是17字节。</p>
+<p><font color='scarlet'>由于JVM要求对象的起始地址要为<code>8字节</code>的整数倍，也就是对象大小要为<code>8字节</code>的整数倍。当前为<code>17字节</code>，所以采取<code>对齐填充</code>将对象大小由17字节增大到24字节。</font></p>
+<h4 id="8-2-5-3分析GC分代年龄"><a href="#8-2-5-3分析GC分代年龄" class="headerlink" title="8.2.5.3分析GC分代年龄"></a>8.2.5.3分析GC分代年龄</h4><p>GC分代年龄为什么是15？</p>
+<p><font color='scarlet'>因为在对象头当中的对象标识的<code>GC分代年龄</code>就是使用4bit来存储的。4bit表示的最大10进制数就是15（即最大<code>1111</code>）。</font></p>
+<h4 id="8-2-5-4压缩指针"><a href="#8-2-5-4压缩指针" class="headerlink" title="8.2.5.4压缩指针"></a>8.2.5.4压缩指针</h4><ol>
+<li><strong>查看压缩指针参数</strong></li>
+</ol>
+<p><font color='scarlet'>首先使用以下命令打印出那些已经被设置过的详细的XX参数的名称和值。</font></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">java <span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">+</span><span class="token class-name">PrintCommandLineFlags</span> <span class="token operator">-</span>version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230707152604863.png" srcset="/img/loading.gif" lazyload alt="image-20230707152604863"></p>
+<ol start="2">
+<li><strong>查看压缩指针场景</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">&#123;</span>
+
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JOLDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">User</span> user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        查看对象内部信息</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">ClassLayout</span><span class="token punctuation">.</span><span class="token function">parseInstance</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toPrintable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230707150132966.png" srcset="/img/loading.gif" lazyload alt="image-20230707150132966"></p>
+<p>从上图可以看出，<code>对象头</code>占用12字节。实例数据中int类型的字段age占用4字节，boolean类型的字段married占用1字节，所用一共是17字节。</p>
+<p><font color='scarlet'>由于JVM要求对象的起始地址要为<code>8字节</code>的整数倍，也就是对象大小要为<code>8字节</code>的整数倍。当前为<code>17字节</code>，所以采取<code>对齐填充</code>将对象大小由17字节增大到24字节。</font></p>
+<ol start="3">
+<li><strong>关闭压缩指针</strong></li>
+</ol>
+<p>使用命令：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">+</span><span class="token class-name">UseCompressedClassPointers</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+
 <h2 id="8-3-对象的访问定位"><a href="#8-3-对象的访问定位" class="headerlink" title="8.3. 对象的访问定位"></a>8.3. 对象的访问定位</h2><p><font color='red'>JVM是如何通过栈帧中的对象引用访问到其内部的对象实例呢？</font></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230616100409986.png" srcset="/img/loading.gif" lazyload alt="image-20230616100409986"></p>
 <h3 id="8-3-1-句柄访问"><a href="#8-3-1-句柄访问" class="headerlink" title="8.3.1. 句柄访问"></a>8.3.1. 句柄访问</h3><p>reference中存储稳定句柄地址，对象被移动（垃圾收集时移动对象很普遍）时只会改变句柄中实例数据指针即可，reference本身不需要被修改</p>
@@ -753,7 +869,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2297k</span>
+<span style="font-weight: initial">文章总字数2299k</span>
 
     </div>
   
