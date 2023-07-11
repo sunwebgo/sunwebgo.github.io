@@ -19,13 +19,13 @@
     <meta name="description" content="1.JUC概述1.1JUC简介在 Java 中，线程部分是一个重点，本篇文章说的 JUC 也是关于线程的。JUC 就是 java.util.concurrent 工具包的简称。这是一个处理线程的工具包，JDK  1.5 开始出现的。  1.2 进程与线程进程（Process） 是指系统中运行的程序的实例。每个进程都是独立运行的，它们之间相互隔离，互不干扰。 线程（Thread）是进程中的一个执行单">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JUC">
-<meta property="og:url" content="https://xhablog.online/2022/07/07/JUC/index.html">
+<meta property="og:url" content="https://xhablog.online/2023/07/07/JUC/index.html">
 <meta property="og:site_name" content="xhang′s blog">
 <meta property="og:description" content="1.JUC概述1.1JUC简介在 Java 中，线程部分是一个重点，本篇文章说的 JUC 也是关于线程的。JUC 就是 java.util.concurrent 工具包的简称。这是一个处理线程的工具包，JDK  1.5 开始出现的。  1.2 进程与线程进程（Process） 是指系统中运行的程序的实例。每个进程都是独立运行的，它们之间相互隔离，互不干扰。 线程（Thread）是进程中的一个执行单">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/JUC.png">
-<meta property="article:published_time" content="2022-07-07T04:13:51.000Z">
-<meta property="article:modified_time" content="2023-07-11T04:58:12.910Z">
+<meta property="article:published_time" content="2023-07-07T04:13:51.000Z">
+<meta property="article:modified_time" content="2023-07-11T05:04:39.866Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JUC">
@@ -264,8 +264,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-07 12:13" pubdate>
-          2022年7月7日 中午
+        <time datetime="2023-07-07 12:13" pubdate>
+          2023年7月7日 中午
         </time>
       </span>
     
@@ -1785,7 +1785,7 @@
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230702135540118.png" srcset="/img/loading.gif" lazyload alt="image-20230702135540118"></p>
 <h2 id="7-5ThreadPoolExecutor"><a href="#7-5ThreadPoolExecutor" class="headerlink" title="7.5ThreadPoolExecutor"></a>7.5ThreadPoolExecutor</h2><h3 id="7-5-1ThreadPoolExecutor概述"><a href="#7-5-1ThreadPoolExecutor概述" class="headerlink" title="7.5.1ThreadPoolExecutor概述"></a>7.5.1ThreadPoolExecutor概述</h3><p>通过上述3个章节可以查看到<code>newFixedThreadPool</code>、<code>newSingleThreadExecutor</code>和<code>newCacheThreadPool</code>都是基于<code>ThreadPoolExecutor</code>来实现的。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230702135932982.png" srcset="/img/loading.gif" lazyload alt="image-20230702135932982"></p>
-<p><code>ThreadPoolExecutor</code> 是Java 提供的一个强大的线程池实现类，在实际开发中经常被使用。<font color='scarlet'>而常见的线程池类型，如 FixedThreadPool、CachedThreadPool、SingleThreadExecutor 和 ScheduledThreadPool，基本上都是<font color='cornflowerblue'>通过创建 ThreadPoolExecutor 的实例，并根据具体需求设置不同的参数来实现的。</font></p>
+<p><code>ThreadPoolExecutor</code> 是Java 提供的一个强大的线程池实现类，在实际开发中经常被使用。而常见的线程池类型，如 FixedThreadPool、CachedThreadPool、SingleThreadExecutor 和 ScheduledThreadPool，基本上都是<font color='cornflowerblue'>通过创建 ThreadPoolExecutor 的实例，并根据具体需求设置不同的参数来实现的。</font></p>
 <p><font color='read'>ThreadPoolExecutor 提供了丰富的构造方法和配置选项，可以根据需求自定义线程池的大小、任务队列、线程工厂等参数。它是一个灵活可定制的线程池实现，可以满足不同场景下的需求。</font></p>
 <p>由于 ThreadPoolExecutor 的灵活性，我们也可以自己扩展并实现自定义的线程池类型，根据具体需求做一些特定的优化和定制。4</p>
 <h3 id="7-5-2ThreadPoolExecutor方法的参数"><a href="#7-5-2ThreadPoolExecutor方法的参数" class="headerlink" title="7.5.2ThreadPoolExecutor方法的参数"></a>7.5.2ThreadPoolExecutor方法的参数</h3><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">ThreadPoolExecutor</span><span class="token punctuation">(</span><span class="token keyword">int</span> corePoolSize<span class="token punctuation">,</span>
@@ -5693,7 +5693,7 @@ obj <span class="token operator">=</span> <span class="token keyword">null</span
   <div class="license-box my-3">
     <div class="license-title">
       <div>JUC</div>
-      <div>https://xhablog.online/2022/07/07/JUC/</div>
+      <div>https://xhablog.online/2023/07/07/JUC/</div>
     </div>
     <div class="license-meta">
       
@@ -5705,7 +5705,7 @@ obj <span class="token operator">=</span> <span class="token keyword">null</span
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月7日</div>
+          <div>2023年7月7日</div>
         </div>
       
       
@@ -5737,18 +5737,12 @@ obj <span class="token operator">=</span> <span class="token keyword">null</span
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/10/SpringBoot/" title="SpringBoot2.0">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SpringBoot2.0</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/30/MyBatis-Plus/" title="MyBatis-Plus">
-                        <span class="hidden-mobile">MyBatis-Plus</span>
+                      <a href="/2023/07/06/ThreadLocal%E8%AF%A6%E8%A7%A3/" title="ThreadLocal详解">
+                        <span class="hidden-mobile">ThreadLocal详解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -5771,7 +5765,7 @@ obj <span class="token operator">=</span> <span class="token keyword">null</span
         var options = Object.assign(
           {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: 'c4419585b8941e84b836f760f58919d9'
+            id: '3d72b220182f316733c0f26938ed9fee'
           }
         )
         var gitalk = new Gitalk(options);
