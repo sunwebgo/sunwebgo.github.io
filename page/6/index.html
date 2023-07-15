@@ -267,6 +267,75 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/01/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC18%E7%AB%A0_%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" target="_self">
+          <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png" srcset="/img/loading.gif" lazyload alt="第18章_主从复制">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/01/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC18%E7%AB%A0_%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" target="_self">
+          第18章_主从复制
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2021/05/01/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC18%E7%AB%A0_%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" target="_self">
+        <div>
+          1. 主从复制概述1.1 如何提升数据库并发能力在实际工作中，我们常常将Redis作为缓存与MySQL配合来使用，当有请求的时候，首先会从缓存中进行查找，如果存在就直接取出。如果不存在再访问数据库，这样就提升了读取的效率，也减少了对后端数据库的访问压力。Redis的缓存架构是高并发架构中非常重要的一环。  此外，一般应用对数据库而言都是“ 读多写少 ”，也就说对数据库读取数据的压力比较大，有一个思
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-01 10:19" pubdate>
+              2021-05-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MySQL/">#MySQL</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/04/30/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC17%E7%AB%A0_%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97/" target="_self">
           <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png" srcset="/img/loading.gif" lazyload alt="第17章_其他数据库日志">
         </a>
@@ -884,75 +953,6 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/04/21/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC08%E7%AB%A0_%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" target="_self">
-          <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png" srcset="/img/loading.gif" lazyload alt="第08章_索引的创建与设计原则">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/21/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC08%E7%AB%A0_%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" target="_self">
-          第08章_索引的创建与设计原则
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt " href="/2021/04/21/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC08%E7%AB%A0_%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" target="_self">
-        <div>
-          1.1 索引的分类MySQL的索引包括  普通索引 主键索引 唯一性索引 单列索引 联合索引 空间索引   从 功能逻辑 上说，索引主要有 4 种，分别是普通索引、唯一索引、主键索引、全文索引。 按照 物理实现方式 ，索引可以分为 2 种：聚簇索引和非聚簇索引。 按照 &#96;作用字段个数 进行划分，分成单列索引和联合索引。  1. 普通索引 在创建普通索引时，不附加任何限制条件,&#x3D;&
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-21 16:00" pubdate>
-              2021-04-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MySQL/">#MySQL</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
@@ -1045,7 +1045,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2436k</span>
+<span style="font-weight: initial">文章总字数2564k</span>
 
     </div>
   
