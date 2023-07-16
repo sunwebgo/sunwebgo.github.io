@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-05T02:24:07.000Z">
-<meta property="article:modified_time" content="2023-07-15T10:58:33.150Z">
+<meta property="article:modified_time" content="2023-07-16T12:04:15.261Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -274,7 +274,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          35k 字
+          36k 字
         
       </span>
     
@@ -285,7 +285,7 @@
         
         
         
-          295 分钟
+          297 分钟
         
       </span>
     
@@ -662,7 +662,7 @@ arr <span class="token operator">=</span> <span class="token keyword">new</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE1.jpg" srcset="/img/loading.gif" lazyload></p>
-<h4 id="2、数组下标为什么是0开始"><a href="#2、数组下标为什么是0开始" class="headerlink" title="2、数组下标为什么是0开始"></a>2、数组下标为什么是0开始</h4><p>因为第一个元素距离数组首地址间隔0个单元格。</p>
+<h4 id="2、数组下标为什么是0开始"><a href="#2、数组下标为什么是0开始" class="headerlink" title="2、数组下标为什么是0开始"></a>2、数组下标为什么是0开始</h4><p>Java中数组的创建是在内存地址当中开辟一段连续的存储空间，要访问数组中特定位置的元素，就需要根据数组的起始地址+偏移量来访问特定位置的元素。将起数组下标设置为从0开始，那么就能够根据起始地址快速定位到数组的内存地址，提交数组的访问效率。</p>
 <h4 id="3、两个一维数组内存图"><a href="#3、两个一维数组内存图" class="headerlink" title="3、两个一维数组内存图"></a>3、两个一维数组内存图</h4><p>两个数组独立</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -672,7 +672,7 @@ arr <span class="token operator">=</span> <span class="token keyword">new</span>
 <span class="token punctuation">&#125;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE2.jpg">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE2.jpg</a>“ &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE2.jpg%22" srcset="/img/loading.gif" lazyload></p>
 <h4 id="4、两个变量指向一个一维数组"><a href="#4、两个变量指向一个一维数组" class="headerlink" title="4、两个变量指向一个一维数组"></a>4、两个变量指向一个一维数组</h4><p>两个数组变量本质上代表同一个数组。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// 定义数组，存储3个元素</span>
@@ -691,7 +691,7 @@ arr <span class="token operator">=</span> <span class="token keyword">new</span>
     <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p> ![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE3.jpg">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE3.jpg</a>“ &#x2F;&gt;</p>
+<p> <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%9B%BE3.jpg%22" srcset="/img/loading.gif" lazyload></p>
 <h2 id="4-一维数组的应用"><a href="#4-一维数组的应用" class="headerlink" title="4. 一维数组的应用"></a>4. 一维数组的应用</h2><p><strong>案例1：</strong>升景坊单间短期出租4个月，550元&#x2F;月（水电煤公摊，网费35元&#x2F;月），空调、卫生间、厨房齐全。屋内均是IT行业人士，喜欢安静。所以要求来租者最好是同行或者刚毕业的年轻人，爱干净、安静。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ArrayTest</span> <span class="token punctuation">&#123;</span>
       <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -1017,8 +1017,21 @@ arr <span class="token operator">=</span> <span class="token keyword">new</span>
 
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h4 id="5-2-4二维数组初始化说明"><a href="#5-2-4二维数组初始化说明" class="headerlink" title="5.2.4二维数组初始化说明"></a>5.2.4二维数组初始化说明</h4><p>对于以下代码：</p>
+<blockquote>
+<p>打印结果不会不同，因为在第一个二维数组<code>numbers1</code>中，我们创建了一个大小为2x2的二维数组，并且每个元素的初始值为0。因此，打印<code>numbers1[1]</code>时，会输出数组的第二行，即<code>[0, 0]</code>。接着，打印<code>numbers1[1][1]</code>会输出数组的第二行的第二列元素，即<code>0</code>。</p>
+<p>对于第二个二维数组<code>numbers2</code>，我们创建了一个大小为2的一维数组，但没有为其元素创建二维数组。因此，当我们尝试打印<code>numbers2[1]</code>时，会输出数组的第二个元素，即<code>null</code>。尝试打印<code>numbers2[1][1]</code>会导致<code>NullPointerException</code>，因为第二维数组并没有被创建，所以无法访问其元素。</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>numbers1<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>numbers1<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h3 id="5-3-数组的长度和角标"><a href="#5-3-数组的长度和角标" class="headerlink" title="5.3 数组的长度和角标"></a>5.3 数组的长度和角标</h3><ul>
+<span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>numbers2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>numbers2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230716195849399.png" srcset="/img/loading.gif" lazyload alt="image-20230716195849399"></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="5-3-数组的长度和角标"><a href="#5-3-数组的长度和角标" class="headerlink" title="5.3 数组的长度和角标"></a>5.3 数组的长度和角标</h3><ul>
 <li>二维数组的长度&#x2F;行数：二维数组名.length</li>
 <li>二维数组的某一行：二维数组名[行下标]，此时相当于获取其中一组数据。它本质上是一个一维数组。行下标的范围：[0, 二维数组名.length-1]。此时把二维数组看成一维数组的话，元素是行对象。</li>
 <li>某一行的列数：二维数组名[行下标].length，因为二维数组的每一行是一个一维数组。</li>
