@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-06T23:34:07.000Z">
-<meta property="article:modified_time" content="2023-07-17T09:49:22.201Z">
+<meta property="article:modified_time" content="2023-07-17T12:34:45.704Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -274,7 +274,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          35k 字
+          36k 字
         
       </span>
     
@@ -285,7 +285,7 @@
         
         
         
-          294 分钟
+          297 分钟
         
       </span>
     
@@ -1221,7 +1221,7 @@
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Dog</span> dog <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token string">"小花"</span><span class="token punctuation">,</span><span class="token string">"小红"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003735416.png" srcset="/img/loading.gif" lazyload></p>
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003813163.png%EF%BC%89">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003813163.png）</a></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220324003813163.png" srcset="/img/loading.gif" lazyload></p>
 <p>举例：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Creature</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">public</span> <span class="token class-name">Creature</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -1264,10 +1264,13 @@ o <span class="token operator">=</span> <span class="token keyword">new</span> <
 
 <p>对象的多态：在Java中，子类的对象可以替代父类的对象使用。所以，一个引用类型变量可能指向(引用)多种不同类型的对象。</p>
 <h4 id="7-1-2-多态的理解"><a href="#7-1-2-多态的理解" class="headerlink" title="7.1.2 多态的理解"></a>7.1.2 多态的理解</h4><p>Java引用变量有两个类型：<code>编译时类型</code>和<code>运行时类型</code>。编译时类型由<code>声明</code>该变量时使用的类型决定，运行时类型由<code>实际赋给该变量的对象</code>决定。简称：<strong>编译时，看左边；运行时，看右边。</strong></p>
+<blockquote>
 <ul>
 <li>若编译时类型和运行时类型不一致，就出现了对象的多态性(Polymorphism)</li>
 <li>多态情况下，“看左边”：看的是父类的引用（父类中不具备子类特有的方法）<br>“看右边”：看的是子类的对象（实际运行的是子类重写父类的方法）</li>
+<li><font color='scarlet'>多态性只对方法适用，不适用于属性</font></li>
 </ul>
+</blockquote>
 <p>多态的使用前提：&#x3D;&#x3D;① 类的继承关系  ② 方法的重写&#x3D;&#x3D;</p>
 <h4 id="7-1-3-举例"><a href="#7-1-3-举例" class="headerlink" title="7.1.3 举例"></a>7.1.3 举例</h4><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>polymorphism<span class="token punctuation">.</span>grammar</span><span class="token punctuation">;</span>
 
@@ -1388,7 +1391,7 @@ o <span class="token operator">=</span> <span class="token keyword">new</span> <
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230316165746105.png" srcset="/img/loading.gif" lazyload alt="image-20230316165746105"></p>
 <h3 id="7-3-多态的好处和弊端"><a href="#7-3-多态的好处和弊端" class="headerlink" title="7.3 多态的好处和弊端"></a>7.3 多态的好处和弊端</h3><p><strong>好处</strong>：&#x3D;&#x3D;减少大量的重载方法的定义。变量引用的子类对象不同，执行的方法就不同，实现动态绑定。代码编写更灵活、功能更强大，可维护性和扩展性更好了。&#x3D;&#x3D;</p>
-<p><strong>弊端</strong>：<font color='red'>一个引用类型变量如果声明为父类的类型，但实际引用的是子类对象，那么该变量就不能再访问子类中添加的属性和方法</font>。如上述程序所示，Animal为父类，其引用指向子类对象dog和cat，但是子类对象dog和cat中的独有方法不能被调用。</p>
+<p><strong>弊端</strong>：<font color='red'>在使用多态时，子类对象只能调用子类中重写的父类方法，而不能调用子类特有的方法。这是因为在<code>向上转型</code>后，编译器只能看到父类中的方法，而看不到子类中特有的方法。如果想要调用子类特有的方法，可以使用向下转型。</font>。如上述程序所示，Animal为父类，其引用指向子类对象dog和cat，但是子类对象dog和cat中的独有方法不能被调用。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Student</span> m <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 m<span class="token punctuation">.</span>school <span class="token operator">=</span> <span class="token string">"pku"</span><span class="token punctuation">;</span> 	<span class="token comment">//合法,Student类有school成员变量</span>
 <span class="token class-name">Person</span> e <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
@@ -1901,7 +1904,7 @@ e<span class="token punctuation">.</span><span class="token function">getInfo</s
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <h4 id="2、-重点-toString"><a href="#2、-重点-toString" class="headerlink" title="2、(重点)toString()"></a>2、(重点)toString()</h4><p>方法签名：public String toString()</p>
-<p>① 默认情况下，<font color='red'>toString()返回的是“对象的运行时类型 @ 对象的hashCode值的十六进制形式”</font>font&gt;</p>
+<p>① 默认情况下，<font color='red'>toString()返回的是“对象的运行时类型 @ 对象的hashCode值的十六进制形式”</font></p>
 <p>② 在进行String与其它类型数据的连接操作时，自动调用toString()方法</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Date</span> now<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>“now<span class="token operator">=</span>”<span class="token operator">+</span>now<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//相当于</span>
@@ -1929,7 +1932,14 @@ e<span class="token punctuation">.</span><span class="token function">getInfo</s
 <p><strong>练习</strong>：定义两个类，父类GeometricObject代表几何形状，子类Circle代表圆形。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220325002959156.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220325002932102.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="3、clone"><a href="#3、clone" class="headerlink" title="3、clone()"></a>3、clone()</h4><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//Object类的clone()的使用</span>
+<h4 id="3、clone"><a href="#3、clone" class="headerlink" title="3、clone()"></a>3、clone()</h4><p>Object类中的<code>clone()</code>方法用于创建并返回一个对象的拷贝。<code>clone方法是浅克隆</code>，对象内属性引用的对象只会拷贝引用地址，而不会将引用的对象重新分配内存，相对应的深克隆则会连引用的对象也重新创建。</p>
+<blockquote>
+<p><strong>浅克隆</strong>：创建一个新对象，新对象的属性和原来对象完全相同，对于非基本类型属性，仍指向原有属性所指向的对象的内存地址。</p>
+<p>浅克隆会创建一个新的克隆对象，和原来的原型对象的内存地址并不相同。但是对于对象的属性，如果是引用类型，克隆对象和原型对象公用一个内存地址的成员属性。如果在克隆对象中修改引用类型的属性，那么原型对象中对应的引用类型属性的值也会更改。</p>
+<p><strong>深克隆</strong>：创建一个新对象，属性中引用的其他对象也会被克隆，不再指向原有对象地址。</p>
+</blockquote>
+<p>Java中的Object类中提供了 <code>clone()</code> 方法来实现<code>浅克隆</code>。同时在设计模式中的原型模式中， <code>实现了</code>Cloneable接口的子实现类就是具体的原型类。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//Object类的clone()的使用</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CloneTest</span> <span class="token punctuation">&#123;</span>
 	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
 		<span class="token class-name">Animal</span> a1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Animal</span><span class="token punctuation">(</span><span class="token string">"花花"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
