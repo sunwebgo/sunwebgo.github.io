@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-11T11:34:07.000Z">
-<meta property="article:modified_time" content="2023-07-19T08:33:27.520Z">
+<meta property="article:modified_time" content="2023-07-19T15:15:35.487Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -285,7 +285,7 @@
         
         
         
-          322 分钟
+          321 分钟
         
       </span>
     
@@ -405,17 +405,16 @@
 <li><code>一个是多个核心的其他共用资源限制</code>。譬如，4核CPU对应的内存、cache、寄存器并没有同步扩充4倍。这就好像医院一样，1个医生换4个医生，但是做B超检查的还是一台机器，性能瓶颈就从医生转到B超检查了。</li>
 <li><code>另一个是多核CPU之间的协调管理损耗</code>。譬如多个核心同时运行两个相关的任务，需要考虑任务同步，这也需要消耗额外性能。好比公司工作，一个人的时候至少不用开会浪费时间，自己跟自己商量就行了。两个人就要开会同步工作，协调分配，所以工作效率绝对不可能达到2倍。</li>
 </ul>
-<h3 id="1-6-并行与并发"><a href="#1-6-并行与并发" class="headerlink" title="1.6 并行与并发"></a>1.6 并行与并发</h3><ul>
-<li><p><strong>并行（parallel）</strong>：指两个或多个事件在<code>同一时刻</code>发生（同时发生）。&#x3D;&#x3D;指在同一时刻，有<code>多条指令</code>在<code>多个CPU</code>上<code>同时</code>执行。比如：多个人同时做不同的事。&#x3D;&#x3D;</p>
+<h3 id="1-6-并行与并发"><a href="#1-6-并行与并发" class="headerlink" title="1.6 并行与并发"></a>1.6 并行与并发</h3><p><strong>并行和并发是两个相关但不同的概念。</strong></p>
+<ul>
+<li><p><strong>并行（parallel）</strong>：并行指的是多个任务在同一时刻同时执行。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401000804242.png" srcset="/img/loading.gif" lazyload alt="image-20220401000804242"></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220513181758585.png" srcset="/img/loading.gif" lazyload></p>
 </li>
-<li><p><strong>并发（concurrency）</strong>：指两个或多个事件在<code>同一个时间段内</code>发生。&#x3D;&#x3D;即在一段时间内，有<code>多条指令</code>在<code>单个CPU</code>上<code>快速轮换、交替</code>执行。&#x3D;&#x3D;</p>
+<li><p><strong>并发（concurrency）</strong>：并发指的是多个任务在同一时间间隔内交替执行。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220401000515678.png" srcset="/img/loading.gif" lazyload alt="image-20220401000515678"></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220513181815978.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ul>
-<p><strong><font color='red'>简单来说，如果在多个处理器上同时完成任务，则称为并行；如果在一个处理器上在不同时间点完成多个任务，则称为并发。</font></strong></p>
+<p>举个例子，假设你正在吃饭，突然电话响了。如果你停下来接电话，接完后再继续吃饭，这就是并发。如果你一边接电话一边吃饭，这就是并行。</p>
 <h2 id="2-创建和启动线程"><a href="#2-创建和启动线程" class="headerlink" title="2.创建和启动线程"></a>2.创建和启动线程</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><ul>
 <li>Java语言的JVM允许程序运行多个线程，使用<code>java.lang.Thread</code>类代表<strong>线程</strong>，所有的线程对象都必须是Thread类或其子类的实例。</li>
 <li>Thread类的特性<ul>
@@ -2481,7 +2480,7 @@ notifyAll():一旦执行此方法，就会唤醒所有被wait的线程。<span a
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2563k</span>
+<span style="font-weight: initial">文章总字数2561k</span>
 
     </div>
   
