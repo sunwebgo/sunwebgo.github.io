@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-10T01:34:07.000Z">
-<meta property="article:modified_time" content="2023-07-19T08:29:28.172Z">
+<meta property="article:modified_time" content="2023-07-19T08:33:27.520Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -609,7 +609,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331180736381.png%22" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331180736381.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="4-2-2try-catch-finally-return的执行流程"><a href="#4-2-2try-catch-finally-return的执行流程" class="headerlink" title="4.2.2try-catch-finally-return的执行流程"></a>4.2.2try-catch-finally-return的执行流程</h4><blockquote>
 <ol>
 <li><p>如果<code>try</code>块中没有异常，那么执行顺序为<code>try→finally</code>；如果<code>try</code>块中有异常，则执行顺序为<code>try→catch→finally</code>。</p>
@@ -710,7 +710,7 @@
 
 <h4 id="4-2-4finally中常见的声明的代码"><a href="#4-2-4finally中常见的声明的代码" class="headerlink" title="4.2.4finally中常见的声明的代码"></a>4.2.4finally中常见的声明的代码</h4><p><font color='red'>finally代码块中，常常进行资源的关闭，以防止内存泄露。一些资源（输入输出流，数据库连接，scoket连接等资源），在使用完之后，必须显式的进行关闭操作，否则，GC不会自动回收这些资源，进而导致内存泄漏。</font></p>
 <p>&#x3D;&#x3D;为了保证这些资源在使用完以后，不管是否出现了未被处理的异常的情况下，这些资源能被关闭。我们必须将这些操作声明在finally中!&#x3D;&#x3D;</p>
-<h4 id="4-2-5-finally使用及举例"><a href="#4-2-5-finally使用及举例" class="headerlink" title="4.2.5 finally使用及举例"></a>4.2.5 finally使用及举例</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331215517077.png%22" srcset="/img/loading.gif" lazyload></p>
+<h4 id="4-2-5-finally使用及举例"><a href="#4-2-5-finally使用及举例" class="headerlink" title="4.2.5 finally使用及举例"></a>4.2.5 finally使用及举例</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331215517077.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li><p>因为异常会引发程序跳转，从而会导致有些语句执行不到。而程序中有一些特定的代码无论异常是否发生，都<code>需要执行</code>。例如，数据库连接、输入流输出流、Socket连接、Lock锁的关闭等，这样的代码通常就会放到finally块中。所以，我们通常将一定要被执行的代码声明在finally中。</p>
 <ul>
