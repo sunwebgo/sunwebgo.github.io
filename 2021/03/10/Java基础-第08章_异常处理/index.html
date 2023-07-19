@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-10T01:34:07.000Z">
-<meta property="article:modified_time" content="2023-07-19T06:18:55.009Z">
+<meta property="article:modified_time" content="2023-07-19T08:29:28.172Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -285,7 +285,7 @@
         
         
         
-          196 分钟
+          198 分钟
         
       </span>
     
@@ -575,18 +575,21 @@
 <span class="token punctuation">&#125;</span> 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p><strong>1、整体执行过程：</strong></p>
+<p><strong>具体执行过程：</strong></p>
 <p>当某段代码可能发生异常，不管这个异常是编译时异常（受检异常）还是运行时异常（非受检异常），我们都可以使用try块将它括起来，并在try块下面编写catch分支尝试捕获对应的异常对象。</p>
+<blockquote>
 <ul>
 <li>如果在程序运行时，try块中的代码没有发生异常，那么catch所有的分支都不执行。</li>
 <li>如果在程序运行时，try块中的代码发生了异常，根据异常对象的类型，将从上到下选择第一个匹配的catch分支执行。此时try中发生异常的语句下面的代码将不执行，而整个try…catch之后的代码可以继续运行。</li>
 <li>如果在程序运行时，try块中的代码发生了异常，但是所有catch分支都无法匹配（捕获）这个异常，那么JVM将会终止当前方法的执行，并把异常对象“抛”给调用者。如果调用者不处理，程序就挂了。</li>
 </ul>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503122722605.png" srcset="/img/loading.gif" lazyload><br><strong>2、try</strong></p>
+</blockquote>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220503122722605.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>try</strong></p>
 <ul>
 <li>捕获异常的第一步是用<code>try&#123;…&#125;语句块</code>选定捕获异常的范围，将可能出现异常的业务逻辑代码放在try语句块中。</li>
 </ul>
-<p><strong>3、catch (Exceptiontype e)</strong></p>
+<p><strong>catch (Exceptiontype e)</strong></p>
 <ul>
 <li><p>catch分支，分为两个部分，catch()中编写异常类型和异常参数名，{}中编写如果发生了这个异常，要做什么处理的代码。</p>
 </li>
@@ -604,10 +607,55 @@
 <li><p><code>public void printStackTrace()</code>：打印异常的跟踪栈信息并输出到控制台。包含了异常的类型、异常的原因、还包括异常出现的位置，在开发和调试阶段，都得使用printStackTrace()。</p>
 </li>
 </ul>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331180736381.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ul>
-<h4 id="4-2-2-使用举例"><a href="#4-2-2-使用举例" class="headerlink" title="4.2.2 使用举例"></a>4.2.2 使用举例</h4><p>举例1：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331180736381.png%22" srcset="/img/loading.gif" lazyload></p>
+<h4 id="4-2-2try-catch-finally-return的执行流程"><a href="#4-2-2try-catch-finally-return的执行流程" class="headerlink" title="4.2.2try-catch-finally-return的执行流程"></a>4.2.2try-catch-finally-return的执行流程</h4><blockquote>
+<ol>
+<li><p>如果<code>try</code>块中没有异常，那么执行顺序为<code>try→finally</code>；如果<code>try</code>块中有异常，则执行顺序为<code>try→catch→finally</code>。</p>
+</li>
+<li><p>当<code>try</code>和<code>catch</code>中有<code>return</code>语句时，<code>finally</code>块仍然会被执行。在执行完<code>return</code>语句之后，返回之前，会先执行<code>finally</code>块中的代码。此时并没有返回运算后的值，而是先把要返回的值保存起来，不管 <code>finally </code>中的代码怎么样，返回的值都不会改变，仍然是之前保存的值。因此，如果 <code>finally </code>中没有 <code>return </code>语句，即使对数据有操作也不会影响返回值。</p>
+</li>
+<li><p>如果 <code>finally </code>中包含 <code>return </code>语句，那么程序将在这里返回，而不是在 <code>try </code>或 <code>catch </code>中的 <code>return </code>返回。此时返回值就不再是 <code>try </code>或 <code>catch </code>中保存的返回值了。</p>
+</li>
+</ol>
+</blockquote>
+<p>举例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HandleException</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> result <span class="token operator">=</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//100</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+            <span class="token operator">++</span>i<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230719162517365.png" srcset="/img/loading.gif" lazyload alt="image-20230719162517365"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HandleException</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> result <span class="token operator">=</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//100</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span>  <span class="token operator">++</span>i<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230719162502253.png" srcset="/img/loading.gif" lazyload alt="image-20230719162502253"></p>
+<h4 id="4-2-3-使用举例"><a href="#4-2-3-使用举例" class="headerlink" title="4.2.3 使用举例"></a>4.2.3 使用举例</h4><p>举例1：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IndexOutExp</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token class-name">String</span> friends<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token string">"lisa"</span><span class="token punctuation">,</span> <span class="token string">"bily"</span><span class="token punctuation">,</span> <span class="token string">"kessy"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
@@ -660,9 +708,9 @@
 	<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h4 id="4-2-3finally中常见的声明的代码"><a href="#4-2-3finally中常见的声明的代码" class="headerlink" title="4.2.3finally中常见的声明的代码"></a>4.2.3finally中常见的声明的代码</h4><p><font color='red'>finally代码块中，常常进行资源的关闭，以防止内存泄露。一些资源（输入输出流，数据库连接，scoket连接等资源），在使用完之后，必须显式的进行关闭操作，否则，GC不会自动回收这些资源，进而导致内存泄漏。</font></p>
+<h4 id="4-2-4finally中常见的声明的代码"><a href="#4-2-4finally中常见的声明的代码" class="headerlink" title="4.2.4finally中常见的声明的代码"></a>4.2.4finally中常见的声明的代码</h4><p><font color='red'>finally代码块中，常常进行资源的关闭，以防止内存泄露。一些资源（输入输出流，数据库连接，scoket连接等资源），在使用完之后，必须显式的进行关闭操作，否则，GC不会自动回收这些资源，进而导致内存泄漏。</font></p>
 <p>&#x3D;&#x3D;为了保证这些资源在使用完以后，不管是否出现了未被处理的异常的情况下，这些资源能被关闭。我们必须将这些操作声明在finally中!&#x3D;&#x3D;</p>
-<h4 id="4-2-4-finally使用及举例"><a href="#4-2-4-finally使用及举例" class="headerlink" title="4.2.4 finally使用及举例"></a>4.2.4 finally使用及举例</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331215517077.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="4-2-5-finally使用及举例"><a href="#4-2-5-finally使用及举例" class="headerlink" title="4.2.5 finally使用及举例"></a>4.2.5 finally使用及举例</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220331215517077.png%22" srcset="/img/loading.gif" lazyload></p>
 <ul>
 <li><p>因为异常会引发程序跳转，从而会导致有些语句执行不到。而程序中有一些特定的代码无论异常是否发生，都<code>需要执行</code>。例如，数据库连接、输入流输出流、Socket连接、Lock锁的关闭等，这样的代码通常就会放到finally块中。所以，我们通常将一定要被执行的代码声明在finally中。</p>
 <ul>
@@ -807,15 +855,6 @@
 <blockquote>
 <p>笔试题：final、finally、finalize有什么区别？</p>
 </blockquote>
-<h4 id="4-2-5-练习"><a href="#4-2-5-练习" class="headerlink" title="4.2.5 练习"></a>4.2.5 练习</h4><p>编写一个类ExceptionTest，在main方法中使用try、catch、finally，要求：</p>
-<ul>
-<li><p>在try块中，编写被零除的代码。</p>
-</li>
-<li><p>在catch块中，捕获被零除所产生的异常，并且打印异常信息</p>
-</li>
-<li><p>在finally块中，打印一条语句。</p>
-</li>
-</ul>
 <h4 id="4-2-6-异常处理的体会"><a href="#4-2-6-异常处理的体会" class="headerlink" title="4.2.6 异常处理的体会"></a>4.2.6 异常处理的体会</h4><ul>
 <li><p>前面使用的异常都是<code>RuntimeException类</code>或是它的<code>子类</code>，这些类的异常的特点是：即使没有使用try和catch捕获，Java自己也能捕获，并且编译通过 ( 但运行时会发生异常使得程序运行终止 )。所以，对于这类异常，可以不作处理，因为这类异常很普遍，若全处理可能会对程序的可读性和运行效率产生影响。</p>
 </li>
@@ -1184,17 +1223,6 @@
 <span class="token punctuation">&#125;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p><strong>练习2：</strong></p>
-<p>从键盘接收学生成绩，成绩必须在0~100之间。</p>
-<p>自定义成绩无效异常。</p>
-<p>编写方法接收成绩并返回该成绩，如果输入无效，则抛出自定义异常。</p>
-<p><strong>练习3：</strong></p>
-<p>编写应用 程序EcmDef.java，接收命令行的两个参数，要求不能输入负数，计算两数相除。<br>对数据类型不一致(NumberFormatException)、缺少命令行参数(ArrayIndexOutOfBoundsException、<br>除0(ArithmeticException)及输入负数(BelowZeroException 自定义的异常)进行异常处理。</p>
-<p>提示：<br>(1)在主类(EcmDef)中定义异常方法(ecm)完成两数相除功能。</p>
-<p>(2)在main()方法中使用异常处理语句进行异常处理。</p>
-<p>(3)在程序中，自定义对应输入负数的异常类(EcDef)。</p>
-<p>(4)运行时接受参数 java EcmDef 20 10   &#x2F;&#x2F;args[0]&#x3D;“20” args[1]&#x3D;“10”</p>
-<p>(5)Interger类的static方法parseInt(String s)将s转换成对应的int值。<br>如：int a&#x3D;Interger.parseInt(“314”);	&#x2F;&#x2F;a&#x3D;314;</p>
 <h2 id="8-小结与小悟"><a href="#8-小结与小悟" class="headerlink" title="8. 小结与小悟"></a>8. 小结与小悟</h2><h3 id="8-1-小结：异常处理5个关键字"><a href="#8-1-小结：异常处理5个关键字" class="headerlink" title="8.1 小结：异常处理5个关键字"></a>8.1 小结：异常处理5个关键字</h3><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220330003738109.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>类比：上游排污，下游治污</p>
@@ -1656,7 +1684,7 @@ throws:使用在方法的声明处，&quot;throws 异常类1,异常类2,...&quot
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2562k</span>
+<span style="font-weight: initial">文章总字数2563k</span>
 
     </div>
   
