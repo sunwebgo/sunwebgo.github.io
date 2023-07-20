@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-14T05:23:07.000Z">
-<meta property="article:modified_time" content="2023-07-20T03:18:21.016Z">
+<meta property="article:modified_time" content="2023-07-20T09:21:44.351Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -285,7 +285,7 @@
         
         
         
-          488 分钟
+          487 分钟
         
       </span>
     
@@ -381,7 +381,7 @@
 </li>
 <li><p>JDK提供的集合API位于java.util包内</p>
 </li>
-<li><p>图示：集合框架全图</p>
+<li><p>图示：集合框架全图<br>ProcessOn思维导图：<a target="_blank" rel="noopener" href="https://www.processon.com/v/64b8f2e0ca040d4e128d8af1">https://www.processon.com/v/64b8f2e0ca040d4e128d8af1</a></p>
 </li>
 </ul>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%85%A8%E5%9B%BE.png" srcset="/img/loading.gif" lazyload alt="集合框架全图.png"></p>
@@ -1245,7 +1245,7 @@
 <li>Set的常用实现类有：HashSet、TreeSet、LinkedHashSet。</li>
 </ul>
 <h3 id="5-2-Set主要实现类：HashSet"><a href="#5-2-Set主要实现类：HashSet" class="headerlink" title="5.2 Set主要实现类：HashSet"></a>5.2 Set主要实现类：HashSet</h3><h4 id="5-2-1-HashSet概述"><a href="#5-2-1-HashSet概述" class="headerlink" title="5.2.1 HashSet概述"></a>5.2.1 HashSet概述</h4><ul>
-<li><p>HashSet 是 Set 接口的主要实现类，大多数时候使用 Set 集合时都使用这个实现类。</p>
+<li><p>HashSet 是 Set 接口的主要实现类，底层是基于HashMap来实现的，对应存储的值为key，value是一个常量new Object()。</p>
 </li>
 <li><p>HashSet 按 Hash 算法来存储集合中的元素，因此具有很好的存储、查找、删除性能。</p>
 </li>
@@ -2007,8 +2007,7 @@ set<span class="token punctuation">.</span><span class="token function">add</spa
 </li>
 <li><p>Map 中的 key 和  value 都可以是任何引用类型的数据。但常用String类作为Map的“键”。</p>
 </li>
-<li><p>Map接口的常用实现类：<code>HashMap</code>、<code>LinkedHashMap</code>、<code>TreeMap</code>和&#96;&#96;Properties<code>。其中，HashMap是 Map 接口使用</code>频率最高&#96;的实现类。</p>
-<p>&lt;img src&#x3D;”C:&#x2F;Users&#x2F;Tony贾维斯&#x2F;Desktop&#x2F;Java&#x2F;尚硅谷_第12章_集合框架&#x2F;images&#x2F;image-20220409001015034.png)</p>
+<li><p>Map接口的常用实现类：<code>HashMap</code>、<code>LinkedHashMap</code>、<code>TreeMap</code>和<code>Properties</code>。其中，HashMap是 Map 接口使用<code>频率最高</code>的实现类。</p>
 </li>
 </ul>
 <h3 id="6-2-Map中key-value特点"><a href="#6-2-Map中key-value特点" class="headerlink" title="6.2 Map中key-value特点"></a>6.2 Map中key-value特点</h3><p>这里主要以HashMap为例说明。HashMap中存储的key、value的特点如下：</p>
