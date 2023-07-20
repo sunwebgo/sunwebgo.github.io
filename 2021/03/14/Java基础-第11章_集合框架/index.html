@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-14T05:23:07.000Z">
-<meta property="article:modified_time" content="2023-07-19T15:15:35.487Z">
+<meta property="article:modified_time" content="2023-07-20T03:18:21.016Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -945,10 +945,8 @@
 </li>
 </ul>
 <h3 id="4-4-List的实现类之二：LinkedList"><a href="#4-4-List的实现类之二：LinkedList" class="headerlink" title="4.4 List的实现类之二：LinkedList"></a>4.4 List的实现类之二：LinkedList</h3><ul>
-<li>&#x3D;&#x3D;<strong>对于频繁的插入或删除元素的操作，建议使用LinkedList类，效率较高。这是由底层采用链表（双向链表）结构存储数据决定的</strong>。&#x3D;&#x3D;</li>
-</ul>
-<p><img src="C:/Users/Tony贾维斯/Desktop/Java/尚硅谷_第12章_集合框架/images/image-20220408225615829.png" srcset="/img/loading.gif" lazyload alt="image-20220408225615829"></p>
-<ul>
+<li><p>&#x3D;&#x3D;<strong>对于频繁的插入或删除元素的操作，建议使用LinkedList类，效率较高。这是由底层采用链表（双向链表）结构存储数据决定的</strong>。&#x3D;&#x3D;</p>
+</li>
 <li><p>特有方法：</p>
 <ul>
 <li>void addFirst(Object obj)</li>
@@ -1001,11 +999,6 @@
 <li>使用ArrayList集合，保存录入的多个学生对象。</li>
 <li>循环录入的方式，1：继续录入，0：结束录入。</li>
 <li>录入结束后，用foreach遍历集合。</li>
-</ul>
-<ul>
-<li><p>代码实现，效果如图所示：</p>
-<p><img src="C:/Users/Tony贾维斯/Desktop/Java/尚硅谷_第12章_集合框架/images/1559890098509.png" srcset="/img/loading.gif" lazyload alt="1559890098509"></p>
-</li>
 </ul>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>test01</span><span class="token punctuation">;</span>
 
@@ -1090,8 +1083,6 @@
 <p>​	1、请定义方法public static int listTest(Collection list,String s)统计集合中指定元素出现的次数</p>
 <p>​	2、创建集合，集合存放随机生成的30个小写字母</p>
 <p>​	3、用listTest统计，a、b、c、x元素的出现次数</p>
-<p>​	4、效果如下</p>
-<p><img src="C:/Users/Tony贾维斯/Desktop/Java/尚硅谷_第12章_集合框架/images/1559896150606.png" srcset="/img/loading.gif" lazyload alt="1559896150606"></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>test02</span><span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">ArrayList</span></span><span class="token punctuation">;</span>
