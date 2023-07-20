@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-15T01:18:07.000Z">
-<meta property="article:modified_time" content="2023-07-20T13:13:28.842Z">
+<meta property="article:modified_time" content="2023-07-20T13:14:07.134Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -1121,7 +1121,7 @@ public void delete(String id)：删除指定 id 对象
 
 <h2 id="4-泛型在继承上的体现"><a href="#4-泛型在继承上的体现" class="headerlink" title="4. 泛型在继承上的体现"></a>4. 泛型在继承上的体现</h2><p>有如下问题：</p>
 <p>​	1. 	<strong>类SuperA是类A的父类，则<code>G&lt;SuperA&gt;</code>与<code>G&lt;A&gt;</code>的关系。</strong></p>
-<p>​		<code>G&lt;SuperA&gt;</code>与<code>G&lt;A&gt;</code>没有关系，是并列的，如下：<code>ArrayList&lt;Project&gt;</code>和<code>ArrayList&lt;String&gt;</code>没有关系</p>
+<p>​		<code>G&lt;SuperA&gt;</code>与<code>G&lt;A&gt;</code>没有关系，是并列的，如下：<code>ArrayList&lt;Object&gt;</code>和<code>ArrayList&lt;String&gt;</code>没有关系</p>
 <ol start="2">
 <li><p><strong>类SuperA是类A的父类或接口，则SuperA<G>与A<G>的关系。</strong></p>
 <p><code>SuperA&lt;G&gt;与A&lt;G&gt;</code>是有继承关系的，如：<code>List&lt;String&gt;和ArrayList&lt;String&gt;</code></p>
