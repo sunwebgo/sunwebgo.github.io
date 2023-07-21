@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-18T11:18:07.000Z">
-<meta property="article:modified_time" content="2023-07-20T15:39:44.336Z">
+<meta property="article:modified_time" content="2023-07-21T02:19:31.218Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -274,7 +274,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          50k 字
+          49k 字
         
       </span>
     
@@ -285,7 +285,7 @@
         
         
         
-          415 分钟
+          412 分钟
         
       </span>
     
@@ -1882,23 +1882,9 @@ abcde<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 <ul>
 <li><p><strong>数据流：DataOutputStream、DataInputStream</strong></p>
 <ul>
-<li>DataOutputStream：<font color='red'>允许应用程序将基本数据类型、String类型的变量写入输出流中</font><ul>
+<li>DataOutputStream：<font color='red'>允许应用程序将基本数据类型、String类型的变量写入输出流中</font></li>
 <li>DataInputStream：允许应用程序以与机器无关的方式从底层输入流中读取基本数据																																																																类型、String类型的变量。</li>
 </ul>
-</li>
-</ul>
-</li>
-<li><p>对象流DataInputStream中的方法：</p>
-</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">byte</span> <span class="token function">readByte</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                <span class="token keyword">short</span> <span class="token function">readShort</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">int</span> <span class="token function">readInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                  <span class="token keyword">long</span> <span class="token function">readLong</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">float</span> <span class="token function">readFloat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>              <span class="token keyword">double</span> <span class="token function">readDouble</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">char</span> <span class="token function">readChar</span><span class="token punctuation">(</span><span class="token punctuation">)</span>				 <span class="token keyword">boolean</span> <span class="token function">readBoolean</span><span class="token punctuation">(</span><span class="token punctuation">)</span>					
-<span class="token class-name">String</span> <span class="token function">readUTF</span><span class="token punctuation">(</span><span class="token punctuation">)</span>               <span class="token keyword">void</span> <span class="token function">readFully</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> b<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<ul>
-<li><p>对象流DataOutputStream中的方法：将上述的方法的read改为相应的write即可。</p>
 </li>
 <li><p>数据流的弊端：只支持Java基本数据类型和字符串的读写，而不支持其它Java对象的类型。而ObjectOutputStream和ObjectInputStream既支持Java基本数据类型的数据读写，又支持Java对象的读写，所以重点介绍对象流ObjectOutputStream和ObjectInputStream。</p>
 </li>
@@ -1974,7 +1960,7 @@ abcde<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 </ul>
 </li>
 </ul>
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/3_xuliehua.jpg">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/3_xuliehua.jpg</a>“ style&#x3D;”zoom:70%;” &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/3_xuliehua.jpg" srcset="/img/loading.gif" lazyload></p>
 <h3 id="7-4-如何实现序列化机制"><a href="#7-4-如何实现序列化机制" class="headerlink" title="7.4 如何实现序列化机制"></a>7.4 如何实现序列化机制</h3><p>如果需要让某个对象支持序列化机制，则必须让对象所属的类及其属性是可序列化的，为了让某个类是可序列化的，该类必须实现<code>java.io.Serializable </code> 接口。<code>Serializable</code> 是一个<code>标记接口</code>，不实现此接口的类将不会使任何状态序列化或反序列化，会抛出<code>NotSerializableException</code> 。</p>
 <ul>
 <li>如果对象的某个属性也是引用数据类型，那么如果该属性也要序列化的话，也要实现<code>Serializable</code> 接口</li>
