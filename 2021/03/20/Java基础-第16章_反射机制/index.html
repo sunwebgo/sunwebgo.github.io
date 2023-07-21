@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
 <meta property="article:published_time" content="2021-03-20T10:36:47.000Z">
-<meta property="article:modified_time" content="2023-07-21T03:35:48.007Z">
+<meta property="article:modified_time" content="2023-07-21T04:04:01.066Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -343,8 +343,7 @@
 <p>解决这个问题，有两种方案：</p>
 <p>方案1：在编译和运行时都完全知道类型的具体信息，在这种情况下，我们可以直接先使用<code>instanceof</code>运算符进行判断，再利用强制类型转换符将其转换成运行时类型的变量即可。</p>
 <p>方案2：编译时根本无法预知该对象和类的真实信息，程序只能依靠<code>运行时信息</code>来发现该对象和类的真实信息，这就必须使用反射。</p>
-<h3 id="1-2-反射概述"><a href="#1-2-反射概述" class="headerlink" title="1.2 反射概述"></a>1.2 反射概述</h3><p>&#x3D;&#x3D;Reflection（反射）是被视为<code>动态语言</code>的关键，反射机制允许程序在<code>运行期间</code>借助于Reflection API取得任何类的内部信息，并能直接操作任意对象的内部属性及方法。&#x3D;&#x3D;</p>
-<p><font color='red'>加载完类之后，在堆内存的方法区中就产生了一个Class类型的对象（一个类只有一个Class对象），这个对象就包含了完整的类的结构信息。我们可以通过这个对象看到类的结构。<code>这个对象就像一面镜子，透过这个镜子看到类的结构，所以，我们形象的称之为：反射。</code></font></p>
+<h3 id="1-2-反射概述"><a href="#1-2-反射概述" class="headerlink" title="1.2 反射概述"></a>1.2 反射概述</h3><p><font color='scarlet'>反射允许程序在运行时获取类的信息，并可以创建类的实例，调用类的方法，访问和修改类的字段等。</font><br><font color='red'>加载完类之后，在堆内存的方法区中就产生了一个Class类型的对象（一个类只有一个Class对象），这个对象就包含了完整的类的结构信息。我们可以通过这个对象看到类的结构。<code>这个对象就像一面镜子，透过这个镜子看到类的结构，所以，我们形象的称之为：反射。</code></font></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220417161529285.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>从内存加载上看反射：</strong></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220524101448625.png" srcset="/img/loading.gif" lazyload></p>
