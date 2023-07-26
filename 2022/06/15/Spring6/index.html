@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612095947200.png">
 <meta property="article:published_time" content="2022-06-15T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-07-26T11:25:29.857Z">
+<meta property="article:modified_time" content="2023-07-26T12:07:08.397Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Spring">
 <meta property="article:tag" content="框架">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          133k 字
+          135k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          1107 分钟
+          1123 分钟
         
       </span>
     
@@ -2153,6 +2153,66 @@
 <td>该注解通常作用在控制层（如SpringMVC 的 Controller），用于将控制层的类标识为 Spring 中的 Bean，其功能与 @Component 相同。</td>
 </tr>
 </tbody></table>
+<p>Spring还提供了<code>@Bean</code>注解，<font color='red'>@Bean注解是一个方法级别的注解，用于指定一个方法的返回对象交由Spring容器管理。</font><font color='read'>它通常在配置类中声明，用于创建Spring Bean定义。</font></p>
+<p>如下面的Spring配置文件，在其中定义了3个bean</p>
+<blockquote>
+<ul>
+<li><code>getDataSource()</code>：这个方法创建并配置了一个<code>DruidDataSource</code>对象，用于连接到MySQL数据库。</li>
+<li><code>getJdbcTemplate(DataSource dataSource)</code>：这个方法创建并配置了一个<code>JdbcTemplate</code>对象，用于执行JDBC操作。</li>
+<li><code>getDataSourceTransactionManager(DataSource dataSource)</code>：这个方法创建并配置了一个<code>DataSourceTransactionManager</code>对象，用于管理事务。</li>
+</ul>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>spring6<span class="token punctuation">.</span>config</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>druid<span class="token punctuation">.</span>pool<span class="token punctuation">.</span></span><span class="token class-name">DruidDataSource</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Bean</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">ComponentScan</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>jdbc<span class="token punctuation">.</span>core<span class="token punctuation">.</span></span><span class="token class-name">JdbcTemplate</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>jdbc<span class="token punctuation">.</span>datasource<span class="token punctuation">.</span></span><span class="token class-name">DataSourceTransactionManager</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">EnableTransactionManagement</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">javax<span class="token punctuation">.</span>sql<span class="token punctuation">.</span></span><span class="token class-name">DataSource</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@ComponentScan</span><span class="token punctuation">(</span><span class="token string">"com.xha"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@EnableTransactionManagement</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpringConfig</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">DataSource</span> <span class="token function">getDataSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token class-name">DruidDataSource</span> dataSource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DruidDataSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dataSource<span class="token punctuation">.</span><span class="token function">setDriverClassName</span><span class="token punctuation">(</span><span class="token string">"com.mysql.cj.jdbc.Driver"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dataSource<span class="token punctuation">.</span><span class="token function">setUrl</span><span class="token punctuation">(</span><span class="token string">"jdbc:mysql://localhost:3306/spring?characterEncoding=utf8&amp;useSSL=false"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dataSource<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">"root"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dataSource<span class="token punctuation">.</span><span class="token function">setPassword</span><span class="token punctuation">(</span><span class="token string">"root"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> dataSource<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"jdbcTemplate"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">JdbcTemplate</span> <span class="token function">getJdbcTemplate</span><span class="token punctuation">(</span><span class="token class-name">DataSource</span> dataSource<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token class-name">JdbcTemplate</span> jdbcTemplate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JdbcTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        jdbcTemplate<span class="token punctuation">.</span><span class="token function">setDataSource</span><span class="token punctuation">(</span>dataSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> jdbcTemplate<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">DataSourceTransactionManager</span> <span class="token function">getDataSourceTransactionManager</span><span class="token punctuation">(</span><span class="token class-name">DataSource</span> dataSource<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token class-name">DataSourceTransactionManager</span> dataSourceTransactionManager <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DataSourceTransactionManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dataSourceTransactionManager<span class="token punctuation">.</span><span class="token function">setDataSource</span><span class="token punctuation">(</span>dataSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> dataSourceTransactionManager<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>@Bean注解的属性如下：</p>
+<blockquote>
+<p>@Bean注解有几个属性，可以用来指定bean的名称、初始化方法和销毁方法。</p>
+<ul>
+<li><code>name</code>：可以使用此属性指定bean的名称。默认情况下，bean的名称与方法名称相同。</li>
+<li><code>initMethod</code>：可以使用此属性指定在创建bean时调用的初始化方法。</li>
+<li><code>destroyMethod</code>：可以使用此属性指定在销毁bean时调用的方法。</li>
+</ul>
+</blockquote>
+<p>其中的属性和XML配置bean期间是相同的。</p>
 <h3 id="3-3-4-Autowired注入"><a href="#3-3-4-Autowired注入" class="headerlink" title="3.3.4@Autowired注入"></a>3.3.4@Autowired注入</h3><p><code>@Autowired</code>注解是Spring框架中用于实现依赖注入的一种方式。它允许开发人员在字段、构造函数、方法或配置方法参数上声明依赖关系，而不需要执行显式的绑定。Spring IoC容器会自动检测到这些依赖关系，并在运行时自动装配它们。@Autowired注解，<strong>默认根据类型装配</strong>。【默认是byType】</p>
 <p>查看源码：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation</span><span class="token punctuation">;</span>
@@ -6150,7 +6210,7 @@ use `spring`<span class="token punctuation">;</span>
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2557k</span>
+<span style="font-weight: initial">文章总字数2559k</span>
 
     </div>
   
