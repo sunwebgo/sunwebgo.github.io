@@ -19,13 +19,13 @@
     <meta name="description" content="3.1. 运行时数据区3.1.1. 概述本节主要讲的是运行时数据区，也就是下图这部分，它是在类加载完成后的阶段  内存是非常重要的系统资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。 我们通过磁盘或者网络IO得到的数据，都需要先加载到内存中，然后CPU从内存中获取数据进行读取，也就是说内存充当了CPU和磁盘之间的桥梁 JVM内存布局规定了Java在运行过程中内存申请、分配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第03章_运行时数据区">
-<meta property="og:url" content="https://xhablog.online/2022/05/12/JVM-%E7%AC%AC03%E7%AB%A0_%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/index.html">
+<meta property="og:url" content="https://xhablog.online/2022/05/11/JVM-%E7%AC%AC03%E7%AB%A0_%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/index.html">
 <meta property="og:site_name" content="xhang′s blog">
 <meta property="og:description" content="3.1. 运行时数据区3.1.1. 概述本节主要讲的是运行时数据区，也就是下图这部分，它是在类加载完成后的阶段  内存是非常重要的系统资源，是硬盘和CPU的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。 我们通过磁盘或者网络IO得到的数据，都需要先加载到内存中，然后CPU从内存中获取数据进行读取，也就是说内存充当了CPU和磁盘之间的桥梁 JVM内存布局规定了Java在运行过程中内存申请、分配">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
-<meta property="article:published_time" content="2022-05-12T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-08T23:47:42.300Z">
+<meta property="article:published_time" content="2022-05-11T23:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-09T04:31:12.882Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -265,8 +265,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-12 10:00" pubdate>
-          2022年5月12日 上午
+        <time datetime="2022-05-12 07:00" pubdate>
+          2022年5月12日 早上
         </time>
       </span>
     
@@ -355,7 +355,7 @@
 <ul>
 <li>&#x3D;&#x3D;线程私有：独立包括虚拟机栈、本地方法栈和堆空间&#x3D;&#x3D;</li>
 </ul>
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204724409.png">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204724409.png</a>“ &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230603204724409.png" srcset="/img/loading.gif" lazyload></p>
 <p>每个JVM只有一个Runtime实例。即为运行时环境。</p>
 <h3 id="3-1-2-线程"><a href="#3-1-2-线程" class="headerlink" title="3.1.2. 线程"></a>3.1.2. 线程</h3><p>&#x3D;&#x3D;线程是一个程序里的运行单元。JVM允许一个应用有多个线程并行的执行。&#x3D;&#x3D;在Hotspot JVM里，每个线程都与操作系统的本地线程直接映射。</p>
 <p>当一个Java线程准备好执行以后，此时一个操作系统的本地线程也同时创建。Java线程执行终止后，本地线程也会回收。</p>
@@ -374,8 +374,8 @@
 <li><p>信号调度线程：这种线程接收信号并发送给JVM，在它内部通过调用适当的方法进行处理。</p>
 </li>
 </ul>
-<h2 id="3-2-程序计数器-PC寄存器"><a href="#3-2-程序计数器-PC寄存器" class="headerlink" title="3.2. 程序计数器(PC寄存器)"></a>3.2. 程序计数器(PC寄存器)</h2><h3 id="3-2-1程序计数器概述"><a href="#3-2-1程序计数器概述" class="headerlink" title="3.2.1程序计数器概述"></a>3.2.1程序计数器概述</h3><p>JVM中的<code>程序计数寄存器</code>（Program Counter Register）中，Register的命名源于CPU的寄存器，寄存器存储指令相关的现场信息。CPU只有把数据装载到寄存器才能够运行。</p>
-<p>这里，并非是广义上所指的物理寄存器，或许将其翻译为PC计数器（或指令计数器）会更加贴切（也称为程序钩子），并且也不容易引起一些不必要的误会。JVM中的PC寄存器是对物理PC寄存器的一种抽象模拟。</p>
+<h2 id="3-2-程序计数器-PC寄存器"><a href="#3-2-程序计数器-PC寄存器" class="headerlink" title="3.2. 程序计数器(PC寄存器)"></a>3.2. 程序计数器(PC寄存器)</h2><h3 id="3-2-1程序计数器概述"><a href="#3-2-1程序计数器概述" class="headerlink" title="3.2.1程序计数器概述"></a>3.2.1程序计数器概述</h3><p>程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成。另外，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。</p>
+<p>著作权归Guide所有<br>原文链接：<a target="_blank" rel="noopener" href="https://javaguide.cn/java/jvm/memory-area.html#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F">https://javaguide.cn/java/jvm/memory-area.html#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F</a></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230525090744901.png" srcset="/img/loading.gif" lazyload alt="image-20230525090744901"></p>
 <h3 id="3-2-2程序计数器的作用"><a href="#3-2-2程序计数器的作用" class="headerlink" title="3.2.2程序计数器的作用"></a>3.2.2程序计数器的作用</h3><p><strong><font color='scarlet'>PC寄存器用来存储当前线程的字节码指令地址。由执行引擎读取下一条指令。</font></strong></p>
 <blockquote>
@@ -486,7 +486,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>第03章_运行时数据区</div>
-      <div>https://xhablog.online/2022/05/12/JVM-第03章_运行时数据区/</div>
+      <div>https://xhablog.online/2022/05/11/JVM-第03章_运行时数据区/</div>
     </div>
     <div class="license-meta">
       
@@ -530,9 +530,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/13/JVM-%E7%AC%AC05%E7%AB%A0_%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88/" title="第05章_本地方法栈">
+                      <a href="/2022/05/12/JVM-%E7%AC%AC04%E7%AB%A0_%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88/" title="第04章_虚拟机栈">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">第05章_本地方法栈</span>
+                        <span class="hidden-mobile">第04章_虚拟机栈</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -540,8 +540,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/12/JVM-%E7%AC%AC04%E7%AB%A0_%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88/" title="第04章_虚拟机栈">
-                        <span class="hidden-mobile">第04章_虚拟机栈</span>
+                      <a href="/2022/05/11/JVM-%E7%AC%AC02%E7%AB%A0_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F/" title="第02章_类加载子系统">
+                        <span class="hidden-mobile">第02章_类加载子系统</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -564,7 +564,7 @@
         var options = Object.assign(
           {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: 'cb6546d33c3324f8cdd4def09815198f'
+            id: '9c3671fa7ad2619cecde15bf90501c44'
           }
         )
         var gitalk = new Gitalk(options);
@@ -709,7 +709,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2629k</span>
+<span style="font-weight: initial">文章总字数2628k</span>
 
     </div>
   
