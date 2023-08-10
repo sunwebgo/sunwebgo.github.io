@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/JUC.png">
 <meta property="article:published_time" content="2023-07-07T04:13:51.000Z">
-<meta property="article:modified_time" content="2023-08-10T05:29:56.060Z">
+<meta property="article:modified_time" content="2023-08-10T06:26:16.106Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JUC">
@@ -289,7 +289,7 @@
         
         
         
-          1141 分钟
+          1142 分钟
         
       </span>
     
@@ -4961,7 +4961,8 @@ obj <span class="token operator">=</span> <span class="token keyword">null</span
 </ul>
 </blockquote>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/v2-773175d3d55668daf774d1b0fd0427b1_720w.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h3 id="16-1-2类型指针"><a href="#16-1-2类型指针" class="headerlink" title="16.1.2类型指针"></a>16.1.2类型指针</h3><p>类型指针（Klass Word）的大小取决于JVM的架构。在32位的JVM中，类型指针的大小为32位，也就是4字节。而在64位的JVM中，类型指针的大小为64位，也就是8字节。<font color='scarlet'>不过，在64位的JVM中，可以通过开启<code>指针压缩（CompressedOops）</code>来减小类型指针的大小，将其压缩至32位（4字节）。</font></p>
+<h3 id="16-1-2类型指针"><a href="#16-1-2类型指针" class="headerlink" title="16.1.2类型指针"></a>16.1.2类型指针</h3><p>类型指针就是一个指向方法区当中该类元数据信息的指针。这样，虚拟机就能够通过这个指针快速地访问到该类的元数据信息，从而实现对对象的操作。<br>例如，当我们调用一个对象的方法时，虚拟机会根据对象头中的类型指针找到方法区中存储的该类的方法信息，然后根据方法信息中的指令执行相应的操作。</p>
+<p>类型指针（Klass Word）的大小取决于JVM的架构。在32位的JVM中，类型指针的大小为32位，也就是4字节。而在64位的JVM中，类型指针的大小为64位，也就是8字节。<font color='scarlet'>不过，在64位的JVM中，可以通过开启<code>指针压缩（CompressedOops）</code>来减小类型指针的大小，将其压缩至32位（4字节）。</font></p>
 <p>可以通过添加JVM参数来显式配置<code>指针压缩</code>。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">+</span><span class="token class-name">UseCompressedOops</span>  <span class="token comment">// 开启指针压缩</span>
 <span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">-</span><span class="token class-name">UseCompressedOops</span>  <span class="token comment">// 关闭指针压缩</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>

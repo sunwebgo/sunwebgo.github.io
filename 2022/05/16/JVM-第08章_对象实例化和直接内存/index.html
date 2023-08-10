@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-16T12:03:07.000Z">
-<meta property="article:modified_time" content="2023-08-10T05:29:56.060Z">
+<meta property="article:modified_time" content="2023-08-10T06:26:16.106Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.9k 字
+          6.1k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          50 分钟
+          51 分钟
         
       </span>
     
@@ -391,7 +391,7 @@
 <li>每个线程预先分配一块TLAB（线程分配缓冲区），它存在于Eden区当中，在为对象分配内存时，首先会在TLAB中进行分配，当对象所需内存大于 TLAB 中的剩余内存或 TLAB 的内存已用尽时，再采用 CAS+失败重试 进行内存分配：通过设置 <code>-XX:+UseTLAB</code>参数来设定。</li>
 <li>采用CAS + 失败重试的方式保证更新操作的原子性。</li>
 </ul>
-<h4 id="4-初始化分配到的内存"><a href="#4-初始化分配到的内存" class="headerlink" title="4. 初始化分配到的内存"></a>4. 初始化分配到的内存</h4><p>所有属性设置默认值，保证对象实例字段在不赋值时可以直接使用</p>
+<h4 id="4-初始化分配到的内存"><a href="#4-初始化分配到的内存" class="headerlink" title="4. 初始化分配到的内存"></a>4. 初始化分配到的内存</h4><p>对象创建完毕后，虚拟机必须将分配到的内存空间都初始化为零值。这样可以保证实例字段在Java代码中不实例化就直接使用，使程序能访问到这些字段的数据类型所对应的零值。</p>
 <h4 id="5-设置对象的对象头"><a href="#5-设置对象的对象头" class="headerlink" title="5. 设置对象的对象头"></a>5. 设置对象的对象头</h4><p>将对象的所属类（即类的元数据信息）、对象的HashCode和对象的GC信息、锁信息等数据存储在对象的对象头中。这个过程的具体设置方式取决于JVM实现</p>
 <h4 id="6-执行init方法进行初始化"><a href="#6-执行init方法进行初始化" class="headerlink" title="6. 执行init方法进行初始化"></a>6. 执行init方法进行初始化</h4><p>在Java程序的视角看来，初始化才正式开始。初始化成员变量，执行实例化代码块，调用类的构造方法，并把堆内对象的首地址赋值给引用变量。</p>
 <p>因此一般来说（由字节码中跟随invokespecial指令所决定），new指令之后会接着就是执行方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完成创建出来。</p>
@@ -430,7 +430,8 @@
 </ul>
 </blockquote>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/v2-773175d3d55668daf774d1b0fd0427b1_720w.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h4 id="8-2-1-2类型指针"><a href="#8-2-1-2类型指针" class="headerlink" title="8.2.1.2类型指针"></a>8.2.1.2类型指针</h4><p>类型指针（Klass Word）的大小取决于JVM的架构。在32位的JVM中，类型指针的大小为32位，也就是4字节。而在64位的JVM中，类型指针的大小为64位，也就是8字节。<font color='scarlet'>不过，在64位的JVM中，可以通过开启<code>指针压缩（CompressedOops）</code>来减小类型指针的大小，将其压缩至32位（4字节）。</font></p>
+<h4 id="8-2-1-2类型指针"><a href="#8-2-1-2类型指针" class="headerlink" title="8.2.1.2类型指针"></a>8.2.1.2类型指针</h4><p>类型指针就是一个指向方法区当中该类元数据信息的指针。这样，虚拟机就能够通过这个指针快速地访问到该类的元数据信息，从而实现对对象的操作。<br>例如，当我们调用一个对象的方法时，虚拟机会根据对象头中的类型指针找到方法区中存储的该类的方法信息，然后根据方法信息中的指令执行相应的操作。</p>
+<p>类型指针（Klass Word）的大小取决于JVM的架构。在32位的JVM中，类型指针的大小为32位，也就是4字节。而在64位的JVM中，类型指针的大小为64位，也就是8字节。<font color='scarlet'>不过，在64位的JVM中，可以通过开启<code>指针压缩（CompressedOops）</code>来减小类型指针的大小，将其压缩至32位（4字节）。</font></p>
 <p>可以通过添加JVM参数来显式配置<code>指针压缩</code>。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">+</span><span class="token class-name">UseCompressedOops</span>  <span class="token comment">// 开启指针压缩</span>
 <span class="token operator">-</span><span class="token constant">XX</span><span class="token operator">:</span><span class="token operator">-</span><span class="token class-name">UseCompressedOops</span>  <span class="token comment">// 关闭指针压缩</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
@@ -573,9 +574,9 @@
 
 <h2 id="8-3-对象的访问定位"><a href="#8-3-对象的访问定位" class="headerlink" title="8.3. 对象的访问定位"></a>8.3. 对象的访问定位</h2><p><font color='red'>JVM是如何通过栈帧中的对象引用访问到其内部的对象实例呢？</font></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230616100409986.png" srcset="/img/loading.gif" lazyload alt="image-20230616100409986"></p>
-<h3 id="8-3-1-句柄访问"><a href="#8-3-1-句柄访问" class="headerlink" title="8.3.1. 句柄访问"></a>8.3.1. 句柄访问</h3><p>reference中存储稳定句柄地址，对象被移动（垃圾收集时移动对象很普遍）时只会改变句柄中实例数据指针即可，reference本身不需要被修改</p>
+<h3 id="8-3-1-句柄访问"><a href="#8-3-1-句柄访问" class="headerlink" title="8.3.1. 句柄访问"></a>8.3.1. 句柄访问</h3><p>在堆空间当中创建一个句柄池，reference中存储句柄地址，而句柄当中包含了对象示例和类的元数据的指针。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230616100501766.png" srcset="/img/loading.gif" lazyload alt="image-20230616100501766"></p>
-<h3 id="8-3-2-直接指针（HotSpot采用）"><a href="#8-3-2-直接指针（HotSpot采用）" class="headerlink" title="8.3.2. 直接指针（HotSpot采用）"></a>8.3.2. 直接指针（HotSpot采用）</h3><p>直接指针是局部变量表中的引用，直接指向堆中的实例，在对象实例中有类型指针，指向的是方法区中的对象类型数据</p>
+<h3 id="8-3-2-直接指针（HotSpot采用）"><a href="#8-3-2-直接指针（HotSpot采用）" class="headerlink" title="8.3.2. 直接指针（HotSpot采用）"></a>8.3.2. 直接指针（HotSpot采用）</h3><p>直接指针是局部变量表中的引用，直接指向堆中的实例，在对象实例中有类型指针，指向的是方法区中的类的元数据。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230616100527620.png" srcset="/img/loading.gif" lazyload alt="image-20230616100527620"></p>
 <h2 id="8-4-直接内存（Direct-Memory）"><a href="#8-4-直接内存（Direct-Memory）" class="headerlink" title="8.4. 直接内存（Direct Memory）"></a>8.4. 直接内存（Direct Memory）</h2><h3 id="8-4-1-直接内存概述"><a href="#8-4-1-直接内存概述" class="headerlink" title="8.4.1. 直接内存概述"></a>8.4.1. 直接内存概述</h3><p><font color='scarlet'>不是虚拟机运行时数据区的一部分，也不是《Java虚拟机规范》中定义的内存区域</font>。<font color='read'>直接内存是在Java堆外的、直接向系统申请的内存区间</font>。来源于NIO，通过存在堆中的DirectByteBuffer操作Native内存。通常，访问直接内存的速度会优于Java堆，即读写性能高。</p>
 <ul>
