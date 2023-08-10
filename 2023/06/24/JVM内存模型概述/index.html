@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2023-06-24T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-10T03:19:46.433Z">
+<meta property="article:modified_time" content="2023-08-10T04:23:26.996Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          14k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          106 分钟
+          119 分钟
         
       </span>
     
@@ -722,7 +722,7 @@
 </li>
 </ul>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230529184110448.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="2-5-6-2老年代GC（Major-GC-x2F-Full-GC）触发机制"><a href="#2-5-6-2老年代GC（Major-GC-x2F-Full-GC）触发机制" class="headerlink" title="2.5.6.2老年代GC（Major GC &#x2F; Full GC）触发机制"></a>2.5.6.2老年代GC（Major GC &#x2F; Full GC）触发机制</h4><ul>
+<h4 id="2-5-6-2老年代GC（Major-GC）触发机制"><a href="#2-5-6-2老年代GC（Major-GC）触发机制" class="headerlink" title="2.5.6.2老年代GC（Major GC）触发机制"></a>2.5.6.2老年代GC（Major GC）触发机制</h4><ul>
 <li>指发生在老年代的GC，对象从老年代消失时，我们说 “Major GC” 或 “Full GC” 发生了</li>
 <li>出现了Major Gc，经常会伴随至少一次的Minor GC（但非绝对的，在Paralle1 Scavenge收集器的收集策略里就有直接进行MajorGC的策略选择过程）<ul>
 <li><font color='scarlet'>也就是在老年代空间不足时，会先尝试触发Minor Gc。如果之后空间还不足，则触发Major GC</font></li>
@@ -738,7 +738,7 @@
 </li>
 <li><p>老年代空间不足</p>
 </li>
-<li><p>方法区空间不足</p>
+<li><p>方法区空间不足（JDK1.7及之前的永久代内存不足）</p>
 </li>
 <li><p>通过Minor GC后进入老年代的平均大小大于老年代的可用内存</p>
 </li>
@@ -795,16 +795,65 @@
 </li>
 </ol>
 </blockquote>
-<h3 id="2-6-6-运行时常量池-VS-常量池"><a href="#2-6-6-运行时常量池-VS-常量池" class="headerlink" title="2.6.6 运行时常量池 VS 常量池"></a>2.6.6 运行时常量池 VS 常量池</h3><h4 id="2-6-6-1运行时常量池和常量池的关系"><a href="#2-6-6-1运行时常量池和常量池的关系" class="headerlink" title="2.6.6.1运行时常量池和常量池的关系"></a>2.6.6.1运行时常量池和常量池的关系</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090356494.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2-6-6Class文件常量池、运行时常量池、字符串常量池"><a href="#2-6-6Class文件常量池、运行时常量池、字符串常量池" class="headerlink" title="2.6.6Class文件常量池、运行时常量池、字符串常量池"></a>2.6.6Class文件常量池、运行时常量池、字符串常量池</h3><h4 id="2-6-6-1Class文件常量池和运行时常量池的关系"><a href="#2-6-6-1Class文件常量池和运行时常量池的关系" class="headerlink" title="2.6.6.1Class文件常量池和运行时常量池的关系"></a>2.6.6.1Class文件常量池和运行时常量池的关系</h4><p><font color='read'>Class文件常量池是指编译生成的字节码文件结构中的一个常量池，用于存放编译期间生成的字面量和符号引用。而在类加载时（<code>链接阶段的解析步骤</code>），会将Class文件常量池当中的字面量和符号引用以及将符号引用转换为对应后的直接引用，存储在运行时常量池当中。</font></p>
 <blockquote>
-<ol>
-<li><code>常量池 (Constant Pool)</code>:<font color='scarlet'>是指在编译期间就已经确定好的常量数据</font>，例如全局变量、函数参数等，这些数据会被存储在一个专门的数据结构中，以便在编译期间就能够计算出它们的地址。目的是减少编译器期间的运算量。</li>
-<li><code>运行时常量池 (Runtime Constant Pool)</code>:<font color='scarlet'>是指在程序运行时动态分配的常量池，它存储的常量数据是在程序运行时动态分配的</font>，例如字符串常量等。目的是减少内存分配和释放的次数，提高程序的性能。</li>
-<li>在动态链接的时候会用到运行时常量池（&#x3D;&#x3D;动态链接的作用就是将运行时常量池的符号引用转换为调用方法的直接引用&#x3D;&#x3D;）。</li>
-</ol>
-<p><font color='scarlet'>因此，常量池和运行时常量池的主要区别在于数据是在编译期间就已经确定好的还是在程序运行时动态分配的。</font>&#x3D;&#x3D;常量池主要用于减少编译期间的计算量，而运行时常量池主要用于减少程序运行时的内存分配和释放次数。&#x3D;&#x3D;</p>
-<p>但同时，常量池和运行时常量池是存在关联的：<font color='red'>在类被加载时，常量池表被加载到方法区的运行时常量池中。</font></p>
+<ul>
+<li>字节码文件，内部包含了常量池</li>
+<li>方法区，内部包含了运行时常量池</li>
+</ul>
 </blockquote>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090918352.png" srcset="/img/loading.gif" lazyload alt="image-20230604090918352"  />
+
+<h4 id="2-6-6-2Class文件常量池"><a href="#2-6-6-2Class文件常量池" class="headerlink" title="2.6.6.2Class文件常量池"></a>2.6.6.2Class文件常量池</h4><p><font color='read'>Class 文件常量池是 Java 类文件结构中的一部分，用于存放编译器生成的各种字面量和符号引用。它不是 JVM 结构的一部分，而是字节码文件中的内容。</font></p>
+<p>一个有效的字节码文件中除了包含类的版本信息、字段、方法以及接口等描述符信息外，还包含一项信息就是常量池表（Constant Pool Table），<font color='scarlet'>包括各种字面量和对类型、域和方法的<code>符号引用</code></font>。</p>
+<p><font color='scarlet'>常量池、可以看做是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量等类型。即根据符号引用找到直接引用。</font></p>
+<p><strong>常量池中有什么?</strong></p>
+<p>常量池内存储的数据类型包括<code>字面量和符号引用</code>：</p>
+<blockquote>
+<ul>
+<li><code>CONSTANT_Utf8_info</code>：表示字符串类型的常量。</li>
+<li><code>CONSTANT_Integer_info</code>：表示整型字面量。</li>
+<li><code>CONSTANT_Float_info</code>：表示浮点型字面量。</li>
+<li><code>CONSTANT_Long_info</code>：表示长整型字面量。</li>
+<li><code>CONSTANT_Double_info</code>：表示双精度浮点型字面量。</li>
+<li><code>CONSTANT_Class_info</code>：表示类或接口的符号引用。</li>
+<li><code>CONSTANT_String_info</code>：表示字符串类型字面量的引用。</li>
+<li><code>CONSTANT_Fieldref_info</code>：表示字段的符号引用。</li>
+<li><code>CONSTANT_Methodref_info</code>：表示类中方法的符号引用。</li>
+<li><code>CONSTANT_InterfaceMethodref_info</code>：表示接口中方法的符号引用。</li>
+<li><code>CONSTANT_NameAndType_info</code>：表示字段或方法的部分符号引用。</li>
+</ul>
+</blockquote>
+<ol>
+<li>根据符号引用指向类引用，创建一个<code>StringBuilder</code>类</li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094651212.png" srcset="/img/loading.gif" lazyload alt="image-20230604094651212"/>
+
+<ol start="2">
+<li>符号引用指向字符串值，指向字符串常量</li>
+</ol>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094958453.png" srcset="/img/loading.gif" lazyload alt="image-20230604094958453"/>
+
+<h4 id="2-6-6-3运行时常量池"><a href="#2-6-6-3运行时常量池" class="headerlink" title="2.6.6.3运行时常量池"></a>2.6.6.3运行时常量池</h4><p>运行时常量池是方法区的一部分。<font color='read'>而在类加载时（<code>链接阶段的解析步骤</code>），会将Class文件常量池当中的字面量和符号引用以及将符号引用转换为对应后的直接引用，存储在运行时常量池当中。</font></p>
+<p>运行时常量池相对于<code>Class</code>文件常量池的另一个重要特征是具备<font color='scarlet'><strong>动态性</strong></font>，运行期间也可以将新的常量池放入运行时常量池中。它的字面量是可以动态添加的（<code>String</code>类的<code>intern()</code>方法），符号引用可以被解析为直接引用。</p>
+<blockquote>
+<ul>
+<li><font color='scarlet'><strong>动态链接</strong></font>是在程序运行期间完成的，将符号引用替换成直接引用。在类加载阶段，虚拟机会将Class文件中的符号引用保存到运行时常量池中，并将其中一些符号引用转换为直接引用。<font color='red'>但是，并不是所有的符号引用都会在类加载阶段被转换为直接引用。有些符号引用需要在每次运行期间才能转化为直接引用，这种转换就叫做动态链接。</font></li>
+</ul>
+</blockquote>
+<h4 id="2-6-6-4字符串常量池"><a href="#2-6-6-4字符串常量池" class="headerlink" title="2.6.6.4字符串常量池"></a>2.6.6.4字符串常量池</h4><p><font color='read'>字符串常量池在JDK1.7的时候从方法区当中的运行时常量池中分离出来并放到堆当中。</font>在JDK1.8的时候使用元空间替换掉了永久代，字符串常量池依旧存在于堆当中。</p>
+<p>字符串常量池是用于存储字符串常量。它的目的是为了避免字符串的重复创建。<font color='read'>当我们在程序中创建一个字符串常量时，JVM会首先检查字符串常量池中是否已经存在该字符串。如果存在，JVM会直接返回该字符串的引用；如果不存在，JVM会在字符串常量池中创建一个新的字符串，并返回其引用。</font></p>
+<p>下面是一些关于字符串常量池的例子：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> s1 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> s2 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 输出true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>上面的代码中，我们创建了两个字符串常量<code>&quot;hello&quot;</code>。由于它们具有相同的值，所以JVM只会在字符串常量池中创建一个<code>&quot;hello&quot;</code>字符串，并返回其引用。因此，<code>s1</code>和<code>s2</code>指向的是同一个字符串对象，所以它们相等。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> s1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> s2 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 输出false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>使用<code>new String(&quot;hello&quot;)</code>创建字符串对象时，JVM会在堆内存中创建一个新的字符串对象，并将其引用赋值给<code>s1</code>。同时，JVM也会检查字符串常量池中是否已经存在<code>&quot;hello&quot;</code>这个字符串。如果不存在，JVM会在字符串常量池中创建一个新的<code>&quot;hello&quot;</code>字符串。因此，总共创建了两个对象。</p>
 <h3 id="2-6-7方法区的演进细节"><a href="#2-6-7方法区的演进细节" class="headerlink" title="2.6.7方法区的演进细节"></a>2.6.7方法区的演进细节</h3><ol>
 <li><p>首先明确：只有Hotspot才有永久代。BEA JRockit、IBMJ9等来说，是不存在永久代的概念的。原则上如何实现方法区属于虚拟机实现细节，不受《Java虚拟机规范》管束，并不要求统一</p>
 </li>
@@ -1136,7 +1185,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2628k</span>
+<span style="font-weight: initial">文章总字数2630k</span>
 
     </div>
   
