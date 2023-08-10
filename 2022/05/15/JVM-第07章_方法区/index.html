@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-15T12:42:00.000Z">
-<meta property="article:modified_time" content="2023-08-09T06:34:35.473Z">
+<meta property="article:modified_time" content="2023-08-10T03:16:50.800Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9k 字
+          9.5k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          75 分钟
+          80 分钟
         
       </span>
     
@@ -556,71 +556,68 @@
 <p>类型信息：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083355078.png" srcset="/img/loading.gif" lazyload alt="image-20230604083355078"></p>
 <p>域信息：</p>
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083510427.png">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083510427.png</a>“ &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083510427.png" srcset="/img/loading.gif" lazyload></p>
 <p>方法信息：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604083723393.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="7-4-3-运行时常量池-VS-常量池"><a href="#7-4-3-运行时常量池-VS-常量池" class="headerlink" title="7.4.3. 运行时常量池 VS 常量池"></a>7.4.3. 运行时常量池 VS 常量池</h3><h4 id="7-4-3-1运行时常量池和常量池的关系"><a href="#7-4-3-1运行时常量池和常量池的关系" class="headerlink" title="7.4.3.1运行时常量池和常量池的关系"></a>7.4.3.1运行时常量池和常量池的关系</h4><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090356494.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="7-4-3-Class文件常量池、运行时常量池、字符串常量池"><a href="#7-4-3-Class文件常量池、运行时常量池、字符串常量池" class="headerlink" title="7.4.3. Class文件常量池、运行时常量池、字符串常量池"></a>7.4.3. Class文件常量池、运行时常量池、字符串常量池</h3><h4 id="7-4-3-1Class文件常量池和运行时常量池的关系"><a href="#7-4-3-1Class文件常量池和运行时常量池的关系" class="headerlink" title="7.4.3.1Class文件常量池和运行时常量池的关系"></a>7.4.3.1Class文件常量池和运行时常量池的关系</h4><p><font color='read'>Class文件常量池是指编译生成的字节码文件结构中的一个常量池，用于存放编译期间生成的字面量和符号引用。而在类加载时（<code>链接阶段的解析步骤</code>），会将Class文件常量池当中的字面量和符号引用以及将符号引用转换为对应后的直接引用，存储在运行时常量池当中。</font></p>
 <blockquote>
-<ol>
-<li><code>常量池 (Constant Pool)</code>:<font color='scarlet'>是指在编译期间就已经确定好的常量数据</font>，例如全局变量、函数参数等，这些数据会被存储在一个专门的数据结构中，以便在编译期间就能够计算出它们的地址。目的是减少编译器期间的运算量。</li>
-<li><code>运行时常量池 (Runtime Constant Pool)</code>:<font color='scarlet'>是指在程序运行时动态分配的常量池，它存储的常量数据是在程序运行时动态分配的</font>，例如字符串常量等。目的是减少内存分配和释放的次数，提高程序的性能。</li>
-<li>在动态链接的时候会用到运行时常量池（&#x3D;&#x3D;动态链接的作用就是将运行时常量池的符号引用转换为调用方法的直接引用&#x3D;&#x3D;）。</li>
-</ol>
-<p><font color='scarlet'>因此，常量池和运行时常量池的主要区别在于数据是在编译期间就已经确定好的还是在程序运行时动态分配的。</font>&#x3D;&#x3D;常量池主要用于减少编译期间的计算量，而运行时常量池主要用于减少程序运行时的内存分配和释放次数。&#x3D;&#x3D;</p>
-<p>但同时，常量池和运行时常量池是存在关联的：<font color='red'>在类被加载时，常量池表被加载到方法区的运行时常量池中。</font></p>
-</blockquote>
 <ul>
-<li><p>方法区，内部包含了运行时常量池</p>
-</li>
-<li><p>字节码文件，内部包含了常量池</p>
-</li>
+<li>字节码文件，内部包含了常量池</li>
+<li>方法区，内部包含了运行时常量池</li>
 </ul>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090918352.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="7-4-3-2常量池"><a href="#7-4-3-2常量池" class="headerlink" title="7.4.3.2常量池"></a>7.4.3.2常量池</h4><p>一个有效的字节码文件中除了包含类的版本信息、字段、方法以及接口等描述符信息外，还包含一项信息就是常量池表（Constant Pool Table），<font color='scarlet'>包括各种字面量和对类型、域和方法的<code>符号引用</code></font>，以便在编译期间就能根据符号引用获取到直接引用。</p>
+</blockquote>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604090918352.png" srcset="/img/loading.gif" lazyload alt="image-20230604090918352"  />
+
+<h4 id="7-4-3-2Class文件常量池"><a href="#7-4-3-2Class文件常量池" class="headerlink" title="7.4.3.2Class文件常量池"></a>7.4.3.2Class文件常量池</h4><p><font color='read'>Class 文件常量池是 Java 类文件结构中的一部分，用于存放编译器生成的各种字面量和符号引用。它不是 JVM 结构的一部分，而是字节码文件中的内容。</font></p>
+<p>一个有效的字节码文件中除了包含类的版本信息、字段、方法以及接口等描述符信息外，还包含一项信息就是常量池表（Constant Pool Table），<font color='scarlet'>包括各种字面量和对类型、域和方法的<code>符号引用</code></font>。</p>
 <p><font color='scarlet'>常量池、可以看做是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量等类型。即根据符号引用找到直接引用。</font></p>
-<ol>
-<li><strong>常量池中有什么?</strong></li>
-</ol>
-<p>常量池内存储的数据类型包括：</p>
+<p><strong>常量池中有什么?</strong></p>
+<p>常量池内存储的数据类型包括<code>字面量和符号引用</code>：</p>
 <blockquote>
 <ul>
-<li>数量值</li>
-<li>字符串值</li>
-<li>类引用</li>
-<li>方法引用</li>
-<li>字段引用</li>
+<li><code>CONSTANT_Utf8_info</code>：表示字符串类型的常量。</li>
+<li><code>CONSTANT_Integer_info</code>：表示整型字面量。</li>
+<li><code>CONSTANT_Float_info</code>：表示浮点型字面量。</li>
+<li><code>CONSTANT_Long_info</code>：表示长整型字面量。</li>
+<li><code>CONSTANT_Double_info</code>：表示双精度浮点型字面量。</li>
+<li><code>CONSTANT_Class_info</code>：表示类或接口的符号引用。</li>
+<li><code>CONSTANT_String_info</code>：表示字符串类型字面量的引用。</li>
+<li><code>CONSTANT_Fieldref_info</code>：表示字段的符号引用。</li>
+<li><code>CONSTANT_Methodref_info</code>：表示类中方法的符号引用。</li>
+<li><code>CONSTANT_InterfaceMethodref_info</code>：表示接口中方法的符号引用。</li>
+<li><code>CONSTANT_NameAndType_info</code>：表示字段或方法的部分符号引用。</li>
 </ul>
 </blockquote>
 <ol>
 <li>根据符号引用指向类引用，创建一个<code>StringBuilder</code>类</li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094651212.png" srcset="/img/loading.gif" lazyload></p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094651212.png" srcset="/img/loading.gif" lazyload alt="image-20230604094651212"/>
+
 <ol start="2">
 <li>符号引用指向字符串值，指向字符串常量</li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094958453.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604095059386.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="7-4-3-3运行时常量池"><a href="#7-4-3-3运行时常量池" class="headerlink" title="7.4.3.3运行时常量池"></a>7.4.3.3运行时常量池</h4><blockquote>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604094958453.png" srcset="/img/loading.gif" lazyload alt="image-20230604094958453"/>
+
+<h4 id="7-4-3-3运行时常量池"><a href="#7-4-3-3运行时常量池" class="headerlink" title="7.4.3.3运行时常量池"></a>7.4.3.3运行时常量池</h4><p>运行时常量池是方法区的一部分。<font color='read'>而在类加载时（<code>链接阶段的解析步骤</code>），会将Class文件常量池当中的字面量和符号引用以及将符号引用转换为对应后的直接引用，存储在运行时常量池当中。</font></p>
+<p>运行时常量池相对于<code>Class</code>文件常量池的另一个重要特征是具备<font color='scarlet'><strong>动态性</strong></font>，运行期间也可以将新的常量池放入运行时常量池中。它的字面量是可以动态添加的（<code>String</code>类的<code>intern()</code>方法），符号引用可以被解析为直接引用。</p>
+<blockquote>
 <ul>
-<li><p><font color='scarlet'>运行时常量池（Runtime Constant Pool）是方法区的一部分。</font></p>
-</li>
-<li><p>常量池表（Constant Pool Table）是Class文件的一部分，用于存放编译期生成的各种字面量与符号引用，<font color='red'>这部分内容将在类加载后存放到方法区的运行时常量池中</font>。</p>
-</li>
-<li><p>运行时常量池，在加载类和接口到虚拟机后，就会创建对应的运行时常量池。</p>
-</li>
-<li><p>JVM为每个已加载的类型（类或接口）都维护一个常量池。池中的数据项像数组项一样，是通过索引访问的。</p>
-</li>
-<li><p>运行时常量池中包含多种不同的常量，包括编译期就已经明确的数值字面量，也包括到运行期解析后才能够获得的方法或者字段引用。此时不再是常量池中的符号地址了，这里换为真实地址。</p>
-<ul>
-<li>运行时常量池，相对于Class文件常量池的另一重要特征是：<font color='scarlet'>具备动态性</font>。</li>
-</ul>
-</li>
-<li><p>运行时常量池类似于传统编程语言中的符号表（symboltable），但是它所包含的数据却比符号表要更加丰富一些。</p>
-</li>
-<li><p>当创建类或接口的运行时常量池时，如果构造运行时常量池所需的内存空间超过了方法区所能提供的最大值，则JVM会抛OutOfMemoryError异常。</p>
-</li>
+<li><font color='scarlet'><strong>动态链接</strong></font>是在程序运行期间完成的，将符号引用替换成直接引用。在类加载阶段，虚拟机会将Class文件中的符号引用保存到运行时常量池中，并将其中一些符号引用转换为直接引用。<font color='red'>但是，并不是所有的符号引用都会在类加载阶段被转换为直接引用。有些符号引用需要在每次运行期间才能转化为直接引用，这种转换就叫做动态链接。</font></li>
 </ul>
 </blockquote>
+<h4 id="7-4-3-4字符串常量池"><a href="#7-4-3-4字符串常量池" class="headerlink" title="7.4.3.4字符串常量池"></a>7.4.3.4字符串常量池</h4><p><font color='read'>字符串常量池在JDK1.7的时候从方法区当中的运行时常量池中分离出来并放到堆当中。</font>在JDK1.8的时候使用元空间替换掉了永久代，字符串常量池依旧存在于堆当中。</p>
+<p>字符串常量池是用于存储字符串常量。它的目的是为了避免字符串的重复创建。<font color='read'>当我们在程序中创建一个字符串常量时，JVM会首先检查字符串常量池中是否已经存在该字符串。如果存在，JVM会直接返回该字符串的引用；如果不存在，JVM会在字符串常量池中创建一个新的字符串，并返回其引用。</font></p>
+<p>下面是一些关于字符串常量池的例子：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> s1 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> s2 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 输出true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>上面的代码中，我们创建了两个字符串常量<code>&quot;hello&quot;</code>。由于它们具有相同的值，所以JVM只会在字符串常量池中创建一个<code>&quot;hello&quot;</code>字符串，并返回其引用。因此，<code>s1</code>和<code>s2</code>指向的是同一个字符串对象，所以它们相等。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> s1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> s2 <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1 <span class="token operator">==</span> s2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 输出false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>使用<code>new String(&quot;hello&quot;)</code>创建字符串对象时，JVM会在堆内存中创建一个新的字符串对象，并将其引用赋值给<code>s1</code>。同时，JVM也会检查字符串常量池中是否已经存在<code>&quot;hello&quot;</code>这个字符串。如果不存在，JVM会在字符串常量池中创建一个新的<code>&quot;hello&quot;</code>字符串。因此，总共创建了两个对象。</p>
 <h3 id="7-4-4方法区案例演示"><a href="#7-4-4方法区案例演示" class="headerlink" title="7.4.4方法区案例演示"></a>7.4.4方法区案例演示</h3><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MethodAreaDemo</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span> args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">500</span><span class="token punctuation">;</span>
@@ -739,15 +736,8 @@
 <li>JDK1.8及之后使用元空间代替了永久代，并使用本地内存。字符串常量池和静态变量依旧存在于堆空间中。</li>
 </ol>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230604124643175.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="7-6为什么要使用元空间替换永久代"><a href="#7-6为什么要使用元空间替换永久代" class="headerlink" title="7.6为什么要使用元空间替换永久代"></a>7.6为什么要使用元空间替换永久代</h2><ol>
-<li><strong>降低OOM</strong></li>
-</ol>
-<p><font color='scarlet'>当使用永久代实现方法区时，永久代的最大容量受制于 PermSize 和 MaxPermSize 参数设置的大小，而这两个参数的大小又很难确定，因为在程序运行时需要加载多少类是很难估算的，如果这两个参数设置的过小就会频繁的触发 FullGC 和导致 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=OOM&spm=1001.2101.3001.7020">OOM</a>（Out of Memory，内存溢出）。</font></p>
+<h2 id="7-6为什么要使用元空间替换永久代"><a href="#7-6为什么要使用元空间替换永久代" class="headerlink" title="7.6为什么要使用元空间替换永久代"></a>7.6为什么要使用元空间替换永久代</h2><p><font color='scarlet'>当使用永久代实现方法区时，永久代的最大容量受制于 PermSize 和 MaxPermSize 参数设置的大小，而这两个参数的大小又很难确定，因为在程序运行时需要加载多少类是很难估算的，如果这两个参数设置的过小就会频繁的触发 FullGC 和导致 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=OOM&spm=1001.2101.3001.7020">OOM</a>（Out of Memory，内存溢出）。</font></p>
 <p>但是，当使用元空间替代了永久代之后，出现 OOM 的几率就被大大降低了，因为元空间使用的是本地内存，从而大大降低了 OOM 的问题。</p>
-<ol start="2">
-<li><strong>降低维护成本</strong></li>
-</ol>
-<p>因为元空间使用的是本地内存，这样就无需专门设置和调整元空间的大小了。</p>
 <h2 id="7-7为什么要将字符串常量池调整到堆"><a href="#7-7为什么要将字符串常量池调整到堆" class="headerlink" title="7.7为什么要将字符串常量池调整到堆"></a>7.7为什么要将字符串常量池调整到堆</h2><p><font color='scarlet'>因为永久代（方法区实现）的 GC 回收效率太低，只有在整堆收集 (Full GC)的时候才会被执行 GC。Java 程序在运行过程中通常会有大量的被创建的字符串等待回收，最终可能会导致永久代空间不足。</font></p>
 <p>&#x3D;&#x3D;将字符串常量池放到堆中，能够更高效及时地回收内存。&#x3D;&#x3D;</p>
 <h2 id="7-8方法区的垃圾回收行为"><a href="#7-8方法区的垃圾回收行为" class="headerlink" title="7.8方法区的垃圾回收行为"></a>7.8方法区的垃圾回收行为</h2><p>有些人认为方法区（如Hotspot虚拟机中的元空间或者永久代）是没有垃圾收集行为的，其实不然。《Java虚拟机规范》对方法区的约束是非常宽松的，提到过可以不要求虚拟机在方法区中实现垃圾收集。事实上也确实有未实现或未能完整实现方法区类型卸载的收集器存在（如JDK11时期的zGC收集器就不支持类卸载）。</p>
