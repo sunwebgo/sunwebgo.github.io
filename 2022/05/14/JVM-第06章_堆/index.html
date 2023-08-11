@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-14T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-10T06:26:16.106Z">
+<meta property="article:modified_time" content="2023-08-11T12:46:26.043Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -288,7 +288,7 @@
         
         
         
-          108 分钟
+          112 分钟
         
       </span>
     
@@ -649,6 +649,10 @@
 <li><p><font color='scarlet'>动态对象年龄判断</font>：如果survivor区中年龄从小到大的对象占据的空间，大于survivor区域的一半，年龄大于或等于该年龄的对象可以直接进入老年代，无须等到<code>MaxTenuringThreshold</code>中要求的年龄。最后取这个年龄和MaxTenuringThreshold中更小的一个值，作为新的晋升年龄阈值。</p>
 </li>
 <li><p>空间分配担保： <code>-XX:HandlePromotionFailure</code></p>
+</li>
+<li><p>空间分配担保是为了确保老年代当中有足够的连续内存用于存储在发生Minor GC时，年轻代中的所有对象都存活的情况。</p>
+</li>
+<li><p>《深入理解 Java 虚拟机》第三章对于空间分配担保的描述如下：JDK 6 Update 24 之前，在发生 Minor GC 之前，虚拟机必须先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果这个条件成立，那这一次 Minor GC 可以确保是安全的。如果不成立，则虚拟机会先查看 -XX:HandlePromotionFailure 参数的设置值是否允许担保失败(Handle Promotion Failure);如果允许，那会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小，如果大于，将尝试进行一次 Minor GC，尽管这次 Minor GC 是有风险的;如果小于，或者 -XX: HandlePromotionFailure 设置不允许冒险，那这时就要改为进行一次 Full GC。JDK 6 Update 24 之后的规则变为只要老年代的连续空间大于新生代对象总大小或者历次晋升的平均大小，就会进行 Minor GC，否则将进行 Full GC。</p>
 </li>
 </ul>
 </blockquote>
@@ -1190,7 +1194,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2630k</span>
+<span style="font-weight: initial">文章总字数2631k</span>
 
     </div>
   

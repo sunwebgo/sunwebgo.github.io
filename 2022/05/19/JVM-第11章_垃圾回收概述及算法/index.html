@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/U6LRTMY%28VCAU0%281%60%29BK7LV1.png">
 <meta property="article:published_time" content="2022-05-19T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-10T06:26:16.106Z">
+<meta property="article:modified_time" content="2023-08-11T12:46:26.043Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
@@ -391,7 +391,7 @@ pBridge<span class="token operator">-></span><span class="token class-name">Regi
 </li>
 </ul>
 </blockquote>
-<h2 id="11-2-垃圾回收相关算法"><a href="#11-2-垃圾回收相关算法" class="headerlink" title="11.2. 垃圾回收相关算法"></a>11.2. 垃圾回收相关算法</h2><h3 id="11-2-1对象存活判断"><a href="#11-2-1对象存活判断" class="headerlink" title="11.2.1对象存活判断"></a>11.2.1对象存活判断</h3><p>在堆里存放着几乎所有的Java对象实例，在GC执行垃圾回收之前，首先需要区分出内存中哪些是存活对象，哪些是已经死亡的对象。只有被标记为己经死亡的对象，GC才会在执行垃圾回收时，释放掉其所占用的内存空间，因此这个过程我们可以称为垃圾标记阶段。</p>
+<h2 id="11-2-垃圾回收相关算法"><a href="#11-2-垃圾回收相关算法" class="headerlink" title="11.2. 垃圾回收相关算法"></a>11.2. 垃圾回收相关算法</h2><h3 id="11-2-1-对象存活判断"><a href="#11-2-1-对象存活判断" class="headerlink" title="11.2.1.对象存活判断"></a>11.2.1.对象存活判断</h3><p>在堆里存放着几乎所有的Java对象实例，在GC执行垃圾回收之前，首先需要区分出内存中哪些是存活对象，哪些是已经死亡的对象。只有被标记为己经死亡的对象，GC才会在执行垃圾回收时，释放掉其所占用的内存空间，因此这个过程我们可以称为垃圾标记阶段。</p>
 <p>那么在JVM中究竟是如何标记一个死亡对象呢？简单来说，<font color='scarlet'><strong>当一个对象已经不再被任何的存活对象继续引用时，就可以宣判为已经死亡</strong>。</font></p>
 <p>判断对象存活一般有两种方式：<code>引用计数算法</code>和<code>可达性分析算法</code>。</p>
 <h3 id="11-2-2-标记阶段：引用计数算法"><a href="#11-2-2-标记阶段：引用计数算法" class="headerlink" title="11.2.2.  标记阶段：引用计数算法"></a>11.2.2.  标记阶段：引用计数算法</h3><h4 id="11-2-2-1引用计数算法"><a href="#11-2-2-1引用计数算法" class="headerlink" title="11.2.2.1引用计数算法"></a>11.2.2.1引用计数算法</h4><p>引用计数算法（Reference Counting），**<font color='scarlet'>对每个对象保存一个整型的引用计数器属性。用于记录对象被引用的情况</font>**。</p>
@@ -638,10 +638,8 @@ obj is dead<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 </blockquote>
 <h4 id="11-2-6-4缺点"><a href="#11-2-6-4缺点" class="headerlink" title="11.2.6.4缺点"></a>11.2.6.4缺点</h4><blockquote>
 <ul>
-<li><p>此算法的缺点也是很明显的，就是需要两倍的内存空间。</p>
-</li>
-<li><p>对于G1这种分拆成为大量region的GC，复制而不是移动，意味着GC需要维护region之间对象引用关系，不管是内存占用或者时间开销也不小</p>
-</li>
+<li>可用内存变小：可用内存缩小为原来的一半。</li>
+<li>不适合老年代：如果存活对象数量比较大，复制性能会变得很差。</li>
 </ul>
 </blockquote>
 <p>如果系统中的垃圾对象很多，复制算法需要复制的存活对象数量并不会太大，或者说非常低才行</p>
@@ -1089,7 +1087,7 @@ obj is dead<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2630k</span>
+<span style="font-weight: initial">文章总字数2631k</span>
 
     </div>
   
