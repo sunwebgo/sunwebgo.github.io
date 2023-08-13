@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-19T08:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-11T12:46:26.059Z">
+<meta property="article:modified_time" content="2023-08-13T02:09:07.940Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -431,8 +431,9 @@
 <p>由于数据页的 <strong><code>编号可能是不连续</code></strong> 的，所以在向 index_demo 表中插入许多条记录后，可能是这样的效果：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413224732895.png" srcset="/img/loading.gif" lazyload alt="image-20230413224732895"></p>
 <p>我们需要给它们做个 **<code>目录</code>**，每个页对应一个目录项，每个目录项包括下边两个部分：</p>
-<p>1）页的用户记录中最小的主键值，我们用 <strong><code>key</code></strong> 来表示。</p>
-<p>2）页号，我们用 <strong><code>page_on</code></strong> 表示。</p>
+<blockquote>
+<p>页的用户记录中最小的主键值，我们用 <strong><code>key</code></strong> 来表示。<br>页号，我们用 <strong><code>page_on</code></strong> 表示。<br>其中，主键值用于指示目录项所指向的数据页中记录的主键范围，页的编号用于指示目录项所指向的数据页的位置。</p>
+</blockquote>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230413224743506.png" srcset="/img/loading.gif" lazyload alt="image-20230413224743506"></p>
 <p>以 页28 为例，它对应 目录项2 ，这个目录项中包含着该页的页号 28 以及该页中用户记录的最小主 键值 5 。我们只需要把几个目录项在物理存储器上连续存储（比如：数组），就可以实现根据主键 值快速查找某条记录的功能了。比如：查找主键值为 20 的记录，具体查找过程分两步：</p>
 <ol>
@@ -1152,7 +1153,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2631k</span>
+<span style="font-weight: initial">文章总字数2612k</span>
 
     </div>
   
