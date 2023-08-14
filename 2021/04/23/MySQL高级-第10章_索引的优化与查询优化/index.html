@@ -16,16 +16,16 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="都有哪些维度可以进行数据库调优？简言之：  索引失效、没有充分利用到索引——建立索引 关联查询太多JOIN（设计缺陷或不得已的需求）——SQL优化 服务器调优及各个参数设置（缓冲、线程数等）——调整my.cnf 数据过多——分库分表  关于数据库调优的知识非常分散。不同的DBMS，不同的公司，不同的职位，不同的项目遇到的问题都不尽相同。这里我们分为三个章节进行细致讲解。 虽然SQL查询优化的技术有">
+    <meta name="description" content="第10章_索引优化与查询优化1. 最佳左前缀法则在MySQL建立联合索引时会遵守最佳左前缀原则，即最左优先，在检索数据时从联合索引的最左边开始匹配。  MySQL 中的索引最左匹配原则是指，在使用复合索引进行查询时，如果查询条件中包含多个列，那么只有从复合索引的最左边开始的几个列被用到，才能够利用到这个索引。具体来说，MySQL 查询优化器会根据查询条件的匹配度，选择适当的索引来执行查询操作。 例">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第10章_索引的优化与查询优化">
 <meta property="og:url" content="https://xhablog.online/2021/04/23/MySQL%E9%AB%98%E7%BA%A7-%E7%AC%AC10%E7%AB%A0_%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E5%8C%96%E4%B8%8E%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="都有哪些维度可以进行数据库调优？简言之：  索引失效、没有充分利用到索引——建立索引 关联查询太多JOIN（设计缺陷或不得已的需求）——SQL优化 服务器调优及各个参数设置（缓冲、线程数等）——调整my.cnf 数据过多——分库分表  关于数据库调优的知识非常分散。不同的DBMS，不同的公司，不同的职位，不同的项目遇到的问题都不尽相同。这里我们分为三个章节进行细致讲解。 虽然SQL查询优化的技术有">
+<meta property="og:description" content="第10章_索引优化与查询优化1. 最佳左前缀法则在MySQL建立联合索引时会遵守最佳左前缀原则，即最左优先，在检索数据时从联合索引的最左边开始匹配。  MySQL 中的索引最左匹配原则是指，在使用复合索引进行查询时，如果查询条件中包含多个列，那么只有从复合索引的最左边开始的几个列被用到，才能够利用到这个索引。具体来说，MySQL 查询优化器会根据查询条件的匹配度，选择适当的索引来执行查询操作。 例">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-23T08:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-14T01:56:40.099Z">
+<meta property="article:modified_time" content="2023-08-14T01:58:00.934Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          34k 字
+          25k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          285 分钟
+          210 分钟
         
       </span>
     
@@ -339,187 +339,7 @@
             
               <div class="markdown-body">
                 
-                <p>都有哪些维度可以进行数据库调优？简言之：</p>
-<ul>
-<li>索引失效、没有充分利用到索引——建立索引</li>
-<li>关联查询太多JOIN（设计缺陷或不得已的需求）——SQL优化</li>
-<li>服务器调优及各个参数设置（缓冲、线程数等）——调整my.cnf</li>
-<li>数据过多——分库分表</li>
-</ul>
-<p>关于数据库调优的知识非常分散。不同的DBMS，不同的公司，不同的职位，不同的项目遇到的问题都不尽相同。这里我们分为三个章节进行细致讲解。</p>
-<p>虽然SQL查询优化的技术有很多，但是大方向上完全可以分成<code>物理查询优化</code>和<code>逻辑查询优化</code>两大块。</p>
-<ul>
-<li>物理查询优化是通过<code>索引</code>和<code>表连接方式</code>等技术来进行优化，这里重点需要掌握索引的使用。</li>
-<li>逻辑查询优化就是通过SQL<code>等价变换</code>提升查询效率，直白一点就是说，换一种查询写法效率可能更高。</li>
-</ul>
-<h2 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1. 数据准备"></a>1. 数据准备</h2><p><code>学员表</code> 插 <code>50万</code> 条，<code> 班级表</code> 插 <code>1万</code> 条。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> atguigudb2<span class="token punctuation">;</span>
-<span class="token keyword">USE</span> atguigudb2<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-
-<p><strong>步骤1：建表</strong></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>class<span class="token punctuation">`</span></span> <span class="token punctuation">(</span>
-    <span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span> <span class="token keyword">INT</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
-    <span class="token identifier"><span class="token punctuation">`</span>className<span class="token punctuation">`</span></span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    <span class="token identifier"><span class="token punctuation">`</span>address<span class="token punctuation">`</span></span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">40</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    <span class="token identifier"><span class="token punctuation">`</span>monitor<span class="token punctuation">`</span></span> <span class="token keyword">INT</span> <span class="token boolean">NULL</span> <span class="token punctuation">,</span>
-    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">INNODB</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token operator">=</span><span class="token number">1</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span>
-
-<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>student<span class="token punctuation">`</span></span> <span class="token punctuation">(</span>
-    <span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span> <span class="token keyword">INT</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
-    <span class="token identifier"><span class="token punctuation">`</span>stuno<span class="token punctuation">`</span></span> <span class="token keyword">INT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token punctuation">,</span>
-    <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    <span class="token identifier"><span class="token punctuation">`</span>age<span class="token punctuation">`</span></span> <span class="token keyword">INT</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    <span class="token identifier"><span class="token punctuation">`</span>classId<span class="token punctuation">`</span></span> <span class="token keyword">INT</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span><span class="token punctuation">)</span>
-    <span class="token comment">#CONSTRAINT `fk_class_id` FOREIGN KEY (`classId`) REFERENCES `t_class` (`id`)</span>
-<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">INNODB</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token operator">=</span><span class="token number">1</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p><strong>步骤2：设置参数</strong></p>
-<ul>
-<li>命令开启：允许创建函数设置：</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> <span class="token keyword">global</span> log_bin_trust_function_creators<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment"># 不加global只是当前窗口有效。</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<p><strong>步骤3：创建函数</strong></p>
-<p>保证每条数据都不同。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#随机产生字符串</span>
-<span class="token keyword">DELIMITER</span> <span class="token comment">//</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">FUNCTION</span> rand_string<span class="token punctuation">(</span>n <span class="token keyword">INT</span><span class="token punctuation">)</span> <span class="token keyword">RETURNS</span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
-<span class="token keyword">BEGIN</span>
-<span class="token keyword">DECLARE</span> chars_str <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span>
-<span class="token string">'abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ'</span><span class="token punctuation">;</span>
-<span class="token keyword">DECLARE</span> return_str <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token string">''</span><span class="token punctuation">;</span>
-<span class="token keyword">DECLARE</span> i <span class="token keyword">INT</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">WHILE</span> i <span class="token operator">&lt;</span> n <span class="token keyword">DO</span>
-<span class="token keyword">SET</span> return_str <span class="token operator">=</span>CONCAT<span class="token punctuation">(</span>return_str<span class="token punctuation">,</span>SUBSTRING<span class="token punctuation">(</span>chars_str<span class="token punctuation">,</span>FLOOR<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>RAND<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">52</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">SET</span> i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token keyword">END</span> <span class="token keyword">WHILE</span><span class="token punctuation">;</span>
-<span class="token keyword">RETURN</span> return_str<span class="token punctuation">;</span>
-<span class="token keyword">END</span> <span class="token comment">//</span>
-<span class="token keyword">DELIMITER</span> <span class="token punctuation">;</span>
-<span class="token comment">#假如要删除</span>
-<span class="token comment">#drop function rand_string;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p>随机产生班级编号</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#用于随机产生多少到多少的编号</span>
-<span class="token keyword">DELIMITER</span> <span class="token comment">//</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">FUNCTION</span> rand_num <span class="token punctuation">(</span>from_num <span class="token keyword">INT</span> <span class="token punctuation">,</span>to_num <span class="token keyword">INT</span><span class="token punctuation">)</span> <span class="token keyword">RETURNS</span> <span class="token keyword">INT</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>
-<span class="token keyword">BEGIN</span>
-<span class="token keyword">DECLARE</span> i <span class="token keyword">INT</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">SET</span> i <span class="token operator">=</span> FLOOR<span class="token punctuation">(</span>from_num <span class="token operator">+</span>RAND<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>to_num <span class="token operator">-</span> from_num<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-<span class="token keyword">RETURN</span> i<span class="token punctuation">;</span>
-<span class="token keyword">END</span> <span class="token comment">//</span>
-<span class="token keyword">DELIMITER</span> <span class="token punctuation">;</span>
-<span class="token comment">#假如要删除</span>
-<span class="token comment">#drop function rand_num;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p><strong>步骤4：创建存储过程</strong></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#创建往stu表中插入数据的存储过程</span>
-<span class="token keyword">DELIMITER</span> <span class="token comment">//</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">PROCEDURE</span> insert_stu<span class="token punctuation">(</span> <span class="token keyword">START</span> <span class="token keyword">INT</span> <span class="token punctuation">,</span> max_num <span class="token keyword">INT</span> <span class="token punctuation">)</span>
-<span class="token keyword">BEGIN</span>
-<span class="token keyword">DECLARE</span> i <span class="token keyword">INT</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">SET</span> autocommit <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">#设置手动提交事务</span>
-<span class="token keyword">REPEAT</span> <span class="token comment">#循环</span>
-<span class="token keyword">SET</span> i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">#赋值</span>
-<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> student <span class="token punctuation">(</span>stuno<span class="token punctuation">,</span> name <span class="token punctuation">,</span>age <span class="token punctuation">,</span>classId <span class="token punctuation">)</span> <span class="token keyword">VALUES</span>
-<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">START</span><span class="token operator">+</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span>rand_string<span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">,</span>rand_num<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">,</span>rand_num<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-UNTIL i <span class="token operator">=</span> max_num
-<span class="token keyword">END</span> <span class="token keyword">REPEAT</span><span class="token punctuation">;</span>
-<span class="token keyword">COMMIT</span><span class="token punctuation">;</span> <span class="token comment">#提交事务</span>
-<span class="token keyword">END</span> <span class="token comment">//</span>
-<span class="token keyword">DELIMITER</span> <span class="token punctuation">;</span>
-<span class="token comment">#假如要删除</span>
-<span class="token comment">#drop PROCEDURE insert_stu;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p>创建往class表中插入数据的存储过程</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#执行存储过程，往class表添加随机数据</span>
-<span class="token keyword">DELIMITER</span> <span class="token comment">//</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">PROCEDURE</span> <span class="token identifier"><span class="token punctuation">`</span>insert_class<span class="token punctuation">`</span></span><span class="token punctuation">(</span> max_num <span class="token keyword">INT</span> <span class="token punctuation">)</span>
-<span class="token keyword">BEGIN</span>
-<span class="token keyword">DECLARE</span> i <span class="token keyword">INT</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">SET</span> autocommit <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">REPEAT</span>
-<span class="token keyword">SET</span> i <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> class <span class="token punctuation">(</span> classname<span class="token punctuation">,</span>address<span class="token punctuation">,</span>monitor <span class="token punctuation">)</span> <span class="token keyword">VALUES</span>
-<span class="token punctuation">(</span>rand_string<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">,</span>rand_string<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>rand_num<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">100000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-UNTIL i <span class="token operator">=</span> max_num
-<span class="token keyword">END</span> <span class="token keyword">REPEAT</span><span class="token punctuation">;</span>
-<span class="token keyword">COMMIT</span><span class="token punctuation">;</span>
-<span class="token keyword">END</span> <span class="token comment">//</span>
-<span class="token keyword">DELIMITER</span> <span class="token punctuation">;</span>
-<span class="token comment">#假如要删除</span>
-<span class="token comment">#drop PROCEDURE insert_class;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p><strong>步骤5：调用存储过程</strong></p>
-<p>class</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sqlite" data-language="sqlite"><code class="language-sqlite">#执行存储过程，往class表添加1万条数据
-CALL insert_class(10000);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-
-<p>stu</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#执行存储过程，往stu表添加50万条数据</span>
-<span class="token keyword">CALL</span> insert_stu<span class="token punctuation">(</span><span class="token number">100000</span><span class="token punctuation">,</span><span class="token number">500000</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-
-<p><strong>步骤6：删除某表上的索引</strong></p>
-<p>创建存储过程</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DELIMITER</span> <span class="token comment">//</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">PROCEDURE</span> <span class="token identifier"><span class="token punctuation">`</span>proc_drop_index<span class="token punctuation">`</span></span><span class="token punctuation">(</span>dbname <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">,</span>tablename <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">BEGIN</span>
-        <span class="token keyword">DECLARE</span> done <span class="token keyword">INT</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">DECLARE</span> ct <span class="token keyword">INT</span> <span class="token keyword">DEFAULT</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">DECLARE</span> _index <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span> <span class="token keyword">DEFAULT</span> <span class="token string">''</span><span class="token punctuation">;</span>
-        <span class="token keyword">DECLARE</span> _cur <span class="token keyword">CURSOR</span> <span class="token keyword">FOR</span> <span class="token keyword">SELECT</span> index_name <span class="token keyword">FROM</span>
-information_schema<span class="token punctuation">.</span><span class="token keyword">STATISTICS</span> <span class="token keyword">WHERE</span> table_schema<span class="token operator">=</span>dbname <span class="token operator">AND</span> table_name<span class="token operator">=</span>tablename <span class="token operator">AND</span>
-seq_in_index<span class="token operator">=</span><span class="token number">1</span> <span class="token operator">AND</span> index_name <span class="token operator">&lt;></span><span class="token string">'PRIMARY'</span> <span class="token punctuation">;</span>
-<span class="token comment">#每个游标必须使用不同的declare continue handler for not found set done=1来控制游标的结束</span>
-		<span class="token keyword">DECLARE</span> <span class="token keyword">CONTINUE</span> <span class="token keyword">HANDLER</span> <span class="token keyword">FOR</span> <span class="token operator">NOT</span> FOUND <span class="token keyword">set</span> done<span class="token operator">=</span><span class="token number">2</span> <span class="token punctuation">;</span>
-<span class="token comment">#若没有数据返回,程序继续,并将变量done设为2</span>
-        <span class="token keyword">OPEN</span> _cur<span class="token punctuation">;</span>
-        <span class="token keyword">FETCH</span> _cur <span class="token keyword">INTO</span> _index<span class="token punctuation">;</span>
-        <span class="token keyword">WHILE</span> _index<span class="token operator">&lt;></span><span class="token string">''</span> <span class="token keyword">DO</span>
-            <span class="token keyword">SET</span> <span class="token variable">@str</span> <span class="token operator">=</span> CONCAT<span class="token punctuation">(</span><span class="token string">"drop index "</span> <span class="token punctuation">,</span> _index <span class="token punctuation">,</span> <span class="token string">" on "</span> <span class="token punctuation">,</span> tablename <span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">PREPARE</span> sql_str <span class="token keyword">FROM</span> <span class="token variable">@str</span> <span class="token punctuation">;</span>
-            <span class="token keyword">EXECUTE</span> sql_str<span class="token punctuation">;</span>
-            <span class="token keyword">DEALLOCATE</span> <span class="token keyword">PREPARE</span> sql_str<span class="token punctuation">;</span>
-            <span class="token keyword">SET</span> _index<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">;</span>
-            <span class="token keyword">FETCH</span> _cur <span class="token keyword">INTO</span> _index<span class="token punctuation">;</span>
-        <span class="token keyword">END</span> <span class="token keyword">WHILE</span><span class="token punctuation">;</span>
-    <span class="token keyword">CLOSE</span> _cur<span class="token punctuation">;</span>
-<span class="token keyword">END</span> <span class="token comment">//</span>
-<span class="token keyword">DELIMITER</span> <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p>执行存储过程</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CALL</span> proc_drop_index<span class="token punctuation">(</span><span class="token string">"dbname"</span><span class="token punctuation">,</span><span class="token string">"tablename"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<h2 id="2-索引失效案例"><a href="#2-索引失效案例" class="headerlink" title="2. 索引失效案例"></a>2. 索引失效案例</h2><p>MySQL中<code>提高性能</code>的一个最有效的方式是对数据表<code>设计合理的索引</code>。索引提供了高效访问数据的方法,并且加快查询的速度，因此索引对查询的速度有着至关重要的影响。</p>
-<ul>
-<li>使用索引可以快速地定位表中的某条记录，从而提高数据库查询的速度,提高数据库的性能。</li>
-<li>如果查询时没有使用索引，查询语句就会扫描表中的所有记录。在数据量大的情况下，这样查询的速度会很慢。</li>
-</ul>
-<p>大多数情况下都(默认)采用<code>B+树</code>来构建索引。只是空间列类型的索引使用R-树，并且MEMORY表还支持<code>hash 索引。</code></p>
-<p>其实,用不用索引，最终都是优化器说了算。优化器是基于什么的优化器?基于<code>cost开销(CostBaseOptimizer)，</code>它不是基于规则(Rule- Basedoptimizer),也不是基于语义。怎么样开销小就怎么来。另外, SQL语句是否使用索引，跟数据库版本、数据量、数据选择度都有关系。</p>
-<h3 id="2-1-联合索引导致单个索引失效"><a href="#2-1-联合索引导致单个索引失效" class="headerlink" title="2.1 联合索引导致单个索引失效"></a>2.1 联合索引导致单个索引失效</h3><p>系统中经常出现的sql语句如下：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">;</span>
-<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age<span class="token operator">=</span><span class="token number">30</span> <span class="token operator">AND</span> classId<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">;</span>
-<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age<span class="token operator">=</span><span class="token number">30</span> <span class="token operator">AND</span> classId<span class="token operator">=</span><span class="token number">4</span> <span class="token operator">AND</span> name <span class="token operator">=</span> <span class="token string">'abcd'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p>建立索引前执行：（关注执行时间）</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age<span class="token operator">=</span><span class="token number">30</span> <span class="token operator">AND</span> classId<span class="token operator">=</span><span class="token number">4</span> <span class="token operator">AND</span> name <span class="token operator">=</span> <span class="token string">'abcd'</span><span class="token punctuation">;</span>
-Empty <span class="token keyword">set</span><span class="token punctuation">,</span> <span class="token number">1</span> warning <span class="token punctuation">(</span><span class="token number">0.28</span> sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-
-<p><strong>建立索引</strong></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_age <span class="token keyword">ON</span> student<span class="token punctuation">(</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_age_classid <span class="token keyword">ON</span> student<span class="token punctuation">(</span>age<span class="token punctuation">,</span>classId<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_age_classid_name <span class="token keyword">ON</span> student<span class="token punctuation">(</span>age<span class="token punctuation">,</span>classId<span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230419201432567.png" srcset="/img/loading.gif" lazyload alt="image-20230419201432567"></p>
-<p>建立索引后执行，查看sql的执行计划：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age<span class="token operator">=</span><span class="token number">30</span> <span class="token operator">AND</span> classId<span class="token operator">=</span><span class="token number">4</span> <span class="token operator">AND</span> name <span class="token operator">=</span> <span class="token string">'abcd'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<p>发现使用的是三个字段组成的联合索引，前两个索引失效</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230419202804886.png" srcset="/img/loading.gif" lazyload alt="image-20230419202804886"></p>
-<h3 id="2-2-最佳左前缀法则"><a href="#2-2-最佳左前缀法则" class="headerlink" title="2.2 最佳左前缀法则"></a>2.2 最佳左前缀法则</h3><p><strong><font color='scarlet'>在MySQL建立联合索引时会遵守最佳左前缀原则，即最左优先，在检索数据时从联合索引的最左边开始匹配。</font></strong></p>
+                <h1 id="第10章-索引优化与查询优化"><a href="#第10章-索引优化与查询优化" class="headerlink" title="第10章_索引优化与查询优化"></a>第10章_索引优化与查询优化</h1><h2 id="1-最佳左前缀法则"><a href="#1-最佳左前缀法则" class="headerlink" title="1. 最佳左前缀法则"></a>1. 最佳左前缀法则</h2><p><strong><font color='scarlet'>在MySQL建立联合索引时会遵守最佳左前缀原则，即最左优先，在检索数据时从联合索引的最左边开始匹配。</font></strong></p>
 <blockquote>
 <p>MySQL 中的索引最左匹配原则是指，在使用复合索引进行查询时，如果查询条件中包含多个列，那么只有从复合索引的最左边开始的几个列被用到，才能够利用到这个索引。具体来说，MySQL 查询优化器会根据查询条件的匹配度，选择适当的索引来执行查询操作。</p>
 <p>例如，假设我们有一个表 <code>user</code>，该表包含三个列：<code>id</code>、<code>name</code> 和 <code>age</code>。现在我们创建了一个复合索引，包含两个列：<code>(name, age)</code>。那么，如果我们执行如下查询语句：</p>
@@ -571,208 +391,19 @@ Empty <span class="token keyword">set</span><span class="token punctuation">,</s
 <p>拓展：Alibaba《Java开发手册》</p>
 <p>索引文件具有 B-Tree 的最左前缀匹配特性，如果左边的值未确定，那么无法使用此索引。</p>
 </blockquote>
-<h3 id="2-3-主键插入顺序"><a href="#2-3-主键插入顺序" class="headerlink" title="2.3 主键插入顺序"></a>2.3 主键插入顺序</h3><p>对于一个使用 <code>InnoDB</code>存储引擎的表来说，在我们没有显式的创建索引时，表中的数据实际上都是存储在<code>聚簇索引</code>的叶子节点的。而记录又是存储在数据页中的，数据页和记录又是按照记录主键值从小到大的顺序进行排序,所以如果我们插入的记录的<code>主键值是依次增大</code>的话，那我们每插满一个数据页就换到下一 个数据页继续插，而如果我们插入的主键值忽大忽小的话，就比较麻烦了，假设某个数据页存储的记录已经满了，它存储的主键值在<br>1~100之间:</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230419205814521.png" srcset="/img/loading.gif" lazyload alt="image-20230419205814521"></p>
-<p>如果此时再插入一条主键值为 9 的记录，那它插入的位置就如下图：</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230419205823481.png" srcset="/img/loading.gif" lazyload alt="image-20230419205823481"></p>
-<p>可这个数据页已经满了，再插进来咋办呢？我们需要把当前 <code>页面分裂</code> 成两个页面，把本页中的一些记录移动到新创建的这个页中。页面分裂和记录移位意味着什么？意味着： <code>性能损耗</code> ！所以如果我们想尽量避免这样无谓的性能损耗，最好让插入的记录的 <code>主键值依次递增</code> ，这样就不会发生这样的性能损耗了。 所以我们建议：让主键具有 <code>AUTO_INCREMENT</code> ，让存储引擎自己为表生成主键，而不是我们手动插入 ， 比如： <code>person_info</code> 表：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> person_info<span class="token punctuation">(</span>
-    id <span class="token keyword">INT</span> <span class="token keyword">UNSIGNED</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
-    name <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    birthday <span class="token keyword">DATE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    phone_number <span class="token keyword">CHAR</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    country <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
-    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token keyword">KEY</span> idx_name_birthday_phone_number <span class="token punctuation">(</span>name<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> birthday<span class="token punctuation">,</span> phone_number<span class="token punctuation">)</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p>我们自定义的主键列 <code>id</code> 拥有 <code>AUTO_INCREMENT</code> 属性，在插入记录时存储引擎会自动为我们填入自增的主键值。这样的主键占用空间小，顺序写入，减少页分裂。</p>
-<h3 id="2-4函数、计算导致索引失效"><a href="#2-4函数、计算导致索引失效" class="headerlink" title="2.4函数、计算导致索引失效"></a>2.4函数、计算导致索引失效</h3><h4 id="2-4-1函数失效"><a href="#2-4-1函数失效" class="headerlink" title="2.4.1函数失效"></a>2.4.1函数失效</h4><ol>
-<li><p>这两条sql哪种写法更好</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> student<span class="token punctuation">.</span>name <span class="token operator">LIKE</span> <span class="token string">'abc%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> <span class="token keyword">LEFT</span><span class="token punctuation">(</span>student<span class="token punctuation">.</span>name<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">'abc'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-</li>
-<li><p>创建索引</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_name <span class="token keyword">ON</span> student<span class="token punctuation">(</span>NAME<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-</li>
-<li><p>第一种：索引优化生效</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> student<span class="token punctuation">.</span>name <span class="token operator">LIKE</span> <span class="token string">'abc%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> student<span class="token punctuation">.</span>name <span class="token operator">LIKE</span> <span class="token string">'abc%'</span><span class="token punctuation">;</span>
-<span class="token operator">+</span><span class="token comment">---------+---------+--------+------+---------+</span>
-<span class="token operator">|</span> id <span class="token operator">|</span> stuno <span class="token operator">|</span> name <span class="token operator">|</span> age <span class="token operator">|</span> classId <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment">---------+---------+--------+------+---------+</span>
-<span class="token operator">|</span> <span class="token number">5301379</span> <span class="token operator">|</span> <span class="token number">1233401</span> <span class="token operator">|</span> AbCHEa <span class="token operator">|</span> <span class="token number">164</span> <span class="token operator">|</span> <span class="token number">259</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">7170042</span> <span class="token operator">|</span> <span class="token number">3102064</span> <span class="token operator">|</span> ABcHeB <span class="token operator">|</span> <span class="token number">199</span> <span class="token operator">|</span> <span class="token number">161</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1901614</span> <span class="token operator">|</span> <span class="token number">1833636</span> <span class="token operator">|</span> ABcHeC <span class="token operator">|</span> <span class="token number">226</span> <span class="token operator">|</span> <span class="token number">275</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">5195021</span> <span class="token operator">|</span> <span class="token number">1127043</span> <span class="token operator">|</span> abchEC <span class="token operator">|</span> <span class="token number">486</span> <span class="token operator">|</span> <span class="token number">72</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">4047089</span> <span class="token operator">|</span> <span class="token number">3810031</span> <span class="token operator">|</span> AbCHFd <span class="token operator">|</span> <span class="token number">268</span> <span class="token operator">|</span> <span class="token number">210</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">4917074</span> <span class="token operator">|</span> <span class="token number">849096</span> <span class="token operator">|</span> ABcHfD <span class="token operator">|</span> <span class="token number">264</span> <span class="token operator">|</span> <span class="token number">442</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1540859</span> <span class="token operator">|</span> <span class="token number">141979</span> <span class="token operator">|</span> abchFF <span class="token operator">|</span> <span class="token number">119</span> <span class="token operator">|</span> <span class="token number">140</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">5121801</span> <span class="token operator">|</span> <span class="token number">1053823</span> <span class="token operator">|</span> AbCHFg <span class="token operator">|</span> <span class="token number">412</span> <span class="token operator">|</span> <span class="token number">327</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">2441254</span> <span class="token operator">|</span> <span class="token number">2373276</span> <span class="token operator">|</span> abchFJ <span class="token operator">|</span> <span class="token number">170</span> <span class="token operator">|</span> <span class="token number">362</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">7039146</span> <span class="token operator">|</span> <span class="token number">2971168</span> <span class="token operator">|</span> ABcHgI <span class="token operator">|</span> <span class="token number">502</span> <span class="token operator">|</span> <span class="token number">465</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1636826</span> <span class="token operator">|</span> <span class="token number">1580286</span> <span class="token operator">|</span> ABcHgK <span class="token operator">|</span> <span class="token number">71</span> <span class="token operator">|</span> <span class="token number">262</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">374344</span> <span class="token operator">|</span> <span class="token number">474345</span> <span class="token operator">|</span> abchHL <span class="token operator">|</span> <span class="token number">367</span> <span class="token operator">|</span> <span class="token number">212</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1596534</span> <span class="token operator">|</span> <span class="token number">169191</span> <span class="token operator">|</span> AbCHHl <span class="token operator">|</span> <span class="token number">102</span> <span class="token operator">|</span> <span class="token number">146</span> <span class="token operator">|</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token operator">|</span> <span class="token number">5266837</span> <span class="token operator">|</span> <span class="token number">1198859</span> <span class="token operator">|</span> abclXe <span class="token operator">|</span> <span class="token number">292</span> <span class="token operator">|</span> <span class="token number">298</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">8126968</span> <span class="token operator">|</span> <span class="token number">4058990</span> <span class="token operator">|</span> aBClxE <span class="token operator">|</span> <span class="token number">316</span> <span class="token operator">|</span> <span class="token number">150</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">4298305</span> <span class="token operator">|</span> <span class="token number">399962</span> <span class="token operator">|</span> AbCLXF <span class="token operator">|</span> <span class="token number">72</span> <span class="token operator">|</span> <span class="token number">423</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">5813628</span> <span class="token operator">|</span> <span class="token number">1745650</span> <span class="token operator">|</span> aBClxF <span class="token operator">|</span> <span class="token number">356</span> <span class="token operator">|</span> <span class="token number">323</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">6980448</span> <span class="token operator">|</span> <span class="token number">2912470</span> <span class="token operator">|</span> AbCLXF <span class="token operator">|</span> <span class="token number">107</span> <span class="token operator">|</span> <span class="token number">78</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">7881979</span> <span class="token operator">|</span> <span class="token number">3814001</span> <span class="token operator">|</span> AbCLXF <span class="token operator">|</span> <span class="token number">89</span> <span class="token operator">|</span> <span class="token number">497</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">4955576</span> <span class="token operator">|</span> <span class="token number">887598</span> <span class="token operator">|</span> ABcLxg <span class="token operator">|</span> <span class="token number">121</span> <span class="token operator">|</span> <span class="token number">385</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">3653460</span> <span class="token operator">|</span> <span class="token number">3585482</span> <span class="token operator">|</span> AbCLXJ <span class="token operator">|</span> <span class="token number">130</span> <span class="token operator">|</span> <span class="token number">174</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1231990</span> <span class="token operator">|</span> <span class="token number">1283439</span> <span class="token operator">|</span> AbCLYH <span class="token operator">|</span> <span class="token number">189</span> <span class="token operator">|</span> <span class="token number">429</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">6110615</span> <span class="token operator">|</span> <span class="token number">2042637</span> <span class="token operator">|</span> ABcLyh <span class="token operator">|</span> <span class="token number">157</span> <span class="token operator">|</span> <span class="token number">40</span> <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment">---------+---------+--------+------+---------+</span>
-<span class="token number">401</span> <span class="token keyword">rows</span> <span class="token operator">in</span> <span class="token keyword">set</span><span class="token punctuation">,</span> <span class="token number">1</span> warning <span class="token punctuation">(</span><span class="token number">0.01</span> sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-</li>
-<li><p>第二种：索引优化失效</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> <span class="token keyword">LEFT</span><span class="token punctuation">(</span>student<span class="token punctuation">.</span>name<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">'abc'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> <span class="token keyword">LEFT</span><span class="token punctuation">(</span>student<span class="token punctuation">.</span>name<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">'abc'</span><span class="token punctuation">;</span>
-<span class="token operator">+</span><span class="token comment">---------+---------+--------+------+---------+</span>
-<span class="token operator">|</span> id <span class="token operator">|</span> stuno <span class="token operator">|</span> name <span class="token operator">|</span> age <span class="token operator">|</span> classId <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment">---------+---------+--------+------+---------+</span>
-<span class="token operator">|</span> <span class="token number">5301379</span> <span class="token operator">|</span> <span class="token number">1233401</span> <span class="token operator">|</span> AbCHEa <span class="token operator">|</span> <span class="token number">164</span> <span class="token operator">|</span> <span class="token number">259</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">7170042</span> <span class="token operator">|</span> <span class="token number">3102064</span> <span class="token operator">|</span> ABcHeB <span class="token operator">|</span> <span class="token number">199</span> <span class="token operator">|</span> <span class="token number">161</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1901614</span> <span class="token operator">|</span> <span class="token number">1833636</span> <span class="token operator">|</span> ABcHeC <span class="token operator">|</span> <span class="token number">226</span> <span class="token operator">|</span> <span class="token number">275</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">5195021</span> <span class="token operator">|</span> <span class="token number">1127043</span> <span class="token operator">|</span> abchEC <span class="token operator">|</span> <span class="token number">486</span> <span class="token operator">|</span> <span class="token number">72</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">4047089</span> <span class="token operator">|</span> <span class="token number">3810031</span> <span class="token operator">|</span> AbCHFd <span class="token operator">|</span> <span class="token number">268</span> <span class="token operator">|</span> <span class="token number">210</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">4917074</span> <span class="token operator">|</span> <span class="token number">849096</span> <span class="token operator">|</span> ABcHfD <span class="token operator">|</span> <span class="token number">264</span> <span class="token operator">|</span> <span class="token number">442</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1540859</span> <span class="token operator">|</span> <span class="token number">141979</span> <span class="token operator">|</span> abchFF <span class="token operator">|</span> <span class="token number">119</span> <span class="token operator">|</span> <span class="token number">140</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">5121801</span> <span class="token operator">|</span> <span class="token number">1053823</span> <span class="token operator">|</span> AbCHFg <span class="token operator">|</span> <span class="token number">412</span> <span class="token operator">|</span> <span class="token number">327</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">2441254</span> <span class="token operator">|</span> <span class="token number">2373276</span> <span class="token operator">|</span> abchFJ <span class="token operator">|</span> <span class="token number">170</span> <span class="token operator">|</span> <span class="token number">362</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">7039146</span> <span class="token operator">|</span> <span class="token number">2971168</span> <span class="token operator">|</span> ABcHgI <span class="token operator">|</span> <span class="token number">502</span> <span class="token operator">|</span> <span class="token number">465</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1636826</span> <span class="token operator">|</span> <span class="token number">1580286</span> <span class="token operator">|</span> ABcHgK <span class="token operator">|</span> <span class="token number">71</span> <span class="token operator">|</span> <span class="token number">262</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">374344</span> <span class="token operator">|</span> <span class="token number">474345</span> <span class="token operator">|</span> abchHL <span class="token operator">|</span> <span class="token number">367</span> <span class="token operator">|</span> <span class="token number">212</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1596534</span> <span class="token operator">|</span> <span class="token number">169191</span> <span class="token operator">|</span> AbCHHl <span class="token operator">|</span> <span class="token number">102</span> <span class="token operator">|</span> <span class="token number">146</span> <span class="token operator">|</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token operator">|</span> <span class="token number">5266837</span> <span class="token operator">|</span> <span class="token number">1198859</span> <span class="token operator">|</span> abclXe <span class="token operator">|</span> <span class="token number">292</span> <span class="token operator">|</span> <span class="token number">298</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">8126968</span> <span class="token operator">|</span> <span class="token number">4058990</span> <span class="token operator">|</span> aBClxE <span class="token operator">|</span> <span class="token number">316</span> <span class="token operator">|</span> <span class="token number">150</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">4298305</span> <span class="token operator">|</span> <span class="token number">399962</span> <span class="token operator">|</span> AbCLXF <span class="token operator">|</span> <span class="token number">72</span> <span class="token operator">|</span> <span class="token number">423</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">5813628</span> <span class="token operator">|</span> <span class="token number">1745650</span> <span class="token operator">|</span> aBClxF <span class="token operator">|</span> <span class="token number">356</span> <span class="token operator">|</span> <span class="token number">323</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">6980448</span> <span class="token operator">|</span> <span class="token number">2912470</span> <span class="token operator">|</span> AbCLXF <span class="token operator">|</span> <span class="token number">107</span> <span class="token operator">|</span> <span class="token number">78</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">7881979</span> <span class="token operator">|</span> <span class="token number">3814001</span> <span class="token operator">|</span> AbCLXF <span class="token operator">|</span> <span class="token number">89</span> <span class="token operator">|</span> <span class="token number">497</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">4955576</span> <span class="token operator">|</span> <span class="token number">887598</span> <span class="token operator">|</span> ABcLxg <span class="token operator">|</span> <span class="token number">121</span> <span class="token operator">|</span> <span class="token number">385</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">3653460</span> <span class="token operator">|</span> <span class="token number">3585482</span> <span class="token operator">|</span> AbCLXJ <span class="token operator">|</span> <span class="token number">130</span> <span class="token operator">|</span> <span class="token number">174</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">1231990</span> <span class="token operator">|</span> <span class="token number">1283439</span> <span class="token operator">|</span> AbCLYH <span class="token operator">|</span> <span class="token number">189</span> <span class="token operator">|</span> <span class="token number">429</span> <span class="token operator">|</span>
-<span class="token operator">|</span> <span class="token number">6110615</span> <span class="token operator">|</span> <span class="token number">2042637</span> <span class="token operator">|</span> ABcLyh <span class="token operator">|</span> <span class="token number">157</span> <span class="token operator">|</span> <span class="token number">40</span> <span class="token operator">|</span>
-<span class="token operator">+</span><span class="token comment">---------+---------+--------+------+---------+</span>
-<span class="token number">401</span> <span class="token keyword">rows</span> <span class="token operator">in</span> <span class="token keyword">set</span><span class="token punctuation">,</span> <span class="token number">1</span> warning <span class="token punctuation">(</span><span class="token number">3.62</span> sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p>type为“ALL”，表示没有使用到索引，查询时间为 3.62 秒，查询效率较之前低很多。</p>
-</li>
-</ol>
-<h4 id="2-4-2计算失效"><a href="#2-4-2计算失效" class="headerlink" title="2.4.2计算失效"></a>2.4.2计算失效</h4><ul>
-<li><p>student表的字段stuno上设置有索引</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_sno <span class="token keyword">ON</span> student<span class="token punctuation">(</span>stuno<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-</li>
-<li><p>索引优化失效：（假设：student表的字段stuno上设置有索引）</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE id<span class="token punctuation">,</span> stuno<span class="token punctuation">,</span> NAME <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> stuno<span class="token operator">+</span><span class="token number">1</span> <span class="token operator">=</span> <span class="token number">900001</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-</li>
-<li><p>索引优化生效：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE id<span class="token punctuation">,</span> stuno<span class="token punctuation">,</span> NAME <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> stuno <span class="token operator">=</span> <span class="token number">90000</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
-</ul>
-<h3 id="2-5-类型转换导致索引失效"><a href="#2-5-类型转换导致索引失效" class="headerlink" title="2.5 类型转换导致索引失效"></a>2.5 类型转换导致索引失效</h3><p>下列哪个sql语句可以用到索引。（假设name字段上设置有索引）</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 未使用到索引</span>
-<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> name<span class="token operator">=</span><span class="token number">123</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230513220232308.png" srcset="/img/loading.gif" lazyload alt="image-20230513220232308"></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 使用到索引</span>
-<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> name<span class="token operator">=</span><span class="token string">'123'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230513220250359.png" srcset="/img/loading.gif" lazyload alt="image-20230513220250359"></p>
-<p>因为name本身为String类型，name&#x3D;123发生类型转换，索引失效。</p>
-<h3 id="2-6-范围条件右边的列索引失效"><a href="#2-6-范围条件右边的列索引失效" class="headerlink" title="2.6 范围条件右边的列索引失效"></a>2.6 范围条件右边的列索引失效</h3><ol>
-<li>系统经常出现的sql如下：</li>
-</ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student
-<span class="token keyword">WHERE</span> student<span class="token punctuation">.</span>age<span class="token operator">=</span><span class="token number">30</span> <span class="token operator">AND</span> student<span class="token punctuation">.</span>classId<span class="token operator">></span><span class="token number">20</span> <span class="token operator">AND</span> student<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'abc'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230513221611941.png" srcset="/img/loading.gif" lazyload alt="image-20230513221611941"></p>
+<h2 id="2-索引失效场景和原因"><a href="#2-索引失效场景和原因" class="headerlink" title="2. 索引失效场景和原因"></a>2. 索引失效场景和原因</h2><p>记忆口诀：模型数OR运最快</p>
+<blockquote>
 <ol>
-<li>那么索引 idx_age_classId_name 这个索引还能正常使用么？</li>
+<li><strong>模糊查询 <code>LIKE</code> 以 <code>%</code> 开头</strong>：当使用 <code>LIKE</code> 关键字进行模糊查询时，如果查询条件以 <code>%</code> 开头，则索引会失效。这是因为在这种情况下，MySQL无法使用索引来快速定位满足条件的记录，而只能进行全表扫描。</li>
+<li><strong>数据类型错误</strong>：如果查询条件中的数据类型与索引列的数据类型不匹配，则索引可能会失效。这是因为MySQL的索引是基于字段的类型来创建的，如果查询条件中的数据类型与索引列的数据类型不匹配，那么MySQL就无法使用索引来优化查询。</li>
+<li><strong>对索引字段使用内部函数</strong>：如果在查询条件中对索引字段使用了内部函数（例如 <code>LENGTH(name)</code>），则索引可能会失效。这是因为内部函数会改变数据的值，使得MySQL无法使用索引来优化查询。</li>
+<li><strong>OR 前后存在非索引的列</strong>：比如如果在OR前的条件列进行了索引，而在OR后的条件列没有进行索引，那么索引会失效。因为 MySQL 无法确定哪个条件会被满足，所以只能进行全表扫描。</li>
+<li><strong>索引列进行运算</strong>：如果在查询条件中对索引列进行了四则运算，则索引可能会失效。这是因为四则运算会改变数据的值，使得MySQL无法使用索引来优化查询。</li>
+<li><strong>复合索引不按最左匹配原则查找</strong>：如果在复合索引中，查询条件不满足最左原则，则索引可能会失效。这是因为MySQL在使用复合索引时，必须按照最左原则进行查找，否则无法使用索引来优化查询。</li>
+<li><strong>全表查找预计比索引更快</strong>：在某些情况下，MySQL可能会判断全表查找比使用索引更快。这通常发生在表中数据量较小或者查询条件过于复杂时。在这种情况下，MySQL会选择全表查找而不是使用索引来优化查询。</li>
 </ol>
-<ul>
-<li>不能，范围右边的列不能使用。比如：(&lt;) (&lt;&#x3D;) (&gt;) (&gt;&#x3D;) 和 between 等</li>
-<li>如果这种sql出现较多，**<font color='red'>在创建索引时应该将出现范围匹配的字段写到最右侧</font>**：</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">index</span> idx_age_name_classId <span class="token keyword">on</span> student<span class="token punctuation">(</span>age<span class="token punctuation">,</span>name<span class="token punctuation">,</span>classId<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<ul>
-<li>将范围查询条件放置语句最后：</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> student<span class="token punctuation">.</span>age<span class="token operator">=</span><span class="token number">30</span> <span class="token operator">AND</span> student<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'abc'</span> <span class="token operator">AND</span> student<span class="token punctuation">.</span>classId<span class="token operator">></span><span class="token number">20</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<blockquote>
-<p>应用开发中范围查询，例如：金额查询，日期查询往往都是范围查询。应将查询条件放置where语句最后。（创建的联合索引中，务必把范围涉及到的字段写在最后）</p>
 </blockquote>
-<h3 id="2-7-不等于-x3D-或者-lt-gt-索引失效"><a href="#2-7-不等于-x3D-或者-lt-gt-索引失效" class="headerlink" title="2.7 不等于(!&#x3D; 或者&lt;&gt;)索引失效"></a>2.7 不等于(!&#x3D; 或者&lt;&gt;)索引失效</h3><ul>
-<li>为name字段创建索引</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_name <span class="token keyword">ON</span> student<span class="token punctuation">(</span>NAME<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<ul>
-<li>查看索引是否失效</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> student<span class="token punctuation">.</span>name <span class="token operator">&lt;></span> <span class="token string">'abc'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<p>或者</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> student<span class="token punctuation">.</span>name <span class="token operator">!=</span> <span class="token string">'abc'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<p>场景举例：用户提出需求，将财务数据，产品利润金额不等于0的都统计出来。</p>
-<h3 id="2-8-is-null可以使用索引，is-not-null无法使用索引"><a href="#2-8-is-null可以使用索引，is-not-null无法使用索引" class="headerlink" title="2.8 is null可以使用索引，is not null无法使用索引"></a>2.8 is null可以使用索引，is not null无法使用索引</h3><ul>
-<li>IS NULL: 可以触发索引</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age <span class="token operator">IS</span> <span class="token boolean">NULL</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<ul>
-<li>IS NOT NULL: 无法触发索引</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age <span class="token operator">IS</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<blockquote>
-<p>结论：最好在设计数据库的时候就将<code>字段设置为 NOT NULL 约束</code>，比如你可以将 INT 类型的字段，默认值设置为0。将字符类型的默认值设置为空字符串(‘’)。</p>
-<p>扩展：同理，在查询中使用<code>not like</code>也无法使用索引，导致全表扫描。</p>
-</blockquote>
-<h3 id="2-9-like以通配符-开头索引失效"><a href="#2-9-like以通配符-开头索引失效" class="headerlink" title="2.9 like以通配符%开头索引失效"></a>2.9 like以通配符%开头索引失效</h3><p><font color='red'><strong>在使用LIKE关键字进行查询的查询语句中，如果匹配字符串的第一个字符为’%’，索引就不会起作用。只有’%’不在第一个位置，索引才会起作用。</strong></font></p>
-<ul>
-<li>使用到索引</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> name <span class="token operator">LIKE</span> <span class="token string">'ab%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230513223227309.png" srcset="/img/loading.gif" lazyload alt="image-20230513223227309"></p>
-<ul>
-<li>未使用到索引</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> name <span class="token operator">LIKE</span> <span class="token string">'%ab%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230513223158209.png" srcset="/img/loading.gif" lazyload alt="image-20230513223158209"></p>
-<blockquote>
-<p>拓展：Alibaba《Java开发手册》</p>
-<p>【强制】页面搜索严禁左模糊或者全模糊，如果需要请走搜索引擎来解决。</p>
-</blockquote>
-<h3 id="2-10-OR-前后存在非索引的列，索引失效"><a href="#2-10-OR-前后存在非索引的列，索引失效" class="headerlink" title="2.10 OR 前后存在非索引的列，索引失效"></a>2.10 OR 前后存在非索引的列，索引失效</h3><p>在WHERE子句中，如果在OR前的条件列进行了索引，而在OR后的条件列没有进行索引，那么索引会失效。也就是说，<strong>OR前后的两个条件中的列都是索引时，查询中才使用索引。</strong></p>
-<p>因为OR的含义就是两个只要满足一个即可，因此<code>只有一个条件列进行了索引是没有意义的</code>，只要有条件列没有进行索引，就会进行<code>全表扫描</code>，因此所以的条件列也会失效。</p>
-<p>查询语句使用OR关键字的情况：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 未使用到索引</span>
-<span class="token keyword">alter</span> <span class="token keyword">table</span> student <span class="token keyword">add</span> <span class="token keyword">index</span> idx_age<span class="token punctuation">(</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age <span class="token operator">=</span> <span class="token number">10</span> <span class="token operator">OR</span> classid <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230513223754310.png" srcset="/img/loading.gif" lazyload alt="image-20230513223754310"></p>
-<p>因为classId字段上没有索引，所以上述查询语句没有使用索引。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#使用到索引</span>
-<span class="token keyword">alter</span> <span class="token keyword">table</span> student <span class="token keyword">add</span> <span class="token keyword">index</span> idx_name<span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> SQL_NO_CACHE <span class="token operator">*</span> <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> age <span class="token operator">=</span> <span class="token number">10</span> <span class="token operator">OR</span> name <span class="token operator">=</span> <span class="token string">'Abel'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230513223954216.png" srcset="/img/loading.gif" lazyload alt="image-20230513223954216"></p>
-<p>因为age字段和name字段上都有索引，所以查询中使用了索引。你能看到这里使用到了<code>index_merge</code>，简单来说index_merge就是对age和name分别进行了扫描，然后将这两个结果集进行了合并。这样做的好处就是<code>避免了全表扫描</code>。</p>
-<h3 id="2-11-数据库和表的字符集统一使用utf8mb4"><a href="#2-11-数据库和表的字符集统一使用utf8mb4" class="headerlink" title="2.11 数据库和表的字符集统一使用utf8mb4"></a>2.11 数据库和表的字符集统一使用utf8mb4</h3><p>统一使用utf8mb4( 5.5.3版本以上支持)兼容性更好，统一字符集可以避免由于字符集转换产生的乱码。不 同的 <code>字符集</code> 进行比较前需要进行 <code>转换</code> 会造成索引失效。</p>
-<h3 id="2-12-练习及一般性建议"><a href="#2-12-练习及一般性建议" class="headerlink" title="2.12 练习及一般性建议"></a>2.12 练习及一般性建议</h3><p><strong>练习：</strong>有以下索引：**index(a,b,c)**，判断下列场景索引的使用情况。</p>
+<p><strong>练习：</strong>有以下索引：**index(a,b,c)**，判断下列场景索引的使用情况。</p>
 <table>
 <thead>
 <tr>
@@ -1778,7 +1409,7 @@ index (k)
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2613k</span>
+<span style="font-weight: initial">文章总字数2604k</span>
 
     </div>
   
