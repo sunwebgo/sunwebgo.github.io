@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-23T08:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-14T02:28:29.317Z">
+<meta property="article:modified_time" content="2023-08-14T02:28:50.235Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -394,7 +394,7 @@
 <h2 id="2-索引失效场景和原因"><a href="#2-索引失效场景和原因" class="headerlink" title="2. 索引失效场景和原因"></a>2. 索引失效场景和原因</h2><p>记忆口诀：模型数OR运最快</p>
 <blockquote>
 <ol>
-<li>*<em><strong>模糊查询 <code>LIKE</code> 以 <code>%</code> 开头。</strong>因为值无法确定。</em>*</li>
+<li><strong>模糊查询 <code>LIKE</code> 以 <code>%</code> 开头。</strong>因为值无法确定。**</li>
 <li><strong>数据类型错误</strong>：如果查询条件中的数据类型与索引列的数据类型不匹配，则索引可能会失效。这是因为MySQL的索引是基于字段的类型来创建的，如果查询条件中的数据类型与索引列的数据类型不匹配，那么MySQL就无法使用索引来优化查询。</li>
 <li><strong>对索引字段使用内部函数</strong>：如果在查询条件中对索引字段使用了内部函数（例如 <code>LENGTH(name)</code>），则索引可能会失效。这是因为内部函数会改变数据的值，使得MySQL无法使用索引来优化查询。</li>
 <li><strong>OR 前后存在非索引的列</strong>：比如如果在OR前的条件列进行了索引，而在OR后的条件列没有进行索引，那么索引会失效。因为 MySQL 无法确定哪个条件会被满足，所以只能进行全表扫描。</li>
