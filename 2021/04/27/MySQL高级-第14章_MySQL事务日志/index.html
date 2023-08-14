@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-27T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-08-14T04:32:23.133Z">
+<meta property="article:modified_time" content="2023-08-14T09:56:58.564Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -345,7 +345,7 @@
 <li><strong><font color='scarlet'>而事务的原子性、一致性和持久性由事务的 redo 日志和undo 日志来保证。</font></strong></li>
 </ul>
 <ol>
-<li><code>REDO LOG</code> 称为 <code>重做日志 </code>，其是<code>InnoDB存储引擎层的逻辑日志</code>：在MySQL中，**<font color='scarlet'>redo日志用于记录事务操作的变化，记录的是数据修改后的值</font>**。&#x3D;&#x3D;提供再写入操作，恢复提交事务修改的页操作，用来保证事务的一致性。如果系统崩溃或出现其他故障，可以通过redo日志来恢复丢失的数据。&#x3D;&#x3D;</li>
+<li><code>REDO LOG</code> 称为 <code>重做日志 </code>，其是<code>InnoDB存储引擎层的逻辑日志</code>：在MySQL中，**<font color='scarlet'>redo日志用于记录事务操作的变化，记录的是数据修改后的值</font>**。&#x3D;&#x3D;提供再写入操作，恢复提交事务修改的页操作，用来保证事务的持久性。如果系统崩溃或出现其他故障，可以通过redo日志来恢复丢失的数据。&#x3D;&#x3D;</li>
 <li><code>UNDO LOG</code> 称为 <code>回滚日志</code>，其是<code>InnoDB存储引擎层的逻辑日志</code> ：**<font color='scarlet'>undo日志用于记录事务执行过程中数据的逻辑变化，比如一条INSERT语句，对应一条DELETE的undo log，对于UPDATE语句，对应一条相反的UPDATE的undo log</font>**。&#x3D;&#x3D;其能够回滚行记录到某个特定版本，用来保证事务的原子性、一致性。undo日志只在事务回滚时才会被使用。&#x3D;&#x3D;</li>
 </ol>
 <h2 id="1-redo日志"><a href="#1-redo日志" class="headerlink" title="1. redo日志"></a>1. redo日志</h2><p>InnoDB存储引擎是以<code>页为单位</code>来管理存储空间的。在真正访问页面之前，需要把在<code>磁盘上</code>的页缓存到内存中的<code>Buffer Pool</code>之后才可以访问。所有的变更都必须<code>先更新缓冲池</code>中的数据，然后缓冲池中的<code>脏页</code>会以一定的频率被刷入磁盘 (<code>checkPoint</code>机制)，通过缓冲池来优化CPU和磁盘之间的鸿沟，这样就可以保证整体的性能不会下降太快。</p>
