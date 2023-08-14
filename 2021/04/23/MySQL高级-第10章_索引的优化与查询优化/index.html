@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-23T08:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-14T02:29:31.815Z">
+<meta property="article:modified_time" content="2023-08-14T04:32:23.133Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -288,7 +288,7 @@
         
         
         
-          209 分钟
+          206 分钟
         
       </span>
     
@@ -1027,48 +1027,63 @@ mysql&gt; alter table teacher add index index2(email(6));<span aria-hidden="true
 <h3 id="9-2-前缀索引对覆盖索引的影响"><a href="#9-2-前缀索引对覆盖索引的影响" class="headerlink" title="9.2 前缀索引对覆盖索引的影响"></a>9.2 前缀索引对覆盖索引的影响</h3><blockquote>
 <p>结论： 使用前缀索引就用不上覆盖索引对查询性能的优化了，这也是你在选择是否使用前缀索引时需要考虑的一个因素。</p>
 </blockquote>
-<h2 id="10-索引下推"><a href="#10-索引下推" class="headerlink" title="10. 索引下推"></a>10. 索引下推</h2><blockquote>
-<p>在 MySQL 中，索引下推（Index Condition Pushdown，简称 ICP）是一种优化技术，它可以将过滤条件下推到存储引擎层面进行处理，以减少返回给 MySQL 服务器的数据量，提高查询性能。**<font color='scarlet'>当查询语句同时包含索引列和非索引列的过滤条件时，MySQL 可能会使用索引下推来优化查询。</font>**</p>
-<p>具体而言，在使用 ICP 优化查询时，MySQL 将查询条件拆分为两部分：一部分是需要在索引中进行过滤的条件，另一部分是需要在存储引擎中进行过滤的条件。首先，MySQL 在索引中查找符合索引条件的数据行，并取出这些数据行的主键。然后，MySQL 将主键列表传递给存储引擎，由存储引擎进一步对这些数据行应用剩余的过滤条件，过滤出最终需要返回的数据行并返回给 MySQL 服务器端。</p>
-<p>索引下推并不总是适用于所有查询场景，它对查询的影响受多种因素影响，例如表的大小、数据分布、查询语句的复杂度等。在使用索引下推时，我们需要注意以下几点：</p>
-<ol>
-<li>索引选择：为了使用 ICP，需要使用到覆盖索引或者联合索引，所以需要考虑索引的建立。</li>
-<li>MySQL 版本：索引下推是 MySQL 5.6 版本中的新特性，因此需要确认 MySQL 版本是否支持该特性。</li>
-<li>查询条件的复杂度：如果查询条件非常复杂，可能导致 ICP 的性能反而不如全表扫描，因此需要综合考虑。</li>
-<li>存储引擎支持：不是所有存储引擎都支持 ICP，需要确认当前使用的存储引擎是否支持该特性。</li>
-</ol>
-<p>综上所述，索引下推是一种优化技术，它可以帮助我们提高查询性能，但在使用时需要考虑多种因素。</p>
-</blockquote>
-<h3 id="10-1-使用前后对比"><a href="#10-1-使用前后对比" class="headerlink" title="10.1 使用前后对比"></a>10.1 使用前后对比</h3><p>Index Condition Pushdown(ICP)是MySQL 5.6中新特性，是一种在存储引擎层使用索引过滤数据的一种优化方式。</p>
-<blockquote>
-<ul>
-<li>如果没有ICP， 存储引擎会遍历索引以定位基表中的行，并将它们返回给MySQL服务器，由MySQL服务器评估WHERE后面的条件是否保留行。</li>
-<li>启用ICP后,如果部分WHERE条件可以仅使用索引|中的列进行筛选，则MySQL服务器会把这部分WHERE条件<br>放到存储引擎筛选。然后，存储引擎通过使用索引条目来筛选数据，并且只有在满足这一条件时才从表中读取行。<ul>
-<li>好处: ICP可以减少存储弓|擎必须访问基表的次数和MySQL服务器必须访问存储引擎的次数。</li>
-<li>但是，ICP的加速效果取决于在存储弓|擎内通过ICP筛选掉的数据的比例。</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h3 id="10-2-ICP的开启-x2F-关闭"><a href="#10-2-ICP的开启-x2F-关闭" class="headerlink" title="10.2 ICP的开启&#x2F;关闭"></a>10.2 ICP的开启&#x2F;关闭</h3><ul>
-<li>默认情况下启动索引条件下推。可以通过设置系统变量<code>optimizer_switch</code>控制：<code>index_condition_pushdown</code></li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment"># 打开索引下推</span>
-<span class="token keyword">SET</span> optimizer_switch <span class="token operator">=</span> <span class="token string">'index_condition_pushdown=on'</span><span class="token punctuation">;</span>
+<h2 id="10-索引下推"><a href="#10-索引下推" class="headerlink" title="10. 索引下推"></a>10. 索引下推</h2><p>索引条件下推，也叫索引下推，英文全称<code>Index Condition Pushdown</code>，简称ICP。</p>
+<p>索引下推是<strong>MySQL5.6</strong>新添加的特性，用于优化数据的查询。</p>
+<p>在MySQL5.6之前，通过使用非主键索引进行查询的时候，存储引擎通过索引查询数据，然后将结果返回给MySQL server层，<strong>在server层判断是否符合条件</strong>。</p>
+<p>在MySQL5.6及以上版本，可以使用索引下推的特性。<font color='read'>当存在索引的列做为判断条件时，MySQL server将这一部分判断条件传递给存储引擎，然后存储引擎会筛选出<strong>符合MySQL server传递条件的索引项</strong>，即在存储引擎层根据索引条件<strong>过滤</strong>掉不符合条件的索引项，然后回表查询得到结果，将结果返回给MySQL server。</font></p>
+<p><strong>有了索引下推的优化，在满足一定的条件下，存储引擎层会在回表查询之前对数据进行过滤，可以减少存储引擎回表查询的次数</strong>。</p>
+<p><strong>举个例子</strong></p>
+<p>假设有一张用户信息表user_info，有三个字段<code>name, level, weapon（装备）</code>，建立联合索引<code>(name, level)</code>，user_info表初始数据如下：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>level</th>
+<th>weapon</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>大彬</td>
+<td>1</td>
+<td>键盘</td>
+</tr>
+<tr>
+<td>2</td>
+<td>盖聂</td>
+<td>2</td>
+<td>渊虹</td>
+</tr>
+<tr>
+<td>3</td>
+<td>卫庄</td>
+<td>3</td>
+<td>鲨齿</td>
+</tr>
+<tr>
+<td>4</td>
+<td>大铁锤</td>
+<td>4</td>
+<td>铁锤</td>
+</tr>
+</tbody></table>
+<p>假如需要匹配姓名第一个字为”大”，并且level为1的用户，SQL语句如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">sql</span>
+复制代码<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> user_info <span class="token keyword">WHERE</span> name <span class="token operator">LIKE</span> <span class="token string">"大%"</span> <span class="token operator">AND</span> <span class="token keyword">level</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 
-<span class="token comment"># 关闭索引下推</span>
-<span class="token keyword">SET</span> optimizer_switch <span class="token operator">=</span> <span class="token string">'index_condition_pushdown=off'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<ul>
-<li>当使用索引条件下推是，<code>EXPLAIN</code>语句输出结果中<code>Extra</code>列内容显示为<code>Using index condition</code>。</li>
-</ul>
-<h3 id="10-3-ICP的使用条件"><a href="#10-3-ICP的使用条件" class="headerlink" title="10.3 ICP的使用条件"></a>10.3 ICP的使用条件</h3><ol>
-<li>如果表的访问类型为 range 、 ref 、 eq_ref 或者 ref_or_null 可以使用ICP。</li>
-<li>ICP可以使用<code>InnDB</code>和<code>MyISAM</code>表，包括分区表<code>InnoDB</code>和<code>MyISAM</code>表</li>
-<li>对于<code>InnoDB</code>表，ICP仅用于<code>二级索引</code>。ICP的目标是减少全行读取次数，从而减少I&#x2F;O操作。</li>
-<li>当SQL使用覆盖索引时，不支持ICP优化方法。因为这种情况下使用ICP不会减少I&#x2F;O。</li>
-<li>相关子查询的条件不能使用ICP</li>
-</ol>
+<p>那么这条SQL具体会怎么执行呢？</p>
+<p>下面分情况进行分析。</p>
+<p><strong>先来看看MySQL5.6以前的版本</strong>。</p>
+<p>前面提到MySQL5.6以前的版本没有索引下推，其执行过程如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230814122619011.png" srcset="/img/loading.gif" lazyload alt="image-20230814122619011"></p>
+<p>查询条件<code>name LIKE </code>不是等值匹配，根据<strong>最左匹配原则</strong>，在<code>(name, level)</code>索引树上只用到<code>name</code>去匹配，查找到两条记录（id为1和4），拿到这两条记录的id分别回表查询，然后将结果返回给MySQL server，在MySQL server层进行<code>level</code>字段的判断。<strong>整个过程需要回表2次</strong>。</p>
+<p><strong>然后看看MySQL5.6及以上版本的执行过程</strong>，如下图。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230814122631846.png" srcset="/img/loading.gif" lazyload alt="image-20230814122631846"></p>
+<p>相比5.6以前的版本，多了索引下推的优化，在索引遍历过程中，对<strong>索引中的字段</strong>先做判断，过滤掉不符合条件的索引项，<strong>也就是判断level是否等于1</strong>，level不为1则直接跳过。因此在<code>(name, level)</code>索引树只匹配一个记录，之后拿着此记录对应的id（id&#x3D;1）回表查询全部数据，<strong>整个过程回表1次</strong>。</p>
+<p>可以使用explain查看是否使用索引下推，当<code>Extra</code>列的值为<code>Using index condition</code>，则表示使用了索引下推。</p>
+<p><strong>总结</strong></p>
+<p>从上面的例子可以看出，使用索引下推在某些场景下可以有效<strong>减少回表次数</strong>，从而提高查询效率。</p>
 <h2 id="11-普通索引-vs-唯一索引"><a href="#11-普通索引-vs-唯一索引" class="headerlink" title="11. 普通索引 vs 唯一索引"></a>11. 普通索引 vs 唯一索引</h2><p>从性能的角度考虑，你选择唯一索引还是普通索引呢？选择的依据是什么呢？</p>
 <p>假设，我们有一个主键列为ID的表，表中有字段k，并且在k上有索引，假设字段 k 上的值都不重复。</p>
 <p>这个表的建表语句是：</p>
