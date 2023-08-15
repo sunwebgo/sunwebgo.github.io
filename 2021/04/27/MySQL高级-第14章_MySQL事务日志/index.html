@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-04-27T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-08-15T12:38:31.402Z">
+<meta property="article:modified_time" content="2023-08-15T17:29:47.181Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -540,8 +540,8 @@ innodb_log_file_size&#x3D;200M<span aria-hidden="true" class="line-numbers-rows"
 <li><font color='scarlet'>删除了一条记录，至少要把这条记录中的内容都记下来</font>,这样之后回滚时再把由这些内容组成的记录插入到表中就好了。(对于每个DELETE, InnoDB存储引擎会执行一个INSERT)</li>
 <li><font color='scarlet'>你修改了一条记录，至少要把修改这条记录前的旧值都记录下来,</font>这样之后回滚时再把这条记录更新为旧值就好了。(对于每个UPDATE, InnoDB存储引擎会执行一个相反的UPDATE,将修改前的行放回去)</li>
 </ul>
-<p>**&#x3D;&#x3D;MySQL把这些为了回滚而记录的这些内容称之为撤销日志或者回滚日志(即undo log)。&#x3D;&#x3D;**注意,由于查询操作<br>( SELECT)并不会修改任何用户记录，所以在查询操作执行时，并不需要记录相应的undo日志。</p>
-<p>此外，undo log会产生redo log ，也就是undo log的产生会伴随着redo log的产生,这是因为undo log也需要持久<br>性的保护。</p>
+<p>**&#x3D;&#x3D;MySQL把这些为了回滚而记录的这些内容称之为撤销日志或者回滚日志(即undo log)。&#x3D;&#x3D;**注意,由于查询操作(SELECT)并不会修改任何用户记录，所以在查询操作执行时，并不需要记录相应的undo日志。</p>
+<p>此外，undo log会产生redo log ，也就是undo log的产生会伴随着redo log的产生,这是因为undo log也需要持久性的保护。</p>
 <h3 id="2-2-Undo日志的作用"><a href="#2-2-Undo日志的作用" class="headerlink" title="2.2 Undo日志的作用"></a>2.2 Undo日志的作用</h3><ul>
 <li><strong>作用1：回滚数据</strong></li>
 </ul>
@@ -919,7 +919,7 @@ innodb_log_file_size&#x3D;200M<span aria-hidden="true" class="line-numbers-rows"
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2607k</span>
+<span style="font-weight: initial">文章总字数2608k</span>
 
     </div>
   
