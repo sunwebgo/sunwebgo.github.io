@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612095947200.png">
 <meta property="article:published_time" content="2022-06-15T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-08-16T11:41:54.092Z">
+<meta property="article:modified_time" content="2023-08-16T12:32:22.543Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Spring">
 <meta property="article:tag" content="框架">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          136k 字
+          137k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          1136 分钟
+          1142 分钟
         
       </span>
     
@@ -2487,7 +2487,15 @@
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h5 id="3-3-4-6多bean同类型问题"><a href="#3-3-4-6多bean同类型问题" class="headerlink" title="3.3.4.6多bean同类型问题"></a>3.3.4.6多bean同类型问题</h5><p>假设我们有两个Employee类型的bean，分别为JohnEmployee()和TonyEmployee()：</p>
+<h5 id="3-3-4-6属性、构造函数、Setter注入的区别"><a href="#3-3-4-6属性、构造函数、Setter注入的区别" class="headerlink" title="3.3.4.6属性、构造函数、Setter注入的区别"></a>3.3.4.6属性、构造函数、Setter注入的区别</h5><p><code>@Autowired</code> 注解可以用来实现基于属性、基于构造方法、Setter方法的依赖注入。这两种方式的主要区别在于注入时机和依赖关系的处理方式。</p>
+<blockquote>
+<ul>
+<li><strong>基于属性的依赖注入</strong>：当使用 <code>@Autowired</code> 注解来实现基于属性的依赖注入时，Spring 框架会在 Bean 实例化之后，通过反射机制来设置 Bean 的属性值。这种方式简单易用，但也有一些缺点。例如，它不能很好地处理循环依赖的问题，因为当两个 Bean 互相依赖时，它们都需要等待对方实例化完成才能进行属性注入，这会导致死锁。</li>
+<li><strong>基于构造方法的依赖注入</strong>：当使用 <code>@Autowired</code> 注解来实现基于构造方法的依赖注入时，Spring 框架会在 Bean 实例化之前，通过调用构造方法来传递依赖关系。这种方式可以更好地处理循环依赖的问题，因为它可以保证在 Bean 实例化之前就完成了依赖关系的传递。</li>
+<li><strong>基于 Setter 方法的依赖注入</strong>：当使用 <code>@Autowired</code> 注解来实现基于 Setter 方法的依赖注入时，Spring 框架会在 Bean 实例化之后，通过调用 Setter 方法来设置 Bean 的属性值。不是通过反射机制来设置。</li>
+</ul>
+</blockquote>
+<h5 id="3-3-4-7多bean同类型问题"><a href="#3-3-4-7多bean同类型问题" class="headerlink" title="3.3.4.7多bean同类型问题"></a>3.3.4.7多bean同类型问题</h5><p>假设我们有两个Employee类型的bean，分别为JohnEmployee()和TonyEmployee()：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Config</span> <span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Bean</span>
@@ -2513,7 +2521,14 @@
 </li>
 </ul>
 </blockquote>
-<p>因为<code>@Autowired</code>是根据<code>类型</code>进行注入，则当一个接口有多个实现类的时候，出现<code>UnsatisfiedDependencyException</code>。</p>
+<p>对于出现的问题：</p>
+<blockquote>
+<ul>
+<li>NoUniqueBeanDefinitionException 异常是当同时对多个相同类型的bean注入到IoC容器当中时出现的错误。</li>
+<li>而UnsatisfiedDependencyException时出现在当使用Autowire注解进行依赖注入时，发现IoC容器当中存在两个相同类型的bean而出现的错误</li>
+</ul>
+</blockquote>
+<h5 id="3-3-4-8-Autowired注解和-Qualifier注解联合"><a href="#3-3-4-8-Autowired注解和-Qualifier注解联合" class="headerlink" title="3.3.4.8@Autowired注解和@Qualifier注解联合"></a>3.3.4.8@Autowired注解和@Qualifier注解联合</h5><p>因为<code>@Autowired</code>是根据<code>类型</code>进行注入，则当一个接口有多个实现类的时候，出现<code>UnsatisfiedDependencyException</code>。</p>
 <p>如为<code>UserService</code>添加新的实现类——<code>UserServiceDoubleImpl</code>。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230724163839329.png" srcset="/img/loading.gif" lazyload alt="image-20230724163839329"></p>
 <p>使用<code>@Autowired</code>的属性注入测试：</p>
@@ -2544,7 +2559,7 @@
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h4 id="3-3-4-7-Autowired总结"><a href="#3-3-4-7-Autowired总结" class="headerlink" title="3.3.4.7@Autowired总结"></a>3.3.4.7@Autowired总结</h4><blockquote>
+<h5 id="3-3-4-9-Autowired总结"><a href="#3-3-4-9-Autowired总结" class="headerlink" title="3.3.4.9@Autowired总结"></a>3.3.4.9@Autowired总结</h5><blockquote>
 <ul>
 <li>@Autowired注解可以出现在：属性上、构造方法上、构造方法的参数上、setter方法上。</li>
 <li><font color='scarlet'>当带参数的构造方法只有一个，@Autowired注解可以省略。</font></li>
@@ -6274,7 +6289,7 @@ use `spring`<span class="token punctuation">;</span>
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2609k</span>
+<span style="font-weight: initial">文章总字数2610k</span>
 
     </div>
   
