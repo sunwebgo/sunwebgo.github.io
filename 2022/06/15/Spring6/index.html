@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612095947200.png">
 <meta property="article:published_time" content="2022-06-15T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-08-16T06:53:24.836Z">
+<meta property="article:modified_time" content="2023-08-16T11:41:54.092Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Spring">
 <meta property="article:tag" content="框架">
@@ -2460,7 +2460,7 @@
 
 <h5 id="3-3-4-5只有一个构造函数，注解可以省略"><a href="#3-3-4-5只有一个构造函数，注解可以省略" class="headerlink" title="3.3.4.5只有一个构造函数，注解可以省略"></a>3.3.4.5只有一个构造函数，注解可以省略</h5><blockquote>
 <ul>
-<li>如下修改<code>UserController</code>中的内容，只有一个构造函数，所以<code>@Autowired</code>注解可以省略</li>
+<li>如下修改<code>UserServiceImpl</code>中的内容，只有一个构造函数，所以<code>@Autowired</code>注解可以省略</li>
 </ul>
 </blockquote>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>atguigu<span class="token punctuation">.</span>spring6<span class="token punctuation">.</span>service<span class="token punctuation">.</span>impl</span><span class="token punctuation">;</span>
@@ -2473,8 +2473,7 @@
 
 <span class="token annotation punctuation">@Service</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
-
-    <span class="token annotation punctuation">@Autowired</span>
+    
     <span class="token keyword">private</span> <span class="token class-name">UserDao</span> userDao<span class="token punctuation">;</span>
 
     <span class="token keyword">public</span> <span class="token class-name">UserServiceImpl</span><span class="token punctuation">(</span><span class="token class-name">UserDao</span> userDao<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -2486,7 +2485,7 @@
         userDao<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Service层执行结束"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <h5 id="3-3-4-6多bean同类型问题"><a href="#3-3-4-6多bean同类型问题" class="headerlink" title="3.3.4.6多bean同类型问题"></a>3.3.4.6多bean同类型问题</h5><p>假设我们有两个Employee类型的bean，分别为JohnEmployee()和TonyEmployee()：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
