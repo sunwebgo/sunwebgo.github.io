@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/v2-4b5e77109271085b3e89cab757e4c14e_1440w.webp">
 <meta property="article:published_time" content="2023-07-13T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-17T16:16:51.689Z">
+<meta property="article:modified_time" content="2023-08-18T13:48:42.976Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary_large_image">
@@ -287,7 +287,7 @@
         
         
         
-          1065 分钟
+          1064 分钟
         
       </span>
     
@@ -886,7 +886,7 @@
 <ul>
 <li>单例模式</li>
 <li>工厂方法模式</li>
-<li>抽象工程模式</li>
+<li>抽象工厂模式</li>
 <li>原型模式</li>
 <li>建造者模式</li>
 </ul>
@@ -2541,7 +2541,7 @@
 <p><font color='read'>静态代理的优点是简单易用，对于简单的代理需求可以较快实现。</font><font color='scarlet'>但是静态代理的缺点是扩展性较差，每当有新的代理需求时，需要重新编写新的代理类。当代理类较多时，会产生大量的重复代码，导致代码冗余。</font></p>
 <p>【例】火车站卖票</p>
 <p>如果要买火车票的话，需要去火车站买票，坐车到火车站，排队等一系列的操作，显然比较麻烦。而火车站在多个地方都有代售点，我们去代售点买票就方便很多了。这个例子其实就是典型的代理模式，火车站是真实主题，代售点是代理类。类图如下：</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86.png%22" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86.png" srcset="/img/loading.gif" lazyload></p>
 <ol>
 <li><strong>SellTickets接口（<font color='scarlet'>抽象主题</font>）</strong></li>
 </ol>
@@ -3443,21 +3443,14 @@
 <blockquote>
 <p><font color="red">小结：</font><code>BufferedWriter</code>使用装饰者模式对Writer子实现类进行了增强，添加了缓冲区，提高了写数据的效率。</p>
 </blockquote>
-<h3 id="5-3-6-代理和装饰者的区别"><a href="#5-3-6-代理和装饰者的区别" class="headerlink" title="5.3.6 代理和装饰者的区别"></a>5.3.6 代理和装饰者的区别</h3><p>静态代理和装饰者模式的区别：</p>
-<blockquote>
+<h3 id="5-3-6-装饰者模式和代理模式的区别"><a href="#5-3-6-装饰者模式和代理模式的区别" class="headerlink" title="5.3.6 ### 装饰者模式和代理模式的区别"></a>5.3.6 ### 装饰者模式和代理模式的区别</h3><blockquote>
 <ul>
-<li>相同点：<ul>
-<li><font color='read'>都要实现与目标类相同的业务接口</font></li>
-<li><font color='read'>在两个类中都要声明目标对象</font></li>
-<li><font color='read'>都可以在不修改目标类的前提下增强目标方法</font></li>
-</ul>
+<li><p>装饰器模式强调的是增强自身，是以对客户端透明的方式来扩展对象的功能，是继承方案的一个替代方案。</p>
 </li>
-<li>不同点：<ul>
-<li><font color='scarlet'>目的不同</font><br>装饰者是为了增强目标对象<br>静态代理是为了保护和隐藏目标对象</li>
-<li><font color='scarlet'>获取目标对象构建的地方不同</font><br>装饰者是由外界传递进来，可以通过构造方法传递<br>静态代理是在代理类内部创建，以此来隐藏目标对象</li>
-</ul>
+<li><p>代理模式强调使用代理对象来控制对真实对象的访问。</p>
 </li>
 </ul>
+<p><font color='read'>装饰模式是为装饰的对象增强功能；而代理模式对代理的对象访问控制，但不对对象本身的功能进行增强。</font></p>
 </blockquote>
 <h2 id="5-4-桥接模式"><a href="#5-4-桥接模式" class="headerlink" title="5.4 桥接模式"></a>5.4 桥接模式</h2><h3 id="5-4-1-概述"><a href="#5-4-1-概述" class="headerlink" title="5.4.1 概述"></a>5.4.1 概述</h3><p>现在有一个需求，需要创建不同的图形，并且每个图形都有可能会有不同的颜色。我们可以利用继承的方式来设计类的关系：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20200207194617620.png" srcset="/img/loading.gif" lazyload></p>
