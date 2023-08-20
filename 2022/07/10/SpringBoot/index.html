@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/spring_boot_logo.png">
 <meta property="article:published_time" content="2022-07-10T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-20T05:25:13.172Z">
+<meta property="article:modified_time" content="2023-08-20T14:47:10.132Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Spring">
 <meta property="article:tag" content="框架">
@@ -278,7 +278,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          42k 字
+          52k 字
         
       </span>
     
@@ -289,7 +289,7 @@
         
         
         
-          348 分钟
+          436 分钟
         
       </span>
     
@@ -606,7 +606,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
 
 <p>当proxyBeanMethods属性值为 true时，为代理对象，保持对象单实例</p>
 <p>当proxyBeanMethods属性值为 false时，不是代理对象，每次获取到的都不是同一个对象实例。</p>
-<h3 id="10-1-2import注解"><a href="#10-1-2import注解" class="headerlink" title="10.1.2import注解"></a>10.1.2import注解</h3><p>给容器中自动创建出这两个类型的组件、默认组件的名字就是全类名</p>
+<h3 id="10-1-2import注解"><a href="#10-1-2import注解" class="headerlink" title="10.1.2import注解"></a>10.1.2import注解</h3><p>@Import 注解可以用来向 Spring 容器中添加组件。它可以用于导入配置类或普通的组件类。当你在一个配置类上使用 @Import 注解时，你可以指定要导入的类，这些类将被添加到 Spring 容器中。默认组件的名字就是全类名。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//为配置类添加实体类User和Controller组件</span>
 <span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Controller</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Configuration</span><span class="token punctuation">(</span>proxyBeanMethods <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>  <span class="token comment">//告诉SpringBoot这是一个配置类 == 配置文件</span>
@@ -628,6 +628,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
 <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">String</span> controllers <span class="token operator">:</span> controller<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
     <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>controllers<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612142514372.png" srcset="/img/loading.gif" lazyload alt="image-20230612142514372"></p>
 <h3 id="10-1-3Conditional注解（条件装配）"><a href="#10-1-3Conditional注解（条件装配）" class="headerlink" title="10.1.3Conditional注解（条件装配）"></a>10.1.3Conditional注解（条件装配）</h3><p>条件装配：满足Conditional指定的条件，则进行组件注入</p>
@@ -651,7 +652,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
     <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>user01<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612142617467.png" srcset="/img/loading.gif" lazyload alt="image-20230612142617467"></p>
-<h4 id="10-1-3-2ControllerOnMissingBean注解"><a href="#10-1-3-2ControllerOnMissingBean注解" class="headerlink" title="10.1.3.2ControllerOnMissingBean注解"></a>10.1.3.2ControllerOnMissingBean注解</h4><p><font color='scarlet'>其作用与ConditiontionalOnBean注解相反，即当没有指定的条件时才扫描指定的组件</font></p>
+<h4 id="10-1-3-2ConditionalOnMissingBean注解"><a href="#10-1-3-2ConditionalOnMissingBean注解" class="headerlink" title="10.1.3.2ConditionalOnMissingBean注解"></a>10.1.3.2ConditionalOnMissingBean注解</h4><p><font color='scarlet'>其作用与ConditiontionalOnBean注解相反，即当没有指定的条件时才扫描指定的组件</font></p>
 <h2 id="10-2原生配置文件引入"><a href="#10-2原生配置文件引入" class="headerlink" title="10.2原生配置文件引入"></a>10.2原生配置文件引入</h2><h3 id="10-2-1-ImportResource注解"><a href="#10-2-1-ImportResource注解" class="headerlink" title="10.2.1@ImportResource注解"></a>10.2.1@ImportResource注解</h3><p><font color='scarlet'>@ImportResource注解用于导入Spring的配置文件(就是以前写的springmvc.xml、applicationContext.xml)，想让Spring的配置文件生效，加载进来</font>；@ImportResource标注在一个配置类上。</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612142648748.png" srcset="/img/loading.gif" lazyload alt="image-20230612142648748"></p>
 <p>为配置类添加@ImportResource注解，使Spring配置文件生效</p>
@@ -726,42 +727,284 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
 <span class="token keyword">public</span> <span class="token keyword">class</span> myConfig <span class="token punctuation">&#123;</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h3 id="10-3-3配置读取说明"><a href="#10-3-3配置读取说明" class="headerlink" title="10.3.3配置读取说明"></a>10.3.3配置读取说明</h3><p>有多个配置文件，如application.proprtties和application.yml文件，ConfigurationProperties注解默认读取哪个？又该如何指定读取哪个？</p>
+<p>有多个配置文件，你可以使用 <code>@PropertySource</code> 注解来指定要读取的配置文件。例如：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@PropertySource</span><span class="token punctuation">(</span><span class="token string">"file:./config/myconfig.properties"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"my"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyConfig</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-
-
-<h1 id="11-源码解析1（自动配置原理入门）"><a href="#11-源码解析1（自动配置原理入门）" class="headerlink" title="11.源码解析1（自动配置原理入门）"></a>11.源码解析1（自动配置原理入门）</h1><p><strong>主类</strong></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612143106572.png" srcset="/img/loading.gif" lazyload alt="image-20230612143106572"></p>
+<p>上面的代码中，我们使用了 <code>@PropertySource</code> 注解来指定要读取的配置文件。这样，在应用程序启动时，Spring 容器会自动加载指定的配置文件，并将其中的属性值绑定到配置类的字段上。</p>
+<h1 id="11-自动配置原理"><a href="#11-自动配置原理" class="headerlink" title="11.自动配置原理"></a>11.自动配置原理</h1><h2 id="11-1自动配置概述"><a href="#11-1自动配置概述" class="headerlink" title="11.1自动配置概述"></a>11.1自动配置概述</h2><p>Spring Boot 的自动配置是可以根据应用程序的依赖关系和配置信息，自动配置应用程序所需的 Bean。无需手动配置大量的 Bean。</p>
+<p>具体来说，Spring Boot 通过 <code>@EnableAutoConfiguration</code> 注解开启自动配置，对 <code>MEAT-INF</code>包下的 <code>spring.factories</code> 文件进行扫描，这个文件中包含了可以进行自动配置的类。当满足 <code>@Conditional</code> 注解指定的条件时，就进行条件装配，将配置类注册到 Spring IoC容器当中。</p>
+<h2 id="11-2-SpringBootApplication注解说明"><a href="#11-2-SpringBootApplication注解说明" class="headerlink" title="11.2@SpringBootApplication注解说明"></a>11.2@SpringBootApplication注解说明</h2><ol>
+<li>查看<strong>主类</strong>上的<code>@SpringBootApplication</code>注解，<code>@SpringBootApplication</code>注解是一个复合注解。</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820141735545.png" srcset="/img/loading.gif" lazyload alt="image-20230820141735545"></p>
 <p>SpringBootApplication可以扩展为以下三个注解：</p>
 <blockquote>
 <ol>
-<li><p>@SpringBootConfiguration</p>
-<p>本质是◎Configuration。代表当前是一个配置类</p>
+<li><p><strong>@SpringBootConfiguration</strong></p>
+<p>本质是@Configuration。代表当前是一个配置类</p>
 </li>
-<li><p>@ComponentScan</p>
+<li><p><strong>@ComponentScan</strong></p>
 <p>指定扫描哪些，Spring注解;</p>
 </li>
-<li><p>@EnableAutoConfiguration</p>
+<li><p><strong>@EnableAutoConfiguration</strong></p>
+<p>用于启动自动配置功能</p>
 </li>
 </ol>
 </blockquote>
-<p><code>@EnableAutoConfiguration</code>注解源码</p>
+<h2 id="11-3-EnableAutoConfiguration注解自动配置包说明"><a href="#11-3-EnableAutoConfiguration注解自动配置包说明" class="headerlink" title="11.3@EnableAutoConfiguration注解自动配置包说明"></a>11.3@EnableAutoConfiguration注解自动配置包说明</h2><p><code>@EnableAutoConfiguration</code>注解同样是一个复合注解。</p>
+<blockquote>
+<ul>
+<li><code>@AutoConfigurationPackage </code>注解就是将主启动类所在包及所有子包下的组件到扫描到 spring 容器中</li>
+<li><code>@Import(AutoConfigurationImportSelector.class)</code>注解就实现自动配置。</li>
+</ul>
+</blockquote>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@AutoConfigurationPackage</span>  <span class="token comment">//自动配置包</span>
 <span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token class-name">AutoConfigurationImportSelector</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
 <span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">EnableAutoConfiguration</span> <span class="token punctuation">&#123;</span>
       <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p>其中<code>@AutoConfigurationPackage</code>注解源码</p>
+<h3 id="11-3-1AutoConfigurationPackage注解"><a href="#11-3-1AutoConfigurationPackage注解" class="headerlink" title="11.3.1AutoConfigurationPackage注解"></a>11.3.1AutoConfigurationPackage注解</h3><p>其中<code>@AutoConfigurationPackage</code>注解源码</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token class-name">AutoConfigurationPackages<span class="token punctuation">.</span>Registrar</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
 <span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">AutoConfigurationPackage</span> <span class="token punctuation">&#123;</span>
       <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
       <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p>利用Registrar给容器中导入一系列组件</p>
-<p>将指定的一个包下的所有组件导入进来？MainApplication 所在包下。</p>
-<p>以debug的方式启动，查看包名</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612143319327.png" srcset="/img/loading.gif" lazyload alt="image-20230612143319327"></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612143328686.png" srcset="/img/loading.gif" lazyload alt="image-20230612143328686"></p>
+<p>采用<code>@Import</code>注解，<code>利用AutoConfigurationPackages</code>的内部类<code>Registrar</code> 执行逻辑来决定是如何导入。</p>
+<p>注：Registrar实现了<code>ImportBeanDefinitionRegistrar</code>类，就可以被注解@Import导入到spring容器里。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Registrar</span> <span class="token keyword">implements</span> <span class="token class-name">ImportBeanDefinitionRegistrar</span><span class="token punctuation">,</span> <span class="token class-name">DeterminableImports</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">Registrar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerBeanDefinitions</span><span class="token punctuation">(</span><span class="token class-name">AnnotationMetadata</span> metadata<span class="token punctuation">,</span> <span class="token class-name">BeanDefinitionRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">AutoConfigurationPackages</span><span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>registry<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PackageImports</span><span class="token punctuation">(</span>metadata<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPackageNames</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">></span></span> <span class="token function">determineImports</span><span class="token punctuation">(</span><span class="token class-name">AnnotationMetadata</span> metadata<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">singleton</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PackageImports</span><span class="token punctuation">(</span>metadata<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820165514763.png" srcset="/img/loading.gif" lazyload alt="image-20230820165514763"></p>
+<p><strong>计算查看根据注解的元数据信息获取到包名，<font color='read'>获取到的包名就是当前启动类所在的包</font>。</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820165650481.png" srcset="/img/loading.gif" lazyload alt="image-20230820165650481"></p>
+<p>结论：**@AutoConfigurationPackage 就是将主启动类（@SpringBootApplication 标注的类）所在的包下面所有的组件都扫描注冊到 spring 容器中。**</p>
+<h3 id="11-3-2-Import-AutoConfigurationImportSelector-class"><a href="#11-3-2-Import-AutoConfigurationImportSelector-class" class="headerlink" title="11.3.2@Import(AutoConfigurationImportSelector.class)"></a>11.3.2@Import(AutoConfigurationImportSelector.class)</h3><p><code>@Import</code>注解作用于<code>@EnableAutoConfiguration</code>注解上，作用是将<code>AutoConfigurationImportSelector</code>类作为一个组件添加到Spring容器当中。</p>
+<p><code>AutoConfigurationImportSelector</code> 类的作用是通过 <code>selectImports</code> 方法执行的过程中，会使用内部工具类 <code>SpringFactoriesLoader</code>，查找 <code>classpath</code> 上所有 <code>jar</code> 包中的 <code>META-INF/spring.factories</code> 进行加载配置类。</p>
+<ol>
+<li><strong>其中的主要方法<code>selectImports</code>就是<font color='read'>选择将若干的bean注入到IoC容器当中</font>：</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">selectImports</span><span class="token punctuation">(</span><span class="token class-name">AnnotationMetadata</span> annotationMetadata<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isEnabled</span><span class="token punctuation">(</span>annotationMetadata<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token constant">NO_IMPORTS</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">AutoConfigurationEntry</span> autoConfigurationEntry <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getAutoConfigurationEntry</span><span class="token punctuation">(</span>annotationMetadata<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">toStringArray</span><span class="token punctuation">(</span>autoConfigurationEntry<span class="token punctuation">.</span><span class="token function">getConfigurations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li><strong>其中调用的主要方法<code>getAutoConfigurationEntry()</code>：根据导入的<code>@Configuration</code>类的<code>AnnotationMetadata</code>返回<code>AutoConfigurationImportSelector.AutoConfigurationEntry</code></strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">protected</span> <span class="token class-name">AutoConfigurationImportSelector<span class="token punctuation">.</span>AutoConfigurationEntry</span> <span class="token function">getAutoConfigurationEntry</span><span class="token punctuation">(</span><span class="token class-name">AnnotationMetadata</span> annotationMetadata<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isEnabled</span><span class="token punctuation">(</span>annotationMetadata<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token constant">EMPTY_ENTRY</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">AnnotationAttributes</span> attributes <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getAttributes</span><span class="token punctuation">(</span>annotationMetadata<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token comment">// 打断点</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> configurations <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getCandidateConfigurations</span><span class="token punctuation">(</span>annotationMetadata<span class="token punctuation">,</span> attributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//删除重复项</span>
+        configurations <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">removeDuplicates</span><span class="token punctuation">(</span>configurations<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> exclusions <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getExclusions</span><span class="token punctuation">(</span>annotationMetadata<span class="token punctuation">,</span> attributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//检查</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">checkExcludedClasses</span><span class="token punctuation">(</span>configurations<span class="token punctuation">,</span> exclusions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//删除需要排除的依赖</span>
+        configurations<span class="token punctuation">.</span><span class="token function">removeAll</span><span class="token punctuation">(</span>exclusions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        configurations <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getConfigurationClassFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>configurations<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">fireAutoConfigurationImportEvents</span><span class="token punctuation">(</span>configurations<span class="token punctuation">,</span> exclusions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AutoConfigurationImportSelector<span class="token punctuation">.</span>AutoConfigurationEntry</span><span class="token punctuation">(</span>configurations<span class="token punctuation">,</span> exclusions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>configurations数组长度为144，并且文件后缀名都为 <code>**AutoConfiguration</code></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820170832546.png" srcset="/img/loading.gif" lazyload alt="image-20230820170832546"></p>
+<p>结论： <strong>这些都是候选的配置类，经过去重，去除需要的排除的依赖，最终的组件才是这个环境需要的所有组件。有了自动配置，就不需要我们手写配置的值了，配置类有默认值的。</strong></p>
+<p>我们继续往下看看是如何返回需要配置的组件的。</p>
+<ol start="3">
+<li><strong>调用<code>getCandidateConfigurations(annotationMetadata, attributes)</code>获取到所有要导入到容器当中的组件。</strong></li>
+</ol>
+<p>方法如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">protected</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> <span class="token function">getCandidateConfigurations</span><span class="token punctuation">(</span><span class="token class-name">AnnotationMetadata</span> metadata<span class="token punctuation">,</span> <span class="token class-name">AnnotationAttributes</span> attributes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> configurations <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token class-name">SpringFactoriesLoader</span><span class="token punctuation">.</span><span class="token function">loadFactoryNames</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getSpringFactoriesLoaderFactoryClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getBeanClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">ImportCandidates</span><span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token class-name">AutoConfiguration</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getBeanClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>configurations<span class="token operator">::</span><span class="token function">add</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">notEmpty</span><span class="token punctuation">(</span>configurations<span class="token punctuation">,</span> <span class="token string">"No auto configuration classes found in META-INF/spring.factories nor in META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports. If you are using a custom packaging, make sure that file is correct."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> configurations<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>这里有句断言： Assert.notEmpty(configurations, “No auto configuration classes found in META-INF&#x2F;spring.factories. If you are using a custom packaging, make sure that file is correct.”);</p>
+<p>意思是：“在 META-INF&#x2F;spring.factories 中没有找到自动配置类。如果您使用自定义包装，请确保该文件是正确的。“</p>
+<p>结论： <strong>即是要loadFactoryNames（）方法要找到自动的配置类返回才不会报错。</strong></p>
+<ol start="4">
+<li><strong>SpringFactoriesLoader</strong></li>
+</ol>
+<p>SpringFactoriesLoader工厂加载机制是Spring内部提供的一个加载方式，只需要在模块的META-INF&#x2F;spring.factories文件，这个Properties格式的文件中的key是接口、注解、或抽象类的全名，value是以逗号 <code>,  </code>分隔的实现类，使用SpringFactoriesLoader来实现相应的实现类注入Spirng容器中。</p>
+<p>注：会加载<code>所有</code>classpath路径下的META-INF&#x2F;spring.factories文件，这样文件不止一个。</p>
+<ol start="5">
+<li><strong>loadFactoryNames()</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> <span class="token function">loadFactoryNames</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> factoryType<span class="token punctuation">,</span> <span class="token annotation punctuation">@Nullable</span> <span class="token class-name">ClassLoader</span> classLoader<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token class-name">ClassLoader</span> classLoaderToUse <span class="token operator">=</span> classLoader<span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>classLoaderToUse <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		classLoaderToUse <span class="token operator">=</span> <span class="token class-name">SpringFactoriesLoader</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token class-name">String</span> factoryTypeName <span class="token operator">=</span> factoryType<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token function">loadSpringFactories</span><span class="token punctuation">(</span>classLoaderToUse<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span>factoryTypeName<span class="token punctuation">,</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">emptyList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>先是将 <code>EnableAutoConfiguration.class</code> 传给了 <code>factoryType</code></p>
+<p>然后<code>String factoryTypeName = factoryType.getName();</code>，所以<code>factoryTypeName</code> 值为 <code> org.springframework.boot.autoconfigure.EnableAutoConfiguration</code></p>
+<ol start="6">
+<li><strong>接着查看loadSpringFactories方法的作用</strong></li>
+</ol>
+<p>该方法作用是加载所有依赖的路径META-INF&#x2F;spring.factories文件，通过map结构保存，key为文件中定义的一些标识工厂类，value就是能自动配置的一些工厂实现的类，value用list保存并去重。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span><span class="token punctuation">></span></span> <span class="token function">loadSpringFactories</span><span class="token punctuation">(</span><span class="token class-name">ClassLoader</span> classLoader<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span><span class="token punctuation">></span></span> result <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token punctuation">)</span>cache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>classLoader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>result <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span><span class="token punctuation">></span></span> result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+             <span class="token comment">//注意这里：META-INF/spring.factories </span>
+            <span class="token class-name">Enumeration</span><span class="token generics"><span class="token punctuation">&lt;</span>URL<span class="token punctuation">></span></span> urls <span class="token operator">=</span> classLoader<span class="token punctuation">.</span><span class="token function">getResources</span><span class="token punctuation">(</span><span class="token string">"META-INF/spring.factories"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">while</span><span class="token punctuation">(</span>urls<span class="token punctuation">.</span><span class="token function">hasMoreElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">URL</span> url <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token constant">URL</span><span class="token punctuation">)</span>urls<span class="token punctuation">.</span><span class="token function">nextElement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">UrlResource</span> resource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UrlResource</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">Properties</span> properties <span class="token operator">=</span> <span class="token class-name">PropertiesLoaderUtils</span><span class="token punctuation">.</span><span class="token function">loadProperties</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">Iterator</span> var6 <span class="token operator">=</span> properties<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">while</span><span class="token punctuation">(</span>var6<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">,</span> <span class="token operator">?</span><span class="token punctuation">></span></span> entry <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token punctuation">)</span>var6<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">String</span> factoryTypeName <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span>entry<span class="token punctuation">.</span><span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> factoryImplementationNames <span class="token operator">=</span> <span class="token class-name">StringUtils</span><span class="token punctuation">.</span><span class="token function">commaDelimitedListToStringArray</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span>entry<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> var10 <span class="token operator">=</span> factoryImplementationNames<span class="token punctuation">;</span>
+                    <span class="token keyword">int</span> var11 <span class="token operator">=</span> factoryImplementationNames<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+
+                    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> var12 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> var12 <span class="token operator">&lt;</span> var11<span class="token punctuation">;</span> <span class="token operator">++</span>var12<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        <span class="token class-name">String</span> factoryImplementationName <span class="token operator">=</span> var10<span class="token punctuation">[</span>var12<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token punctuation">)</span>result<span class="token punctuation">.</span><span class="token function">computeIfAbsent</span><span class="token punctuation">(</span>factoryTypeName<span class="token punctuation">,</span> <span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
+                            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>factoryImplementationName<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+
+            result<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span><span class="token punctuation">(</span>factoryType<span class="token punctuation">,</span> implementations<span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">List</span><span class="token punctuation">)</span>implementations<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">distinct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">collectingAndThen</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">Collections</span><span class="token operator">::</span><span class="token function">unmodifiableList</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            cache<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>classLoader<span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> var14<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"Unable to load factories from location [META-INF/spring.factories]"</span><span class="token punctuation">,</span> var14<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>这里的 FACTORIES_RESOURCE_LOCATION 就是当前类<code>SpringFactoriesLoader</code>的一个常量：META-INF&#x2F;spring.factories</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">SpringFactoriesLoader</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> <span class="token constant">FACTORIES_RESOURCE_LOCATION</span> <span class="token operator">=</span> <span class="token string">"META-INF/spring.factories"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>从<code>META-INF/spring.factories</code>加载文件，<code>META-INF/spring.factories</code>文件在哪里？ 在所有引入的jar包的当前类路径下的<code>META-INF/spring.factories</code>文件都会被读取，如：</p>
+<p>注意：<font color='scarlet'>高版本的SpringBoot将自动配置文件移动到了<code>MATA-INT/spring</code>目录下</font></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820173717681.png" srcset="/img/loading.gif" lazyload alt="image-20230820173717681"></p>
+<p>可以发现，自动配置类的数量就是144个</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820174836915.png" srcset="/img/loading.gif" lazyload alt="image-20230820174836915"></p>
+<p>结论：</p>
+<blockquote>
+<ul>
+<li><p><strong>loadSpringFactories()该方法就是从“META-INF&#x2F;spring.factories”中加载给定类型的工厂实现的完全限定类名放到map中</strong></p>
+</li>
+<li><p><strong>loadFactoryNames()是根据SpringBoot的启动生命流程，当需要加载自动配置类时，就会传入org.springframework.boot.autoconfigure.EnableAutoConfiguration参数，从map中查找key为org.springframework.boot.autoconfigure.EnableAutoConfiguration的值，这些值通过反射加到容器中，之后的作用就是用它们来做自动配置，这就是Springboot自动配置开始的地方</strong></p>
+</li>
+<li><p><strong>只有这些自动配置类进入到容器中以后，接下来这个自动配置类才开始进行启动</strong></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="11-3按需加载配置类"><a href="#11-3按需加载配置类" class="headerlink" title="11.3按需加载配置类"></a>11.3按需加载配置类</h2><p><code>META-INF/spring.factories</code> 文件中列出了所有可用的自动配置类，但并不是所有这些类都会被加载。Spring Boot 会根据应用程序的依赖关系和配置信息，以及 <code>@Conditional</code> 注解指定的条件，来决定是否加载特定的配置类。</p>
+<p>例如，如果应用程序添加了<code>spring-boot-starter-web</code>包，则 Spring Boot 会自动配置应用程序的 Web 相关配置。但是，如果应用程序没有添加<code>spring-boot-starter-web</code>包，则 Spring Boot 不会加载 Web 相关的配置类。</p>
+<p>@Conditional其实是spring底层注解，意思就是根据不同的条件，来进行自己不同的条件判断，如果满足指定的条件，那么配置类才会生效。</p>
+<p>常用的Conditional注解：</p>
+<blockquote>
+<ul>
+<li>@ConditionalOnClass ： classpath中存在该类时起效</li>
+<li>@ConditionalOnMissingClass ： classpath中不存在该类时起效</li>
+<li>@ConditionalOnBean ： DI容器中存在该类型Bean时起效</li>
+<li>@ConditionalOnMissingBean ： DI容器中不存在该类型Bean时起效</li>
+<li>@ConditionalOnSingleCandidate ： DI容器中该类型Bean只有一个或@Primary的只有一个时起效</li>
+<li>@ConditionalOnExpression ： SpEL表达式结果为true时</li>
+<li>@ConditionalOnProperty ： 参数设置或者值一致时起效</li>
+<li>@ConditionalOnResource ： 指定的文件存在时起效</li>
+<li>@ConditionalOnJndi ： 指定的JNDI存在时起效</li>
+<li>@ConditionalOnJava ： 指定的Java版本存在时起效</li>
+<li>@ConditionalOnWebApplication ： Web应用环境下起效</li>
+<li>@ConditionalOnNotWebApplication ： 非Web应用环境下起效</li>
+</ul>
+</blockquote>
+<p>举例：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820181054219.png" srcset="/img/loading.gif" lazyload alt="image-20230820181054219"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@AutoConfiguration</span>
+<span class="token annotation punctuation">@ConditionalOnProperty</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"spring.aop"</span><span class="token punctuation">,</span> name <span class="token operator">=</span> <span class="token string">"auto"</span><span class="token punctuation">,</span> havingValue <span class="token operator">=</span> <span class="token string">"true"</span><span class="token punctuation">,</span> matchIfMissing <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AopAutoConfiguration</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>上面<code>@ConditionalOnProperty</code>注解的作用就是：<font color='read'>当应用程序环境中存在名为 <code>spring.aop.auto</code> 的属性，并且其值为 <code>&quot;true&quot;</code> 时，<code>AopAutoConfiguration</code> 类将被注册到 Spring 应用程序上下文中。如果该属性不存在，则由于 <code>matchIfMissing = true</code>，该类仍将被注册。</font></p>
+<h2 id="11-4自动配置类的属性绑定"><a href="#11-4自动配置类的属性绑定" class="headerlink" title="11.4自动配置类的属性绑定"></a>11.4自动配置类的属性绑定</h2><p><font color='read'>Spring Boot 在自动配置类加载时会进行属性绑定，它会读取用户自定义的配置文件中的值，并根据这些值来决定是否启用特定的配置类。</font></p>
+<p>如下面的代码：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@AutoConfiguration</span>
+<span class="token annotation punctuation">@EnableConfigurationProperties</span><span class="token punctuation">(</span><span class="token class-name">ServerProperties</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@ConditionalOnWebApplication</span><span class="token punctuation">(</span>type <span class="token operator">=</span> <span class="token class-name">ConditionalOnWebApplication<span class="token punctuation">.</span>Type</span><span class="token punctuation">.</span><span class="token constant">SERVLET</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@ConditionalOnClass</span><span class="token punctuation">(</span><span class="token class-name">CharacterEncodingFilter</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@ConditionalOnProperty</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"server.servlet.encoding"</span><span class="token punctuation">,</span> value <span class="token operator">=</span> <span class="token string">"enabled"</span><span class="token punctuation">,</span> matchIfMissing <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HttpEncodingAutoConfiguration</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Encoding</span> properties<span class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token class-name">HttpEncodingAutoConfiguration</span><span class="token punctuation">(</span><span class="token class-name">ServerProperties</span> properties<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>properties <span class="token operator">=</span> properties<span class="token punctuation">.</span><span class="token function">getServlet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getEncoding</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token annotation punctuation">@Bean</span>
+	<span class="token annotation punctuation">@ConditionalOnMissingBean</span>
+	<span class="token keyword">public</span> <span class="token class-name">CharacterEncodingFilter</span> <span class="token function">characterEncodingFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token class-name">CharacterEncodingFilter</span> filter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OrderedCharacterEncodingFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		filter<span class="token punctuation">.</span><span class="token function">setEncoding</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>properties<span class="token punctuation">.</span><span class="token function">getCharset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		filter<span class="token punctuation">.</span><span class="token function">setForceRequestEncoding</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>properties<span class="token punctuation">.</span><span class="token function">shouldForce</span><span class="token punctuation">(</span><span class="token class-name">Encoding<span class="token punctuation">.</span>Type</span><span class="token punctuation">.</span><span class="token constant">REQUEST</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		filter<span class="token punctuation">.</span><span class="token function">setForceResponseEncoding</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>properties<span class="token punctuation">.</span><span class="token function">shouldForce</span><span class="token punctuation">(</span><span class="token class-name">Encoding<span class="token punctuation">.</span>Type</span><span class="token punctuation">.</span><span class="token constant">RESPONSE</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> filter<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><code>HttpEncodingAutoConfiguration</code> 类定义了一个 <code>characterEncodingFilter</code> Bean，它使用了 <code>@ConditionalOnMissingBean</code> 注解。这意味着，仅当应用程序上下文中不存在类型为 <code>CharacterEncodingFilter</code> 的 Bean 时，才会创建这个 Bean。</p>
+<p>在这个 Bean 的定义中，首先创建了一个 <code>OrderedCharacterEncodingFilter</code> 对象，并将其赋值给 <code>filter</code> 变量。然后，调用 <code>filter.setEncoding</code> 方法来设置字符编码。这个方法的参数是通过调用 <code>this.properties.getCharset().name()</code> 来获取的。<code>this.properties</code> 是一个 <code>Encoding</code> 类型的成员变量，它在构造函数中被初始化。</p>
+<p>对应的配置文件可能包含以下内容：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token key attr-name">server.servlet.encoding.charset</span><span class="token punctuation">=</span><span class="token value attr-value">UTF-8</span>
+<span class="token key attr-name">server.servlet.encoding.force-request</span><span class="token punctuation">=</span><span class="token value attr-value">true</span>
+<span class="token key attr-name">server.servlet.encoding.force-response</span><span class="token punctuation">=</span><span class="token value attr-value">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>这些属性定义了字符编码、请求编码和响应编码的相关配置。它们会被绑定到 <code>ServerProperties</code> 类型的 Bean 上，并在 <code>HttpEncodingAutoConfiguration</code> 类的构造函数中被注入。</p>
+<h2 id="11-5自动配置流程图"><a href="#11-5自动配置流程图" class="headerlink" title="11.5自动配置流程图"></a>11.5自动配置流程图</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820180004922.png" srcset="/img/loading.gif" lazyload alt="image-20230820180004922"></p>
 <h1 id="12-SpringBoot开发技巧"><a href="#12-SpringBoot开发技巧" class="headerlink" title="12.SpringBoot开发技巧"></a>12.SpringBoot开发技巧</h1><h2 id="12-1Lombok"><a href="#12-1Lombok" class="headerlink" title="12.1Lombok"></a>12.1Lombok</h2><p>Lombok功能：简化JavaBean开发</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--        引入Lombok依赖--></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
@@ -2633,7 +2876,7 @@ cn.pdsu.suffix=bye<span aria-hidden="true" class="line-numbers-rows"><span></spa
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2612k</span>
+<span style="font-weight: initial">文章总字数2622k</span>
 
     </div>
   
