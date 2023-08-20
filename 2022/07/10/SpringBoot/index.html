@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/spring_boot_logo.png">
 <meta property="article:published_time" content="2022-07-10T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-20T14:47:10.132Z">
+<meta property="article:modified_time" content="2023-08-20T14:54:31.449Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Spring">
 <meta property="article:tag" content="框架">
@@ -507,13 +507,13 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>compile<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h3 id="9-1-3：无需关注版本号"><a href="#9-1-3：无需关注版本号" class="headerlink" title="9.1.3：无需关注版本号"></a>9.1.3：无需关注版本号</h3><blockquote>
+<h3 id="9-1-3无需关注版本号"><a href="#9-1-3无需关注版本号" class="headerlink" title="9.1.3无需关注版本号"></a>9.1.3无需关注版本号</h3><blockquote>
 <ol>
 <li>引入依赖默认都可以不写版本</li>
 <li>引入非版本仲裁的jar，要写版本号。</li>
 </ol>
 </blockquote>
-<h2 id="9-2：自动配置"><a href="#9-2：自动配置" class="headerlink" title="9.2：自动配置"></a>9.2：自动配置</h2><h3 id="9-2-1自动配好Tomcat"><a href="#9-2-1自动配好Tomcat" class="headerlink" title="9.2.1自动配好Tomcat"></a>9.2.1自动配好Tomcat</h3><p>引入Tomcat依赖。</p>
+<h2 id="9-2自动配置"><a href="#9-2自动配置" class="headerlink" title="9.2自动配置"></a>9.2自动配置</h2><h3 id="9-2-1自动配好Tomcat"><a href="#9-2-1自动配好Tomcat" class="headerlink" title="9.2.1自动配好Tomcat"></a>9.2.1自动配好Tomcat</h3><p>引入Tomcat依赖。</p>
 <p>配置Tomcat</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
@@ -737,7 +737,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>上面的代码中，我们使用了 <code>@PropertySource</code> 注解来指定要读取的配置文件。这样，在应用程序启动时，Spring 容器会自动加载指定的配置文件，并将其中的属性值绑定到配置类的字段上。</p>
-<h1 id="11-自动配置原理"><a href="#11-自动配置原理" class="headerlink" title="11.自动配置原理"></a>11.自动配置原理</h1><h2 id="11-1自动配置概述"><a href="#11-1自动配置概述" class="headerlink" title="11.1自动配置概述"></a>11.1自动配置概述</h2><p>Spring Boot 的自动配置是可以根据应用程序的依赖关系和配置信息，自动配置应用程序所需的 Bean。无需手动配置大量的 Bean。</p>
+<h1 id="11-SpringBoot自动配置原理"><a href="#11-SpringBoot自动配置原理" class="headerlink" title="11.SpringBoot自动配置原理"></a>11.SpringBoot自动配置原理</h1><h2 id="11-1SpringBoot自动配置概述"><a href="#11-1SpringBoot自动配置概述" class="headerlink" title="11.1SpringBoot自动配置概述"></a>11.1SpringBoot自动配置概述</h2><p>Spring Boot 的自动配置是可以根据应用程序的依赖关系和配置信息，自动配置应用程序所需的 Bean。无需手动配置大量的 Bean。</p>
 <p>具体来说，Spring Boot 通过 <code>@EnableAutoConfiguration</code> 注解开启自动配置，对 <code>MEAT-INF</code>包下的 <code>spring.factories</code> 文件进行扫描，这个文件中包含了可以进行自动配置的类。当满足 <code>@Conditional</code> 注解指定的条件时，就进行条件装配，将配置类注册到 Spring IoC容器当中。</p>
 <h2 id="11-2-SpringBootApplication注解说明"><a href="#11-2-SpringBootApplication注解说明" class="headerlink" title="11.2@SpringBootApplication注解说明"></a>11.2@SpringBootApplication注解说明</h2><ol>
 <li>查看<strong>主类</strong>上的<code>@SpringBootApplication</code>注解，<code>@SpringBootApplication</code>注解是一个复合注解。</li>
@@ -838,7 +838,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
 <p>结论： <strong>这些都是候选的配置类，经过去重，去除需要的排除的依赖，最终的组件才是这个环境需要的所有组件。有了自动配置，就不需要我们手写配置的值了，配置类有默认值的。</strong></p>
 <p>我们继续往下看看是如何返回需要配置的组件的。</p>
 <ol start="3">
-<li><strong>调用<code>getCandidateConfigurations(annotationMetadata, attributes)</code>获取到所有要导入到容器当中的组件。</strong></li>
+<li><strong>调用<code>getCandidateConfigurations(annotationMetadata, attributes)</code>将所有自动配置类的信息以<code>List</code>的形式返回。这些配置信息会被 Spring 容器作 <code>bean </code>来管理。</strong></li>
 </ol>
 <p>方法如下：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">protected</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> <span class="token function">getCandidateConfigurations</span><span class="token punctuation">(</span><span class="token class-name">AnnotationMetadata</span> metadata<span class="token punctuation">,</span> <span class="token class-name">AnnotationAttributes</span> attributes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -940,7 +940,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
 </li>
 </ul>
 </blockquote>
-<h2 id="11-3按需加载配置类"><a href="#11-3按需加载配置类" class="headerlink" title="11.3按需加载配置类"></a>11.3按需加载配置类</h2><p><code>META-INF/spring.factories</code> 文件中列出了所有可用的自动配置类，但并不是所有这些类都会被加载。Spring Boot 会根据应用程序的依赖关系和配置信息，以及 <code>@Conditional</code> 注解指定的条件，来决定是否加载特定的配置类。</p>
+<h2 id="11-4按需加载配置类"><a href="#11-4按需加载配置类" class="headerlink" title="11.4按需加载配置类"></a>11.4按需加载配置类</h2><p><code>META-INF/spring.factories</code> 文件中列出了所有可用的自动配置类，但并不是所有这些类都会被加载。Spring Boot 会根据应用程序的依赖关系和配置信息，以及 <code>@Conditional</code> 注解指定的条件，来决定是否加载特定的配置类。</p>
 <p>例如，如果应用程序添加了<code>spring-boot-starter-web</code>包，则 Spring Boot 会自动配置应用程序的 Web 相关配置。但是，如果应用程序没有添加<code>spring-boot-starter-web</code>包，则 Spring Boot 不会加载 Web 相关的配置类。</p>
 <p>@Conditional其实是spring底层注解，意思就是根据不同的条件，来进行自己不同的条件判断，如果满足指定的条件，那么配置类才会生效。</p>
 <p>常用的Conditional注解：</p>
@@ -969,7 +969,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>上面<code>@ConditionalOnProperty</code>注解的作用就是：<font color='read'>当应用程序环境中存在名为 <code>spring.aop.auto</code> 的属性，并且其值为 <code>&quot;true&quot;</code> 时，<code>AopAutoConfiguration</code> 类将被注册到 Spring 应用程序上下文中。如果该属性不存在，则由于 <code>matchIfMissing = true</code>，该类仍将被注册。</font></p>
-<h2 id="11-4自动配置类的属性绑定"><a href="#11-4自动配置类的属性绑定" class="headerlink" title="11.4自动配置类的属性绑定"></a>11.4自动配置类的属性绑定</h2><p><font color='read'>Spring Boot 在自动配置类加载时会进行属性绑定，它会读取用户自定义的配置文件中的值，并根据这些值来决定是否启用特定的配置类。</font></p>
+<h2 id="11-5自动配置类的属性绑定"><a href="#11-5自动配置类的属性绑定" class="headerlink" title="11.5自动配置类的属性绑定"></a>11.5自动配置类的属性绑定</h2><p><font color='read'>Spring Boot 在自动配置类加载时会进行属性绑定，它会读取用户自定义的配置文件中的值，并根据这些值来决定是否启用特定的配置类。</font></p>
 <p>如下面的代码：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@AutoConfiguration</span>
 <span class="token annotation punctuation">@EnableConfigurationProperties</span><span class="token punctuation">(</span><span class="token class-name">ServerProperties</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
@@ -1004,7 +1004,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot
 <span class="token key attr-name">server.servlet.encoding.force-response</span><span class="token punctuation">=</span><span class="token value attr-value">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>这些属性定义了字符编码、请求编码和响应编码的相关配置。它们会被绑定到 <code>ServerProperties</code> 类型的 Bean 上，并在 <code>HttpEncodingAutoConfiguration</code> 类的构造函数中被注入。</p>
-<h2 id="11-5自动配置流程图"><a href="#11-5自动配置流程图" class="headerlink" title="11.5自动配置流程图"></a>11.5自动配置流程图</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820180004922.png" srcset="/img/loading.gif" lazyload alt="image-20230820180004922"></p>
+<h2 id="11-6自动配置流程图"><a href="#11-6自动配置流程图" class="headerlink" title="11.6自动配置流程图"></a>11.6自动配置流程图</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230820180004922.png" srcset="/img/loading.gif" lazyload alt="image-20230820180004922"></p>
 <h1 id="12-SpringBoot开发技巧"><a href="#12-SpringBoot开发技巧" class="headerlink" title="12.SpringBoot开发技巧"></a>12.SpringBoot开发技巧</h1><h2 id="12-1Lombok"><a href="#12-1Lombok" class="headerlink" title="12.1Lombok"></a>12.1Lombok</h2><p>Lombok功能：简化JavaBean开发</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--        引入Lombok依赖--></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
