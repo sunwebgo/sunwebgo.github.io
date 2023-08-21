@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612101158344.png">
 <meta property="article:published_time" content="2022-06-20T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-08-21T03:21:31.048Z">
+<meta property="article:modified_time" content="2023-08-21T08:15:51.807Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Spring">
 <meta property="article:tag" content="框架">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          31k 字
+          32k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          258 分钟
+          263 分钟
         
       </span>
     
@@ -368,7 +368,7 @@
 <li>性能卓著，尤其适合现代大型、超大型互联网项目要求</li>
 </ul>
 </blockquote>
-<h1 id="2-SpringMVC常用组件"><a href="#2-SpringMVC常用组件" class="headerlink" title="2.SpringMVC常用组件"></a>2.SpringMVC常用组件</h1><blockquote>
+<h1 id="2-SpringMVC常用组件和执行流程"><a href="#2-SpringMVC常用组件和执行流程" class="headerlink" title="2.SpringMVC常用组件和执行流程"></a>2.SpringMVC常用组件和执行流程</h1><blockquote>
 <ul>
 <li><p><code>DispatcherServlet</code>：<strong>前端控制器</strong>，不需要工程师开发，由框架提供</p>
 <p>作用：统一处理请求和响应，整个流程控制的中心，由它调用其它组件处理用户的请求</p>
@@ -389,6 +389,29 @@
 <p>作用：将模型数据通过页面展示给用户</p>
 </li>
 </ul>
+</blockquote>
+<p>这些组件共同协作来处理用户的HTTP请求，他们的执行流程是：</p>
+<blockquote>
+<ol>
+<li><p>当一个HTTP请求到达服务器时，<code>DispatcherServlet</code>会接收到这个请求。</p>
+</li>
+<li><p><code>DispatcherServlet</code>会调用<code>HandlerMapping</code>（处理器映射器）来查找与该请求对应的<code>Handler</code>（处理器）。</p>
+</li>
+<li><p><code>HandlerMapping</code>会根据请求的URL、method等信息查找与该请求对应的<code>Handler</code>，并将其返回给<code>DispatcherServlet</code>。</p>
+</li>
+<li><p><code>DispatcherServlet</code>会调用<code>HandlerAdapter</code>（处理器适配器）来执行找到的<code>Handler</code>。</p>
+<ul>
+<li>调用<code>getHandlerAdapter</code>方法会遍历所有已注册的处理器适配器，并调用它们的<code>supports</code>方法来检查它们是否支持当前请求的处理器。如果找到了一个支持当前请求的处理器适配器，那么该方法就会返回这个<strong>处理器适配器</strong>，然后用处理器适配器执行处理器。</li>
+<li>这里使用了适配器模式：**<font color='cornflowerblue'>将不同类型的处理器（Handler）转换为统一的接口，以便能够使用统一的方式来处理HTTP请求。</font>**</li>
+</ul>
+</li>
+<li><p><code>HandlerAdapter</code>会调用相应的控制器方法来处理用户的请求，并返回一个包含模型数据和视图名称的<code>ModelAndView</code>对象。</p>
+</li>
+<li><p><code>DispatcherServlet</code>会调用<code>ViewResolver</code>（视图解析器）来解析ModelAndView对象中的视图名称，得到相应的<code>View</code>（视图）对象。</p>
+</li>
+<li><p><code>DispatcherServlet</code>会调用找到的视图对象来渲染模型数据，并将渲染结果返回给客户端。</p>
+</li>
+</ol>
 </blockquote>
 <h1 id="3-SpringMVC框架环境搭建"><a href="#3-SpringMVC框架环境搭建" class="headerlink" title="3.SpringMVC框架环境搭建"></a>3.SpringMVC框架环境搭建</h1><ol>
 <li><p><strong>创建Maven工程</strong></p>
@@ -1775,7 +1798,7 @@ view-name：设置请求地址所对应的视图名称
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2634k</span>
+<span style="font-weight: initial">文章总字数2639k</span>
 
     </div>
   

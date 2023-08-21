@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/spring_boot_logo.png">
 <meta property="article:published_time" content="2022-07-10T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-21T03:21:31.048Z">
+<meta property="article:modified_time" content="2023-08-21T08:15:51.807Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Spring">
 <meta property="article:tag" content="框架">
@@ -278,7 +278,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          53k 字
+          57k 字
         
       </span>
     
@@ -289,7 +289,7 @@
         
         
         
-          440 分钟
+          477 分钟
         
       </span>
     
@@ -1357,65 +1357,42 @@ k:
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612144939315.png" srcset="/img/loading.gif" lazyload alt="image-20230612144939315"></p>
-<h2 id="14-6拦截器"><a href="#14-6拦截器" class="headerlink" title="14.6拦截器"></a>14.6拦截器</h2><h3 id="14-6-1拦截器的定义"><a href="#14-6-1拦截器的定义" class="headerlink" title="14.6.1拦截器的定义"></a>14.6.1拦截器的定义</h3><p>拦截器（Interceptor）类似于Servlet中的过滤器，<font color='scarlet'>主要用于拦截客户请求并做出相应的处理</font>。</p>
-<h3 id="14-6-2拦截器与过滤器的区别"><a href="#14-6-2拦截器与过滤器的区别" class="headerlink" title="14.6.2拦截器与过滤器的区别"></a>14.6.2拦截器与过滤器的区别</h3><blockquote>
-<ol>
-<li><p><font color='scarlet'>过滤器只能在容器初始化时被调用一次，在action的生命周期中，而拦截器可以多次被调用。</font></p>
-</li>
-<li><p>过滤器可以对几乎所有的请求起作用，拦截器只能对action请求起作用。</p>
-</li>
-<li><p>过滤器不能访问action上下文、值栈里的对象，而拦截器可以访问。</p>
-</li>
-<li><p>过滤器依赖于servlet容器，而拦截器不依赖于servlet容器。</p>
-</li>
-<li><p>过滤器是基于函数回调，而拦截器是基于java的反射机制的。</p>
-</li>
-<li><p>过滤器不能获取IOC容器中的各个bean，而拦截器可以，这点很重要，在拦截器里注入一个service，可以调用业务逻辑。</p>
-</li>
-</ol>
+<h2 id="14-6过滤器和拦截器"><a href="#14-6过滤器和拦截器" class="headerlink" title="14.6过滤器和拦截器"></a>14.6过滤器和拦截器</h2><h3 id="14-6-1过滤器"><a href="#14-6-1过滤器" class="headerlink" title="14.6.1过滤器"></a>14.6.1过滤器</h3><h4 id="14-6-1-1过滤器的概念"><a href="#14-6-1-1过滤器的概念" class="headerlink" title="14.6.1.1过滤器的概念"></a>14.6.1.1过滤器的概念</h4><p>过滤器<code>Filter</code>基于<code>Servlet</code>实现，过滤器的主要应用场景是对<font color='scarlet'>字符编码、跨域</font>等问题进行过滤。<font color='scarlet'>Filter的工作原理是拦截配置好的客户端请求，然后对Request和Response进行处理。Filter过滤器随着web应用的启动而启动，只初始化一次。</font></p>
+<p><font color='read'>Filter的使用比较简单，继承Filter 接口，实现对应的init、doFilter以及destroy方法即可。</font></p>
+<h4 id="14-6-1-2过滤器的实现"><a href="#14-6-1-2过滤器的实现" class="headerlink" title="14.6.1.2过滤器的实现"></a>14.6.1.2过滤器的实现</h4><blockquote>
+<ul>
+<li><strong>init</strong>：在容器(Tomcat)启动时调用初始化方法，只会初始化一次</li>
+<li><strong>doFilter</strong>：每次请求都会调用doFilter方法，通过FilterChain 调用后续的方法</li>
+<li><strong>destroy</strong>：当容器销毁时，执行destory方法，只会被调用一次。</li>
+</ul>
 </blockquote>
-<h3 id="14-6-3拦截器的特点"><a href="#14-6-3拦截器的特点" class="headerlink" title="14.6.3拦截器的特点"></a>14.6.3拦截器的特点</h3><blockquote>
-<ol>
-<li><p>请求到达经过拦截器，响应回来也经过拦截器</p>
-</li>
-<li><p>只能拦截控制器相关请求不能拦截JSP请求</p>
-</li>
-<li><p>拦截器可以中断用户请求轨迹</p>
-</li>
-</ol>
-</blockquote>
-<h3 id="14-6-4拦截器的作用"><a href="#14-6-4拦截器的作用" class="headerlink" title="14.6.4拦截器的作用"></a>14.6.4拦截器的作用</h3><p>将多个控制器中共有代码放入拦截器可以减少控制器代码冗余</p>
-<h3 id="14-6-4拦截器的配置"><a href="#14-6-4拦截器的配置" class="headerlink" title="14.6.4拦截器的配置"></a>14.6.4拦截器的配置</h3><ol>
-<li>实现HandlerInterceptor接口，并且实现三个方法</li>
-</ol>
-<p>​		<strong>HandlerInterceptor接口中的方法有三个，快捷键Ctrl+o实现方法</strong></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612145038723.png" srcset="/img/loading.gif" lazyload alt="image-20230612145038723"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyFilter</span> <span class="token keyword">implements</span> <span class="token class-name">Filter</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token class-name">FilterConfig</span> filterConfig<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">ServletException</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"初始化拦截器"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">ServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">ServletResponse</span> response<span class="token punctuation">,</span> <span class="token class-name">FilterChain</span> chain<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span><span class="token punctuation">,</span> <span class="token class-name">ServletException</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//做一些处理</span>
+        chain<span class="token punctuation">.</span><span class="token function">doFilter</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"销毁拦截器"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="14-6-2拦截器"><a href="#14-6-2拦截器" class="headerlink" title="14.6.2拦截器"></a>14.6.2拦截器</h3><h4 id="14-6-2-1拦截器的概念"><a href="#14-6-2-1拦截器的概念" class="headerlink" title="14.6.2.1拦截器的概念"></a>14.6.2.1拦截器的概念</h4><p>拦截器能够拦截客户请求并做出相应处理。拦截器它是链式调用，一个应用中可以同时存在多个拦截器<code>Interceptor</code>， 一个请求也可以触发多个拦截器 ，而每个拦截器的调用默认会依据它的声明顺序依次执行。</p>
+<h4 id="14-6-2-2拦截器的实现"><a href="#14-6-2-2拦截器的实现" class="headerlink" title="14.6.2.2拦截器的实现"></a>14.6.2.2拦截器的实现</h4><p>编写一个简单的拦截器处理类，请求的拦截是通过<code>HandlerInterceptor</code> 来实现，看到<code>HandlerInterceptor</code> 接口中也定义了三个方法。</p>
 <blockquote>
-<p>**<code>preHandle</code>**：控制器方法执行之前执行preHandle()，其boolean类型的返回值表示是否拦截或放行，返回true为放行，即调用控制器方法；返回false表示拦截，即不调用控制器方法</p>
-<p>**<code>postHandle</code>**：控制器方法执行之后执行postHandle()</p>
-<p>**<code>afterComplation</code>**：处理完视图和模型数据，渲染视图完毕之后执行afterComplation()</p>
+<ul>
+<li><code>preHandle()</code>：这个方法将在请求处理之前进行调用。注意：如果该方法的返回值为false ，将视为当前请求结束，不仅自身的拦截器会失效，还会导致其他的拦截器也不再执行。</li>
+<li><code>postHandle()</code>：只有在 preHandle() 方法返回值为true 时才会执行。会在Controller 中的方法调用之后，DispatcherServlet 返回渲染视图之前被调用。 有意思的是：postHandle() 方法被调用的顺序跟 preHandle() 是相反的，先声明的拦截器 preHandle() 方法先执行，而postHandle()方法反而会后执行。</li>
+<li><code>afterCompletion()</code>：只有在 preHandle() 方法返回值为true 时才会执行。在整个请求结束之后， DispatcherServlet 渲染了对应的视图之后执行。</li>
+</ul>
 </blockquote>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> loginInterceptor  <span class="token keyword">implements</span> <span class="token class-name">HandlerInterceptor</span> <span class="token punctuation">&#123;</span>
-<span class="token comment">//    目标方法执行之前</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">preHandle</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">,</span> <span class="token class-name">Object</span> handler<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
-       <span class="token keyword">return</span> <span class="token class-name">HandlerInterceptor</span><span class="token punctuation">.</span><span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">preHandle</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token punctuation">&#125;</span>
-
-<span class="token comment">//    目标方法执行之后</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postHandle</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">,</span> <span class="token class-name">Object</span> handler<span class="token punctuation">,</span> <span class="token class-name">ModelAndView</span> modelAndView<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">HandlerInterceptor</span><span class="token punctuation">.</span><span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">postHandle</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> handler<span class="token punctuation">,</span> modelAndView<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-<span class="token comment">//  页面渲染之后</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterCompletion</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">,</span> <span class="token class-name">Object</span> handler<span class="token punctuation">,</span> <span class="token class-name">Exception</span> ex<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">HandlerInterceptor</span><span class="token punctuation">.</span><span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">afterCompletion</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> handler<span class="token punctuation">,</span> ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-
-<p><font color='scarlet'><strong>与SpringMVC不同的是，SpringMVC是在配置文件中对拦截器进行配置，但是在SpringBoot中是在配置类中对拦截器进行配置</strong></font></p>
-<h3 id="14-6-5拦截器的实现步骤"><a href="#14-6-5拦截器的实现步骤" class="headerlink" title="14.6.5拦截器的实现步骤"></a>14.6.5拦截器的实现步骤</h3><ol>
-<li><strong>编写一个拦截器实现HandInterceptor接口</strong></li>
-</ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//登录检查</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> loginInterceptor  <span class="token keyword">implements</span> <span class="token class-name">HandlerInterceptor</span> <span class="token punctuation">&#123;</span>
 <span class="token comment">//    目标方法执行之前</span>
@@ -1444,11 +1421,7 @@ k:
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-
-
-<ol start="2">
-<li><strong>将拦截器注册到容器中（实现WebMvcConfigurer接口的addInterceptors方法），并指定拦截器规则。</strong></li>
-</ol>
+<p>将自定义好的拦截器处理类进行注册，并通过<code>addPathPatterns</code>、<code>excludePathPatterns</code>等属性设置需要拦截或需要排除的 <code>URL</code>。</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//实现WebMvcConfigurer接口，实现定制Web功能（此处是自定义拦截器）</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AdminWebConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token punctuation">&#123;</span>
     <span class="token annotation punctuation">@Override</span>
@@ -1457,9 +1430,187 @@ k:
                 <span class="token comment">//拦截所有请求</span>
                 <span class="token punctuation">.</span><span class="token function">addPathPatterns</span><span class="token punctuation">(</span><span class="token string">"/**"</span><span class="token punctuation">)</span>
                 <span class="token comment">//放行资源</span>
-                <span class="token punctuation">.</span><span class="token function">excludePathPatterns</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span><span class="token string">"/login"</span><span class="token punctuation">,</span><span class="token string">"/css/**"</span><span class="token punctuation">,</span><span class="token string">"/js/**"</span><span class="token punctuation">,</span><span class="token string">"/fonts/**"</span><span class="token punctuation">,</span><span class="token string">"/images/**"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token punctuation">.</span><span class="token function">excludePathPatterns</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span><span class="token string">"/login"</span><span class="token punctuation">,</span><span class="token string">"/css/**"</span><span class="token punctuation">,</span><span class="token string">"/js/**"</span><span class="token punctuation">,</span><span class="token string">"/fonts/**"</span><span class="token punctuation">,</span><span class="token string">"/images/**"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="14-6-3过滤器和拦截器的区别"><a href="#14-6-3过滤器和拦截器的区别" class="headerlink" title="14.6.3过滤器和拦截器的区别"></a>14.6.3过滤器和拦截器的区别</h3><h4 id="14-6-3-1实现原理不同"><a href="#14-6-3-1实现原理不同" class="headerlink" title="14.6.3.1实现原理不同"></a>14.6.3.1<strong>实现原理不同</strong></h4><blockquote>
+<ul>
+<li><p>过滤器和拦截器 底层实现方式大不相同，<code>过滤器</code> 是基于函数回调的</p>
+</li>
+<li><p><code>拦截器</code> 则是基于动态代理实现的</p>
+</li>
+</ul>
+</blockquote>
+<p>拦截器的执行流程：</p>
+<p>查看源码：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Process the actual dispatching to the handler.
+ * &lt;p>The handler will be obtained by applying the servlet's HandlerMappings in order.
+ * The HandlerAdapter will be obtained by querying the servlet's installed HandlerAdapters
+ * to find the first that supports the handler class.
+ * &lt;p>All HTTP methods are handled by this method. It's up to HandlerAdapters or handlers
+ * themselves to decide which methods are acceptable.
+ * @param request current HTTP request
+ * @param response current HTTP response
+ * @throws Exception in case of any kind of processing failure
+ */</span>
+<span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"deprecation"</span><span class="token punctuation">)</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doDispatch</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+	<span class="token class-name">HttpServletRequest</span> processedRequest <span class="token operator">=</span> request<span class="token punctuation">;</span>
+	<span class="token class-name">HandlerExecutionChain</span> mappedHandler <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+	<span class="token keyword">boolean</span> multipartRequestParsed <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+	<span class="token class-name">WebAsyncManager</span> asyncManager <span class="token operator">=</span> <span class="token class-name">WebAsyncUtils</span><span class="token punctuation">.</span><span class="token function">getAsyncManager</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+		<span class="token class-name">ModelAndView</span> mv <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+		<span class="token class-name">Exception</span> dispatchException <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+			processedRequest <span class="token operator">=</span> <span class="token function">checkMultipart</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			multipartRequestParsed <span class="token operator">=</span> <span class="token punctuation">(</span>processedRequest <span class="token operator">!=</span> request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// 获取到当前请求的映射处理器</span>
+			mappedHandler <span class="token operator">=</span> <span class="token function">getHandler</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>mappedHandler <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">noHandlerFound</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token keyword">return</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+
+			<span class="token comment">// 获取到当前请求的映射处理器适配器</span>
+			<span class="token class-name">HandlerAdapter</span> ha <span class="token operator">=</span> <span class="token function">getHandlerAdapter</span><span class="token punctuation">(</span>mappedHandler<span class="token punctuation">.</span><span class="token function">getHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// Process last-modified header, if supported by the handler.</span>
+			<span class="token class-name">String</span> method <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">boolean</span> isGet <span class="token operator">=</span> <span class="token class-name">HttpMethod</span><span class="token punctuation">.</span><span class="token constant">GET</span><span class="token punctuation">.</span><span class="token function">matches</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>isGet <span class="token operator">||</span> <span class="token class-name">HttpMethod</span><span class="token punctuation">.</span><span class="token constant">HEAD</span><span class="token punctuation">.</span><span class="token function">matches</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token keyword">long</span> lastModified <span class="token operator">=</span> ha<span class="token punctuation">.</span><span class="token function">getLastModified</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">.</span><span class="token function">getHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ServletWebRequest</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">checkNotModified</span><span class="token punctuation">(</span>lastModified<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> isGet<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+					<span class="token keyword">return</span><span class="token punctuation">;</span>
+				<span class="token punctuation">&#125;</span>
+			<span class="token punctuation">&#125;</span>
+
+                 <span class="token comment">//在实际调用处理程序之前，首先调用拦截器的preHandler方法</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>mappedHandler<span class="token punctuation">.</span><span class="token function">applyPreHandle</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token keyword">return</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+
+			<span class="token comment">// 实际调用处理程序</span>
+			mv <span class="token operator">=</span> ha<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">.</span><span class="token function">getHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>asyncManager<span class="token punctuation">.</span><span class="token function">isConcurrentHandlingStarted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token keyword">return</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+
+			<span class="token function">applyDefaultViewName</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> mv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                 <span class="token comment">//在实际调用处理程序之后，调用拦截器的postHandler方法</span>
+			mappedHandler<span class="token punctuation">.</span><span class="token function">applyPostHandle</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			dispatchException <span class="token operator">=</span> ex<span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment">// As of 4.3, we're processing Errors thrown from handler methods as well,</span>
+			<span class="token comment">// making them available for @ExceptionHandler methods and other scenarios.</span>
+			dispatchException <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">NestedServletException</span><span class="token punctuation">(</span><span class="token string">"Handler dispatch failed"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token function">processDispatchResult</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">,</span> mv<span class="token punctuation">,</span> dispatchException<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">triggerAfterCompletion</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">,</span> ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">triggerAfterCompletion</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">,</span>
+				<span class="token keyword">new</span> <span class="token class-name">NestedServletException</span><span class="token punctuation">(</span><span class="token string">"Handler processing failed"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>asyncManager<span class="token punctuation">.</span><span class="token function">isConcurrentHandlingStarted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment">// Instead of postHandle and afterCompletion</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>mappedHandler <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				mappedHandler<span class="token punctuation">.</span><span class="token function">applyAfterConcurrentHandlingStarted</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment">// Clean up any resources used by a multipart request.</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>multipartRequestParsed<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">cleanupMultipart</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol>
+<li><code>DispatcherServlet</code>中的<code>doDispatch</code>在获取到映射处理器的同时将过滤器进行封装。</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821154112363.png" srcset="/img/loading.gif" lazyload alt="image-20230821154112363"></p>
+<ol start="2">
+<li>调用<code>applyPreHandle</code>方法，执行拦截器链的<code>preHandle</code>方法</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821154245050.png" srcset="/img/loading.gif" lazyload alt="image-20230821154245050"></p>
+<ol start="3">
+<li>进入<code>applyPreHandle</code>方法，遍历过滤器链，执行每个过滤器链的<code>preHandler</code>方法。</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821152850378.png" srcset="/img/loading.gif" lazyload alt="image-20230821152850378"></p>
+<ol start="4">
+<li>如果有一个拦截器的preHandle方法返回为false，进入<code>triggerAfterCompletion</code>方法，倒序执行已经执行过<code>preHandle</code>方法的拦截器的<code>afterCompletion</code>方法。执行完后直接返回，不执行<font color='scarlet'>目标方法和postHandle</font>方法。</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821154802873.png" srcset="/img/loading.gif" lazyload alt="image-20230821154802873"></p>
+<ol start="5">
+<li>如果所有拦截器链的<code>preHandle</code>都返回true，则执行目标方法，目标方法执行完后调用<code>applyPostHandle</code>方法，执行每个拦截器链的<code>postHandle</code>方法</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821155113770.png" srcset="/img/loading.gif" lazyload alt="image-20230821155113770"></p>
+<ol start="5">
+<li><p><strong>总结</strong></p>
+<blockquote>
+<ul>
+<li>拦截器链中的每个过滤器都会执行，当中如果由任何一个拦截器的<code>preHandle</code>返回flase，则不执行目标方法，直接返回。</li>
+<li>每个拦截器的<code>preHandle</code>方法执行完后，就会执行目标方法，执行完目标方法后，再倒序执行每个拦截器的<code>postHandle</code>方法</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h4 id="14-6-3-2使用范围不同"><a href="#14-6-3-2使用范围不同" class="headerlink" title="14.6.3.2使用范围不同"></a>14.6.3.2<strong>使用范围不同</strong></h4><blockquote>
+<ul>
+<li>过滤器实现的是 <code>javax.servlet.Filter</code> 接口，而这个接口是在<code>Servlet</code>规范中定义的，也就是说过滤器<code>Filter</code> 的使用要依赖于<code>Tomcat</code>等容器，导致它只能在<code>web</code>程序中使用</li>
+<li>拦截器(<code>Interceptor</code>) 它是一个<code>Spring</code>组件，并由<code>Spring</code>容器管理，并不依赖<code>Tomcat</code>等容器，是可以单独使用的</li>
+</ul>
+</blockquote>
+<h4 id="14-6-3-3触发时机不同"><a href="#14-6-3-3触发时机不同" class="headerlink" title="14.6.3.3触发时机不同"></a>14.6.3.3<strong>触发时机不同</strong></h4><p><code>过滤器</code> 和 <code>拦截器</code>的触发时机也不同，我们看下边这张图</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/20200602173814901.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>过滤器<code>Filter</code>是在请求进入容器后，但在进入<code>servlet</code>之前进行预处理，请求结束是在<code>servlet</code>处理完以后。</p>
+<p>拦截器 <code>Interceptor</code> 是在请求进入<code>servlet</code>后，在进入<code>Controller</code>之前进行预处理的，<code>Controller</code> 中渲染了对应的视图之后请求结束。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821134204396.png" srcset="/img/loading.gif" lazyload alt="image-20230821134204396"></p>
+<h4 id="14-6-3-4控制执行顺序不同"><a href="#14-6-3-4控制执行顺序不同" class="headerlink" title="14.6.3.4控制执行顺序不同"></a>14.6.3.4<strong>控制执行顺序不同</strong></h4><p>实际开发过程中，会出现多个过滤器或拦截器同时存在的情况，不过，有时我们希望某个过滤器或拦截器能优先执行，就涉及到它们的执行顺序。</p>
+<p>过滤器用<code>@Order</code>注解控制执行顺序，通过<code>@Order</code>控制过滤器的级别，值越小级别越高越先执行。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Order</span><span class="token punctuation">(</span><span class="token class-name">Ordered</span><span class="token punctuation">.</span><span class="token constant">HIGHEST_PRECEDENCE</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyFilter2</span> <span class="token keyword">implements</span> <span class="token class-name">Filter</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><font color='scarlet'>拦截器默认的执行顺序，就是它的注册顺序</font>，也可以通过<code>Order</code>手动设置控制，值越小越先执行。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addInterceptors</span><span class="token punctuation">(</span><span class="token class-name">InterceptorRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       registry<span class="token punctuation">.</span><span class="token function">addInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyInterceptor2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addPathPatterns</span><span class="token punctuation">(</span><span class="token string">"/**"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       registry<span class="token punctuation">.</span><span class="token function">addInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyInterceptor1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addPathPatterns</span><span class="token punctuation">(</span><span class="token string">"/**"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       registry<span class="token punctuation">.</span><span class="token function">addInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">MyInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addPathPatterns</span><span class="token punctuation">(</span><span class="token string">"/**"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">order</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>看到输出结果发现，先声明的拦截器 <code>preHandle()</code> 方法先执行，而<code>postHandle()</code>方法反而会后执行。</p>
+<p><code>postHandle()</code> 方法被调用的顺序跟 <code>preHandle()</code> 居然是相反的！如果实际开发中严格要求执行顺序，那就需要特别注意这一点。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Interceptor1</span> 前置
+<span class="token class-name">Interceptor2</span> 前置
+<span class="token class-name">Interceptor</span> 前置
+我是controller
+<span class="token class-name">Interceptor</span> 处理中
+<span class="token class-name">Interceptor2</span> 处理中
+<span class="token class-name">Interceptor1</span> 处理中
+<span class="token class-name">Interceptor</span> 后置
+<span class="token class-name">Interceptor2</span> 处理后
+<span class="token class-name">Interceptor1</span> 处理后<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
 
 
 
@@ -2881,7 +3032,7 @@ cn.pdsu.suffix=bye<span aria-hidden="true" class="line-numbers-rows"><span></spa
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2634k</span>
+<span style="font-weight: initial">文章总字数2639k</span>
 
     </div>
   
