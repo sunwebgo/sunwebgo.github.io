@@ -1,0 +1,1151 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <link rel="icon" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.Servlet1.1Servlet概述servlet 是在 Web 服务器中运行的小型 Java 程序。Servlet 接收和响应来自 Web 客户端的请求，通常是通过 HTTP（超文本传输协议）。它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。  Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat识别)的规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC&amp;SpringBoot请求映射原理">
+<meta property="og:url" content="https://xhablog.online/2022/07/12/SpringMVC&SpringBoot%E8%AF%B7%E6%B1%82%E6%98%A0%E5%B0%84%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="xhang′s blog">
+<meta property="og:description" content="1.Servlet1.1Servlet概述servlet 是在 Web 服务器中运行的小型 Java 程序。Servlet 接收和响应来自 Web 客户端的请求，通常是通过 HTTP（超文本传输协议）。它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。  Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat识别)的规">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/spring_boot_logo.png">
+<meta property="article:published_time" content="2022-07-12T02:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-21T03:21:31.048Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="框架">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="SpringMVC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/spring_boot_logo.png">
+  
+  
+  
+  <title>SpringMVC&amp;SpringBoot请求映射原理 - xhang′s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+<link rel="stylesheet" href="/css/indeximg-hover.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xhablog.online","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang′s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-zhuye"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-guidang1"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-fenlei"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-biaoqian"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messageboard/">
+                <i class="iconfont icon-liuyanban-05"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-youqinglianjie"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-guanyuwomen"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/index.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SpringMVC&amp;SpringBoot请求映射原理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-12 10:00" pubdate>
+          2022年7月12日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          92 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringMVC&amp;SpringBoot请求映射原理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-Servlet"><a href="#1-Servlet" class="headerlink" title="1.Servlet"></a>1.Servlet</h1><h2 id="1-1Servlet概述"><a href="#1-1Servlet概述" class="headerlink" title="1.1Servlet概述"></a>1.1Servlet概述</h2><p>servlet 是在 Web 服务器中运行的小型 Java 程序。Servlet 接收和响应来自 Web 客户端的请求，通常是通过 HTTP（超文本传输协议）。它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821020243234.png" srcset="/img/loading.gif" lazyload alt="image-20230821020243234"></p>
+<p>Servlet就是一个接口，定义了Java类被浏览器访问到(tomcat识别)的规则。<font color='scarlet'>该接口主要用于接收请求参数，设置响应参数，在前后端中处理业务逻辑层的事务。</font></p>
+<h2 id="1-2Servlet体系结构"><a href="#1-2Servlet体系结构" class="headerlink" title="1.2Servlet体系结构"></a>1.2Servlet体系结构</h2><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821015948612.png" srcset="/img/loading.gif" lazyload alt="image-20230821015948612"></p>
+<ul>
+<li><code>GenericServlet</code>：将Servlet接口中其他的方法做了默认空实现，只将service()方法作为抽象</li>
+<li><code>HttpServlet</code>：对http协议的一种封装，简化操作</li>
+</ul>
+<h2 id="1-3HttpServlet概述"><a href="#1-3HttpServlet概述" class="headerlink" title="1.3HttpServlet概述"></a>1.3HttpServlet概述</h2><p>HttpServlet 是一个抽象类，它属于 <code>javax.servlet.http.HttpServlet</code> 包。要创建一个 servlet，类必须继承 HttpServlet 类并重写至少一个方法（doGet、doPost、doDelete、doPut）。如果 servlet 支持 HTTP GET 请求，则为 doGet；对于 HTTP POST 请求，则为 doPost；对于 HTTP PUT 请求，则为 doPut。</p>
+<h1 id="2-SpringMVC-amp-SpringBoot请求映射原理"><a href="#2-SpringMVC-amp-SpringBoot请求映射原理" class="headerlink" title="2.SpringMVC&amp;SpringBoot请求映射原理"></a>2.SpringMVC&amp;SpringBoot请求映射原理</h1><p>当我们每次发送请求时，系统是如何找到对应的方法来处理请求的呢？为了解决这个问题，我们查看SpringMVC的底层源代码</p>
+<h2 id="2-1DispatcherServlet"><a href="#2-1DispatcherServlet" class="headerlink" title="2.1DispatcherServlet"></a>2.1DispatcherServlet</h2><ol>
+<li>SpringBoot底层还是使用的SpringMVC，当客户端浏览器发送请求时，都会到达<code>DispatcherServlet</code>，而<code>DispatcherServlet</code>继承于<code>FrameworkServlet</code>，<code>FrameworkServlet</code>继承于<code>HttpServletBean</code>，<code>HttpServletBean</code>继承于<code>HttpServlet</code>，所以本质上<code>DispatcherServlet</code>是一个Servlet。</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/DispatcherServlet.png" srcset="/img/loading.gif" lazyload alt="DispatcherServlet"></p>
+<ol start="2">
+<li>那么，在这些类中就要实现<code>doGet()</code>或者<code>doPost()</code>方法。我们看到，在<code>HttpServletBean</code>这个类中并没有实现doGet后者doPost方法，那么我们查看<code>FrameworkServlet</code>类代码。</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * 将 GET 请求委托给 processRequest/doService。
+ * &lt;p>Will also be invoked by HttpServlet's default implementation of &#123;@code doHead&#125;,
+ * with a &#123;@code NoBodyResponse&#125; that just captures the content length.
+ * @see #doService
+ * @see #doHead
+ */</span>
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">doGet</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span>
+		<span class="token keyword">throws</span> <span class="token class-name">ServletException</span><span class="token punctuation">,</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token function">processRequest</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * Delegate POST requests to &#123;@link #processRequest&#125;.
+ * @see #doService
+ */</span>
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">doPost</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span>
+		<span class="token keyword">throws</span> <span class="token class-name">ServletException</span><span class="token punctuation">,</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token function">processRequest</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * Delegate PUT requests to &#123;@link #processRequest&#125;.
+ * @see #doService
+ */</span>
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">doPut</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span>
+		<span class="token keyword">throws</span> <span class="token class-name">ServletException</span><span class="token punctuation">,</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token function">processRequest</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * Delegate DELETE requests to &#123;@link #processRequest&#125;.
+ * @see #doService
+ */</span>
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">doDelete</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span>
+		<span class="token keyword">throws</span> <span class="token class-name">ServletException</span><span class="token punctuation">,</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token function">processRequest</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li>可以看到四个方法都覆盖了<code>HttpServlet</code>中对应的方法，且实现都是<code>processRequest()</code>方法。</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * 处理此请求，无论结果如何，都会发布事件。
+ * 实际的事件处理由抽象 doService 模板方法执行。
+ */</span>
+<span class="token keyword">protected</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">processRequest</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span>
+		<span class="token keyword">throws</span> <span class="token class-name">ServletException</span><span class="token punctuation">,</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token keyword">long</span> startTime <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token class-name">Throwable</span> failureCause <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+	<span class="token class-name">LocaleContext</span> previousLocaleContext <span class="token operator">=</span> <span class="token class-name">LocaleContextHolder</span><span class="token punctuation">.</span><span class="token function">getLocaleContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token class-name">LocaleContext</span> localeContext <span class="token operator">=</span> <span class="token function">buildLocaleContext</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token class-name">RequestAttributes</span> previousAttributes <span class="token operator">=</span> <span class="token class-name">RequestContextHolder</span><span class="token punctuation">.</span><span class="token function">getRequestAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token class-name">ServletRequestAttributes</span> requestAttributes <span class="token operator">=</span> <span class="token function">buildRequestAttributes</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> previousAttributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token class-name">WebAsyncManager</span> asyncManager <span class="token operator">=</span> <span class="token class-name">WebAsyncUtils</span><span class="token punctuation">.</span><span class="token function">getAsyncManager</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	asyncManager<span class="token punctuation">.</span><span class="token function">registerCallableInterceptor</span><span class="token punctuation">(</span><span class="token class-name">FrameworkServlet</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">RequestBindingInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token function">initContextHolders</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> localeContext<span class="token punctuation">,</span> requestAttributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">//执行doService方法</span>
+		<span class="token function">doService</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">ServletException</span> <span class="token operator">|</span> <span class="token class-name">IOException</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		failureCause <span class="token operator">=</span> ex<span class="token punctuation">;</span>
+		<span class="token keyword">throw</span> ex<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		failureCause <span class="token operator">=</span> ex<span class="token punctuation">;</span>
+		<span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NestedServletException</span><span class="token punctuation">(</span><span class="token string">"Request processing failed"</span><span class="token punctuation">,</span> ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">resetContextHolders</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> previousLocaleContext<span class="token punctuation">,</span> previousAttributes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>requestAttributes <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			requestAttributes<span class="token punctuation">.</span><span class="token function">requestCompleted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token function">logResult</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> failureCause<span class="token punctuation">,</span> asyncManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">publishRequestHandledEvent</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> startTime<span class="token punctuation">,</span> failureCause<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="5">
+<li>实际的事件处理由抽象<code>doService</code>模板方法执行。</li>
+</ol>
+<blockquote>
+<ul>
+<li>子类必须实现此方法来完成请求处理的工作，接收 GET、POST、PUT 和 DELETE 的集中回调。</li>
+</ul>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Subclasses must implement this method to do the work of request handling,
+ * receiving a centralized callback for GET, POST, PUT and DELETE.
+ * &lt;p>The contract is essentially the same as that for the commonly overridden
+ * &#123;@code doGet&#125; or &#123;@code doPost&#125; methods of HttpServlet.
+ * &lt;p>This class intercepts calls to ensure that exception handling and
+ * event publication takes place.
+ * @param request current HTTP request
+ * @param response current HTTP response
+ * @throws Exception in case of any kind of processing failure
+ * @see javax.servlet.http.HttpServlet#doGet
+ * @see javax.servlet.http.HttpServlet#doPost
+ */</span>
+<span class="token keyword">protected</span> <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">doService</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span>
+		<span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="6">
+<li>发现其本身是抽象方法，查看其子类<code>DispatcherServlet</code>当中的定义情况。</li>
+</ol>
+<blockquote>
+<p>公开DispatcherServlet特定的请求属性，并委托给<code>doDispatch</code>进行实际调度。即该方法内的核心是调用了<code>doDispatch()</code>方法来处理请求和响应。</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Exposes the DispatcherServlet-specific request attributes and delegates to &#123;@link #doDispatch&#125;
+ * for the actual dispatching.
+ */</span>
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doService</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+	<span class="token function">logRequest</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token comment">// Keep a snapshot of the request attributes in case of an include,</span>
+	<span class="token comment">// to be able to restore the original attributes after the include.</span>
+	<span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">></span></span> attributesSnapshot <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">WebUtils</span><span class="token punctuation">.</span><span class="token function">isIncludeRequest</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		attributesSnapshot <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token class-name">Enumeration</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> attrNames <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getAttributeNames</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">while</span> <span class="token punctuation">(</span>attrNames<span class="token punctuation">.</span><span class="token function">hasMoreElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token class-name">String</span> attrName <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> attrNames<span class="token punctuation">.</span><span class="token function">nextElement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>cleanupAfterInclude <span class="token operator">||</span> attrName<span class="token punctuation">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span><span class="token constant">DEFAULT_STRATEGIES_PREFIX</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				attributesSnapshot<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>attrName<span class="token punctuation">,</span> request<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span>attrName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token comment">// Make framework objects available to handlers and view objects.</span>
+	request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token constant">WEB_APPLICATION_CONTEXT_ATTRIBUTE</span><span class="token punctuation">,</span> <span class="token function">getWebApplicationContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token constant">LOCALE_RESOLVER_ATTRIBUTE</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>localeResolver<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token constant">THEME_RESOLVER_ATTRIBUTE</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>themeResolver<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token constant">THEME_SOURCE_ATTRIBUTE</span><span class="token punctuation">,</span> <span class="token function">getThemeSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>flashMapManager <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token class-name">FlashMap</span> inputFlashMap <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>flashMapManager<span class="token punctuation">.</span><span class="token function">retrieveAndUpdate</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>inputFlashMap <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token constant">INPUT_FLASH_MAP_ATTRIBUTE</span><span class="token punctuation">,</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">unmodifiableMap</span><span class="token punctuation">(</span>inputFlashMap<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token constant">OUTPUT_FLASH_MAP_ATTRIBUTE</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">FlashMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		request<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token constant">FLASH_MAP_MANAGER_ATTRIBUTE</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>flashMapManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token class-name">RequestPath</span> previousRequestPath <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>parseRequestPath<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		previousRequestPath <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">RequestPath</span><span class="token punctuation">)</span> request<span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token class-name">ServletRequestPathUtils</span><span class="token punctuation">.</span><span class="token constant">PATH_ATTRIBUTE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token class-name">ServletRequestPathUtils</span><span class="token punctuation">.</span><span class="token function">parseAndCache</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">//公开DispatcherServlet特定的请求属性，并委托给`doDispatch`进行实际调度。</span>
+		<span class="token function">doDispatch</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token class-name">WebAsyncUtils</span><span class="token punctuation">.</span><span class="token function">getAsyncManager</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isConcurrentHandlingStarted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment">// Restore the original attribute snapshot, in case of an include.</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>attributesSnapshot <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">restoreAttributesAfterInclude</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> attributesSnapshot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>parseRequestPath<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token class-name">ServletRequestPathUtils</span><span class="token punctuation">.</span><span class="token function">setParsedRequestPath</span><span class="token punctuation">(</span>previousRequestPath<span class="token punctuation">,</span> request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="2-2doDispatch-方法"><a href="#2-2doDispatch-方法" class="headerlink" title="2.2doDispatch()方法"></a>2.2doDispatch()方法</h2><p>源码如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Process the actual dispatching to the handler.
+ * &lt;p>The handler will be obtained by applying the servlet's HandlerMappings in order.
+ * The HandlerAdapter will be obtained by querying the servlet's installed HandlerAdapters
+ * to find the first that supports the handler class.
+ * &lt;p>All HTTP methods are handled by this method. It's up to HandlerAdapters or handlers
+ * themselves to decide which methods are acceptable.
+ * @param request current HTTP request
+ * @param response current HTTP response
+ * @throws Exception in case of any kind of processing failure
+ */</span>
+<span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"deprecation"</span><span class="token punctuation">)</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doDispatch</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+	<span class="token class-name">HttpServletRequest</span> processedRequest <span class="token operator">=</span> request<span class="token punctuation">;</span>
+	<span class="token class-name">HandlerExecutionChain</span> mappedHandler <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+	<span class="token keyword">boolean</span> multipartRequestParsed <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+	<span class="token class-name">WebAsyncManager</span> asyncManager <span class="token operator">=</span> <span class="token class-name">WebAsyncUtils</span><span class="token punctuation">.</span><span class="token function">getAsyncManager</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+		<span class="token class-name">ModelAndView</span> mv <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+		<span class="token class-name">Exception</span> dispatchException <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+			processedRequest <span class="token operator">=</span> <span class="token function">checkMultipart</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			multipartRequestParsed <span class="token operator">=</span> <span class="token punctuation">(</span>processedRequest <span class="token operator">!=</span> request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// Determine handler for the current request.</span>
+                <span class="token comment">// 确定当前请求的处理程序</span>
+			mappedHandler <span class="token operator">=</span> <span class="token function">getHandler</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>mappedHandler <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">noHandlerFound</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token keyword">return</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+
+			<span class="token comment">// Determine handler adapter for the current request.</span>
+			<span class="token class-name">HandlerAdapter</span> ha <span class="token operator">=</span> <span class="token function">getHandlerAdapter</span><span class="token punctuation">(</span>mappedHandler<span class="token punctuation">.</span><span class="token function">getHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// Process last-modified header, if supported by the handler.</span>
+			<span class="token class-name">String</span> method <span class="token operator">=</span> request<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">boolean</span> isGet <span class="token operator">=</span> <span class="token class-name">HttpMethod</span><span class="token punctuation">.</span><span class="token constant">GET</span><span class="token punctuation">.</span><span class="token function">matches</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>isGet <span class="token operator">||</span> <span class="token class-name">HttpMethod</span><span class="token punctuation">.</span><span class="token constant">HEAD</span><span class="token punctuation">.</span><span class="token function">matches</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token keyword">long</span> lastModified <span class="token operator">=</span> ha<span class="token punctuation">.</span><span class="token function">getLastModified</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">.</span><span class="token function">getHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ServletWebRequest</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">checkNotModified</span><span class="token punctuation">(</span>lastModified<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> isGet<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+					<span class="token keyword">return</span><span class="token punctuation">;</span>
+				<span class="token punctuation">&#125;</span>
+			<span class="token punctuation">&#125;</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>mappedHandler<span class="token punctuation">.</span><span class="token function">applyPreHandle</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token keyword">return</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+
+			<span class="token comment">// Actually invoke the handler.</span>
+			mv <span class="token operator">=</span> ha<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">.</span><span class="token function">getHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>asyncManager<span class="token punctuation">.</span><span class="token function">isConcurrentHandlingStarted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token keyword">return</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+
+			<span class="token function">applyDefaultViewName</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> mv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			mappedHandler<span class="token punctuation">.</span><span class="token function">applyPostHandle</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mv<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			dispatchException <span class="token operator">=</span> ex<span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment">// As of 4.3, we're processing Errors thrown from handler methods as well,</span>
+			<span class="token comment">// making them available for @ExceptionHandler methods and other scenarios.</span>
+			dispatchException <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">NestedServletException</span><span class="token punctuation">(</span><span class="token string">"Handler dispatch failed"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token function">processDispatchResult</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">,</span> mv<span class="token punctuation">,</span> dispatchException<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">triggerAfterCompletion</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">,</span> ex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">triggerAfterCompletion</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">,</span> mappedHandler<span class="token punctuation">,</span>
+				<span class="token keyword">new</span> <span class="token class-name">NestedServletException</span><span class="token punctuation">(</span><span class="token string">"Handler processing failed"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>asyncManager<span class="token punctuation">.</span><span class="token function">isConcurrentHandlingStarted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment">// Instead of postHandle and afterCompletion</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>mappedHandler <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				mappedHandler<span class="token punctuation">.</span><span class="token function">applyAfterConcurrentHandlingStarted</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment">// Clean up any resources used by a multipart request.</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>multipartRequestParsed<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">cleanupMultipart</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>客户端发送Http请求，debug测试：</p>
+<p>可以看到请求的路径就是为<code>/reflect</code></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821023025659.png" srcset="/img/loading.gif" lazyload alt="image-20230821023025659"></p>
+<p>断点到达<code>mappedHandler.getHandler()</code>所在行，这个方法决定哪个handler（controller中的方法）处理当前请求。然后放行，查看handler是什么。</p>
+<p>选中<code>mappedHandler = this.getHandler(processedRequest)</code>的执行结果：可以查看已经映射到对应的方法</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821023336554.png" srcset="/img/loading.gif" lazyload alt="image-20230821023336554"></p>
+<h2 id="2-3HandlerMapping"><a href="#2-3HandlerMapping" class="headerlink" title="2.3HandlerMapping"></a>2.3HandlerMapping</h2><p>进入<code>getHandler()</code>方法</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Return the HandlerExecutionChain for this request.返回此请求的处理程序执行链。
+ * &lt;p>Tries all handler mappings in order.按顺序尝试所有处理程序映射。 
+ * @param request current HTTP request
+ * @return the HandlerExecutionChain, or &#123;@code null&#125; if no handler could be found
+ */</span>
+
+<span class="token annotation punctuation">@Nullable</span>
+<span class="token keyword">protected</span> <span class="token class-name">HandlerExecutionChain</span> <span class="token function">getHandler</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>handlerMappings <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">HandlerMapping</span> mapping <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handlerMappings<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token class-name">HandlerExecutionChain</span> handler <span class="token operator">=</span> mapping<span class="token punctuation">.</span><span class="token function">getHandler</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>handler <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token keyword">return</span> handler<span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>在方法的首行，<font color='read'>获取了<code>handlerMappings</code>处理器映射</font>，SpringMVC根据处理器映射里面的映射规则找到对应的处理方法。默认有5个HandlerMapping。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821024040559.png" srcset="/img/loading.gif" lazyload alt="image-20230821024040559"></p>
+<blockquote>
+<ol>
+<li>其中第一个<code>RequestMappingHandlerMapping</code>中保存了<code>@RequestMapping和handler</code>的映射规则。当我们的应用一启动，SpringMVC自动扫描所有的<code>Controller</code>并解析注解，把注解信息保存在<code>handlerMapping</code><strong>映射处理器</strong>中。</li>
+<li>可以将这个HandlerMapping理解为一个Map，其中key为请求路径，value为handler的处理方法。</li>
+<li>然后通过循环遍历着5个handlerMapping，看哪个可以处理当前请求。所以在<code>getHandler()</code>方法中，存在一个for循环，为了找到能处理对应请求的HandlerMapping。</li>
+</ol>
+</blockquote>
+<p>进入循环中，当获取到<code>RequestMappingHandlerMapping</code>时，我们查看这个类中的属性值，可以看到所有标注了<code>@RequestMapping</code>注解的请求映射规则都已经存放在了这个<code>RequestMappingHandlerMapping</code>类中</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230821025529225.png" srcset="/img/loading.gif" lazyload alt="image-20230821025529225"></p>
+<p>同时，已经获取到了相应的handler，也就是对应的Controller处理方法</p>
+<h2 id="2-4总结"><a href="#2-4总结" class="headerlink" title="2.4总结"></a>2.4总结</h2><p>所有的请求映射都保存在<code>HandlerMapping</code>（<strong>映射处理器</strong>）中，在项目启动时，SpringMVC会自动扫描Controller并解析注解，将注解信息和处理方法保存在HandlerMapping映射处理器中。</p>
+<p>SpringBoot为我们默认定义并配置了5个HandlerMapping，当一个请求进来时，系统会遍历这5个HandlerMapping，根据请求路径找到匹配的handler处理方法。</p>
+<p>我们也可以将自定义的HandlerMapping放入容器中，使用自定义的映射处理器。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/SpringBoot/" class="category-chain-item">SpringBoot</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A1%86%E6%9E%B6/">#框架</a>
+      
+        <a href="/tags/SpringBoot/">#SpringBoot</a>
+      
+        <a href="/tags/SpringMVC/">#SpringMVC</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SpringMVC&amp;SpringBoot请求映射原理</div>
+      <div>https://xhablog.online/2022/07/12/SpringMVC&amp;SpringBoot请求映射原理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/30/SpringBoot+Vue%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/" title="SpringBoot+Vue项目部署">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SpringBoot+Vue项目部署</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/10/SpringBoot/" title="SpringBoot2.0">
+                        <span class="hidden-mobile">SpringBoot2.0</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '5c2f1ac173728a71e8f671ddfbae6eb3'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span><svg t="1686650467734" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4406" width="13" height="13"><path d="M926.991 337.678c-22.571-53.364-54.877-101.283-96.021-142.426-41.143-41.143-89.062-73.449-142.426-96.02-55.266-23.375-113.953-35.228-174.434-35.228-60.48 0-119.168 11.852-174.433 35.228-53.364 22.571-101.283 54.877-142.426 96.02s-73.449 89.062-96.02 142.426c-23.375 55.265-35.228 113.953-35.228 174.433 0 60.48 11.852 119.168 35.228 174.434 22.571 53.364 54.877 101.283 96.02 142.426 41.143 41.144 89.062 73.449 142.426 96.021 55.265 23.375 113.953 35.228 174.433 35.228 60.48 0 119.168-11.853 174.434-35.228 53.364-22.571 101.283-54.877 142.426-96.021 41.144-41.143 73.449-89.062 96.021-142.426 23.375-55.266 35.228-113.953 35.228-174.434 0-60.48-11.853-119.168-35.228-174.433z m-412.88 558.541c-211.797 0-384.107-172.31-384.107-384.107 0-211.797 172.31-384.107 384.107-384.107 211.798 0 384.107 172.31 384.107 384.107 0.001 211.797-172.309 384.107-384.107 384.107z" p-id="4407"></path><path d="M514.111 290.829c51.918 0 102.431 18.428 142.233 51.889 13.528 11.375 33.715 9.626 45.086-3.902 11.373-13.527 9.626-33.713-3.902-45.086-51.316-43.142-116.456-66.901-183.417-66.901-76.201 0-147.842 29.675-201.725 83.557-53.883 53.883-83.558 125.523-83.558 201.725s29.675 147.843 83.558 201.726 125.523 83.558 201.725 83.558c66.961 0 132.1-23.76 183.417-66.901 13.528-11.372 15.275-31.559 3.902-45.086s-31.559-15.275-45.086-3.902c-39.803 33.462-90.315 51.89-142.233 51.89-122.015 0-221.282-99.268-221.282-221.283 0-122.017 99.267-221.284 221.282-221.284z" p-id="4408"></path></svg>2021 - 2023</span> <span>本站由</span> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <span>&</span> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <span>强力驱动</span> 
+      <!--《添加网站运行时间 -->
+<br/>
+
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+    <script>
+      var now = new Date();
+
+      function createtime() {
+        //此处修改你的建站时间或者网站上线时间
+        var grt = new Date('06/09/2023 8:00:00');
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+          hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+          mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+          snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = " 本站已破天荒的安全运行 " + dnum + " 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+      }
+      setInterval("createtime()", 250);
+    </script>
+
+<!-- 添加网站运行时间》-->
+<br/>
+<span style="font-weight: initial">文章总字数2634k</span>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
