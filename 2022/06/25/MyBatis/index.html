@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612083756901.png">
 <meta property="article:published_time" content="2022-06-25T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-21T14:09:08.685Z">
+<meta property="article:modified_time" content="2023-08-22T12:45:47.615Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="框架">
 <meta property="article:tag" content="MyBatis">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          40k 字
+          46k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          330 分钟
+          384 分钟
         
       </span>
     
@@ -422,7 +422,6 @@
 <li><strong>创建MyBatis的核心配置文件</strong></li>
 </ol>
 <p>一：在resources文件夹下创建</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/clipboard.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>二：配置mybatis核心配置文件</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" ?></span>
 <span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">configuration</span>
@@ -454,7 +453,6 @@
 </ol>
 <p>为什么要创建mapper接口？因为MyBatis中有面向接口编程的功能，当调用接口中的方法时就会自动匹配sql语句，并且执行。</p>
 <p>MyBatis中的mapper接口相当于以前的dao。但是区别在于，mapper仅仅是接口，我们不需要提供实现类。</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/clipboard.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <ol start="7">
 <li><strong>创建MyBatis的映射文件，执行sql测试添加功能</strong></li>
 </ol>
@@ -467,7 +465,6 @@
 <p>表所对应的实体类的类名+Mapper.xml</p>
 <p>例如：表t_user，映射的实体类为User，所对应的映射文件为UserMapper.xml</p>
 </blockquote>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/clipboard.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <blockquote>
 <p>因此一个映射文件对应一个实体类，对应一张表的操作</p>
 <p>MyBatis映射文件用于编写SQL，访问以及操作表中的数据</p>
@@ -500,7 +497,6 @@
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mapper</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>然后在MyBatis核心配置文件中引入映射文件，resource路径为mapper映射文件的路径</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/clipboard.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p><strong>创建测试类</strong></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">   <span class="token annotation punctuation">@Test</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
@@ -518,7 +514,6 @@
     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><strong>测试成功</strong></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/clipboard.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <ol start="8">
 <li><strong>加入log4j日志的配置文件</strong></li>
 </ol>
@@ -561,7 +556,6 @@
 <ol start="2">
 <li><strong>创建实体类的映射文件，并添加插入sql语句</strong></li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/clipboard.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" ?></span>
 <span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">mapper</span>
         <span class="token name">PUBLIC</span> <span class="token string">"-//mybatis.org//DTD Mapper 3.0//EN"</span>
@@ -1367,7 +1361,7 @@
 <p>当fetchType属性的值为eager时，立即加载</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612000627579.png" srcset="/img/loading.gif" lazyload alt="image-20230612000627579"></p>
 <h1 id="16-一对多映射处理（一个部门含有多个员工）"><a href="#16-一对多映射处理（一个部门含有多个员工）" class="headerlink" title="16.一对多映射处理（一个部门含有多个员工）"></a><strong>16.一对多映射处理（一个部门含有多个员工）</strong></h1><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612000754098.png" srcset="/img/loading.gif" lazyload alt="image-20230612000754098"></p>
-<p><strong>一：使用collection处理多对一映射关系</strong></p>
+<p><strong>一：使用collection处理一对多映射关系</strong></p>
 <p><strong>collection标签中</strong></p>
 <blockquote>
 <p>property：处理一对多关系的属性（对应的时Dept类中的emps属性）</p>
@@ -1593,118 +1587,180 @@
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612001559239.png" srcset="/img/loading.gif" lazyload alt="image-20230612001559239"></p>
-<h1 id="18-MyBatis的缓存"><a href="#18-MyBatis的缓存" class="headerlink" title="18.MyBatis的缓存"></a><strong>18.MyBatis的缓存</strong></h1><p><strong>一：Mybatis一级缓存</strong></p>
-<p>一级缓存是SqlSession级别的，通过同一个SqlSession查询的数据会被缓存，下次查询相同的数据，就会从缓存中直接获取，不会从数据库重新访问</p>
+<h1 id="18-MyBatis的缓存"><a href="#18-MyBatis的缓存" class="headerlink" title="18.MyBatis的缓存"></a>18.MyBatis的缓存</h1><h2 id="18-1MyBatis的缓存机制"><a href="#18-1MyBatis的缓存机制" class="headerlink" title="18.1MyBatis的缓存机制"></a>18.1MyBatis的缓存机制</h2><p>Mybatis 缓存机制原理是将第一次从数据库 SQL 查询的结果数据保存到缓存（内存中），当下一次 SQL 查询和第一次相同，如果缓存中有数据则直接获取，而不用再从数据库获取，从而减少数据库访问频率，大大提升数据库性能。</p>
+<h2 id="18-2缓存机制分类"><a href="#18-2缓存机制分类" class="headerlink" title="18.2缓存机制分类"></a>18.2缓存机制分类</h2><p><code>MyBatis</code> 提供了两种缓存机制：<strong>一级缓存和二级缓存</strong></p>
 <blockquote>
-<p>使一级缓存失效的四种情况：</p>
-<p>1) 不同的SqlSession对应不同的一级缓存</p>
-<p>2) 同一个SqlSession但是查询条件不同</p>
-<p>3) 同一个SqlSession两次查询期间执行了任何一次增删改操作</p>
-<p>4) 同一个SqlSession两次查询期间手动清空了缓存</p>
+<ul>
+<li>一级缓存是 <code>SqlSession</code> 级别的缓存，它是默认开启的。在操作数据库时需要构造 SqlSession 对象，<font color='read'>它是应用程序与持久存储层之间执行交互操作的一个单线程对象</font>，在对象中有一个数据结构（HashMap）用于存储缓存数据。不同的 SqlSession 之间的缓存数据区（HashMap）是互相不影响的。</li>
+<li>二级缓存是<code>Mapper</code>级别的缓存，多个 SqlSession 去操作同一个 Mapper 的 sql 语句，<font color='read'>多个 SqlSession 可以共用二级缓存</font>，二级缓存是跨 SqlSession 的。但是，二级缓存默认是关闭的，需要手动开启。</li>
+</ul>
 </blockquote>
-<p>sqlSession.clearCache();</p>
-<p><strong>二：Mybatis二级缓存</strong></p>
-<p>二级缓存是SqlSessionFactory级别，通过同一个SqlSessionFactory创建的SqlSession查询的结果会被缓存；此后若再次执行相同的查询语句，结果就会从缓存中获取</p>
+<h2 id="18-3Mybatis一级缓存"><a href="#18-3Mybatis一级缓存" class="headerlink" title="18.3Mybatis一级缓存"></a>18.3Mybatis一级缓存</h2><h3 id="18-3-1一级缓存说明"><a href="#18-3-1一级缓存说明" class="headerlink" title="18.3.1一级缓存说明"></a>18.3.1一级缓存说明</h3><p>在操作数据库时需要构造 <code>SqlSession</code> 对象，在对象中存在一个<code>HashMap</code>用于存储缓存数据。</p>
+<p>通过同一个SqlSession查询的数据会被缓存，下次查询相同的数据，就会从缓存中直接获取，不会从数据库重新访问。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230822125509608.png" srcset="/img/loading.gif" lazyload alt="image-20230822125509608"></p>
+<p>一级缓存满足条件如下：</p>
 <blockquote>
-<p>二级缓存开启的条件：</p>
-<p>a&gt;在核心配置文件中，设置全局配置属性cacheEnabled&#x3D;”true”，默认为true，不需要设置</p>
-<p>b&gt;在映射文件中设置标签&lt;cache &#x2F;&gt;</p>
-<p>c&gt;二级缓存必须在SqlSession关闭或提交之后有效</p>
-<p>d&gt;查询的数据所转换的实体类类型必须实现序列化的接口</p>
-<p>使二级缓存失效的情况：</p>
-<p>两次查询之间执行了任意的增删改，会使一级和二级缓存同时失效</p>
+<ul>
+<li>同一个 SqlSession 对象</li>
+<li>同一个SqlSession两次查询期间没有进行增删改操作</li>
+<li>相同的 SQL 语句和参数</li>
+</ul>
 </blockquote>
-<p><strong>三：二级缓存的相关配置</strong></p>
-<blockquote>
-<p>在mapper配置文件中添加的cache标签可以设置一些属性：</p>
-<p>eviction属性：缓存回收策略</p>
-<p>LRU（Least Recently Used） – 最近最少使用的：移除最长时间不被使用的对象。</p>
-<p>FIFO（First in First out） – 先进先出：按对象进入缓存的顺序来移除它们。</p>
-<p>SOFT – 软引用：移除基于垃圾回收器状态和软引用规则的对象。</p>
-<p>WEAK – 弱引用：更积极地移除基于垃圾收集器状态和弱引用规则的对象。</p>
-<p>默认的是 LRU。</p>
-<p>flushInterval属性：刷新间隔，单位毫秒</p>
-<p>默认情况是不设置，也就是没有刷新间隔，缓存仅仅调用语句时刷新</p>
-<p>size属性：引用数目，正整数，代表缓存最多可以存储多少个对象，太大容易导致内存溢出</p>
-<p>readOnly属性：只读，true&#x2F;false</p>
-<p>true：只读缓存；会给所有调用者返回缓存对象的相同实例。因此这些对象不能被修改。这提供了很重要的性能优势。</p>
-<p>false：读写缓存；会返回缓存对象的拷贝（通过序列化）。这会慢一些，但是安全，因此默认是false。</p>
+<p>注：<font color='scarlet'>使用 SqlSession.clearCache( ) 方法可以强制清除一级缓存</font></p>
+<h3 id="18-3-2一级缓存测试"><a href="#18-3-2一级缓存测试" class="headerlink" title="18.3.2一级缓存测试"></a>18.3.2一级缓存测试</h3><h4 id="18-3-2-1使用同一个SqlSession"><a href="#18-3-2-1使用同一个SqlSession" class="headerlink" title="18.3.2.1使用同一个SqlSession"></a>18.3.2.1使用同一个SqlSession</h4><p>既然每个 SqlSession 都会有自己的一个缓存，那么我们用同一个 SqlSession 是不是就能感受到一级缓存的存在呢？调用多次 getMapper 方法，生成对应的SQL语句，判断每次SQL语句是从缓存中取还是对数据库进行操作，下面的例子来证明一下</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">cacheTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserEntity</span><span class="token punctuation">></span></span> userEntities <span class="token operator">=</span> userMapper<span class="token punctuation">.</span><span class="token function">selectUserByAge</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>userEntities<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     
+       <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserEntity</span><span class="token punctuation">></span></span> userEntities2 <span class="token operator">=</span> userMapper<span class="token punctuation">.</span><span class="token function">selectUserByAge</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>userEntities2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserEntity</span><span class="token punctuation">></span></span> userEntities3 <span class="token operator">=</span> userMapper<span class="token punctuation">.</span><span class="token function">selectUserByAge</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>userEntities3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>执行测试，输出结果如下：</p>
+<p><font color='cornflowerblue'>可以看到只执行了一次查询操作</font></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token number">2020</span><span class="token operator">-</span><span class="token number">08</span><span class="token operator">-</span><span class="token number">10</span> <span class="token number">16</span><span class="token operator">:</span><span class="token number">14</span><span class="token operator">:</span><span class="token number">44</span><span class="token punctuation">,</span><span class="token number">790</span> <span class="token punctuation">[</span>main<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token class-name"><span class="token namespace">mapper<span class="token punctuation">.</span></span>UserMapper</span><span class="token punctuation">.</span>selectUserByAge<span class="token punctuation">]</span><span class="token operator">-</span><span class="token punctuation">[</span><span class="token constant">DEBUG</span><span class="token punctuation">]</span> <span class="token operator">==</span><span class="token operator">></span>  <span class="token class-name">Preparing</span><span class="token operator">:</span> select <span class="token operator">*</span> from tb_user where age <span class="token operator">></span> <span class="token operator">?</span> 
+<span class="token number">2020</span><span class="token operator">-</span><span class="token number">08</span><span class="token operator">-</span><span class="token number">10</span> <span class="token number">16</span><span class="token operator">:</span><span class="token number">14</span><span class="token operator">:</span><span class="token number">44</span><span class="token punctuation">,</span><span class="token number">837</span> <span class="token punctuation">[</span>main<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token class-name"><span class="token namespace">mapper<span class="token punctuation">.</span></span>UserMapper</span><span class="token punctuation">.</span>selectUserByAge<span class="token punctuation">]</span><span class="token operator">-</span><span class="token punctuation">[</span><span class="token constant">DEBUG</span><span class="token punctuation">]</span> <span class="token operator">==</span><span class="token operator">></span> <span class="token class-name">Parameters</span><span class="token operator">:</span> <span class="token function">20</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">)</span>
+<span class="token number">2020</span><span class="token operator">-</span><span class="token number">08</span><span class="token operator">-</span><span class="token number">10</span> <span class="token number">16</span><span class="token operator">:</span><span class="token number">14</span><span class="token operator">:</span><span class="token number">44</span><span class="token punctuation">,</span><span class="token number">884</span> <span class="token punctuation">[</span>main<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token class-name"><span class="token namespace">mapper<span class="token punctuation">.</span></span>UserMapper</span><span class="token punctuation">.</span>selectUserByAge<span class="token punctuation">]</span><span class="token operator">-</span><span class="token punctuation">[</span><span class="token constant">DEBUG</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span><span class="token operator">=</span>      <span class="token class-name">Total</span><span class="token operator">:</span> <span class="token number">7</span>
+<span class="token punctuation">[</span><span class="token class-name">UserEntity</span><span class="token punctuation">&#123;</span>id<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> userName<span class="token operator">=</span><span class="token char">'张三'</span><span class="token punctuation">,</span> password<span class="token operator">=</span><span class="token char">'123456'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token char">'张三'</span><span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">22</span><span class="token punctuation">,</span> sex<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> birthday<span class="token operator">=</span><span class="token class-name">Sun</span> <span class="token class-name">Sep</span> <span class="token number">02</span> <span class="token number">00</span><span class="token operator">:</span><span class="token number">00</span><span class="token operator">:</span><span class="token number">00</span> <span class="token class-name">IRKST</span> <span class="token number">1990</span><span class="token punctuation">,</span> created<span class="token operator">=</span>'<span class="token number">2020</span><span class="token operator">-</span><span class="token number">06</span><span class="token operator">-</span><span class="token number">17</span> <span class="token number">09</span><span class="token operator">:</span><span class="token number">30</span><span class="token operator">:</span><span class="token number">58.0</span>'<span class="token punctuation">,</span> updated<span class="token operator">=</span>'<span class="token number">2020</span><span class="token operator">-</span><span class="token number">06</span><span class="token operator">-</span><span class="token number">17</span> <span class="token number">09</span><span class="token operator">:</span><span class="token number">30</span><span class="token operator">:</span><span class="token number">58.0</span>'<span class="token punctuation">,</span> interests<span class="token operator">=</span><span class="token keyword">null</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">[</span><span class="token class-name">UserEntity</span><span class="token punctuation">&#123;</span>id<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> userName<span class="token operator">=</span><span class="token char">'张三'</span><span class="token punctuation">,</span> password<span class="token operator">=</span><span class="token char">'123456'</span><span class="token punctuation">,</span> name<span class="token operator">=</span><span class="token char">'张三'</span><span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">22</span><span class="token punctuation">,</span> sex<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> birthday<span class="token operator">=</span><span class="token class-name">Sun</span> <span class="token class-name">Sep</span> <span class="token number">02</span> <span class="token number">00</span><span class="token operator">:</span><span class="token number">00</span><span class="token operator">:</span><span class="token number">00</span> <span class="token class-name">IRKST</span> <span class="token number">1990</span><span class="token punctuation">,</span> created<span class="token operator">=</span>'<span class="token number">2020</span><span class="token operator">-</span><span class="token number">06</span><span class="token operator">-</span><span class="token number">17</span> <span class="token number">09</span><span class="token operator">:</span><span class="token number">30</span><span class="token operator">:</span><span class="token number">58.0</span>'<span class="token punctuation">,</span> updated<span class="token operator">=</span>'<span class="token number">2020</span><span class="token operator">-</span><span class="token number">06</span><span class="token operator">-</span><span class="token number">17</span> <span class="token number">09</span><span class="token operator">:</span><span class="token number">30</span><span class="token operator">:</span><span class="token number">58.0</span>'<span class="token punctuation">,</span> interests<span class="token operator">=</span><span class="token keyword">null</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="18-3-2-2两次查询期间进行增删改操作"><a href="#18-3-2-2两次查询期间进行增删改操作" class="headerlink" title="18.3.2.2两次查询期间进行增删改操作"></a>18.3.2.2两次查询期间进行增删改操作</h4><p>接着我在第一条和第二条 SQL语句 之间插入更新的 SQL 语句，代码如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">cacheTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserEntity</span><span class="token punctuation">></span></span> userEntities <span class="token operator">=</span> userMapper<span class="token punctuation">.</span><span class="token function">selectUserByAge</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>userEntities<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">int</span> result <span class="token operator">=</span> userMapper<span class="token punctuation">.</span><span class="token function">updateUser</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"张三"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    sqlSession<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserEntity</span><span class="token punctuation">></span></span> userEntities2 <span class="token operator">=</span> userMapper<span class="token punctuation">.</span><span class="token function">selectUserByAge</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>userEntities2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>执行测试，结果如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">020-08-10 16:20:47<span class="token punctuation">,</span>384 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==>  Preparing: <span class="token function">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> tb_user where age > ? 
+2020-08-10 16:20:47<span class="token punctuation">,</span>431 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==> Parameters: 20<span class="token punctuation">(</span>Integer<span class="token punctuation">)</span>
+2020-08-10 16:20:47<span class="token punctuation">,</span>478 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> &lt;==      Total: 7
+<span class="token punctuation">[</span>UserEntity<span class="token punctuation">&#123;</span>id=1<span class="token punctuation">,</span> userName=<span class="token string">'张三'</span><span class="token punctuation">,</span> password=<span class="token string">'123456'</span><span class="token punctuation">,</span> name=<span class="token string">'张三'</span><span class="token punctuation">,</span> age=22<span class="token punctuation">,</span> sex=1<span class="token punctuation">,</span> birthday=Sun Sep 02 00:00:00 IRKST 1990<span class="token punctuation">,</span> created=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> updated=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> interests=null<span class="token punctuation">&#125;</span>
+2020-08-10 16:20:47<span class="token punctuation">,</span>478 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.updateUser]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==>  Preparing: update tb_user <span class="token function">set</span> name=? where id=? 
+2020-08-10 16:20:47<span class="token punctuation">,</span>478 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.updateUser]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==> Parameters: 张三<span class="token punctuation">(</span>String<span class="token punctuation">)</span><span class="token punctuation">,</span> 1<span class="token punctuation">(</span>Integer<span class="token punctuation">)</span>
+2020-08-10 16:20:47<span class="token punctuation">,</span>478 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.updateUser]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> &lt;==    Updates: 1
+2020-08-10 16:20:47<span class="token punctuation">,</span>493 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==>  Preparing: <span class="token function">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> tb_user where age > ? 
+2020-08-10 16:20:47<span class="token punctuation">,</span>493 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==> Parameters: 20<span class="token punctuation">(</span>Integer<span class="token punctuation">)</span>
+2020-08-10 16:20:47<span class="token punctuation">,</span>509 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> &lt;==      Total: 7
+<span class="token punctuation">[</span>UserEntity<span class="token punctuation">&#123;</span>id=1<span class="token punctuation">,</span> userName=<span class="token string">'张三'</span><span class="token punctuation">,</span> password=<span class="token string">'123456'</span><span class="token punctuation">,</span> name=<span class="token string">'张三'</span><span class="token punctuation">,</span> age=22<span class="token punctuation">,</span> sex=1<span class="token punctuation">,</span> birthday=Sun Sep 02 00:00:00 IRKST 1990<span class="token punctuation">,</span> created=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> updated=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> interests=null<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">[</span>UserEntity<span class="token punctuation">&#123;</span>id=1<span class="token punctuation">,</span> userName=<span class="token string">'张三'</span><span class="token punctuation">,</span> password=<span class="token string">'123456'</span><span class="token punctuation">,</span> name=<span class="token string">'张三'</span><span class="token punctuation">,</span> age=22<span class="token punctuation">,</span> sex=1<span class="token punctuation">,</span> birthday=Sun Sep 02 00:00:00 IRKST 1990<span class="token punctuation">,</span> created=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> updated=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> interests=null<span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><font color='scarlet'>可以看到，在两次查询 SQL 语句中使用插入 SQL 语句，会对一级缓存进行刷新，会导致一级缓存失效。</font></p>
+<h4 id="18-3-2-3不同的SqlSession的"><a href="#18-3-2-3不同的SqlSession的" class="headerlink" title="18.3.2.3不同的SqlSession的"></a>18.3.2.3不同的SqlSession的</h4><p>我们知道一级缓存就是 SqlSession 级别的缓存，而同一个 SqlSession 会有相同的一级缓存，那么使用不同的 SqlSession 是不是会对一级缓存产生影响呢？</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">cacheTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserEntity</span><span class="token punctuation">></span></span> userEntities <span class="token operator">=</span> userMapper<span class="token punctuation">.</span><span class="token function">selectUserByAge</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>userEntities<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//使用sqlSession创建新的SqlSession</span>
+      <span class="token class-name">UserMapper</span> userMapper2
+              <span class="token operator">=</span> sqlSessionFactory<span class="token punctuation">.</span><span class="token function">openSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMapper</span><span class="token punctuation">(</span><span class="token class-name">UserMapper</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserEntity</span><span class="token punctuation">></span></span> userEntities2 <span class="token operator">=</span> userMapper2<span class="token punctuation">.</span><span class="token function">selectUserByAge</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>userEntities2<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>执行测试，结果如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">2020-08-10 16:26:36<span class="token punctuation">,</span>243 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==>  Preparing: <span class="token function">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> tb_user where age > ? 
+2020-08-10 16:26:36<span class="token punctuation">,</span>290 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==> Parameters: 20<span class="token punctuation">(</span>Integer<span class="token punctuation">)</span>
+2020-08-10 16:26:36<span class="token punctuation">,</span>322 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> &lt;==      Total: 7
+<span class="token punctuation">[</span>UserEntity<span class="token punctuation">&#123;</span>id=1<span class="token punctuation">,</span> userName=<span class="token string">'张三'</span><span class="token punctuation">,</span> password=<span class="token string">'123456'</span><span class="token punctuation">,</span> name=<span class="token string">'张三'</span><span class="token punctuation">,</span> age=22<span class="token punctuation">,</span> sex=1<span class="token punctuation">,</span> birthday=Sun Sep 02 00:00:00 IRKST 1990<span class="token punctuation">,</span> created=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> updated=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> interests=null<span class="token punctuation">&#125;</span>
+2020-08-10 16:26:36<span class="token punctuation">,</span>337 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==>  Preparing: <span class="token function">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> tb_user where age > ? 
+2020-08-10 16:26:36<span class="token punctuation">,</span>337 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> ==> Parameters: 20<span class="token punctuation">(</span>Integer<span class="token punctuation">)</span>
+2020-08-10 16:26:36<span class="token punctuation">,</span>353 <span class="token namespace">[main]</span> <span class="token namespace">[mapper.UserMapper.selectUserByAge]</span><span class="token operator">-</span><span class="token namespace">[DEBUG]</span> &lt;==      Total: 7
+<span class="token punctuation">[</span>UserEntity<span class="token punctuation">&#123;</span>id=1<span class="token punctuation">,</span> userName=<span class="token string">'张三'</span><span class="token punctuation">,</span> password=<span class="token string">'123456'</span><span class="token punctuation">,</span> name=<span class="token string">'张三'</span><span class="token punctuation">,</span> age=22<span class="token punctuation">,</span> sex=1<span class="token punctuation">,</span> birthday=Sun Sep 02 00:00:00 IRKST 1990<span class="token punctuation">,</span> created=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> updated=<span class="token string">'2020-06-17 09:30:58.0'</span><span class="token punctuation">,</span> interests=null<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>上面代码使用了不同的 SqlSession 对同一个 SQL 语句执行了相同的查询操作，却对数据库执行了两次相同的查询操作，生成了不同的 UserEnity 对象，由此可见，不同的 SqlSession 是肯定会对一级缓存产生影响的。</p>
+<h3 id="18-3-2一级缓存的问题"><a href="#18-3-2一级缓存的问题" class="headerlink" title="18.3.2一级缓存的问题"></a>18.3.2一级缓存的问题</h3><p>当有两个 SqlSession 对象存在，一个用于查询数据，一个用于更新数据，如果查询和更新是同一张表的相同数据，这时可能会出现数据脏读。</p>
+<p>例如，假设有两个 <code>SqlSession</code> 对象 A 和 B。A 执行了一个查询语句并缓存了查询结果。然后 B 执行了一个更新语句并提交了更改。此时，如果 A 再次执行相同的查询语句，它将直接从缓存中获取结果，而不是再次查询数据库。这意味着 A 获取到的数据可能是过时的，因为它没有感知到 B 所做的更改。</p>
+<p><font color='read'>而解决办法是清空缓存。</font></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">mybatis</span><span class="token punctuation">:</span>
+  <span class="token key atrule">configuration</span><span class="token punctuation">:</span>
+    <span class="token key atrule">cache-enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment">#禁用二级缓存</span>
+    <span class="token key atrule">local-cache-scope</span><span class="token punctuation">:</span> statement <span class="token comment">#一级缓存指定为statement级别</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h2 id="18-2Mybatis二级缓存"><a href="#18-2Mybatis二级缓存" class="headerlink" title="18.2Mybatis二级缓存"></a>18.2Mybatis二级缓存</h2><h3 id="18-2-1二级缓存概述"><a href="#18-2-1二级缓存概述" class="headerlink" title="18.2.1二级缓存概述"></a>18.2.1二级缓存概述</h3><blockquote>
+<ul>
+<li><p>二级缓存是 Mapper 级别的缓存。</p>
+<p>多个 <code>SqlSession </code>对象 SQL 语句查询数据库结果会存放二级缓存区域，而多个<code>SqlSession</code>对象可以共用二级缓存。</p>
+</li>
+<li><p>二级缓存是多个 <code>SqlSesion</code> 对象共用的。</p>
+<p>其作用范围是<code>Mapper</code>的同一个 <code>namespace</code> ，不同的 <code>SqlSession</code> 对象再次执行相同 <code>namepace </code>下的 SQL 语句，第一次执行会将数据库中查询结果数据存储到二级缓存中，第二次会从二级缓存中获取数据，而不再从数据库中获取，从而提高查询效率。</p>
+</li>
+<li><p><code>MyBatis </code>二级缓存默认关闭，需要手动开启二级缓存。</p>
+<p>MyBatis 的二级缓存是 Mapper 范围级别，除了在 MyBatis 环境配置<code>mybatis-config.xml</code>设置二级缓存总开关，还要在具体的<code>mapper.xml</code>中加入 标签。</p>
+</li>
+</ul>
 </blockquote>
-<p><strong>四：MyBatis缓存查询顺序</strong></p>
-<blockquote>
-<p>先查询二级缓存，因为二级缓存中可能会有其他程序已经查出来的数据，可以拿来直接使用。</p>
-<p>如果二级缓存没有命中，再查询一级缓存</p>
-<p>如果一级缓存也没有命中，则查询数据库</p>
-<p>SqlSession关闭之后，一级缓存中的数据会写入二级缓存</p>
-</blockquote>
-<p><strong>五：整合第三方缓存EHCache</strong></p>
-<ol>
-<li><strong>添加依赖</strong></li>
+<h3 id="18-2-2二级缓存配置"><a href="#18-2-2二级缓存配置" class="headerlink" title="18.2.2二级缓存配置"></a>18.2.2二级缓存配置</h3><ol>
+<li>在核心配置文件中，设置全局配置属性cacheEnabled&#x3D;”true”，默认为true，不需要设置</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- Mybatis EHCache整合包 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.mybatis.caches<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mybatis-ehcache<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.2.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-<span class="token comment">&lt;!-- slf4j日志门面的一个具体实现 --></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>ch.qos.logback<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>logback-classic<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.2.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token generics"><span class="token punctuation">&lt;</span>settings<span class="token punctuation">></span></span>
+        <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>缓存，默认也是开启<span class="token operator">--</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>有些二级缓存可能用到序列化技术，所以entity类要<span class="token class-name">Serializable</span>接口<span class="token operator">--</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>setting name<span class="token operator">=</span><span class="token string">"cacheEnabled"</span> value<span class="token operator">=</span><span class="token string">"true"</span><span class="token operator">/</span><span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>settings<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <ol start="2">
-<li><strong>创建EHCache的配置文件ehcache.xml</strong></li>
+<li>配置完毕之后，找到相对应想要做二级缓存的XXMapper.xml文件，在<mapper></mapper>中添加<code>&lt;cache/&gt;</code>标签：</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">?</span>xml version<span class="token operator">=</span><span class="token string">"1.0"</span> encoding<span class="token operator">=</span><span class="token string">"utf-8"</span> <span class="token operator">?</span><span class="token operator">></span>
-<span class="token operator">&lt;</span>ehcache xmlns<span class="token operator">:</span>xsi<span class="token operator">=</span><span class="token string">"http://www.w3.org/2001/XMLSchema-instance"</span> xsi<span class="token operator">:</span>noNamespaceSchemaLocation<span class="token operator">=</span><span class="token string">"../config/ehcache.xsd"</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 磁盘保存路径 <span class="token operator">--</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span>diskStore path<span class="token operator">=</span><span class="token string">"D:\atguigu\ehcache"</span><span class="token operator">/</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span>defaultCache
-            maxElementsInMemory<span class="token operator">=</span><span class="token string">"1000"</span>
-            maxElementsOnDisk<span class="token operator">=</span><span class="token string">"10000000"</span>
-            eternal<span class="token operator">=</span><span class="token string">"false"</span>
-            overflowToDisk<span class="token operator">=</span><span class="token string">"true"</span>
-            timeToIdleSeconds<span class="token operator">=</span><span class="token string">"120"</span>
-            timeToLiveSeconds<span class="token operator">=</span><span class="token string">"120"</span>
-            diskExpiryThreadIntervalSeconds<span class="token operator">=</span><span class="token string">"120"</span>
-            memoryStoreEvictionPolicy<span class="token operator">=</span><span class="token string">"LRU"</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>defaultCache<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>ehcache<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">&lt;</span>cache eviction<span class="token operator">=</span><span class="token string">"FIFO"</span> flushInterval<span class="token operator">=</span><span class="token string">"60000"</span> size<span class="token operator">=</span><span class="token string">"512"</span> readOnly<span class="token operator">=</span><span class="token string">"true"</span><span class="token operator">/</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<ol start="3">
-<li><strong>在映射文件中设置二级缓存的类型</strong></li>
+<p>配置中参数信息含义如下：</p>
+<blockquote>
+<ul>
+<li>eviction                       ：        缓存的回收策略</li>
+<li>flushInterval               ：        时间间隔（毫秒）</li>
+<li>size                              ：        引用数目，缓存对象数目和运行环境数目，默认1024</li>
+<li>readOnly                     ：        是否只读</li>
+</ul>
+<p>其中，对于eviction的回收策略，有其四种：</p>
+<ol>
+<li><p>LRU - 最近最少使用：移出最长时间不被使用的对象 （默认）；</p>
+</li>
+<li><p>FIFO - 先进先出(队列)：按对象进入缓存的顺序移除 ；</p>
+</li>
+<li><p>SOFT - 软引用： 移除基于垃圾回收器状态和软引用规则的对象 ；</p>
+</li>
+<li><p>WEAK - 弱引用：更积极移除基于垃圾收集器状态和引用规则的对象 。</p>
+</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&lt;cache type="org.mybatis.caches.ehcache.EhcacheCache"/\><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
-
-<ol start="4">
-<li><strong>加入logback.xml日志配置文件</strong></li>
+</blockquote>
+<h3 id="18-2-3如何禁用二级缓存"><a href="#18-2-3如何禁用二级缓存" class="headerlink" title="18.2.3如何禁用二级缓存"></a>18.2.3如何禁用二级缓存</h3><ol>
+<li>给mybatis-config.xml添加如下属性时，将全局关闭缓存；</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">?</span>xml version<span class="token operator">=</span><span class="token string">"1.0"</span> encoding<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">?</span><span class="token operator">></span>
-<span class="token operator">&lt;</span>configuration debug<span class="token operator">=</span><span class="token string">"true"</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 指定日志输出的位置 <span class="token operator">--</span><span class="token operator">></span>
-<span class="token operator">&lt;</span>appender name<span class="token operator">=</span><span class="token string">"STDOUT"</span>
-<span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"ch.qos.logback.core.ConsoleAppender"</span><span class="token operator">></span>
-<span class="token generics"><span class="token punctuation">&lt;</span>encoder<span class="token punctuation">></span></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 日志输出的格式 <span class="token operator">--</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 按照顺序分别是：时间、日志级别、线程名称、打印日志的类、日志主体内容、换行 <span class="token operator">-</span>
-<span class="token operator">-></span>
-<span class="token generics"><span class="token punctuation">&lt;</span>pattern<span class="token punctuation">></span></span><span class="token punctuation">[</span><span class="token operator">%</span>d<span class="token punctuation">&#123;</span><span class="token constant">HH</span><span class="token operator">:</span>mm<span class="token operator">:</span>ss<span class="token punctuation">.</span><span class="token constant">SSS</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token operator">%</span><span class="token operator">-</span><span class="token number">5l</span>evel<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token operator">%</span>thread<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token operator">%</span>logger<span class="token punctuation">]</span>
-<span class="token punctuation">[</span><span class="token operator">%</span>msg<span class="token punctuation">]</span><span class="token operator">%</span>n<span class="token operator">&lt;</span><span class="token operator">/</span>pattern<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>encoder<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>appender<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 设置全局日志级别。日志级别按顺序分别是：<span class="token constant">DEBUG</span>、<span class="token constant">INFO</span>、<span class="token constant">WARN</span>、<span class="token constant">ERROR</span> <span class="token operator">--</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 指定任何一个日志级别都只打印当前级别和后面级别的日志。 <span class="token operator">--</span><span class="token operator">></span>
-<span class="token operator">&lt;</span>root level<span class="token operator">=</span><span class="token string">"DEBUG"</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 指定打印日志的appender，这里通过“<span class="token constant">STDOUT</span>”引用了前面配置的appender <span class="token operator">--</span><span class="token operator">></span>
-<span class="token operator">&lt;</span>appender<span class="token operator">-</span>ref ref<span class="token operator">=</span><span class="token string">"STDOUT"</span> <span class="token operator">/</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>root<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 根据特殊需求指定局部日志级别 <span class="token operator">--</span><span class="token operator">></span>
-<span class="token operator">&lt;</span>logger name<span class="token operator">=</span><span class="token string">"cn.pdsu.mybatis.mapper"</span> level<span class="token operator">=</span><span class="token string">"DEBUG"</span><span class="token operator">/</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>configuration<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token generics"><span class="token punctuation">&lt;</span>settings<span class="token punctuation">></span></span>
+        <span class="token operator">&lt;</span>setting name<span class="token operator">=</span><span class="token string">"cacheEnabled"</span> value<span class="token operator">=</span><span class="token string">"false"</span><span class="token operator">/</span><span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>settings<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<h1 id="19-MyBatis的逆向工程"><a href="#19-MyBatis的逆向工程" class="headerlink" title="19.MyBatis的逆向工程"></a><strong>19.MyBatis的逆向工程</strong></h1><ol>
+<ol start="2">
+<li><p>不在不需要进行缓存的Mapper.xml添加<cache/>；</p>
+</li>
+<li><p>给对应SQL语句进行设置局部禁用缓存(userCache) 例</p>
+</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">&lt;</span>select id<span class="token operator">=</span><span class="token string">"getSomeThing"</span> parameterType<span class="token operator">=</span><span class="token string">"Integer"</span> resultType<span class="token operator">=</span><span class="token string">"Integer"</span> useCache<span class="token operator">=</span><span class="token string">"false"</span><span class="token operator">></span>
+        <span class="token constant">SELECT</span> <span class="token operator">*</span> <span class="token constant">FROM</span> `table`
+<span class="token operator">&lt;</span><span class="token operator">/</span>select<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="18-3缓存说明"><a href="#18-3缓存说明" class="headerlink" title="18.3缓存说明"></a>18.3缓存说明</h2><blockquote>
+<ul>
+<li>先查询二级缓存，因为二级缓存中可能会有其他程序已经查出来的数据，可以拿来直接使用。</li>
+<li>如果二级缓存没有命中，再查询一级缓存</li>
+<li>如果一级缓存也没有命中，则查询数据库</li>
+<li>SqlSession关闭之后，一级缓存中的数据会写入二级缓存</li>
+</ul>
+</blockquote>
+<h1 id="19-MyBatis的逆向工程"><a href="#19-MyBatis的逆向工程" class="headerlink" title="19.MyBatis的逆向工程"></a>19.MyBatis的逆向工程</h1><ol>
 <li><strong>什么是逆向工程</strong></li>
 </ol>
 <blockquote>
@@ -1827,12 +1883,14 @@
 <ol start="3">
 <li><strong>执行项目插件的generate目标</strong></li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612001951438.png" srcset="/img/loading.gif" lazyload></p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612001951438.png" srcset="/img/loading.gif" lazyload alt="image-20230612001951438" style="zoom:80%;" />
+
 <ol start="4">
 <li><strong>执行结果</strong></li>
 </ol>
 <p>可以看出已经自动生成mapper接口、实体类和实体类映射文件</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612002029776.png" srcset="/img/loading.gif" lazyload></p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612002029776.png" srcset="/img/loading.gif" lazyload alt="image-20230612002029776" style="zoom:80%;" />
+
 <p><strong>二：奢华尊享版</strong></p>
 <ol>
 <li><strong>和清新简洁版不同的是，奢华尊享版需要将generatorConfig配置文件中的</strong></li>
@@ -1843,7 +1901,8 @@
 <ol start="2">
 <li><strong>执行项目插件的generate目标</strong></li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612002147421.png" srcset="/img/loading.gif" lazyload></p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612002147421.png" srcset="/img/loading.gif" lazyload alt="image-20230612002147421" style="zoom:80%;" />
+
 <p>其中mapper接口中有很多方法</p>
 <p><strong>二：QBC查询</strong></p>
 <p>什么是QBC查询：QBC即Quary By Criteria，Criteria是Criterion的复数，译为规则，准则，在<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=sql%E8%AF%AD%E5%8F%A5&spm=1001.2101.3001.7020">sql语句</a>中相当于查询条件。QBC查询是将查询条件通过Java对象进行模块化封装。</p>
@@ -1967,6 +2026,104 @@
 <p><strong>hasPreviousPage&#x2F;hasNextPage：是否存在上一页&#x2F;下一页</strong></p>
 <p><strong>navigatePages：导航分页的页码数</strong></p>
 <p><strong>navigatepageNums：导航分页的页码，[1,2,3,4,5]</strong></p>
+</blockquote>
+<h1 id="21-MyBatis的原理"><a href="#21-MyBatis的原理" class="headerlink" title="21.MyBatis的原理"></a>21.MyBatis的原理</h1><h2 id="21-1JDBC概述"><a href="#21-1JDBC概述" class="headerlink" title="21.1JDBC概述"></a>21.1JDBC概述</h2><p>JDBC（Java Database Connectivity）是Java中用于执行SQL语句的API，它提供了一种访问多种关系数据库的方法。</p>
+<p>Java JDBC API提供以下接口和类 。</p>
+<p>接口：</p>
+<blockquote>
+<ul>
+<li><code>Connection</code>：特定数据库的连接（会话）。在连接上下文中执行SQL语句并返回结果。</li>
+<li><code>PreparedStatement</code>：表示预编译的 SQL 语句的对象。</li>
+<li><code>Statement</code>：用于执行静态 SQL 语句并返回它所生成结果的对象。</li>
+<li><code>ResultSet</code> ：表示数据库结果集的数据表，通常通过执行查询数据库的语句生成 。</li>
+<li><code>CallableStatement</code> ：用于执行 SQL 存储过程的接口 。</li>
+</ul>
+</blockquote>
+<p>类：</p>
+<blockquote>
+<ul>
+<li><code>DriverManager</code>：负责管理JDBC驱动程序。使用JDBC驱动程序之前，必须先将驱动程序加载并注册后才可以使用，同时提供方法来建立与数据库的连接。（加载到内存中才能使用）</li>
+<li><code>SQLException</code>：有关数据库操作的异常。</li>
+</ul>
+</blockquote>
+<h2 id="21-2JDBC的执行流程"><a href="#21-2JDBC的执行流程" class="headerlink" title="21.2JDBC的执行流程"></a>21.2JDBC的执行流程</h2><h3 id="21-2-1说明"><a href="#21-2-1说明" class="headerlink" title="21.2.1说明"></a>21.2.1说明</h3><blockquote>
+<ol>
+<li>载入JDBC驱动程序</li>
+<li>定义连接URL</li>
+<li>建立连接</li>
+<li>创建Statement对象</li>
+<li>执行查询或更新</li>
+<li>结果处理</li>
+<li>关闭连接</li>
+</ol>
+</blockquote>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1617635428930-b9a6a9c8-f15d-41d3-abc0-ee634a2a39bd.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="21-2-2Connection"><a href="#21-2-2Connection" class="headerlink" title="21.2.2Connection"></a>21.2.2Connection</h3><ul>
+<li><p>一个Connection对象表示通过JDBC驱动与数据源建立的连接</p>
+</li>
+<li><p>Connection对象表示客户端会话，因此它需要一些相关的状态信息，例如用户Id、一组SQL语句和会话中使用的结果集以及事务隔离级别等信息。</p>
+</li>
+<li><p>connection的获取可以从两个方面获取</p>
+</li>
+<li><ul>
+<li>JDBC API中提供的DriverManager类获取</li>
+</ul>
+</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">Connection connection <span class="token operator">=</span> DriverManager<span class="token punctuation">.</span>getConnection<span class="token punctuation">(</span>
+  <span class="token string">"jdbc:mysql://127.0.0.1:3306/data?user=root&amp;password=123456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li><ul>
+<li>DataSource接口的实现类获取</li>
+</ul>
+</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">DataSource</span> dataSource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UnpooledDataSource</span><span class="token punctuation">(</span>
+        <span class="token string">"com.mysql.cj.jdbc.Driver"</span><span class="token punctuation">,</span>
+        <span class="token string">"jdbc:mysql://127.0.0.1:3306/data?user=root&amp;password=123456&amp;AllowPublicKeyRetrieval=true"</span><span class="token punctuation">,</span>
+        <span class="token string">"root"</span><span class="token punctuation">,</span><span class="token string">"qwer1234"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="21-2-3Statement"><a href="#21-2-3Statement" class="headerlink" title="21.2.3Statement"></a>21.2.3Statement</h3><ul>
+<li>Statement 不支持输入参数，有sql注入的风险</li>
+<li>PreparedStatement：增加了设置SQL参数的方法</li>
+<li>CallableStatement：增加了调用存储过程以及检索存储过程调用结果的方法</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//PreparedStatement</span>
+<span class="token class-name">Connection</span> connection <span class="token operator">=</span> <span class="token class-name">DriverManager</span><span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> sql <span class="token operator">=</span> <span class="token string">"SELECT * FROM admin WHERE username = ? AND password = ?"</span><span class="token punctuation">;</span>
+<span class="token class-name">PreparedStatement</span> preparedStatement <span class="token operator">=</span> connection<span class="token punctuation">.</span><span class="token function">prepareStatement</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span class="token punctuation">;</span>
+preparedStatement<span class="token punctuation">.</span><span class="token function">setString</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"username"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+preparedStatement<span class="token punctuation">.</span><span class="token function">setString</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">"password"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">ResultSet</span> resultSet <span class="token operator">=</span> preparedStatement<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       
+<span class="token comment">//Statement </span>
+<span class="token class-name">String</span> sql2 <span class="token operator">=</span> <span class="token string">"SELECT * FROM admin WHERE username = 'username' AND password = 'password'"</span><span class="token punctuation">;</span>
+<span class="token class-name">Statement</span> statement2 <span class="token operator">=</span> connection<span class="token punctuation">.</span><span class="token function">createStatement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">ResultSet</span> resultSet2 <span class="token operator">=</span> statement<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="21-3MyBatis的原理"><a href="#21-3MyBatis的原理" class="headerlink" title="21.3MyBatis的原理"></a>21.3MyBatis的原理</h2><p><font color='scarlet'><code>MyBatis</code>的基本工作原理就是：先封装SQL，接着调用JDBC操作数据库，最后把数据库返回的表结果封装成Java类。</font></p>
+<p><code>MyBatis</code>的工作流程包括以下几个步骤：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230822162610960.png" srcset="/img/loading.gif" lazyload alt="image-20230822162610960"></p>
+<blockquote>
+<ol>
+<li><p>读取MyBatis的配置文件。mybatis-config.xml为MyBatis的全局配置文件，用于配置数据库连接信息。</p>
+</li>
+<li><p>加载映射文件。映射文件即SQL映射文件，该文件中配置了操作数据库的SQL语句，需要在MyBatis配置文件mybatis-config.xml中加载。mybatis-config.xml 文件可以加载多个映射文件，每个文件对应数据库中的一张表。</p>
+</li>
+<li><p>构造会话工厂。通过MyBatis的环境配置信息构建会话工厂SqlSessionFactory。</p>
+</li>
+<li><p>创建会话对象。由会话工厂创建SqlSession对象，该对象中包含了执行SQL语句的所有方法。</p>
+</li>
+<li><p>Executor执行器。MyBatis底层定义了一个Executor接口来操作数据库，它将根据SqlSession传递的参数动态地生成需要执行的SQL语句，同时负责查询缓存的维护。</p>
+</li>
+<li><p>MappedStatement对象。在Executor接口的执行方法中有一个MappedStatement类型的参数，该参数是对映射信息的封装，用于存储要映射的SQL语句的id、参数等信息。</p>
+</li>
+<li><p>输入参数映射。输入参数类型可以是Map、List等集合类型，也可以是基本数据类型和POJO类型。输入参数映射过程类似于JDBC对preparedStatement对象设置参数的过程。</p>
+</li>
+<li><p>输出结果映射。输出结果类型可以是Map、List等集合类型，也可以是基本数据类型和POJO类型。输出结果映射过程类似于JDBC对结果集的解析过程。</p>
+</li>
+</ol>
 </blockquote>
 
                 
@@ -2239,7 +2396,7 @@
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2642k</span>
+<span style="font-weight: initial">文章总字数2648k</span>
 
     </div>
   
