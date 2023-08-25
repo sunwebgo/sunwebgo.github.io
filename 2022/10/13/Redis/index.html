@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101201859716.png">
 <meta property="article:published_time" content="2022-10-13T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-22T17:52:31.523Z">
+<meta property="article:modified_time" content="2023-08-25T02:33:24.258Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="NoSQL">
 <meta property="article:tag" content="Redis">
@@ -289,7 +289,7 @@
         
         
         
-          812 分钟
+          807 分钟
         
       </span>
     
@@ -1661,7 +1661,7 @@
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929171149126.png" srcset="/img/loading.gif" lazyload alt="image-20220929171149126"></p>
 <p>解决分布式锁误删的方案：&#x3D;&#x3D;在释放锁之前判断Redis缓存当中线程号是否和当前线程的线程号相同，相同就是放，不同就不释放。&#x3D;&#x3D;</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929173645529.png" srcset="/img/loading.gif" lazyload alt="image-20220929173645529"></p>
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-9-29%2017-45-17.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-9-29%2017-45-17.gif</a>“ alt&#x3D;”GIF 2022-9-29 17-45-17” &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-9-29%2017-45-17.gif" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929174620218.png" srcset="/img/loading.gif" lazyload alt="image-20220929174620218"></p>
 <h2 id="14-6解决分布式锁的误删问题"><a href="#14-6解决分布式锁的误删问题" class="headerlink" title="14.6解决分布式锁的误删问题"></a>14.6解决分布式锁的误删问题</h2><p>需求：修改之前的分布式锁实现，满足：</p>
 <p><font color='red'>1.在获取锁时存入线程标示（可以用UUID表示）</font></p>
@@ -2222,7 +2222,6 @@
 <p>返回成功信息</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220924135351218.png" srcset="/img/loading.gif" lazyload alt="image-20220924135351218"></p>
 <p>控制台打印日志信息</p>
-<p><img src="/Redis.assets/image-20220924135440309.png" srcset="/img/loading.gif" lazyload alt="image-20220924135440309"></p>
 <h3 id="17-4-2验证码登录和注册"><a href="#17-4-2验证码登录和注册" class="headerlink" title="17.4.2验证码登录和注册"></a>17.4.2验证码登录和注册</h3><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220924135646120.png" srcset="/img/loading.gif" lazyload alt="image-20220924135646120"></p>
 <p>业务流程实现过程：&#x3D;&#x3D;当用户点击登录按钮后，获取到用户在前端提交的表格信息中的手机号和验证码，首先验证手机号是否合法，再验证输入的验证码是否和存在session中的验证码是否一致。验证完成后根据手机号查询用户状态，如果用户存在则登录，若不存在就首先创建用户。最后将用户信息存入session。&#x3D;&#x3D;</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/*
@@ -3135,7 +3134,7 @@
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929094512125.png" srcset="/img/loading.gif" lazyload alt="image-20220929094512125"></p>
 <h3 id="17-7-7使用悲观锁实现一人一单功能"><a href="#17-7-7使用悲观锁实现一人一单功能" class="headerlink" title="17.7.7使用悲观锁实现一人一单功能"></a>17.7.7使用悲观锁实现一人一单功能</h3><p>需求：修改秒杀业务，要求同一个优惠券，一个用户只能下一单</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929100334687.png" srcset="/img/loading.gif" lazyload alt="image-20220929100334687"></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20220929095056798.png" srcset="/img/loading.gif" lazyload alt="image-20220929095056798"></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/20230824171416.png" srcset="/img/loading.gif" lazyload><br><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%208-31-38.gif" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--        基于aop代理工厂面向切面编程所需依赖--></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.aspectj<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
@@ -3785,7 +3784,7 @@ redis<span class="token punctuation">.</span><span class="token function">call</
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-1%2022-07-17.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-1%2022-07-17.gif</a>“ alt&#x3D;”GIF 2022-10-1 22-07-17” &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-1%2022-07-17.gif" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221001221314975.png" srcset="/img/loading.gif" lazyload alt="image-20221001221314975"></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221001221332473.png" srcset="/img/loading.gif" lazyload alt="image-20221001221332473"></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221001220925594.png" srcset="/img/loading.gif" lazyload alt="image-20221001220925594"></p>
@@ -3993,7 +3992,7 @@ redis<span class="token punctuation">.</span><span class="token function">call</
         <span class="token keyword">return</span> <span class="token class-name">Result</span><span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>count <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-2%2016-41-56.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-2%2016-41-56.gif</a>“ alt&#x3D;”GIF 2022-10-2 16-41-56” &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-2%2016-41-56.gif" srcset="/img/loading.gif" lazyload></p>
 <p>关注成功，数据库插入一条数据</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221002164309404.png" srcset="/img/loading.gif" lazyload alt="image-20221002164309404"></p>
 <h3 id="17-8-6共同关注"><a href="#17-8-6共同关注" class="headerlink" title="17.8.6共同关注"></a>17.8.6共同关注</h3><p>&#x3D;&#x3D;共同关注就是当前登录的用户和查看的博主共同关注的人&#x3D;&#x3D;</p>
@@ -4234,7 +4233,7 @@ redis<span class="token punctuation">.</span><span class="token function">call</
 
 
 
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%208-31-38.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%208-31-38.gif</a>“ alt&#x3D;”GIF 2022-10-3 8-31-38” &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%208-31-38.gif" srcset="/img/loading.gif" lazyload></p>
 <h2 id="17-9附近商户"><a href="#17-9附近商户" class="headerlink" title="17.9附近商户"></a>17.9附近商户</h2><h3 id="17-9-1GEO数据结构概念"><a href="#17-9-1GEO数据结构概念" class="headerlink" title="17.9.1GEO数据结构概念"></a>17.9.1GEO数据结构概念</h3><p><code>GEO就是Geolocation(地理坐标)的简写形式</code>。Redis在3.2版本中加入了对GEO的支持，允许存储地理坐标信息，帮助我们根据经纬度来检索数据。常见的命令有：</p>
 <p><a target="_blank" rel="noopener" href="https://redis.io/commands/geoadd">GEOADD</a>：添加一个地理空间信息，包含：经度（longitude）、纬度（latitude）、值（member）</p>
 <p><a target="_blank" rel="noopener" href="https://redis.io/commands/geodist">GEODIST</a>：计算指定的两个点之间的距离并返回</p>
@@ -4365,7 +4364,7 @@ redis<span class="token punctuation">.</span><span class="token function">call</
         <span class="token keyword">return</span> <span class="token class-name">Result</span><span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>shops<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
-<p>![](<a target="_blank" rel="noopener" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%2012-50-42.gif">https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%2012-50-42.gif</a>“ alt&#x3D;”GIF 2022-10-3 12-50-42” &#x2F;&gt;</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/GIF%202022-10-3%2012-50-42.gif" srcset="/img/loading.gif" lazyload></p>
 <h2 id="17-10用户签到"><a href="#17-10用户签到" class="headerlink" title="17.10用户签到"></a>17.10用户签到</h2><h3 id="17-10-1BitMap的用法"><a href="#17-10-1BitMap的用法" class="headerlink" title="17.10.1BitMap的用法"></a>17.10.1BitMap的用法</h3><p>假如我们用一张表来存储用户签到信息，其结构应该如下：</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221003125403603.png" srcset="/img/loading.gif" lazyload alt="image-20221003125403603"></p>
 <p>假如有1000万用户，平均每人每年签到次数为10次，则这张表一年的数据量为 1亿条</p>
@@ -5257,7 +5256,7 @@ logfile /opt/6379/run.log<span aria-hidden="true" class="line-numbers-rows"><spa
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005201710230.png" srcset="/img/loading.gif" lazyload alt="image-20221005201710230"></p>
 <p>写操作操作7002主节点</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221005202016737.png" srcset="/img/loading.gif" lazyload alt="image-20221005202016737"></p>
-<h1 id="1-多级缓存"><a href="#1-多级缓存" class="headerlink" title="1.多级缓存"></a>1.多级缓存</h1><p>传统的缓存策略一般是请求到达Tomcat后，先查询Redis，如果未命中则查询数据库，存在下面的问题：</p>
+<h1 id="19-多级缓存"><a href="#19-多级缓存" class="headerlink" title="19.多级缓存"></a>19.多级缓存</h1><p>传统的缓存策略一般是请求到达Tomcat后，先查询Redis，如果未命中则查询数据库，存在下面的问题：</p>
 <ul>
 <li><p>请求要经过Tomcat处理，<code>Tomcat的性能成为整个系统的瓶颈</code></p>
 </li>
@@ -5563,7 +5562,7 @@ logfile /opt/6379/run.log<span aria-hidden="true" class="line-numbers-rows"><spa
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2649k</span>
+<span style="font-weight: initial">文章总字数2648k</span>
 
     </div>
   
