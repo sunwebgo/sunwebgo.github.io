@@ -16,16 +16,16 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1：项目部署所使用的工具或资源 Xshell：用于在本机Windows界面访问远端不同系统下的服务器。  Xshell官网  x 1package io.renren.modules.app.utils;2​3​4import com.baomidou.mybatisplus.annotation.DbType;5import com.baomidou.mybatisplus.annotation">
+    <meta name="description" content="1：项目部署所使用的工具或资源 Xshell：用于在本机Windows界面访问远端不同系统下的服务器。  Xshell官网     [Xftp官网](https:&#x2F;&#x2F;www.xshell.com&#x2F;zh&#x2F;xftp&#x2F;)   Postman：Postman是一个接口测试工具，本次部署中用于测试后端接口。     相较于Postman，可以有更好的选择即ApiFox。在本次部署中为方便采用Postman。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot+Vue项目部署">
 <meta property="og:url" content="https://xhablog.online/2022/07/30/SpringBoot+Vue%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="1：项目部署所使用的工具或资源 Xshell：用于在本机Windows界面访问远端不同系统下的服务器。  Xshell官网  x 1package io.renren.modules.app.utils;2​3​4import com.baomidou.mybatisplus.annotation.DbType;5import com.baomidou.mybatisplus.annotation">
+<meta property="og:description" content="1：项目部署所使用的工具或资源 Xshell：用于在本机Windows界面访问远端不同系统下的服务器。  Xshell官网     [Xftp官网](https:&#x2F;&#x2F;www.xshell.com&#x2F;zh&#x2F;xftp&#x2F;)   Postman：Postman是一个接口测试工具，本次部署中用于测试后端接口。     相较于Postman，可以有更好的选择即ApiFox。在本次部署中为方便采用Postman。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/0328daae47da4a2695bcfed54643fc8b.png">
 <meta property="article:published_time" content="2022-07-30T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-26T15:12:41.717Z">
+<meta property="article:modified_time" content="2023-08-26T16:18:58.507Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="SpringBoot">
 <meta property="article:tag" content="Vue">
@@ -278,7 +278,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.4k 字
+          4.4k 字
         
       </span>
     
@@ -289,7 +289,7 @@
         
         
         
-          62 分钟
+          37 分钟
         
       </span>
     
@@ -343,8 +343,6 @@
                 <h1 id="1：项目部署所使用的工具或资源"><a href="#1：项目部署所使用的工具或资源" class="headerlink" title="1：项目部署所使用的工具或资源"></a>1：项目部署所使用的工具或资源</h1><ol>
 <li><p><strong>Xshell</strong>：用于在本机Windows界面访问远端不同系统下的服务器。</p>
 <p> <a target="_blank" rel="noopener" href="https://www.xshell.com/zh/xshell/">Xshell官网</a></p>
-</li>
-<li><p>x 1package io.renren.modules.app.utils;2​3​4import com.baomidou.mybatisplus.annotation.DbType;5import com.baomidou.mybatisplus.annotation.IdType;6import com.baomidou.mybatisplus.generator.AutoGenerator;7import com.baomidou.mybatisplus.generator.config.DataSourceConfig;8import com.baomidou.mybatisplus.generator.config.GlobalConfig;9import com.baomidou.mybatisplus.generator.config.PackageConfig;10import com.baomidou.mybatisplus.generator.config.StrategyConfig;11import com.baomidou.mybatisplus.generator.config.rules.DateType;12import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;13import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;14​15​16import java.util.Collections;17​18&#x2F;**19 * @description: 代码生成器20 * @author: YuanJie21 * @create: 2022-1-31 16:2222 **&#x2F;23​24&#x2F;&#x2F; 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中25public class Generator {26    public static void main(String[] args) {27        &#x2F;&#x2F; 1、创建代码生成器28        AutoGenerator mpg &#x3D; new AutoGenerator();29        mpg.setTemplateEngine(new FreemarkerTemplateEngine());30​31        &#x2F;&#x2F; 2、全局配置32        GlobalConfig gc &#x3D; new GlobalConfig();33        String projectPath &#x3D; System.getProperty(“user.dir”);34        gc.setOutputDir(projectPath + “&#x2F;renren-fast-master&#x2F;src&#x2F;main&#x2F;java”);35        gc.setAuthor(“渊洁”);36        gc.setOpen(false); &#x2F;&#x2F;生成后是否打开资源管理器37        gc.setFileOverride(false); &#x2F;&#x2F;重新生成时文件是否覆盖38        gc.setServiceName(“%sService”); &#x2F;&#x2F;去掉Service接口的首字母I39        gc.setIdType(IdType.ID_WORKER_STR); &#x2F;&#x2F;主键策略40        gc.setDateType(DateType.ONLY_DATE);&#x2F;&#x2F;定义生成的实体类中日期类型41        gc.setSwagger2(false);&#x2F;&#x2F;开启Swagger2模式42​43        mpg.setGlobalConfig(gc);44​45        &#x2F;&#x2F; 3、数据源配置46        DataSourceConfig dsc &#x3D; new DataSourceConfig();47        dsc.setUrl(“jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;pdsu_test?useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;serverTimezone&#x3D;Asia&#x2F;Shanghai&amp;rewriteBatchedStatements&#x3D;true”);48        dsc.setDriverName(“com.mysql.cj.jdbc.Driver”);49        dsc.setUsername(“root”);50        dsc.setPassword(“WJHwjh20010825.”);51        dsc.setDbType(DbType.MYSQL);52        mpg.setDataSource(dsc);53​54        &#x2F;&#x2F; 4、包配置55        PackageConfig pc &#x3D; new PackageConfig();56        pc.setModuleName(null); &#x2F;&#x2F;模块名57        pc.setParent(“io.renren.modules.app”);58        pc.setController(“controller”);59        pc.setEntity(“entity”);60        pc.setService(“service”);61        pc.setMapper(“dao”);62        mpg.setPackageInfo(pc);63​64        &#x2F;&#x2F; 5、策略配置65        StrategyConfig strategy &#x3D; new StrategyConfig();66        strategy.setInclude(“tb_article”);&#x2F;&#x2F;对那一张表生成代码67        strategy.setNaming(NamingStrategy.underline_to_camel);&#x2F;&#x2F;数据库表映射到实体的命名策略68        strategy.setTablePrefix(pc.getModuleName() + “_”); &#x2F;&#x2F;生成实体时去掉表前缀69​70        strategy.setColumnNaming(NamingStrategy.underline_to_camel);&#x2F;&#x2F;数据库表字段映射到实体的命名策略71        strategy.setEntityLombokModel(true); &#x2F;&#x2F; lombok 模型 @Accessors(chain &#x3D; true) setter链式操作72​73        strategy.setRestControllerStyle(true); &#x2F;&#x2F;restful api风格控制器74        strategy.setControllerMappingHyphenStyle(true); &#x2F;&#x2F;url中驼峰转连字符75​76        mpg.setStrategy(strategy);77​78        &#x2F;&#x2F; 6、执行79        mpg.execute();80    }81}82​83​84​java</p>
 <figure><div class="code-wrapper"><pre class="language-none"><code class="language-none">    [Xftp官网](https://www.xshell.com/zh/xftp/)
 </code></pre></div></figure>
 </li>
@@ -993,7 +991,7 @@ source <span class="token keyword">sql</span>文件相对路径<span class="toke
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2647k</span>
+<span style="font-weight: initial">文章总字数2644k</span>
 
     </div>
   
