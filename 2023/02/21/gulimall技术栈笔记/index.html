@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612180436748.png">
 <meta property="article:published_time" content="2023-02-21T02:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-30T13:16:25.607Z">
+<meta property="article:modified_time" content="2023-08-30T15:59:32.677Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="SpringCloud">
 <meta property="article:tag" content="微服务">
@@ -3671,8 +3671,8 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <p>BASE 理论：BASE 理论是对分布式系统的一种实用性指导，相对于 ACID（原子性、一致性、隔离性、持久性）传统事务处理的严格要求。BASE 理论强调：</p>
 <blockquote>
 <ul>
-<li><strong>基本可用性（Basically Available）</strong>：系统保持可用状态，但不一定保证实时性或完全一致性。</li>
-<li><strong>软状态（Soft State）</strong>：系统中的数据在不同节点上可能存在中间状态，而不需要严格的一致性。</li>
+<li><strong>基本可用性（Basically Available）</strong>：分布式系统出现故障的时候，允许损失一部分可用性。</li>
+<li><strong>软状态（Soft State）</strong>：允许系统存在中间状态，这个中间状态又不会影响系统整体可用性。比如，数据库读写分离，写库同步到读库（主库同步到从库）会有一个延时，这样实际是一种柔性状态。</li>
 <li><strong>最终一致性（Eventually Consistent）</strong>：系统最终会在各个节点上达到一致状态，但在一段时间内可能存在不一致的情况，最终会被修复。</li>
 </ul>
 </blockquote>
@@ -5952,9 +5952,9 @@ systemctl restart firewalld.service<span aria-hidden="true" class="line-numbers-
 <h2 id="12-4订单业务"><a href="#12-4订单业务" class="headerlink" title="12.4订单业务"></a>12.4订单业务</h2><h3 id="12-4-1订单的构成"><a href="#12-4-1订单的构成" class="headerlink" title="12.4.1订单的构成"></a>12.4.1订单的构成</h3><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230205172741646.png" srcset="/img/loading.gif" lazyload alt="image-20230205172741646"></p>
 <h3 id="12-4-2订单流程"><a href="#12-4-2订单流程" class="headerlink" title="12.4.2订单流程"></a>12.4.2订单流程</h3><p>订单流程是指从订单产生到完成整个流转的过程，从而行程了一套标准流程规则。而不同的产品类型或业务类型在系统中的流程会千差万别，比如上面提到的线上实物订单和虚拟订单的流程，线上实物订单与 O2O 订单等，所以需要根据不同的类型进行构建订单流程。 不管类型如何订单都包括正向流程和逆向流程，对应的场景就是购买商品和退换货流程，正 向流程就是一个正常的网购步骤：订单生成–&gt;支付订单–&gt;卖家发货–&gt;确认收货–&gt;交易成功。 而每个步骤的背后，订单是如何在多系统之间交互流转的，可概括如下图</p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230205173046104.png" srcset="/img/loading.gif" lazyload alt="image-20230205173046104"></p>
-<h3 id="12-4-3基于RabbitMQ的消息TTL和死信队列来解决订单库存问题"><a href="#12-4-3基于RabbitMQ的消息TTL和死信队列来解决订单库存问题" class="headerlink" title="12.4.3基于RabbitMQ的消息TTL和死信队列来解决订单库存问题"></a>12.4.3基于RabbitMQ的消息TTL和死信队列来解决订单库存问题</h3><h4 id="12-4-3-1问题描述"><a href="#12-4-3-1问题描述" class="headerlink" title="12.4.3.1问题描述"></a>12.4.3.1问题描述</h4><p>当用户下单后，如果用户未在指定的时间内付款。那么系统将会自动取消订单并且释放库存。</p>
+<h3 id="12-4-3基于RabbitMQ的消息TTL和延迟队列来解决订单库存问题"><a href="#12-4-3基于RabbitMQ的消息TTL和延迟队列来解决订单库存问题" class="headerlink" title="12.4.3基于RabbitMQ的消息TTL和延迟队列来解决订单库存问题"></a>12.4.3基于RabbitMQ的消息TTL和延迟队列来解决订单库存问题</h3><h4 id="12-4-3-1问题描述"><a href="#12-4-3-1问题描述" class="headerlink" title="12.4.3.1问题描述"></a>12.4.3.1问题描述</h4><p>当用户下单后，如果用户未在指定的时间内付款。那么系统将会自动取消订单并且释放库存。</p>
 <p>对于以上问题，可以采用Spring的定时任务—schedule来轮询数据库，但是当有大量数据时，每隔一段时间来轮询数据库，就会给数据库造成很大的压力。</p>
-<p>所以可以采用RabbitMQ的消息TTL和死信队列来解决订单问题。</p>
+<p>所以可以采用RabbitMQ的消息TTL和延迟队列来解决订单问题。</p>
 <h4 id="12-4-3-2延迟队列的使用场景"><a href="#12-4-3-2延迟队列的使用场景" class="headerlink" title="12.4.3.2延迟队列的使用场景"></a>12.4.3.2延迟队列的使用场景</h4><ol>
 <li>订单在十分钟之内未支付则自动取消 </li>
 <li>新创建的店铺，如果在十天内都没有上传过商品，则自动发送消息提醒。 </li>
