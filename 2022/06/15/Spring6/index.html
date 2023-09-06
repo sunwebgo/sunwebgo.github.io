@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230612095947200.png">
 <meta property="article:published_time" content="2022-06-15T07:15:01.000Z">
-<meta property="article:modified_time" content="2023-08-30T15:59:32.673Z">
+<meta property="article:modified_time" content="2023-09-06T00:05:07.419Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Spring">
 <meta property="article:tag" content="框架">
@@ -792,9 +792,9 @@
 <p>在上面的代码中，我们使用了<code>ConfigurableListableBeanFactory</code>类的<code>SCOPE_PROTOTYPE</code>常量来设置类原型作用域。当然也可以直接使用@Scope (“prototype”)，但是使用<code>SCOPE_PROTOTYPE</code>常量更加安全并且不易出错。</p>
 <h3 id="3-1-5IoC的执行流程"><a href="#3-1-5IoC的执行流程" class="headerlink" title="3.1.5IoC的执行流程"></a>3.1.5IoC的执行流程</h3><blockquote>
 <ol>
-<li><strong>创建Spring IOC容器</strong>：<code>BeanFactory</code>是一个跟接口，是IoC 容器的核心实现，是管理Bean的工厂类。而<code>ApplicationContext</code>是<code>BeanFactory</code>的子接口，使用<code>ApplicationContext</code>的实现类来创建IoC容器，如<code>ClassPathXmlApplicationContext</code>通过读取类路径下的 XML 格式的配置文件创建 IOC 容器对象，<code>AnnotationConfigApplicationContext</code>通过读取注解创建 IOC 容器对象。</li>
+<li><strong>创建Spring IOC容器</strong>：<code>BeanFactory</code>是一个根接口，是IoC 容器的核心实现，是管理Bean的工厂类。而<code>ApplicationContext</code>是<code>BeanFactory</code>的子接口，使用<code>ApplicationContext</code>的实现类来创建IoC容器，如<code>ClassPathXmlApplicationContext</code>通过读取类路径下的 XML 格式的配置文件创建 IOC 容器对象，<code>AnnotationConfigApplicationContext</code>通过读取注解创建 IOC 容器对象。</li>
 <li>使用<code>BeanDefinitionReader</code>解析XML中或者注解的Bean定义，生成<code>BeanDefinition</code>。它是将Bean的类名，属性，依赖等封装成一个<code>BeanDefinition</code>对象，并注册到BeanFactory中。BeanDefinitionReader有多种实现类，如XmlBeanDefinitionReader, AnnotationBeanDefinitionReader等。</li>
-<li>后置处理器<code>BeanFacotryPostProcesser</code>处理增强Bean。这是一个用于在<code>BeanFactory</code>初始化后对Bean进行修改或增强的接口等。</li>
+<li>后置处理器<code>BeanFacotryPostProcesser</code>处理增强Bean。这是一个用于在<code>BeanFactory</code>初始化前后对Bean进行修改或增强的接口等。</li>
 <li>通过反射，得到实例化后的Bean。这是一个用于根据<code>BeanDefinition</code>中的类名来创建对象的过程，它使用Java反射机制来调用构造方法或工厂方法来生成实例。</li>
 <li>Bean的初始化，包括填充属性，执行Aware方法，Bean的前后PostProcesser的处理，得到完整的Bean。这是一个用于对实例化后的Bean进行进一步配置和初始化的过程，它包括以下几个步骤：<ul>
 <li>填充属性。根据BeanDefinition中的属性信息，使用反射或者setter方法来为Bean设置属性值。</li>
@@ -6313,7 +6313,7 @@ use `spring`<span class="token punctuation">;</span>
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2648k</span>
+<span style="font-weight: initial">文章总字数2651k</span>
 
     </div>
   
