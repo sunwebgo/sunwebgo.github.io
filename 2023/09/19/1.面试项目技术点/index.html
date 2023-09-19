@@ -1,0 +1,1035 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <link rel="icon" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.面试项目技术点1.1SpringSecurity认证流程1.1.1注册用户输入信息注册，使用PasswordEncoder的实现类BCryptPasswordEncoder对密码进行加密存储到数据库中。 BCrypt是一种基于哈希+随机盐值的方式进行加密。 1.1.2登录认证登录的业务包括：用于输入用户名+密码–&gt;登录   SpringSecurity的核心是Filter Chain（过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xhang′s blog">
+<meta property="og:url" content="https://xhablog.online/2023/09/19/1.%E9%9D%A2%E8%AF%95%E9%A1%B9%E7%9B%AE%E6%8A%80%E6%9C%AF%E7%82%B9/index.html">
+<meta property="og:site_name" content="xhang′s blog">
+<meta property="og:description" content="1.面试项目技术点1.1SpringSecurity认证流程1.1.1注册用户输入信息注册，使用PasswordEncoder的实现类BCryptPasswordEncoder对密码进行加密存储到数据库中。 BCrypt是一种基于哈希+随机盐值的方式进行加密。 1.1.2登录认证登录的业务包括：用于输入用户名+密码–&gt;登录   SpringSecurity的核心是Filter Chain（过">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230827171046751.png">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/SpringSecurity%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B.jpg">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230830121129637.png">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(34).jpg">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(2).png">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(3).png">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230831163931903.png">
+<meta property="article:published_time" content="2023-09-19T01:16:25.248Z">
+<meta property="article:modified_time" content="2023-09-19T01:16:25.248Z">
+<meta property="article:author" content="Xu huaiang">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230827171046751.png">
+  
+  
+  
+  <title>xhang′s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+<link rel="stylesheet" href="/css/indeximg-hover.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xhablog.online","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang′s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-zhuye"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-guidang1"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-fenlei"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-biaoqian"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messageboard/">
+                <i class="iconfont icon-liuyanban-05"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-youqinglianjie"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-guanyuwomen"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/index.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-19 09:16" pubdate>
+          2023年9月19日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          48 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-面试项目技术点"><a href="#1-面试项目技术点" class="headerlink" title="1.面试项目技术点"></a>1.面试项目技术点</h1><h2 id="1-1SpringSecurity认证流程"><a href="#1-1SpringSecurity认证流程" class="headerlink" title="1.1SpringSecurity认证流程"></a>1.1SpringSecurity认证流程</h2><h3 id="1-1-1注册"><a href="#1-1-1注册" class="headerlink" title="1.1.1注册"></a>1.1.1注册</h3><p>用户输入信息注册，使用<code>PasswordEncoder</code>的实现类<code>BCryptPasswordEncoder</code>对密码进行加密存储到数据库中。</p>
+<p><code>BCrypt</code>是一种基于哈希+随机盐值的方式进行加密。</p>
+<h3 id="1-1-2登录认证"><a href="#1-1-2登录认证" class="headerlink" title="1.1.2登录认证"></a>1.1.2登录认证</h3><p>登录的业务包括：用于输入用户名+密码–&gt;登录</p>
+<blockquote>
+<ol>
+<li>SpringSecurity的核心是Filter Chain（过滤器链）</li>
+<li>当用户登录发送请求时，首先会被<code>UsernamePasswordAuthenticationFilter</code>过滤器拦截请求，并根据用户名和密码，封装<code>Authentication</code>对象。</li>
+<li>然后通过认证管理器<code>AuthenticationManager</code>对<code>Authentication</code>对象进行认证。</li>
+<li>认证的过程就是调用<code>UserDetailsService</code>接口的实现类当中的<code>loadUserByUsername</code>方法。</li>
+<li>在<code>loadUserByUsername</code>方法当中可以根据用户名查询数据库查询到对应的用户信息和权限信息，最后封装为<code>UserDetails</code>对象返回。</li>
+<li>通过<code>DaoAuthenticationProvider</code>对象将<code>UserDetails</code>对象进行处理。包括通过<code>PasswordEncode</code>对比<code>UserDetails</code>中的密码与<code>Authentication</code>中密码是否一致，如果不一致则认证失败。如果认证成功，填充用户信息和授权信息，封装为<code>Authentication</code>对象返回。</li>
+<li>将从<code>Authentication</code>对象中获取到用户信息和权限信息存入redis缓存。</li>
+<li>并根据用户主键生成Token加入返回给客户端浏览器。</li>
+<li>用户登录成功。</li>
+</ol>
+</blockquote>
+<p>下面是<code>DaoAuthencitionProvider</code>使用<code>PasswordEncoder</code>对用户密码进行验证。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230827171046751.png" srcset="/img/loading.gif" lazyload alt="image-20230827171046751"></p>
+<h3 id="1-1-3后续请求认证"><a href="#1-1-3后续请求认证" class="headerlink" title="1.1.3后续请求认证"></a>1.1.3后续请求认证</h3><blockquote>
+<ol>
+<li>创建token拦截器。</li>
+<li>从请求头当中获取到token，如果不存在token则放行（1.不需要认证的请求 2.需要认证但是未携带token）。</li>
+<li>存在token，根据用户id查询redis缓存中对应的用户信息和权限信息，将其存入到SpringSecurity的上下文对象<code>SecurityContextHolder</code>当中。后续的授权就是<code>FilterSecurityInterceptor</code>从<code>SecurityContextHolder</code>获取到对应的权限信息。</li>
+</ol>
+</blockquote>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/SpringSecurity%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B.jpg" srcset="/img/loading.gif" lazyload alt="SpringSecurity认证流程"></p>
+<h2 id="1-2SpringSecurity鉴权流程"><a href="#1-2SpringSecurity鉴权流程" class="headerlink" title="1.2SpringSecurity鉴权流程"></a>1.2SpringSecurity鉴权流程</h2><p>鉴权就是使用的是<code>SpringSecurity</code>的过滤器链当中的<code>FilterSecurityInterceptor</code>从<code>SecurityContextHolder</code>获取到对应的权限信息。开启鉴权的方案有两种。</p>
+<ol>
+<li><p><strong>方法级安全管控</strong></p>
+<blockquote>
+<ul>
+<li>在SpringSecurity的配置类中添加注解<code>@EnableGlobaMethodSecurity</code>开启方法级安全管控。<code>@EnableGlobalMethodSecurity</code>注解的属性<code>prePostEnabled = true </code>会解锁 <code>@PreAuthorize </code>和 <code>@PostAuthorize</code> 两个注解。**@PreAuthorize 注解会在方法执行前进行验证，而 @PostAuthorize 注解会在方法执行后进行验证。**</li>
+<li>其中对应的属性<code>hasAuthority</code>就可以设置对应的权限字符串。</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>配置文件配置接口鉴权</strong></p>
+<blockquote>
+<ul>
+<li>在<code>SpringSecurity</code>的配置类（实现了<code>WebSecurityConfigurerAdapter </code>接口）中的<code>configure</code>中配置对应接口的鉴权规则。</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h2 id="1-3自定义失败处理"><a href="#1-3自定义失败处理" class="headerlink" title="1.3自定义失败处理"></a>1.3自定义失败处理</h2><p>认证授权失败都是由<code>SpringSecurity</code>的过滤器链当中的<code>ExceptionTranslationFilter</code>所捕获。</p>
+<ol>
+<li>认证异常：实现<code>AuthenticationEntryPoint</code>接口来实现自定义认证异常处理。</li>
+<li>授权异常：实现<code>AccessDeniedHandler</code>接口来处理授权异常处理。</li>
+</ol>
+<h1 id="2-下单业务"><a href="#2-下单业务" class="headerlink" title="2.下单业务"></a>2.下单业务</h1><ul>
+<li>负责订单模块下单业务，<font color='scarlet'>采用<code>令牌机制</code>保证下单接口的幂等性，采用延迟队列完成定时关单。</font></li>
+</ul>
+<h2 id="2-1接口幂等性"><a href="#2-1接口幂等性" class="headerlink" title="2.1接口幂等性"></a>2.1接口幂等性</h2><ol>
+<li><p><strong>接口幂等性概述</strong></p>
+<p><font color='read'>接口幂等性就是用户的一次请求和多次请求产生的结果是相同的，不会因为多次点击差生不同的结果。</font></p>
+</li>
+<li><p><strong>哪些情况需要保证接口幂等性</strong></p>
+<ul>
+<li>用户的多次点击</li>
+<li>页面回退再提交</li>
+</ul>
+</li>
+<li><p><strong>如何保证接口幂等性</strong></p>
+<ul>
+<li><p><font color='read'>令牌机制</font></p>
+<ul>
+<li><p>服务端提供了发送 token 的接口。我们在分析业务的时候，哪些业务是存在幂等问题的， 就必须在执行业务前，先去获取 token，服务器会把 token 保存到 redis 中。 </p>
+</li>
+<li><p>然后调用业务接口请求时，把 token 携带过去，一般放在请求头部。 </p>
+</li>
+<li><p>服务器判断 token 是否存在 redis 中，存在表示第一次请求，然后删除 token，继续执行业务。 </p>
+</li>
+<li><p>如果判断 token 不存在 redis 中，就表示是重复操作，直接返回重复标记给 client，这样就保证了业务代码，不被重复执行。</p>
+</li>
+<li><p><font color='cornflowerblue'>但是令牌机制存在一些问题，在高并发情况下应该确保查询缓存、对比令牌和删除缓存是原子性的，可以采用Lua脚本来实现。</font></p>
+</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">if</span> redis<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token char">'get'</span><span class="token punctuation">,</span> <span class="token constant">KEYS</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token constant">ARGV</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> 
+    then 
+    	<span class="token keyword">return</span> redis<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token char">'del'</span><span class="token punctuation">,</span> <span class="token constant">KEYS</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> 
+    <span class="token keyword">else</span> 
+        <span class="token keyword">return</span> <span class="token number">0</span> 
+    end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><font color='read'>锁机制</font></p>
+<ul>
+<li><p>数据库悲观锁</p>
+</li>
+<li><p>数据库乐观锁机制</p>
+</li>
+<li><p>分布式锁</p>
+<p><font color='cornflowerblue'>采用分布式锁的方案就是，当执行一个下单的请求的时候，会获取到分布式锁，同一订单只能被处理一次，从而确保了下单接口的幂等性。在释放锁之前，其他请求将会被阻塞，等待当前请求完成。</font></p>
+</li>
+</ul>
+</li>
+<li><p><font color='read'>数据库层面的唯一约束</font></p>
+<ul>
+<li>唯一约束</li>
+<li>主键约束</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230830121129637.png" srcset="/img/loading.gif" lazyload alt="image-20230830121129637"></p>
+<p>下面的业务就是当响应订单页的时候，返回前端<code>防重令牌</code>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">    <span class="token comment">/**
+     * 返回确认订单页所需的数据
+     *
+     * @return &#123;@link OrderConfirmVO&#125;
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">OrderConfirmVO</span> <span class="token function">confirmOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">ExecutionException</span><span class="token punctuation">,</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">&#123;</span>
+<span class="token comment">//        获取到当前线程的请求数据</span>
+        <span class="token class-name">RequestAttributes</span> requestAttributes <span class="token operator">=</span> <span class="token class-name">RequestContextHolder</span><span class="token punctuation">.</span><span class="token function">getRequestAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">OrderConfirmVO</span> orderConfirmVO <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OrderConfirmVO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        1.获取到当前登录用户的id</span>
+        <span class="token class-name">MemberTO</span> memberTO <span class="token operator">=</span> <span class="token class-name">LoginInterceptor</span><span class="token punctuation">.</span>threadLoginUser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        2.远程调用会员服务，根据当前用户id查询用户的收货地址列表</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token comment">//        3.远程调用购物车服务，得到当前的购物项列表</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token comment">//        4.设置商品总额</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token comment">//        5.设置用户积分</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token comment">//        6.设置防重令牌</span>
+        <span class="token class-name">String</span> token <span class="token operator">=</span> <span class="token class-name">IdUtil</span><span class="token punctuation">.</span><span class="token function">simpleUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        7.缓存防重令牌</span>
+        stringRedisTemplate<span class="token punctuation">.</span><span class="token function">opsForValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token class-name">CacheConstants</span><span class="token punctuation">.</span><span class="token constant">USER_ORDER_TOKEN_CACHE</span> <span class="token operator">+</span> memberTO<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                token<span class="token punctuation">,</span>
+                <span class="token number">30</span><span class="token punctuation">,</span>
+                <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">MINUTES</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//8.响应给前端</span>
+        orderConfirmVO<span class="token punctuation">.</span><span class="token function">setOrderToken</span><span class="token punctuation">(</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">CompletableFuture</span><span class="token punctuation">.</span><span class="token function">allOf</span><span class="token punctuation">(</span>receiveAddressFuture<span class="token punctuation">,</span>
+                orderItemListFuture<span class="token punctuation">,</span>
+                skuTotalPriceFuture<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> orderConfirmVO<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+     * 提交订单
+     *
+     * @param orderSubmitDTO 订单提交dto
+     * @return &#123;@link SubmitOrderResponseVO&#125;
+     */</span>
+    <span class="token annotation punctuation">@Transactional</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">SubmitOrderResponseVO</span> <span class="token function">submitOrder</span><span class="token punctuation">(</span><span class="token class-name">OrderSubmitDTO</span> orderSubmitDTO<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        threadLocal<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>orderSubmitDTO<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">SubmitOrderResponseVO</span> submitOrderResponseVO <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SubmitOrderResponseVO</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        1.获取到当前登录的用户</span>
+        <span class="token class-name">MemberTO</span> memberTO <span class="token operator">=</span> <span class="token class-name">LoginInterceptor</span><span class="token punctuation">.</span>threadLoginUser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> orderToken <span class="token operator">=</span> orderSubmitDTO<span class="token punctuation">.</span><span class="token function">getOrderToken</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//        2.使用lua脚本验证订单token（查询令牌、验证令牌和删除令牌保证原子性）</span>
+<span class="token comment">//        检查 Redis 中存储在指定键中的值是否等于提供的参数。</span>
+<span class="token comment">//        如果相等，它将删除该键并返回 1（因为 DEL 命令返回被删除键的数量），</span>
+<span class="token comment">//        如果不相等，则返回 0 表示没有执行删除操作。</span>
+        <span class="token class-name">String</span> luaScript <span class="token operator">=</span> <span class="token string">"if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end"</span><span class="token punctuation">;</span>
+        <span class="token class-name">Long</span> executeResult <span class="token operator">=</span> stringRedisTemplate<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">DefaultRedisScript</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Long</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>luaScript<span class="token punctuation">,</span> <span class="token class-name">Long</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token class-name">CacheConstants</span><span class="token punctuation">.</span><span class="token constant">USER_ORDER_TOKEN_CACHE</span> <span class="token operator">+</span> memberTO<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                orderToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>executeResult <span class="token operator">==</span> <span class="token number">0L</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            submitOrderResponseVO<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//            2.1令牌验证失败</span>
+            <span class="token keyword">return</span> submitOrderResponseVO<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+<span class="token comment">//            2.2令牌验证成功，创建订单</span>
+
+<span class="token comment">//        3.保存订单和订单项</span>
+<span class="token comment">//            3.1保存订单</span>
+
+<span class="token comment">//            3.2保存订单项</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token comment">//        4.锁定库存</span>
+<span class="token comment">//            4.1封装WareSkuLockTO对象</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token comment">//            4.2调用库存服务,锁定库存</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token comment">//          5.订单创建成功，发送消息到rabbitmq的延时队列</span>
+                <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> submitOrderResponseVO<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h2 id="2-2锁定库存"><a href="#2-2锁定库存" class="headerlink" title="2.2锁定库存"></a>2.2锁定库存</h2><p>下单成功后，需要去扣减库存，但是不能直接扣减库存，因为在用户下单之后，未付款之前，用户可能会取消订单或者是未付款直至订单超时。</p>
+<p><strong>所以应该先锁定库存，确保本次下单有足够的库存。</strong></p>
+<p>锁定库存操作采用<code>乐观锁</code>机制，<code>stock - stock_locked &gt;= #&#123;count&#125;</code> 部分用于确保在更新数据时，所需的库存仍然充足。这样的确可以作为一种乐观锁的实现，因为它在更新之前检查了条件，以确保库存不会因为并发操作而不正确地减少。如果库存不足，更新操作就会失败，从而避免了超卖的问题。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">&lt;</span>update id<span class="token operator">=</span><span class="token string">"lockWare"</span><span class="token operator">></span>
+    <span class="token constant">UPDATE</span> wms_ware_sku
+    <span class="token class-name">SET</span> stock_locked <span class="token operator">=</span> stock_locked <span class="token operator">+</span> #<span class="token punctuation">&#123;</span>count<span class="token punctuation">&#125;</span>
+    <span class="token class-name">WHERE</span>
+        sku_id <span class="token operator">=</span> #<span class="token punctuation">&#123;</span>skuId<span class="token punctuation">&#125;</span>
+      <span class="token class-name">AND</span> ware_id <span class="token operator">=</span> #<span class="token punctuation">&#123;</span>wareId<span class="token punctuation">&#125;</span>
+      <span class="token constant">AND</span> stock <span class="token operator">-</span> stock_locked <span class="token operator">>=</span> #<span class="token punctuation">&#123;</span>count<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>update<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><font color='scarlet'>并将锁定的库存信息放入到消息队列当中，用于当<code>订单取消</code>、<code>订单未支付</code>时解锁库存。</font></p>
+<h2 id="2-3可靠消息-最终一致性解决分布式事务"><a href="#2-3可靠消息-最终一致性解决分布式事务" class="headerlink" title="2.3可靠消息+最终一致性解决分布式事务"></a>2.3可靠消息+最终一致性解决分布式事务</h2><p>可靠消息+最终一致性解决方案是对BASE理论的实现，就是基于消息队列来完成的，适用于高并发的场景。</p>
+<p><font color='cornflowerblue'>在业务处理服务中，事务未提交之前，将消息数据存入到消息队列当中，消息队列对消息数据进行处理，这种方式不能够保证数据的强一致性，但是只要能够保证消息的可靠消费，就能够保证最终一致性，并且这种方式是异步的，能够提升系统的并发性能。</font></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(34).jpg" srcset="/img/loading.gif" lazyload alt="未命名文件 (34)"></p>
+<p>上图中，当关单消费者关单后，将对应的订单消息发送到<code>库存解锁队列</code>当中，由对应的<code>解锁库存消费者</code>解锁库存，即如果库存工作单处于<code>锁定状态</code>就进行解锁。</p>
+<p>目的是为了防止由于超时关单处理过慢，<code>库存解锁</code>先行	执行，发现订单状态为<code>未支付</code>，就不做处理，导致库存不能够解锁。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(2).png" srcset="/img/loading.gif" lazyload alt="未命名文件 (2)"></p>
+<p>具体流程图如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(3).png" srcset="/img/loading.gif" lazyload alt="未命名文件 (3)"></p>
+<h3 id="2-4-1延迟队列定时关单"><a href="#2-4-1延迟队列定时关单" class="headerlink" title="2.4.1延迟队列定时关单"></a>2.4.1延迟队列定时关单</h3><p><code>延迟队列</code>就是基于<code>死信队列</code>实现的</p>
+<blockquote>
+<ul>
+<li>一共有一个交换机和两个队列，其中一个是延迟队列，一个是处理死信消息的队列</li>
+<li>交换机分别和两个队列绑定，并且在延迟队列当中配置<code>死信交换机</code>、<code>死信routing-key</code>和<code>消息的TTL</code></li>
+<li>创建订单后，将订单的信息发送到交换机，然后路由到对应的<code>延迟队列</code>，当消息过期之后，发送到死信交换机（就是当前交换机），并路由到对应的处理<code>死信消息的队列</code>，最后由对应的消费者进行关单。</li>
+</ul>
+</blockquote>
+<h3 id="2-4-2延迟队列解锁库存"><a href="#2-4-2延迟队列解锁库存" class="headerlink" title="2.4.2延迟队列解锁库存"></a>2.4.2延迟队列解锁库存</h3><p>下单成功后会锁定库存，在锁定库存成功后，将锁定的库存信息（库存工作单：<code>订单号、商品列表和商品锁定的库存</code>）持久化并放入到延迟队列当中。</p>
+<p><em>库存解锁的场景</em></p>
+<blockquote>
+<ol>
+<li>下单成功，但是订单过期被系统自动取消，或被用户手动取消</li>
+<li>下单成功，库存锁定成功，但是接下来的业务调用失败，导致订单回滚</li>
+</ol>
+</blockquote>
+<p>消费者监听库存的延迟队列：</p>
+<blockquote>
+<ol>
+<li>首先判断库存工作单是否存在，不存在，则不用释放库存，因为是库存服务自己回滚</li>
+<li>判断库存工作单中的订单是否存在，不存在则表示订单在调用其他服务时出错回滚，释放库存</li>
+<li>判断订单的状态，订单已支付，不用释放库存，订单已取消（自动取消or手动取消），释放库存</li>
+</ol>
+</blockquote>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230831163931903.png" srcset="/img/loading.gif" lazyload alt="image-20230831163931903"></p>
+<h1 id="3-项目模块"><a href="#3-项目模块" class="headerlink" title="3.项目模块"></a>3.项目模块</h1><blockquote>
+<ol>
+<li>网关模块</li>
+<li>曲谱模块</li>
+<li>用户模块</li>
+<li>检索模块</li>
+<li>第三方服务模块</li>
+<li>消息模块</li>
+<li>订单模块</li>
+<li>购物车模块</li>
+<li>商品模块</li>
+</ol>
+</blockquote>
+<h1 id="4-自我介绍"><a href="#4-自我介绍" class="headerlink" title="4.自我介绍"></a>4.自我介绍</h1><p>面试官您好，我叫徐怀昂，就读于平顶山学院软件工程专业，是24年应届生。在校期间是创新创业中心向量工作室成员，在工作室内学习了包括Java基础、SSM框架、SpringBoot、SpringCloud等。在工作室期间做过个人项目，在项目完成后成功使用docker部署并写了一篇详细部署上线的博客，在CSDN上有2w+浏览量和近400个收藏，并曾远程帮助30多位网友解决部署上线问题。在工作室期间也有过两次团队开发的经历，并在第二次团队项目中担任项目负责人，带领团队一起开发。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://xhablog.online/2023/09/19/1.面试项目技术点/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/19/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/13/Design%20patterns/" title="Design patterns">
+                        <span class="hidden-mobile">Design patterns</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '33095830795bbe545b4179aa4f0b05d3'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span><svg t="1686650467734" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4406" width="13" height="13"><path d="M926.991 337.678c-22.571-53.364-54.877-101.283-96.021-142.426-41.143-41.143-89.062-73.449-142.426-96.02-55.266-23.375-113.953-35.228-174.434-35.228-60.48 0-119.168 11.852-174.433 35.228-53.364 22.571-101.283 54.877-142.426 96.02s-73.449 89.062-96.02 142.426c-23.375 55.265-35.228 113.953-35.228 174.433 0 60.48 11.852 119.168 35.228 174.434 22.571 53.364 54.877 101.283 96.02 142.426 41.143 41.144 89.062 73.449 142.426 96.021 55.265 23.375 113.953 35.228 174.433 35.228 60.48 0 119.168-11.853 174.434-35.228 53.364-22.571 101.283-54.877 142.426-96.021 41.144-41.143 73.449-89.062 96.021-142.426 23.375-55.266 35.228-113.953 35.228-174.434 0-60.48-11.853-119.168-35.228-174.433z m-412.88 558.541c-211.797 0-384.107-172.31-384.107-384.107 0-211.797 172.31-384.107 384.107-384.107 211.798 0 384.107 172.31 384.107 384.107 0.001 211.797-172.309 384.107-384.107 384.107z" p-id="4407"></path><path d="M514.111 290.829c51.918 0 102.431 18.428 142.233 51.889 13.528 11.375 33.715 9.626 45.086-3.902 11.373-13.527 9.626-33.713-3.902-45.086-51.316-43.142-116.456-66.901-183.417-66.901-76.201 0-147.842 29.675-201.725 83.557-53.883 53.883-83.558 125.523-83.558 201.725s29.675 147.843 83.558 201.726 125.523 83.558 201.725 83.558c66.961 0 132.1-23.76 183.417-66.901 13.528-11.372 15.275-31.559 3.902-45.086s-31.559-15.275-45.086-3.902c-39.803 33.462-90.315 51.89-142.233 51.89-122.015 0-221.282-99.268-221.282-221.283 0-122.017 99.267-221.284 221.282-221.284z" p-id="4408"></path></svg>2021 - 2023</span> <span>本站由</span> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <span>&</span> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <span>强力驱动</span> 
+      <!--《添加网站运行时间 -->
+<br/>
+
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+    <script>
+      var now = new Date();
+
+      function createtime() {
+        //此处修改你的建站时间或者网站上线时间
+        var grt = new Date('06/09/2023 8:00:00');
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+          hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+          mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+          snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = " 本站已破天荒的安全运行 " + dnum + " 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+      }
+      setInterval("createtime()", 250);
+    </script>
+
+<!-- 添加网站运行时间》-->
+<br/>
+<span style="font-weight: initial">文章总字数2720k</span>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
