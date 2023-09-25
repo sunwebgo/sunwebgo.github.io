@@ -16,29 +16,24 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.面试项目技术点1.1SpringSecurity认证流程1.1.1注册用户输入信息注册，使用PasswordEncoder的实现类BCryptPasswordEncoder对密码进行加密存储到数据库中。 BCrypt是一种基于哈希+随机盐值的方式进行加密。 1.1.2登录认证登录的业务包括：用于输入用户名+密码–&gt;登录   SpringSecurity的核心是Filter Chain（过">
+    <meta name="description" content="1.1SpringSecurity认证流程1.1.1注册用户输入信息注册，使用PasswordEncoder的实现类BCryptPasswordEncoder对密码进行加密存储到数据库中。 BCrypt是一种基于哈希+随机盐值的方式进行加密。 1.1.2登录认证登录的业务包括：用于输入用户名+密码–&gt;登录   SpringSecurity的核心是Filter Chain（过滤器链） 当用户登">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xhang′s blog">
-<meta property="og:url" content="https://xhablog.online/2023/09/19/1.%E9%9D%A2%E8%AF%95%E9%A1%B9%E7%9B%AE%E6%8A%80%E6%9C%AF%E7%82%B9/index.html">
+<meta property="og:title" content="面试项目技术点">
+<meta property="og:url" content="https://xhablog.online/2023/02/22/1.%E9%9D%A2%E8%AF%95%E9%A1%B9%E7%9B%AE%E6%8A%80%E6%9C%AF%E7%82%B9/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="1.面试项目技术点1.1SpringSecurity认证流程1.1.1注册用户输入信息注册，使用PasswordEncoder的实现类BCryptPasswordEncoder对密码进行加密存储到数据库中。 BCrypt是一种基于哈希+随机盐值的方式进行加密。 1.1.2登录认证登录的业务包括：用于输入用户名+密码–&gt;登录   SpringSecurity的核心是Filter Chain（过">
+<meta property="og:description" content="1.1SpringSecurity认证流程1.1.1注册用户输入信息注册，使用PasswordEncoder的实现类BCryptPasswordEncoder对密码进行加密存储到数据库中。 BCrypt是一种基于哈希+随机盐值的方式进行加密。 1.1.2登录认证登录的业务包括：用于输入用户名+密码–&gt;登录   SpringSecurity的核心是Filter Chain（过滤器链） 当用户登">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230827171046751.png">
-<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/SpringSecurity%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B.jpg">
-<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230830121129637.png">
-<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(34).jpg">
-<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(2).png">
-<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(3).png">
-<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230831163931903.png">
-<meta property="article:published_time" content="2023-09-19T01:16:25.248Z">
-<meta property="article:modified_time" content="2023-09-19T01:16:25.248Z">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
+<meta property="article:published_time" content="2023-02-22T02:19:07.000Z">
+<meta property="article:modified_time" content="2023-09-25T09:32:00.174Z">
 <meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230827171046751.png">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/java.png">
   
   
   
-  <title>xhang′s blog</title>
+  <title>面试项目技术点 - xhang′s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -253,7 +248,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="面试项目技术点"></span>
           
         </div>
 
@@ -269,8 +264,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-19 09:16" pubdate>
-          2023年9月19日 上午
+        <time datetime="2023-02-22 10:19" pubdate>
+          2023年2月22日 上午
         </time>
       </span>
     
@@ -338,12 +333,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">面试项目技术点</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="1-面试项目技术点"><a href="#1-面试项目技术点" class="headerlink" title="1.面试项目技术点"></a>1.面试项目技术点</h1><h2 id="1-1SpringSecurity认证流程"><a href="#1-1SpringSecurity认证流程" class="headerlink" title="1.1SpringSecurity认证流程"></a>1.1SpringSecurity认证流程</h2><h3 id="1-1-1注册"><a href="#1-1-1注册" class="headerlink" title="1.1.1注册"></a>1.1.1注册</h3><p>用户输入信息注册，使用<code>PasswordEncoder</code>的实现类<code>BCryptPasswordEncoder</code>对密码进行加密存储到数据库中。</p>
+                <h2 id="1-1SpringSecurity认证流程"><a href="#1-1SpringSecurity认证流程" class="headerlink" title="1.1SpringSecurity认证流程"></a>1.1SpringSecurity认证流程</h2><h3 id="1-1-1注册"><a href="#1-1-1注册" class="headerlink" title="1.1.1注册"></a>1.1.1注册</h3><p>用户输入信息注册，使用<code>PasswordEncoder</code>的实现类<code>BCryptPasswordEncoder</code>对密码进行加密存储到数据库中。</p>
 <p><code>BCrypt</code>是一种基于哈希+随机盐值的方式进行加密。</p>
 <h3 id="1-1-2登录认证"><a href="#1-1-2登录认证" class="headerlink" title="1.1.2登录认证"></a>1.1.2登录认证</h3><p>登录的业务包括：用于输入用户名+密码–&gt;登录</p>
 <blockquote>
@@ -604,6 +599,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%9D%A2%E8%AF%95/" class="category-chain-item">面试</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%9D%A2%E8%AF%95/">#面试</a>
+      
+    </div>
   
 </div>
 
@@ -613,8 +636,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>https://xhablog.online/2023/09/19/1.面试项目技术点/</div>
+      <div>面试项目技术点</div>
+      <div>https://xhablog.online/2023/02/22/1.面试项目技术点/</div>
     </div>
     <div class="license-meta">
       
@@ -626,7 +649,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月19日</div>
+          <div>2023年2月22日</div>
         </div>
       
       
@@ -658,9 +681,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/19/%E9%9B%86%E5%90%88%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="">
+                      <a href="/2023/02/27/MongoDB%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" title="MongoDB基础操作">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">MongoDB基础操作</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -668,8 +691,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/07/13/Design%20patterns/" title="Design patterns">
-                        <span class="hidden-mobile">Design patterns</span>
+                      <a href="/2023/02/21/gulimall%E6%8A%80%E6%9C%AF%E6%A0%88%E7%AC%94%E8%AE%B0/" title="gulimall技术栈笔记">
+                        <span class="hidden-mobile">gulimall技术栈笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -692,7 +715,7 @@
         var options = Object.assign(
           {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '33095830795bbe545b4179aa4f0b05d3'
+            id: '522c0858b662226b546200bb6ed5eac1'
           }
         )
         var gitalk = new Gitalk(options);
