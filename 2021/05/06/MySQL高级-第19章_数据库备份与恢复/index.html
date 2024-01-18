@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/image-20230412151501213.png">
 <meta property="article:published_time" content="2021-05-06T04:43:56.000Z">
-<meta property="article:modified_time" content="2024-01-05T09:55:31.520Z">
+<meta property="article:modified_time" content="2024-01-18T14:13:35.464Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="数据库">
@@ -288,7 +288,7 @@
         
         
         
-          189 分钟
+          193 分钟
         
       </span>
     
@@ -1027,6 +1027,46 @@ mysql –h host2 –uroot –p<span aria-hidden="true" class="line-numbers-rows"
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230521144621273.png" srcset="/img/loading.gif" lazyload alt="image-20230521144621273"></p>
 <h3 id="8-4-rm：误删MySQL实例"><a href="#8-4-rm：误删MySQL实例" class="headerlink" title="8.4 rm：误删MySQL实例"></a>8.4 rm：误删MySQL实例</h3><p>对于一个有高可用机制的MySQL集群来说，不用担心 rm删除数据 了。只是删掉了其中某一个节点的数据的话，HA系统就会开始工作，选出一个新的主库，从而保证整个集群的正常工作。我们要做的就是在这个节点上把数据恢复回来，再接入整个集群。</p>
 <p>但如果是恶意地把整个集群删除，那就需要考虑跨机房备份，跨城市备份。</p>
+<h2 id="9-MySQL导入导出"><a href="#9-MySQL导入导出" class="headerlink" title="9.MySQL导入导出"></a>9.MySQL导入导出</h2><ol>
+<li><strong>导出整个数据库</strong></li>
+</ol>
+<blockquote>
+<p>mysqldump -u用户名 -p密码 数据库名 &gt; 导出的文件名</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysqldump <span class="token operator">-</span>uroot <span class="token operator">-</span>pmysql sva_rec <span class="token operator">></span> e:\sva_rec<span class="token punctuation">.</span><span class="token keyword">sql</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li><strong>导出一个表，包括表结构和数据</strong></li>
+</ol>
+<blockquote>
+<p>mysqldump -u用户名 -p 密码 数据库名 表名&gt; 导出的文件名</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysqldump <span class="token operator">-</span>uroot <span class="token operator">-</span>pmysql sva_rec date_rec_drv<span class="token operator">></span> e:\date_rec_drv<span class="token punctuation">.</span><span class="token keyword">sql</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li><strong>导出一个数据库结构</strong></li>
+</ol>
+<blockquote>
+<p>mysqldump -u用户名 -p 密码 -d数据库名 &gt; 导出的文件名</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysqldump <span class="token operator">-</span>uroot <span class="token operator">-</span>pmysql <span class="token operator">-</span>d sva_rec <span class="token operator">></span> e:\sva_rec<span class="token punctuation">.</span><span class="token keyword">sql</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li><strong>导出一个表，只有表结构</strong></li>
+</ol>
+<blockquote>
+<p>mysqldump -u用户名 -p 密码 -d数据库名 表名&gt; 导出的文件名</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysqldump <span class="token operator">-</span>uroot <span class="token operator">-</span>pmysql <span class="token operator">-</span>d sva_rec date_rec_drv<span class="token operator">></span> e:\date_rec_drv<span class="token punctuation">.</span><span class="token keyword">sql</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="5">
+<li><strong>导入数据库</strong></li>
+</ol>
+<blockquote>
+<p>source 文件路径&#x2F;文件名</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span>source d:wcnc_db<span class="token punctuation">.</span><span class="token keyword">sql</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
 
                 
               </div>
@@ -1298,7 +1338,7 @@ mysql –h host2 –uroot –p<span aria-hidden="true" class="line-numbers-rows"
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2720k</span>
+<span style="font-weight: initial">文章总字数2721k</span>
 
     </div>
   
