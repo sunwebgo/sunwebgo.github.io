@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221011092253260.png">
 <meta property="article:published_time" content="2022-09-05T07:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-18T14:13:35.456Z">
+<meta property="article:modified_time" content="2024-01-19T10:23:19.482Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Jenkins">
 <meta property="article:tag" content="CI&#x2F;CD">
@@ -289,7 +289,7 @@
         
         
         
-          90 分钟
+          95 分钟
         
       </span>
     
@@ -601,7 +601,7 @@ mkdir git        			  #新建git目录<span aria-hidden="true" class="line-numbe
 
 
 
-<h2 id="4-7安装Jenkins"><a href="#4-7安装Jenkins" class="headerlink" title="4.7安装Jenkins"></a>4.7安装Jenkins</h2><ol>
+<h2 id="4-7安装Jenkins"><a href="#4-7安装Jenkins" class="headerlink" title="4.7安装Jenkins"></a>4.7安装Jenkins</h2><h3 id="4-7-1war包安装"><a href="#4-7-1war包安装" class="headerlink" title="4.7.1war包安装"></a>4.7.1war包安装</h3><ol>
 <li><strong>在war包目录下运行命令运行war包，后台启动war包，并不产生日志</strong></li>
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">nohup java -jar jenkins.war >/dev/null 2>&amp;1 &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
@@ -624,7 +624,60 @@ mkdir git        			  #新建git目录<span aria-hidden="true" class="line-numbe
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221012202059586.png" srcset="/img/loading.gif" lazyload alt="image-20221012202059586"></p>
 <p><strong>登录成功</strong></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221012202139844.png" srcset="/img/loading.gif" lazyload alt="image-20221012202139844"></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230605204123873.png" srcset="/img/loading.gif" lazyload alt="image-20230605204123873"></p>
+<h3 id="4-7-2docker安装"><a href="#4-7-2docker安装" class="headerlink" title="4.7.2docker安装"></a>4.7.2docker安装</h3><ol>
+<li><strong>拉取docker镜像</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">docker pull jenkins<span class="token operator">/</span>jenkins<span class="token operator">:</span><span class="token number">2.441</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li><p><strong>启动jenkins容器</strong></p>
+<blockquote>
+<ol>
+<li><p>创建jenkins挂载目录</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">mkdir <span class="token operator">-</span>p <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>jenkins_home<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+
+</li>
+<li><p>修改挂载目录权限（<strong>因为当映射本地数据卷时，此时<code>/var/jenkins_home</code>目录的用户权限是root，但是挂载卷到容器内部，此时jenkins的权限为1000。</strong>）</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">chown <span class="token operator">-</span><span class="token class-name">R</span> <span class="token number">1000</span><span class="token operator">:</span><span class="token number">1000</span> <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>jenkins_home<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240119174910445.png" srcset="/img/loading.gif" lazyload alt="image-20240119174910445"></p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">docker run <span class="token operator">-</span>d <span class="token operator">-</span>p <span class="token number">18080</span><span class="token operator">:</span><span class="token number">8080</span> <span class="token operator">-</span>p <span class="token number">18081</span><span class="token operator">:</span><span class="token number">50000</span> \
+<span class="token operator">-</span>v <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>jenkins_home<span class="token operator">:</span><span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>jenkins_home \
+<span class="token operator">-</span>v <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>maven<span class="token operator">:</span><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>maven \
+<span class="token operator">-</span>v <span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>git<span class="token operator">/</span>bin<span class="token operator">/</span>git<span class="token operator">:</span><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>git \
+<span class="token operator">-</span>v <span class="token operator">/</span>etc<span class="token operator">/</span>localtime<span class="token operator">:</span><span class="token operator">/</span>etc<span class="token operator">/</span>localtime \
+<span class="token operator">--</span>name jenkins \
+jenkins<span class="token operator">/</span>jenkins<span class="token operator">:</span><span class="token number">2.441</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li><strong>访问主机IP+18080端口，根据提示获得管理员登录密码</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221028215546210.png" srcset="/img/loading.gif" lazyload alt="image-20221028215546210"></p>
+<ol start="4">
+<li><p><strong>进入容器，首先安装vim命令（容器中没有vim命令）</strong></p>
+<p>进入容器（root用户）</p>
+</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">docker exec <span class="token operator">-</span>it <span class="token operator">-</span>u root <span class="token number">27677126</span>b7b3 bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>​		安装vim</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java">apt<span class="token operator">-</span>get update
+apt<span class="token operator">-</span>get <span class="token operator">-</span>y install vim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="5">
+<li><strong>查看密码</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">vim /root/.jenkins/secrets/initialAdminPassword<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="6">
+<li><strong>接下来请查看4.7.1war包安装第3点。</strong></li>
+</ol>
 <h1 id="5-凭证"><a href="#5-凭证" class="headerlink" title="5.凭证"></a>5.凭证</h1><h2 id="5-1凭证的概念"><a href="#5-1凭证的概念" class="headerlink" title="5.1凭证的概念"></a>5.1凭证的概念</h2><p>凭据可以用来存储需要密文保护的数据库密码、Gitlab密码信息、Docker私有仓库密码等，以便Jenkins可以和这些第三方的应用进行交互。</p>
 <h2 id="5-2安装Credentials-Binding插件"><a href="#5-2安装Credentials-Binding插件" class="headerlink" title="5.2安装Credentials Binding插件"></a>5.2安装Credentials Binding插件</h2><p>​		这个插件推荐的安装插件中有</p>
 <p>​	要在Jenkins使用凭证管理功能，需要安装Credentials Binding插件</p>
