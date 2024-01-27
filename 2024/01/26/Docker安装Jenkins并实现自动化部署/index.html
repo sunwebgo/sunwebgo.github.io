@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/Docker_Logo.jpg">
 <meta property="article:published_time" content="2024-01-26T07:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-27T02:37:30.724Z">
+<meta property="article:modified_time" content="2024-01-27T08:40:01.106Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Linux">
@@ -280,7 +280,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          5.5k 字
         
       </span>
     
@@ -291,7 +291,7 @@
         
         
         
-          36 分钟
+          47 分钟
         
       </span>
     
@@ -669,6 +669,9 @@ node <span class="token operator">-</span>v <span aria-hidden="true" class="line
 <ol start="8">
 <li><strong>Build Steps选择执行shell</strong></li>
 </ol>
+<blockquote>
+<p><strong>第一种情况</strong>：<font color='cornflowerblue'>将文件（文件夹）发送到和jenkins容器在同一台的服务器</font></p>
+</blockquote>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240125234022727.png" srcset="/img/loading.gif" lazyload></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> cache clean <span class="token parameter variable">-f</span> <span class="token comment">#清除npm的缓存</span>
 <span class="token builtin class-name">cd</span> /var/jenkins_home/workspace/music-community-web <span class="token comment">#切换到项目目录</span>
@@ -683,9 +686,33 @@ node <span class="token operator">-</span>v <span aria-hidden="true" class="line
 <span class="token function">rm</span> <span class="token parameter variable">-rf</span> dist.tar.gz <span class="token comment">#移除上次打的压缩包</span>
 <span class="token function">tar</span> <span class="token parameter variable">-czvf</span> dist.tar.gz *  <span class="token comment">#把dist目录下的文件全部打成压缩包</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
+<blockquote>
+<p><strong>第二种情况</strong>：<font color='cornflowerblue'>将文件（文件夹）发送到和jenkins容器在不同一台的服务器</font></p>
+</blockquote>
+<p>经过实现，创建多个<code>Transet</code>会出现<code>SSH</code>连接错误。</p>
+<p>最终的解决方案是在dist打包之前，将<code>Dockerfile</code>和<code>default.conf</code>也打包进去，然后在构建后操作中再移动出来。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240127163645368.png" srcset="/img/loading.gif" lazyload alt="image-20240127163645368"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> cache clean <span class="token parameter variable">-f</span> <span class="token comment">#清除npm的缓存</span>
+<span class="token builtin class-name">cd</span> /var/jenkins_home/workspace/music-community-web <span class="token comment">#切换到项目目录</span>
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npmmirror.com
+<span class="token function">npm</span> config get registry
+<span class="token function">npm</span> update <span class="token comment">#更新项目的依赖项到最新版本</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token comment">#安装项目的依赖项 </span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">NODE_OPTIONS</span><span class="token operator">=</span>--openssl-legacy-provider <span class="token comment">#设置环境变量，使用openssl的legacy提供程序，适用于高版本的nodejs</span>
+<span class="token function">npm</span> run build <span class="token comment">#打包</span>
+<span class="token builtin class-name">echo</span> <span class="token string">"打包完成"</span>
+<span class="token function">cp</span> Dockerfile dist <span class="token comment">#将Dockerfile文件移动到dist目录下</span>
+<span class="token function">cp</span> default.conf dist <span class="token comment">#将default.conf文件移动到dist目录下</span>
+<span class="token builtin class-name">cd</span> dist 
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> dist.tar.gz <span class="token comment">#移除上次打的压缩包</span>
+<span class="token function">tar</span> <span class="token parameter variable">-czvf</span> dist.tar.gz *  <span class="token comment">#把dist目录下的文件全部打成压缩包</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
 <ol start="9">
 <li><strong>构建后操作</strong></li>
 </ol>
+<blockquote>
+<p><strong>第一种情况</strong>：<font color='cornflowerblue'>将文件（文件夹）发送到和jenkins容器在同一台的服务器</font></p>
+</blockquote>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240126234551112.png" srcset="/img/loading.gif" lazyload alt="image-20240126234551112"></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /data/music-community-web
 <span class="token function">rm</span> <span class="token parameter variable">-rf</span> Dockerfile <span class="token comment">#删除先前的Dockerfile文件</span>
@@ -698,6 +725,26 @@ node <span class="token operator">-</span>v <span aria-hidden="true" class="line
 <span class="token function">mkdir</span> dist <span class="token comment">#创建存放前端文件的目录</span>
 <span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> dist.tar.gz <span class="token parameter variable">-C</span> dist 
 <span class="token function">rm</span> <span class="token parameter variable">-rf</span> dist.tar.gz
+<span class="token function">docker</span> build <span class="token parameter variable">-t</span> music-community-web:1.0 <span class="token builtin class-name">.</span>  <span class="token comment">#构建镜像</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">20001</span>:80 <span class="token parameter variable">--restart</span><span class="token operator">=</span>always  <span class="token parameter variable">--name</span> music-community-web music-community-web:1.0 <span class="token comment">#根据镜像创建容器</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<blockquote>
+<p><strong>第二种情况</strong>：<font color='cornflowerblue'>将文件（文件夹）发送到和jenkins容器在不同一台的服务器</font></p>
+</blockquote>
+<p>经过实现，创建多个<code>Transet</code>会出现<code>SSH</code>连接错误。</p>
+<p>最终的解决方案是在dist打包之前，将<code>Dockerfile</code>和<code>default.conf</code>也打包进去，然后在构建后操作中再移动出来。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240127163744500.png" srcset="/img/loading.gif" lazyload alt="image-20240127163744500"></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /data/music-community-web
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> Dockerfile <span class="token comment">#删除先前的Dockerfile文件</span>
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> dist  <span class="token comment">#删除先前的dist文件</span>
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> default.conf <span class="token comment">#删除先前的default.conf文件</span>
+<span class="token function">docker</span> <span class="token function">rm</span> <span class="token parameter variable">-f</span> music-community-web <span class="token comment"># 删除宿主机的music-community-web容器</span>
+<span class="token function">docker</span> rmi <span class="token parameter variable">-f</span> music-community-web:1.0 <span class="token comment"># 删除宿主机的music-community-web:1.0镜像</span>
+<span class="token function">mkdir</span> dist <span class="token comment">#创建存放前端文件的目录</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> dist.tar.gz <span class="token parameter variable">-C</span> dist 
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> dist.tar.gz
+<span class="token function">mv</span> ./dist/Dockerfile ./ <span class="token comment">#将Dockerfile文件移动到项目目录下</span>
+<span class="token function">cp</span> ./dist/default.conf ./ <span class="token comment">#将default.conf文件移动到项目目录下</span>
 <span class="token function">docker</span> build <span class="token parameter variable">-t</span> music-community-web:1.0 <span class="token builtin class-name">.</span>  <span class="token comment">#构建镜像</span>
 <span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">20001</span>:80 <span class="token parameter variable">--restart</span><span class="token operator">=</span>always  <span class="token parameter variable">--name</span> music-community-web music-community-web:1.0 <span class="token comment">#根据镜像创建容器</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
@@ -985,7 +1032,7 @@ node <span class="token operator">-</span>v <span aria-hidden="true" class="line
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2726k</span>
+<span style="font-weight: initial">文章总字数2727k</span>
 
     </div>
   
