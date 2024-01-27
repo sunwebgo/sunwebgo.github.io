@@ -25,12 +25,13 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/Docker_Logo.jpg">
 <meta property="article:published_time" content="2024-01-26T07:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-26T05:53:09.867Z">
+<meta property="article:modified_time" content="2024-01-27T02:33:46.656Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="容器">
 <meta property="article:tag" content="部署">
+<meta property="article:tag" content="Jenkins">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/Docker_Logo.jpg">
   
@@ -685,7 +686,7 @@ node <span class="token operator">-</span>v <span aria-hidden="true" class="line
 <ol start="9">
 <li><strong>构建后操作</strong></li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240125234239367.png" srcset="/img/loading.gif" lazyload alt="image-20240125234239367"></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240126234551112.png" srcset="/img/loading.gif" lazyload alt="image-20240126234551112"></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /data/music-community-web
 <span class="token function">rm</span> <span class="token parameter variable">-rf</span> Dockerfile <span class="token comment">#删除先前的Dockerfile文件</span>
 <span class="token function">rm</span> <span class="token parameter variable">-rf</span> dist  <span class="token comment">#删除先前的dist文件</span>
@@ -698,7 +699,7 @@ node <span class="token operator">-</span>v <span aria-hidden="true" class="line
 <span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> dist.tar.gz <span class="token parameter variable">-C</span> dist 
 <span class="token function">rm</span> <span class="token parameter variable">-rf</span> dist.tar.gz
 <span class="token function">docker</span> build <span class="token parameter variable">-t</span> music-community-web:1.0 <span class="token builtin class-name">.</span>  <span class="token comment">#构建镜像</span>
-<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">20001</span>:80 <span class="token parameter variable">--name</span> music-community-web music-community-web:1.0 <span class="token comment">#根据镜像创建容器</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">20001</span>:80 <span class="token parameter variable">--restart</span><span class="token operator">=</span>always  <span class="token parameter variable">--name</span> music-community-web music-community-web:1.0 <span class="token comment">#根据镜像创建容器</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <ol start="10">
 <li><strong>配置完成后点击保存</strong></li>
@@ -734,6 +735,13 @@ node <span class="token operator">-</span>v <span aria-hidden="true" class="line
   <a href="/categories/Docker/" class="category-chain-item">Docker</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/Docker/Jenkins/" class="category-chain-item">Jenkins</a>
+  
+  
+
+  
 
       </span>
     
@@ -753,6 +761,8 @@ node <span class="token operator">-</span>v <span aria-hidden="true" class="line
         <a href="/tags/%E5%AE%B9%E5%99%A8/">#容器</a>
       
         <a href="/tags/%E9%83%A8%E7%BD%B2/">#部署</a>
+      
+        <a href="/tags/Jenkins/">#Jenkins</a>
       
     </div>
   
