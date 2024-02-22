@@ -1,0 +1,1235 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <link rel="icon" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="视频地址：【1小时掌握XXL-JOB分布式调度实战-带你掌握java定时任务框架-面试必问】 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1824y1G7vT&#x2F;?share_source&#x3D;copy_web&amp;vd_source&#x3D;0b39c0c0ea3977b251975ea88134799d 1.概述1.1什么是任务调度我们可以思考一下下面业务场景的解决方案:  某电商">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式调度XXL-JOB">
+<meta property="og:url" content="https://xhablog.online/2024/02/22/%E5%88%86%E5%B8%83%E5%BC%8F%E8%B0%83%E5%BA%A6XXL-JOB/index.html">
+<meta property="og:site_name" content="xhang′s blog">
+<meta property="og:description" content="视频地址：【1小时掌握XXL-JOB分布式调度实战-带你掌握java定时任务框架-面试必问】 https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1824y1G7vT&#x2F;?share_source&#x3D;copy_web&amp;vd_source&#x3D;0b39c0c0ea3977b251975ea88134799d 1.概述1.1什么是任务调度我们可以思考一下下面业务场景的解决方案:  某电商">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/xxl-logo.jpg">
+<meta property="article:published_time" content="2024-02-22T02:19:07.000Z">
+<meta property="article:modified_time" content="2024-02-22T04:20:16.785Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="分布式调度">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/xxl-logo.jpg">
+  
+  
+  
+  <title>分布式调度XXL-JOB - xhang′s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+<link rel="stylesheet" href="/css/indeximg-hover.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xhablog.online","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang′s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-zhuye"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-guidang1"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-fenlei"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-biaoqian"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messageboard/">
+                <i class="iconfont icon-liuyanban-05"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-youqinglianjie"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-guanyuwomen"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/index.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="分布式调度XXL-JOB"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-22 10:19" pubdate>
+          2024年2月22日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          101 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">分布式调度XXL-JOB</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>视频地址：【1小时掌握XXL-JOB分布式调度实战-带你掌握java定时任务框架-面试必问】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1824y1G7vT/?share_source=copy_web&vd_source=0b39c0c0ea3977b251975ea88134799d">https://www.bilibili.com/video/BV1824y1G7vT/?share_source=copy_web&amp;vd_source=0b39c0c0ea3977b251975ea88134799d</a></p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><h3 id="1-1什么是任务调度"><a href="#1-1什么是任务调度" class="headerlink" title="1.1什么是任务调度"></a>1.1什么是任务调度</h3><p>我们可以思考一下下面业务场景的解决方案:</p>
+<ul>
+<li>某电商平台需要每天上午10点，下午3点，晚上8点发放一批优惠券</li>
+<li>某银行系统需要在信用卡到期还款日的前三天进行短信提醒</li>
+<li>某财务系统需要在每天凌晨0:10分结算前一天的财务数据，统计汇总</li>
+</ul>
+<p>以上场景就是任务调度所需要解决的问题</p>
+<p><strong>任务调度是为了自动完成特定任务，在约定的特定时刻去执行任务的过程</strong></p>
+<h3 id="1-2-为什么需要分布式调度"><a href="#1-2-为什么需要分布式调度" class="headerlink" title="1.2 为什么需要分布式调度"></a>1.2 为什么需要分布式调度</h3><p>使用Spring中提供的注解@Scheduled，也能实现调度的功能</p>
+<p>在业务类中方法中贴上这个注解,然后在启动类上贴上<code>@EnableScheduling</code>注解</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Scheduled</span><span class="token punctuation">(</span>cron <span class="token operator">=</span> <span class="token string">"0/20 * * * * ? "</span><span class="token punctuation">)</span>
+ <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+ 	<span class="token comment">//doSomething   </span>
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>感觉Spring给我们提供的这个注解可以完成任务调度的功能，好像已经完美解决问题了，为什么还需要分布式呢?</p>
+<p>主要有如下这几点原因:</p>
+<blockquote>
+<ol>
+<li><strong>高可用</strong>：单机版的定式任务调度只能在一台机器上运行，如果程序或者系统出现异常就会导致功能不可用。</li>
+<li><strong>防止重复执行</strong>: 在单机模式下，定时任务是没什么问题的。但当我们部署了多台服务，同时又每台服务又有定时任务时，若不进行合理的控制在同一时间，只有一个定时任务启动执行，这时，定时执行的结果就可能存在混乱和错误了</li>
+<li><strong>单机处理极限</strong>：原本1分钟内需要处理1万个订单，但是现在需要1分钟内处理10万个订单；原来一个统计需要1小时，现在业务方需要10分钟就统计出来。你也许会说，你也可以多线程、单机多进程处理。的确，多线程并行处理可以提高单位时间的处理效率，但是单机能力毕竟有限（主要是CPU、内存和磁盘），始终会有单机处理不过来的情况。</li>
+</ol>
+</blockquote>
+<h3 id="1-3-XXL-JOB介绍"><a href="#1-3-XXL-JOB介绍" class="headerlink" title="1.3 XXL-JOB介绍"></a>1.3 XXL-JOB介绍</h3><p>XXL-Job：是大众点评的分布式任务调度平台，是一个轻量级分布式任务调度平台, 其核心设计目标是开发迅速、学习简单、轻量级、易扩展</p>
+<p>大众点评目前已接入XXL-JOB，该系统在内部已调度约100万次，表现优异。</p>
+<p>目前已有多家公司接入xxl-job，包括比较知名的大众点评，京东，优信二手车，360金融 (360)，联想集团 (联想)，易信 (网易)等等</p>
+<p>官网地址 <a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-job/">https://www.xuxueli.com/xxl-job/</a></p>
+<p><strong>系统架构图</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/img_Qohm.png" srcset="/img/loading.gif" lazyload alt="输入图片说明"></p>
+<p><strong>设计思想</strong></p>
+<p>将调度行为抽象形成“调度中心”公共平台，而平台自身并不承担业务逻辑，“调度中心”负责发起调度请求。</p>
+<p>将任务抽象成分散的JobHandler，交由“执行器”统一管理，“执行器”负责接收调度请求并执行对应的JobHandler中业务逻辑。</p>
+<p>因此，“调度”和“任务”两部分可以相互解耦，提高系统整体稳定性和扩展性；</p>
+<h2 id="2-快速入门"><a href="#2-快速入门" class="headerlink" title="2.快速入门"></a>2.快速入门</h2><h3 id="2-1-源码安装"><a href="#2-1-源码安装" class="headerlink" title="2.1 源码安装"></a>2.1 源码安装</h3><h4 id="2-1-1-下载源码"><a href="#2-1-1-下载源码" class="headerlink" title="2.1.1 下载源码"></a>2.1.1 下载源码</h4><p><strong>源码下载地址:</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-job">https://github.com/xuxueli/xxl-job</a></p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/xuxueli0323/xxl-job">https://gitee.com/xuxueli0323/xxl-job</a></p>
+<h4 id="2-1-2-初始化调度数据库"><a href="#2-1-2-初始化调度数据库" class="headerlink" title="2.1.2 初始化调度数据库"></a>2.1.2 初始化调度数据库</h4><p>请下载项目源码并解压，获取 “调度数据库初始化SQL脚本” 并执行即可。</p>
+<p>“调度数据库初始化SQL脚本” 位置为:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">&#x2F;xxl-job&#x2F;doc&#x2F;db&#x2F;tables_xxl_job.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h4 id="2-1-3-编译源码"><a href="#2-1-3-编译源码" class="headerlink" title="2.1.3 编译源码"></a>2.1.3 编译源码</h4><p>解压源码,按照maven格式将源码导入IDE, 使用maven进行编译即可，源码结构如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221028153927837.png" srcset="/img/loading.gif" lazyload alt="image-20221028153927837"></p>
+<h4 id="2-1-4-调度中心配置"><a href="#2-1-4-调度中心配置" class="headerlink" title="2.1.4 调度中心配置"></a>2.1.4 调度中心配置</h4><p>修改<code>xxl-job-admin</code>项目的配置文件<code>application.properties</code>,把数据库账号密码配置上</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token comment">### web</span>
+<span class="token key attr-name">server.port</span><span class="token punctuation">=</span><span class="token value attr-value">8080</span>
+<span class="token key attr-name">server.servlet.context-path</span><span class="token punctuation">=</span><span class="token value attr-value">/xxl-job-admin</span>
+
+<span class="token comment">### actuator</span>
+<span class="token key attr-name">management.server.servlet.context-path</span><span class="token punctuation">=</span><span class="token value attr-value">/actuator</span>
+<span class="token key attr-name">management.health.mail.enabled</span><span class="token punctuation">=</span><span class="token value attr-value">false</span>
+
+<span class="token comment">### resources</span>
+<span class="token key attr-name">spring.mvc.servlet.load-on-startup</span><span class="token punctuation">=</span><span class="token value attr-value">0</span>
+<span class="token key attr-name">spring.mvc.static-path-pattern</span><span class="token punctuation">=</span><span class="token value attr-value">/static/**</span>
+<span class="token key attr-name">spring.resources.static-locations</span><span class="token punctuation">=</span><span class="token value attr-value">classpath:/static/</span>
+
+<span class="token comment">### freemarker</span>
+<span class="token key attr-name">spring.freemarker.templateLoaderPath</span><span class="token punctuation">=</span><span class="token value attr-value">classpath:/templates/</span>
+<span class="token key attr-name">spring.freemarker.suffix</span><span class="token punctuation">=</span><span class="token value attr-value">.ftl</span>
+<span class="token key attr-name">spring.freemarker.charset</span><span class="token punctuation">=</span><span class="token value attr-value">UTF-8</span>
+<span class="token key attr-name">spring.freemarker.request-context-attribute</span><span class="token punctuation">=</span><span class="token value attr-value">request</span>
+<span class="token key attr-name">spring.freemarker.settings.number_format</span><span class="token punctuation">=</span><span class="token value attr-value">0.##########</span>
+
+<span class="token comment">### mybatis</span>
+<span class="token key attr-name">mybatis.mapper-locations</span><span class="token punctuation">=</span><span class="token value attr-value">classpath:/mybatis-mapper/*Mapper.xml</span>
+<span class="token comment">#mybatis.type-aliases-package=com.xxl.job.admin.core.model</span>
+
+<span class="token comment">### xxl-job, datasource</span>
+<span class="token key attr-name">spring.datasource.url</span><span class="token punctuation">=</span><span class="token value attr-value">jdbc:mysql://192.168.202.200:3306/xxl_job?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai</span>
+<span class="token key attr-name">spring.datasource.username</span><span class="token punctuation">=</span><span class="token value attr-value">root</span>
+<span class="token key attr-name">spring.datasource.password</span><span class="token punctuation">=</span><span class="token value attr-value">WolfCode_2017</span>
+<span class="token key attr-name">spring.datasource.driver-class-name</span><span class="token punctuation">=</span><span class="token value attr-value">com.mysql.cj.jdbc.Driver</span>
+
+<span class="token comment">### datasource-pool</span>
+<span class="token key attr-name">spring.datasource.type</span><span class="token punctuation">=</span><span class="token value attr-value">com.zaxxer.hikari.HikariDataSource</span>
+<span class="token key attr-name">spring.datasource.hikari.minimum-idle</span><span class="token punctuation">=</span><span class="token value attr-value">10</span>
+<span class="token key attr-name">spring.datasource.hikari.maximum-pool-size</span><span class="token punctuation">=</span><span class="token value attr-value">30</span>
+<span class="token key attr-name">spring.datasource.hikari.auto-commit</span><span class="token punctuation">=</span><span class="token value attr-value">true</span>
+<span class="token key attr-name">spring.datasource.hikari.idle-timeout</span><span class="token punctuation">=</span><span class="token value attr-value">30000</span>
+<span class="token key attr-name">spring.datasource.hikari.pool-name</span><span class="token punctuation">=</span><span class="token value attr-value">HikariCP</span>
+<span class="token key attr-name">spring.datasource.hikari.max-lifetime</span><span class="token punctuation">=</span><span class="token value attr-value">900000</span>
+<span class="token key attr-name">spring.datasource.hikari.connection-timeout</span><span class="token punctuation">=</span><span class="token value attr-value">10000</span>
+<span class="token key attr-name">spring.datasource.hikari.connection-test-query</span><span class="token punctuation">=</span><span class="token value attr-value">SELECT 1</span>
+<span class="token key attr-name">spring.datasource.hikari.validation-timeout</span><span class="token punctuation">=</span><span class="token value attr-value">1000</span>
+
+<span class="token comment">### xxl-job, email</span>
+<span class="token key attr-name">spring.mail.host</span><span class="token punctuation">=</span><span class="token value attr-value">smtp.qq.com</span>
+<span class="token key attr-name">spring.mail.port</span><span class="token punctuation">=</span><span class="token value attr-value">25</span>
+<span class="token key attr-name">spring.mail.username</span><span class="token punctuation">=</span><span class="token value attr-value">xxx@qq.com</span>
+<span class="token key attr-name">spring.mail.from</span><span class="token punctuation">=</span><span class="token value attr-value">xxx@qq.com</span>
+<span class="token key attr-name">spring.mail.password</span><span class="token punctuation">=</span><span class="token value attr-value">xxx</span>
+<span class="token key attr-name">spring.mail.properties.mail.smtp.auth</span><span class="token punctuation">=</span><span class="token value attr-value">true</span>
+<span class="token key attr-name">spring.mail.properties.mail.smtp.starttls.enable</span><span class="token punctuation">=</span><span class="token value attr-value">true</span>
+<span class="token key attr-name">spring.mail.properties.mail.smtp.starttls.required</span><span class="token punctuation">=</span><span class="token value attr-value">true</span>
+<span class="token key attr-name">spring.mail.properties.mail.smtp.socketFactory.class</span><span class="token punctuation">=</span><span class="token value attr-value">javax.net.ssl.SSLSocketFactory</span>
+
+<span class="token comment">### xxl-job, access token</span>
+<span class="token key attr-name">xxl.job.accessToken</span><span class="token punctuation">=</span><span class="token value attr-value">default_token</span>
+
+<span class="token comment">### xxl-job, i18n (default is zh_CN, and you can choose "zh_CN", "zh_TC" and "en")</span>
+<span class="token key attr-name">xxl.job.i18n</span><span class="token punctuation">=</span><span class="token value attr-value">zh_CN</span>
+
+<span class="token comment">## xxl-job, triggerpool max size</span>
+<span class="token key attr-name">xxl.job.triggerpool.fast.max</span><span class="token punctuation">=</span><span class="token value attr-value">200</span>
+<span class="token key attr-name">xxl.job.triggerpool.slow.max</span><span class="token punctuation">=</span><span class="token value attr-value">100</span>
+
+<span class="token comment">### xxl-job, log retention days</span>
+<span class="token key attr-name">xxl.job.logretentiondays</span><span class="token punctuation">=</span><span class="token value attr-value">30</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="2-1-5-部署项目"><a href="#2-1-5-部署项目" class="headerlink" title="2.1.5 部署项目"></a>2.1.5 部署项目</h4><p>运行<code>XxlJobAdminApplication</code>程序即可.</p>
+<p>调度中心访问地址: <a target="_blank" rel="noopener" href="http://localhost:8080/xxl-job-admin">http://localhost:8080/xxl-job-admin</a></p>
+<p>默认登录账号 “admin&#x2F;123456”, 登录后运行界面如下图所示。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221028162443072.png" srcset="/img/loading.gif" lazyload alt="image-20221028162443072"></p>
+<p>至此“调度中心”项目已经部署成功。</p>
+<h3 id="2-2-docker安装"><a href="#2-2-docker安装" class="headerlink" title="2.2 docker安装"></a>2.2 docker安装</h3><ol>
+<li><strong>拉取镜像</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull xuxueli/xxl-job-admin:2.4.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li><p><strong>在&#x2F;application目录下创建&#x2F;xxl-job目录</strong></p>
+</li>
+<li><p><strong>进入到xxl-job目录下载数据库脚本</strong></p>
+</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://raw.githubusercontent.com/xuxueli/xxl-job/2.4.0/doc/db/tables_xxl_job.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li><strong>将tables_xxl_job.sql复制到mysql容器的挂载目录下，数据库执行xxl-job sql脚本</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> /var/lib/mysql/tables_xxl_job.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>查看是否执行成功：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240222115251398.png" srcset="/img/loading.gif" lazyload alt="image-20240222115251398"></p>
+<ol start="5">
+<li><strong>下载配置文件</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://raw.githubusercontent.com/xuxueli/xxl-job/2.4.0/xxl-job-admin/src/main/resources/application.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="6">
+<li><strong>修改配置文件</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240222115947332.png" srcset="/img/loading.gif" lazyload alt="image-20240222115947332"></p>
+<ol start="7">
+<li><strong>启动容器</strong></li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">8008</span>:8080 <span class="token punctuation">\</span>
+<span class="token parameter variable">-v</span> /application/xxl-job/application.properties:/application.properties <span class="token punctuation">\</span>
+<span class="token parameter variable">-e</span> <span class="token assign-left variable">PARAMS</span><span class="token operator">=</span><span class="token string">'--spring.config.location=/application.properties'</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--name</span><span class="token operator">=</span>xxl-job-admin <span class="token punctuation">\</span>
+xuxueli/xxl-job-admin:2.4.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="8">
+<li><strong>登录到调度中心</strong></li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240222120546114.png" srcset="/img/loading.gif" lazyload alt="image-20240222120546114"></p>
+<h3 id="2-3-配置部署执行器项目"><a href="#2-3-配置部署执行器项目" class="headerlink" title="2.3 配置部署执行器项目"></a>2.3 配置部署执行器项目</h3><h4 id="2-3-1-添加Maven依赖"><a href="#2-3-1-添加Maven依赖" class="headerlink" title="2.3.1 添加Maven依赖"></a>2.3.1 添加Maven依赖</h4><p>创建SpringBoot项目并且添加如下依赖:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.xuxueli<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>xxl-job-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.3.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="2-3-2-执行器配置"><a href="#2-3-2-执行器配置" class="headerlink" title="2.3.2 执行器配置"></a>2.3.2 执行器配置</h4><p>在配置文件中添加如下配置:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token comment">### 调度中心部署根地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；</span>
+<span class="token key attr-name">xxl.job.admin.addresses</span><span class="token punctuation">=</span><span class="token value attr-value">http://127.0.0.1:8080/xxl-job-admin</span>
+<span class="token comment">### 执行器通讯TOKEN [选填]：非空时启用；</span>
+<span class="token key attr-name">xxl.job.accessToken</span><span class="token punctuation">=</span><span class="token value attr-value">default_token</span>
+<span class="token comment">### 执行器AppName [选填]：执行器心跳注册分组依据；为空则关闭自动注册</span>
+<span class="token key attr-name">xxl.job.executor.appname</span><span class="token punctuation">=</span><span class="token value attr-value">xxl-job-executor-sample</span>
+<span class="token comment">### 执行器注册 [选填]：优先使用该配置作为注册地址，为空时使用内嵌服务 ”IP:PORT“ 作为注册地址。从而更灵活的支持容器类型执行器动态IP和动态映射端口问题。</span>
+<span class="token key attr-name">xxl.job.executor.address</span><span class="token punctuation">=</span>
+<span class="token comment">### 执行器IP [选填]：默认为空表示自动获取IP，多网卡时可手动设置指定IP，该IP不会绑定Host仅作为通讯实用；地址信息用于 "执行器注册" 和 "调度中心请求并触发任务"；</span>
+<span class="token key attr-name">xxl.job.executor.ip</span><span class="token punctuation">=</span><span class="token value attr-value">127.0.0.1</span>
+<span class="token comment">### 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999，单机部署多个执行器时，注意要配置不同执行器端口；</span>
+<span class="token key attr-name">xxl.job.executor.port</span><span class="token punctuation">=</span><span class="token value attr-value">9999</span>
+<span class="token comment">### 执行器运行日志文件存储磁盘路径 [选填] ：需要对该路径拥有读写权限；为空则使用默认路径；</span>
+<span class="token key attr-name">xxl.job.executor.logpath</span><span class="token punctuation">=</span><span class="token value attr-value">/data/applogs/xxl-job/jobhandler</span>
+<span class="token comment">### 执行器日志文件保存天数 [选填] ： 过期日志自动清理, 限制值大于等于3时生效; 否则, 如-1, 关闭自动清理功能；</span>
+<span class="token key attr-name">xxl.job.executor.logretentiondays</span><span class="token punctuation">=</span><span class="token value attr-value">30</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="2-3-3-添加执行器配置"><a href="#2-3-3-添加执行器配置" class="headerlink" title="2.3.3 添加执行器配置"></a>2.3.3 添加执行器配置</h4><p>创建<code>XxlJobConfig</code>配置对象:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">XxlJobConfig</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;xxl.job.admin.addresses&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> adminAddresses<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;xxl.job.accessToken&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> accessToken<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;xxl.job.executor.appname&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> appname<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;xxl.job.executor.address&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> address<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;xxl.job.executor.ip&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> ip<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;xxl.job.executor.port&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> port<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;xxl.job.executor.logpath&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> logPath<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;xxl.job.executor.logretentiondays&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> logRetentionDays<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">XxlJobSpringExecutor</span> <span class="token function">xxlJobExecutor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">XxlJobSpringExecutor</span> xxlJobSpringExecutor <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XxlJobSpringExecutor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xxlJobSpringExecutor<span class="token punctuation">.</span><span class="token function">setAdminAddresses</span><span class="token punctuation">(</span>adminAddresses<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xxlJobSpringExecutor<span class="token punctuation">.</span><span class="token function">setAppname</span><span class="token punctuation">(</span>appname<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xxlJobSpringExecutor<span class="token punctuation">.</span><span class="token function">setAddress</span><span class="token punctuation">(</span>address<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xxlJobSpringExecutor<span class="token punctuation">.</span><span class="token function">setIp</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xxlJobSpringExecutor<span class="token punctuation">.</span><span class="token function">setPort</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xxlJobSpringExecutor<span class="token punctuation">.</span><span class="token function">setAccessToken</span><span class="token punctuation">(</span>accessToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xxlJobSpringExecutor<span class="token punctuation">.</span><span class="token function">setLogPath</span><span class="token punctuation">(</span>logPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xxlJobSpringExecutor<span class="token punctuation">.</span><span class="token function">setLogRetentionDays</span><span class="token punctuation">(</span>logRetentionDays<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> xxlJobSpringExecutor<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+
+
+<h4 id="2-3-4-添加任务处理类"><a href="#2-3-4-添加任务处理类" class="headerlink" title="2.3.4 添加任务处理类"></a>2.3.4 添加任务处理类</h4><p>添加任务处理类，交给Spring容器管理，在处理方法上贴上<code>@XxlJob</code>注解</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleXxlJob</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@XxlJob</span><span class="token punctuation">(</span><span class="token string">"demoJobHandler"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">demoJobHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行定时任务,执行时间:"</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-4-运行HelloWorld程序"><a href="#2-4-运行HelloWorld程序" class="headerlink" title="2.4 运行HelloWorld程序"></a>2.4 运行HelloWorld程序</h3><h4 id="2-4-1-任务配置-amp-触发执行"><a href="#2-4-1-任务配置-amp-触发执行" class="headerlink" title="2.4.1 任务配置&amp;触发执行"></a>2.4.1 任务配置&amp;触发执行</h4><p>登录调度中心,在任务管理中新增任务,配置内容如下:</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101100952650.png" srcset="/img/loading.gif" lazyload alt="image-20221101100952650"></p>
+<p>新增后界面如下:</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101101555269.png" srcset="/img/loading.gif" lazyload alt="image-20221101101555269"></p>
+<p>接着启动定时调度任务</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101101737502.png" srcset="/img/loading.gif" lazyload alt="image-20221101101737502"></p>
+<h4 id="2-4-2-查看日志"><a href="#2-4-2-查看日志" class="headerlink" title="2.4.2 查看日志"></a>2.4.2 查看日志</h4><p>在调度中心的调度日志中就可以看到，任务的执行结果.</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101101850629.png" srcset="/img/loading.gif" lazyload alt="image-20221101101850629"></p>
+<p>管控台也可以看到任务的执行信息.</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101101958510.png" srcset="/img/loading.gif" lazyload alt="image-20221101101958510"></p>
+<h3 id="2-5-GLUE模式-Java"><a href="#2-5-GLUE模式-Java" class="headerlink" title="2.5 GLUE模式(Java)"></a>2.5 GLUE模式(Java)</h3><p>任务以源码方式维护在调度中心，支持通过Web IDE在线更新，实时编译和生效，因此不需要指定JobHandler。</p>
+<p>（ “GLUE模式(Java)” 运行模式的任务实际上是一段继承自JobHandler的Java类代码，它在执行器项目中运行，可使用<a target="_blank" rel="noopener" href="https://github.com/Resource">@Resource</a>&#x2F;<a target="_blank" rel="noopener" href="https://github.com/Autowire">@Autowire</a>注入执行器里中的其他服务.</p>
+<p><strong>添加Service</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloService</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">methodA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行MethodA的方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">methodB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"执行MethodB的方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>添加任务配置</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221102172115256.png" srcset="/img/loading.gif" lazyload alt="image-20221102172115256"></p>
+<p><strong>通过GLUE IDE在线编辑代码</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221102172248883.png" srcset="/img/loading.gif" lazyload alt="image-20221102172248883"></p>
+<hr>
+<p>编写内容如下:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>xxl<span class="token punctuation">.</span>job<span class="token punctuation">.</span>service<span class="token punctuation">.</span>handler</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">cn<span class="token punctuation">.</span>wolfcode<span class="token punctuation">.</span>xxljobdemo<span class="token punctuation">.</span>service<span class="token punctuation">.</span></span><span class="token class-name">HelloService</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>xxl<span class="token punctuation">.</span>job<span class="token punctuation">.</span>core<span class="token punctuation">.</span>handler<span class="token punctuation">.</span></span><span class="token class-name">IJobHandler</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Autowired</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DemoGlueJobHandler</span> <span class="token keyword">extends</span> <span class="token class-name">IJobHandler</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">HelloService</span> helloService<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        helloService<span class="token punctuation">.</span><span class="token function">methodA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>启动并执行程序</strong></p>
+<h3 id="2-6-执行器集群"><a href="#2-6-执行器集群" class="headerlink" title="2.6 执行器集群"></a>2.6 执行器集群</h3><h4 id="2-6-1-集群环境搭建"><a href="#2-6-1-集群环境搭建" class="headerlink" title="2.6.1 集群环境搭建"></a>2.6.1 集群环境搭建</h4><p>在IDEA中设置SpringBoot项目运行开启多个集群</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101145048598.png" srcset="/img/loading.gif" lazyload alt="image-20221101145048598"></p>
+<p>启动两个SpringBoot程序,需要添加虚拟机参数修改Tomcat端口和执行器端口</p>
+<ul>
+<li><p>Tomcat端口8090程序的命令行参数如下:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token parameter variable">-Dserver.port</span><span class="token operator">=</span><span class="token number">8090</span> <span class="token parameter variable">-Dxxl.job.executor.port</span><span class="token operator">=</span><span class="token number">9998</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p>Tomcat端口8090程序的命令行参数如下:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token parameter variable">-Dserver.port</span><span class="token operator">=</span><span class="token number">8091</span> <span class="token parameter variable">-Dxxl.job.executor.port</span><span class="token operator">=</span><span class="token number">9999</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+</ul>
+<p>在任务管理中，修改路由策略，修改成<code>轮询</code></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101150421458.png" srcset="/img/loading.gif" lazyload alt="image-20221101150421458"></p>
+<p>重新启动,我们可以看到效果是,定时任务会在这两台机器中进行轮询的执行</p>
+<ul>
+<li><p>8090端口的控制台日志如下:</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101150852090.png" srcset="/img/loading.gif" lazyload alt="image-20221101150852090"></p>
+</li>
+<li><p>8091端口的控制台日志如下:</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221101150938313.png" srcset="/img/loading.gif" lazyload alt="image-20221101150938313"></p>
+</li>
+</ul>
+<h4 id="2-6-2-调度路由算法讲解"><a href="#2-6-2-调度路由算法讲解" class="headerlink" title="2.6.2 调度路由算法讲解"></a>2.6.2 调度路由算法讲解</h4><p>当执行器集群部署时，提供丰富的路由策略，包括:</p>
+<ol>
+<li><p><code>FIRST（第一个）：固定选择第一个机器</code></p>
+</li>
+<li><p><code>LAST（最后一个）：固定选择最后一个机器；</code></p>
+</li>
+<li><p><code>ROUND（轮询）：依次的选择在线的机器发起调度</code></p>
+</li>
+<li><p><code>RANDOM（随机）：随机选择在线的机器；</code></p>
+</li>
+<li><p><code>CONSISTENT_HASH（一致性HASH）：</code>        </p>
+<p><code>每个任务按照Hash算法固定选择某一台机器，且所有任务均匀散列在不同机器上。</code></p>
+</li>
+<li><p><code>LEAST_FREQUENTLY_USED（最不经常使用）：使用频率最低的机器优先被选举；</code></p>
+</li>
+<li><p><code>LEAST_RECENTLY_USED（最近最久未使用）：最久未使用的机器优先被选举；</code></p>
+</li>
+<li><p><code>FAILOVER（故障转移）：按照顺序依次进行心跳检测，第一个心跳检测成功的机器选定为目标执行器并发起调度；</code></p>
+</li>
+<li><p><code>BUSYOVER（忙碌转移）：按照顺序依次进行空闲检测，第一个空闲检测成功的机器选定为目标执行器并发起调度；</code></p>
+</li>
+<li><p><code>SHARDING_BROADCAST(分片广播)：</code>        </p>
+<p><code>广播触发对应集群中所有机器执行一次任务，同时系统自动传递分片参数；可根据分片参数开发分片任务；</code></p>
+</li>
+</ol>
+<h2 id="3-分片功能讲解"><a href="#3-分片功能讲解" class="headerlink" title="3. 分片功能讲解"></a>3. 分片功能讲解</h2><h3 id="3-1-案例需求讲解"><a href="#3-1-案例需求讲解" class="headerlink" title="3.1 案例需求讲解"></a>3.1 案例需求讲解</h3><p>需求:我们现在实现这样的需求，在指定节假日，需要给平台的所有用户去发送祝福的短信.</p>
+<h4 id="3-1-1-初始化数据"><a href="#3-1-1-初始化数据" class="headerlink" title="3.1.1 初始化数据"></a>3.1.1 初始化数据</h4><p>在数据库中导入<code>xxl_job_demo.sql</code>数据</p>
+<h4 id="3-1-2-集成Druid-amp-MyBatis"><a href="#3-1-2-集成Druid-amp-MyBatis" class="headerlink" title="3.1.2 集成Druid&amp;MyBatis"></a>3.1.2 集成Druid&amp;MyBatis</h4><p><strong>添加依赖</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--MyBatis驱动--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.mybatis.spring.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mybatis-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.2.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--mysql驱动--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>mysql<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mysql-connector-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--lombok依赖--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>provided<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.alibaba<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>druid<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.1.10<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>添加配置</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token key attr-name">spring.datasource.url</span><span class="token punctuation">=</span><span class="token value attr-value">jdbc:mysql://localhost:3306/xxl_job_demo?serverTimezone=GMT%2B8&amp;useUnicode=true&amp;characterEncoding=UTF-8</span>
+<span class="token key attr-name">spring.datasource.driverClassName</span><span class="token punctuation">=</span><span class="token value attr-value">com.mysql.jdbc.Driver</span>
+<span class="token key attr-name">spring.datasource.type</span><span class="token punctuation">=</span><span class="token value attr-value">com.alibaba.druid.pool.DruidDataSource</span>
+<span class="token key attr-name">spring.datasource.username</span><span class="token punctuation">=</span><span class="token value attr-value">root</span>
+<span class="token key attr-name">spring.datasource.password</span><span class="token punctuation">=</span><span class="token value attr-value">WolfCode_2017</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>添加实体类</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Setter</span><span class="token annotation punctuation">@Getter</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserMobilePlan</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Long</span> id<span class="token punctuation">;</span><span class="token comment">//主键</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> username<span class="token punctuation">;</span><span class="token comment">//用户名</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> nickname<span class="token punctuation">;</span><span class="token comment">//昵称</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> phone<span class="token punctuation">;</span><span class="token comment">//手机号码</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> info<span class="token punctuation">;</span><span class="token comment">//备注</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>添加Mapper处理类</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Mapper</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserMobilePlanMapper</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Select</span><span class="token punctuation">(</span><span class="token string">"select * from t_user_mobile_plan"</span><span class="token punctuation">)</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserMobilePlan</span><span class="token punctuation">></span></span> <span class="token function">selectAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="3-1-3-业务功能实现"><a href="#3-1-3-业务功能实现" class="headerlink" title="3.1.3 业务功能实现"></a>3.1.3 业务功能实现</h4><p><strong>任务处理方法实现</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@XxlJob</span><span class="token punctuation">(</span><span class="token string">"sendMsgHandler"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendMsgHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserMobilePlan</span><span class="token punctuation">></span></span> userMobilePlans <span class="token operator">=</span> userMobilePlanMapper<span class="token punctuation">.</span><span class="token function">selectAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"任务开始时间:"</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">",处理任务数量:"</span><span class="token operator">+</span>userMobilePlans<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Long</span> startTime <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    userMobilePlans<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>item<span class="token operator">-></span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">//模拟发送短信动作</span>
+            <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">MILLISECONDS</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"任务结束时间:"</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"任务耗时:"</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>startTime<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"毫秒"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>任务配置信息</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221102164333453.png" srcset="/img/loading.gif" lazyload alt="image-20221102164333453"></p>
+<h3 id="3-2-分片概念讲解"><a href="#3-2-分片概念讲解" class="headerlink" title="3.2 分片概念讲解"></a>3.2 分片概念讲解</h3><p><strong>比如我们的案例中有2000+条数据，如果不采取分片形式的话，任务只会在一台机器上执行，这样的话需要20+秒才能执行完任务.</strong></p>
+<p>如果采取分片广播的形式的话，一次任务调度将会广播触发对应集群中所有执行器执行一次任务，同时系统自动传递分片参数；可根据分片参数开发分片任务；</p>
+<p>获取分片参数方式:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 可参考Sample示例执行器中的示例任务"ShardingJobHandler"了解试用 </span>
+<span class="token keyword">int</span> shardIndex <span class="token operator">=</span> <span class="token class-name">XxlJobHelper</span><span class="token punctuation">.</span><span class="token function">getShardIndex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> shardTotal <span class="token operator">=</span> <span class="token class-name">XxlJobHelper</span><span class="token punctuation">.</span><span class="token function">getShardTotal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>通过这两个参数，我们可以通过求模取余的方式，分别查询，分别执行，这样的话就可以提高处理的速度.</p>
+<p>之前2000+条数据只在一台机器上执行需要20+秒才能完成任务，分片后，有两台机器可以共同完成2000+条数据，每台机器处理1000+条数据，这样的话只需要10+秒就能完成任务</p>
+<h3 id="3-3-案例改造成任务分片"><a href="#3-3-案例改造成任务分片" class="headerlink" title="3.3 案例改造成任务分片"></a>3.3 案例改造成任务分片</h3><p><strong>Mapper增加查询方法</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Mapper</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserMobilePlanMapper</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Select</span><span class="token punctuation">(</span><span class="token string">"select * from t_user_mobile_plan where mod(id,#&#123;shardingTotal&#125;)=#&#123;shardingIndex&#125;"</span><span class="token punctuation">)</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserMobilePlan</span><span class="token punctuation">></span></span> <span class="token function">selectByMod</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Param</span><span class="token punctuation">(</span><span class="token string">"shardingIndex"</span><span class="token punctuation">)</span> <span class="token class-name">Integer</span> shardingIndex<span class="token punctuation">,</span><span class="token annotation punctuation">@Param</span><span class="token punctuation">(</span><span class="token string">"shardingTotal"</span><span class="token punctuation">)</span><span class="token class-name">Integer</span> shardingTotal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Select</span><span class="token punctuation">(</span><span class="token string">"select * from t_user_mobile_plan"</span><span class="token punctuation">)</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserMobilePlan</span><span class="token punctuation">></span></span> <span class="token function">selectAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>任务类方法</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@XxlJob</span><span class="token punctuation">(</span><span class="token string">"sendMsgShardingHandler"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendMsgShardingHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"任务开始时间:"</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> shardTotal <span class="token operator">=</span> <span class="token class-name">XxlJobHelper</span><span class="token punctuation">.</span><span class="token function">getShardTotal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> shardIndex <span class="token operator">=</span> <span class="token class-name">XxlJobHelper</span><span class="token punctuation">.</span><span class="token function">getShardIndex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserMobilePlan</span><span class="token punctuation">></span></span> userMobilePlans <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>shardTotal<span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//如果没有分片就直接查询所有数据</span>
+        userMobilePlans <span class="token operator">=</span> userMobilePlanMapper<span class="token punctuation">.</span><span class="token function">selectAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+        userMobilePlans <span class="token operator">=</span> userMobilePlanMapper<span class="token punctuation">.</span><span class="token function">selectByMod</span><span class="token punctuation">(</span>shardIndex<span class="token punctuation">,</span>shardTotal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"处理任务数量:"</span><span class="token operator">+</span>userMobilePlans<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Long</span> startTime <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    userMobilePlans<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>item<span class="token operator">-></span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">TimeUnit</span><span class="token punctuation">.</span><span class="token constant">MILLISECONDS</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"任务结束时间:"</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"任务耗时:"</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>startTime<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"毫秒"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>任务设置</strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20221102170055525.png" srcset="/img/loading.gif" lazyload alt="image-20221102170055525"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E8%B0%83%E5%BA%A6/" class="category-chain-item">分布式调度</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E8%B0%83%E5%BA%A6/">#分布式调度</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>分布式调度XXL-JOB</div>
+      <div>https://xhablog.online/2024/02/22/分布式调度XXL-JOB/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/26/Docker%E5%AE%89%E8%A3%85Jenkins%E5%B9%B6%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" title="Docker安装jenkins并实现自动化部署">
+                        <span class="hidden-mobile">Docker安装jenkins并实现自动化部署</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '52af22c043b379b31c8ed8e5cf71e29a'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span><svg t="1686650467734" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4406" width="13" height="13"><path d="M926.991 337.678c-22.571-53.364-54.877-101.283-96.021-142.426-41.143-41.143-89.062-73.449-142.426-96.02-55.266-23.375-113.953-35.228-174.434-35.228-60.48 0-119.168 11.852-174.433 35.228-53.364 22.571-101.283 54.877-142.426 96.02s-73.449 89.062-96.02 142.426c-23.375 55.265-35.228 113.953-35.228 174.433 0 60.48 11.852 119.168 35.228 174.434 22.571 53.364 54.877 101.283 96.02 142.426 41.143 41.144 89.062 73.449 142.426 96.021 55.265 23.375 113.953 35.228 174.433 35.228 60.48 0 119.168-11.853 174.434-35.228 53.364-22.571 101.283-54.877 142.426-96.021 41.144-41.143 73.449-89.062 96.021-142.426 23.375-55.266 35.228-113.953 35.228-174.434 0-60.48-11.853-119.168-35.228-174.433z m-412.88 558.541c-211.797 0-384.107-172.31-384.107-384.107 0-211.797 172.31-384.107 384.107-384.107 211.798 0 384.107 172.31 384.107 384.107 0.001 211.797-172.309 384.107-384.107 384.107z" p-id="4407"></path><path d="M514.111 290.829c51.918 0 102.431 18.428 142.233 51.889 13.528 11.375 33.715 9.626 45.086-3.902 11.373-13.527 9.626-33.713-3.902-45.086-51.316-43.142-116.456-66.901-183.417-66.901-76.201 0-147.842 29.675-201.725 83.557-53.883 53.883-83.558 125.523-83.558 201.725s29.675 147.843 83.558 201.726 125.523 83.558 201.725 83.558c66.961 0 132.1-23.76 183.417-66.901 13.528-11.372 15.275-31.559 3.902-45.086s-31.559-15.275-45.086-3.902c-39.803 33.462-90.315 51.89-142.233 51.89-122.015 0-221.282-99.268-221.282-221.283 0-122.017 99.267-221.284 221.282-221.284z" p-id="4408"></path></svg>2021 - 2023</span> <span>本站由</span> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <span>&</span> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <span>强力驱动</span> 
+      <!--《添加网站运行时间 -->
+<br/>
+
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+    <script>
+      var now = new Date();
+
+      function createtime() {
+        //此处修改你的建站时间或者网站上线时间
+        var grt = new Date('06/09/2023 8:00:00');
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+          hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+          mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+          snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = " 本站已破天荒的安全运行 " + dnum + " 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+      }
+      setInterval("createtime()", 250);
+    </script>
+
+<!-- 添加网站运行时间》-->
+<br/>
+<span style="font-weight: initial">文章总字数2739k</span>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
