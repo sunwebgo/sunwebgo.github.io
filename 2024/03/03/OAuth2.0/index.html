@@ -1,0 +1,1084 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <link rel="icon" href="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu huaiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.分布式系统认证需求分布式系统的每个服务都会有认证、授权的需求，如果每个服务都实现一套认证授权逻辑会非常冗余，考虑分布式系统共享性的特点，需要有独立的认证服务处理系统认证授权的请求；考虑分布式系统开放性的特点，不仅对系统内部服务提供认证，对第三方系统也需要提供认证。分布式认证的需求总结如下：   统一认证授权 提供独立的认证服务，统一处理认证授权。 无论是不同类型的用户，还是不同种类的客户端，均">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OAuth2.0">
+<meta property="og:url" content="https://xhablog.online/2024/03/03/OAuth2.0/index.html">
+<meta property="og:site_name" content="xhang′s blog">
+<meta property="og:description" content="1.分布式系统认证需求分布式系统的每个服务都会有认证、授权的需求，如果每个服务都实现一套认证授权逻辑会非常冗余，考虑分布式系统共享性的特点，需要有独立的认证服务处理系统认证授权的请求；考虑分布式系统开放性的特点，不仅对系统内部服务提供认证，对第三方系统也需要提供认证。分布式认证的需求总结如下：   统一认证授权 提供独立的认证服务，统一处理认证授权。 无论是不同类型的用户，还是不同种类的客户端，均">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/9e803ed883298d09d964bbaf9d89b9dc.jpg">
+<meta property="article:published_time" content="2024-03-03T02:19:07.000Z">
+<meta property="article:modified_time" content="2024-03-05T15:43:59.836Z">
+<meta property="article:author" content="Xu huaiang">
+<meta property="article:tag" content="OAuth2">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/9e803ed883298d09d964bbaf9d89b9dc.jpg">
+  
+  
+  
+  <title>OAuth2.0 - xhang′s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+<link rel="stylesheet" href="/css/indeximg-hover.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xhablog.online","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"giycfQfOF4KRyAqEJy6tocBG-gzGzoHsz","app_key":"eFPJSGrHpiDV2uq6UTxse15b","server_url":"https://giycfqfo.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xhang′s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-zhuye"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-guidang1"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-fenlei"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-biaoqian"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/messageboard/">
+                <i class="iconfont icon-liuyanban-05"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-youqinglianjie"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-guanyuwomen"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/hexo/index.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OAuth2.0"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Xu huaiang
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-03 10:19" pubdate>
+          2024年3月3日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          73 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">OAuth2.0</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-分布式系统认证需求"><a href="#1-分布式系统认证需求" class="headerlink" title="1.分布式系统认证需求"></a>1.分布式系统认证需求</h2><p>分布式系统的每个服务都会有认证、授权的需求，<font color='red'>如果每个服务都实现一套认证授权逻辑会非常冗余，考虑分布式系统共享性的特点，需要有独立的认证服务处理系统认证授权的请求；</font>考虑分布式系统开放性的特点，不仅对系统内部服务提供认证，对第三方系统也需要提供认证。分布式认证的需求总结如下：</p>
+<blockquote>
+<ol>
+<li><p><strong>统一认证授权</strong></p>
+<p>提供独立的认证服务，统一处理认证授权。</p>
+<p>无论是不同类型的用户，还是不同种类的客户端，均采用一致的认证、权限、会话机制，实现统一认证授权。</p>
+<p>要实现统一则认证方式必须课扩展，支持各种认证需求，比如：用户密码认证、短信验证码、二维码、人脸识别，并可以灵活的切换。</p>
+</li>
+<li><p><strong>应用接入认证</strong></p>
+<p>应提供扩展和开放能力，提供安全的系统对接机制，并可开放部分API给第三方使用，一方应用（内部系统服务）和三方应用（第三方应用）均采用统一机制接入。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="2-分布式认证方案"><a href="#2-分布式认证方案" class="headerlink" title="2.分布式认证方案"></a>2.分布式认证方案</h2><h3 id="2-1选型分析"><a href="#2-1选型分析" class="headerlink" title="2.1选型分析"></a>2.1选型分析</h3><h4 id="2-1-1基于session的认证方式"><a href="#2-1-1基于session的认证方式" class="headerlink" title="2.1.1基于session的认证方式"></a>2.1.1基于session的认证方式</h4><p>在分布式的环境下，基于session的认证会出现一个问题，每个应用服务都需要在session中存储用户身份信息，通过负载均衡将本地的请求分配到另一个应用服务需要将session信息带过去，否则会重新认证。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1936533-20210515155335234-232330436.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>这个时候，通常的做法有下面几种：</p>
+<blockquote>
+<ul>
+<li><strong>Session复制</strong>：多台应用服务器之间同步session，使session保持一致，对外透明</li>
+<li><strong>Session黏贴</strong>：当用户访问集群中某台服务器后，强制指定后续所有请求均落到此机器上</li>
+<li><strong>Session集中存储</strong>：将Session存入分布式缓存中，所有服务器应用实例统一从分布式缓存中存取Session。</li>
+</ul>
+</blockquote>
+<p>总体来讲，基于session认证的认证方式，可以更好的在服务端对会话进行控制，且安全性较高。但是，session机 制方式基于cookie，在复杂多样的移动客户端上不能有效的使用，并且无法跨域，另外随着系统的扩展需提高 session的复制、黏贴及存储的容错性。</p>
+<h4 id="2-1-2基于token的认证方式"><a href="#2-1-2基于token的认证方式" class="headerlink" title="2.1.2基于token的认证方式"></a>2.1.2基于token的认证方式</h4><p>基于token的认证方式，服务端不用存储认证数据，易维护扩展性强， 客户端可以把token存在任意地方，并且可以实现web和app统一认证机制。其缺点也很明显，token由于自包含信息，因此一般数据量较大，而且每次请求都需要传递，因此比较占带宽。另外，token的签名验签操作也会给cpu带来额外的处理负担。</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1936533-20210515155701953-252693610.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="2-2技术方案"><a href="#2-2技术方案" class="headerlink" title="2.2技术方案"></a>2.2技术方案</h3><p>根据选型的分析，决定采用基于token的认证方式，它的优点是：</p>
+<blockquote>
+<ol>
+<li>适合统一认证的机制，客户端、一方应用、三方应用都遵循一致的认证机制。</li>
+<li>token认证方式对第三方应用接入更适合，因为它更开放，可使用当前有流行的开放协议Oauth2.0、JWT等。</li>
+<li>一般情况服务端无需存储会话信息，减轻了服务端的压力。</li>
+</ol>
+</blockquote>
+<p><strong>分布式系统认证技术方案见下图：</strong><br><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1936533-20210515155949041-1528851413.png" srcset="/img/loading.gif" lazyload alt="img"><br>流程描述：</p>
+<blockquote>
+<ol>
+<li>用户通过接入方（应用）登录，接入方采取OAuth2.0方式在统一认证服务(UAA)中认证。</li>
+<li>认证服务(UAA)调用验证该用户的身份是否合法，并获取用户权限信息。</li>
+<li>认证服务(UAA)获取接入方权限信息，并验证接入方是否合法。</li>
+<li>若登录用户以及接入方都合法，认证服务生成jwt令牌返回给接入方，其中jwt中包含了用户权限及接入方权限。</li>
+<li>后续，接入方携带jwt令牌对API网关内的微服务资源进行访问。</li>
+<li>API网关对令牌解析、并验证接入方的权限是否能够访问本次请求的微服务。</li>
+<li>如果接入方的权限没问题，API网关将原请求header中附加解析后的明文Token，并将请求转发至微服务。</li>
+<li>微服务收到请求，明文token中包含登录用户的身份和权限信息。因此后续微服务自己可以干两件事：1，用 户授权拦截（看当前用户是否有权访问该资源）2，将用户信息存储进当前线程上下文（有利于后续业务逻辑随时 获取当前用户信息)</li>
+</ol>
+</blockquote>
+<p>流程所涉及到UAA服务、API网关这三个组件职责如下：</p>
+<blockquote>
+<ol>
+<li><strong>统一认证服务(UAA)</strong><br>它承载了OAuth2.0接入方认证、登入用户的认证、授权以及生成令牌的职责，完成实际的用户认证、授权功能。</li>
+<li><strong>API网关</strong><br>作为系统的唯一入口，API网关为接入方提供定制的API集合，它可能还具有其它职责，如身份验证、监控、负载均衡、缓存等。API网关方式的核心要点是，所有的接入方和消费端都通过统一的网关接入微服务，在网关层处理所有的非业务功能。</li>
+</ol>
+</blockquote>
+<h2 id="3-OAuth2-0"><a href="#3-OAuth2-0" class="headerlink" title="3.OAuth2.0"></a>3.OAuth2.0</h2><h3 id="3-1-OAuth2-0介绍"><a href="#3-1-OAuth2-0介绍" class="headerlink" title="3.1 OAuth2.0介绍"></a>3.1 OAuth2.0介绍</h3><p><font color='red'><code>OAuth</code>（开放授权）是一个开放标准，允许用户授权第三方应用访问他们存储在另外的服务提供者上的信息，而不需要将用户名和密码提供给第三方应用或分享他们数据的所有内容。</font>OAuth2.0是OAuth协议的延续版本，但不向后兼容OAuth 1.0即完全废止了OAuth1.0。很多大公司如Google，Yahoo，Microsoft等都提供了OAUTH认证服务。</p>
+<p>下边分析一个Oauth2认证的例子，通过例子去理解OAuth2.0协议的认证流程，本例子是网站使用微信认证的过程，这个过程的简要描述如下：</p>
+<blockquote>
+<ol>
+<li>客户端请求第三方授权用户进入程序的登录页面，点击微信的图标以微信账号登录系统，用户是自己在微信里信息的资源拥有者。</li>
+<li><strong>资源拥有者同意给客户端授权</strong>：资源拥有者扫描二维码表示资源拥有者同意给客户端授权，微信会对资源拥有者的身份进行验证， 验证通过后，微信会询问用户是否给授权网站访问自己的微信数据，用户点击“确认登录”表示同意授权，<font color='red'>微信认证服务器会颁发一个授权码，并重定向到网站。</font></li>
+<li><strong>客户端获取到授权码，请求认证服务器申请令牌</strong>：客户端应用程序请求认证服务器，请求中携带授权码。</li>
+<li><strong>认证服务器向客户端响应令牌</strong>：微信认证服务器验证了客户端请求的授权码，如果合法则给客户端颁发令牌，令牌是客户端访问资源的通行证。 此交互过程用户看不到，当客户端拿到令牌后，用户在网站看到已经登录成功。</li>
+<li><strong>客户端携带令牌访问资源服务器的资源</strong>：网站携带令牌请求访问微信服务器获取用户的基本信息。</li>
+<li><strong>资源服务器返回受保护资源</strong>：资源服务器校验令牌的合法性，如果合法则向用户响应资源信息内容。</li>
+</ol>
+</blockquote>
+<p>以上认证授权详细的执行流程如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1936533-20210515224723410-1267933315.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p> OAauth2.0协议rfc6749当中的认证流程：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/1936533-20210515224857655-1818650104.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<blockquote>
+<p>OAauth2.0包括以下角色：</p>
+<ol>
+<li><strong>客户端</strong><br>本身不存储资源，需要通过资源拥有者的授权去请求资源服务器的资源，比如：Android客户端、Web客户端（浏览器端）、微信客户端等。</li>
+<li><strong>资源拥有者</strong><br>通常为用户，也可以是应用程序，即该资源的拥有者。</li>
+<li><strong>授权服务器（也称认证服务器）</strong><br>用于服务提供商对资源拥有的身份进行认证、对访问资源进行授权，认证成功后会给客户端发放令牌 （access_token），作为客户端访问资源服务器的凭据。本例为微信的认证服务器。</li>
+<li><strong>资源服务器</strong><br>存储资源的服务器，本例子为微信存储的用户信息。</li>
+</ol>
+<p>现在还有一个问题，服务提供商能允许随便一个客户端就接入到它的授权服务器吗？答案是否定的，服务提供商会给准入的接入方一个身份，用于接入时的凭据:</p>
+<ul>
+<li><strong>client_id</strong>：客户端标识</li>
+<li><strong>client_secret</strong>：客户端秘钥</li>
+</ul>
+<p>因此，准确来说，授权服务器对两种OAuth2.0中的两个角色进行认证授权，分别是资源拥有者、客户端。</p>
+</blockquote>
+<h2 id="4-Spring-Cloud-Security-OAuth2"><a href="#4-Spring-Cloud-Security-OAuth2" class="headerlink" title="4.Spring Cloud Security OAuth2"></a>4.Spring Cloud Security OAuth2</h2><h3 id="4-1环境介绍"><a href="#4-1环境介绍" class="headerlink" title="4.1环境介绍"></a>4.1环境介绍</h3><p>Spring-Security-OAuth2是对OAuth2的一种实现，和Spring Security相辅相成，与Spring Cloud体系的集成也非常便利。</p>
+<p>OAuth2.0的服务提供方涵盖两个服务，即<strong>授权服务</strong> (Authorization Server，也叫认证服务) 和<strong>资源服务</strong> (Resource Server)，使用 Spring Security OAuth2 的时候你可以选择把它们在同一个应用程序中实现，也可以选择建立使用同一个授权服务的多个资源服务。</p>
+<blockquote>
+<p><strong>授权服务 (Authorization Server）</strong>应包含对接入端以及登入用户的合法性进行验证并颁发token等功能，对令牌的请求端点由 Spring MVC 控制器进行实现，下面是配置一个认证服务必须要实现的endpoints：</p>
+<ul>
+<li><strong>AuthorizationEndpoint</strong> 服务于认证请求。默认 URL： <code>/oauth/authorize</code> 。</li>
+<li><strong>TokenEndpoint</strong> 服务于访问令牌的请求。默认 URL： <code>/oauth/token</code>。</li>
+</ul>
+<p>**资源服务 (Resource Server)**，应包含对资源的保护功能，对非法请求进行拦截，对请求中token进行解析鉴权等，下面的过滤器用于实现 OAuth 2.0 资源服务</p>
+<ul>
+<li>OAuth2AuthenticationProcessingFilter用来对请求给出的身份令牌解析鉴权。</li>
+</ul>
+</blockquote>
+<p>微服务环境以<code>认证中心（UAA）</code>和<code>Order服务</code>为例，认证流程如下：</p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240211184055555.png" srcset="/img/loading.gif" lazyload alt="image-20240211184055555"></p>
+<blockquote>
+<ol>
+<li>客户端请求认证中心（UAA）授权服务进行认证。</li>
+<li>认证后由认证中心颁发令牌。</li>
+<li>客户端携带令牌Token请求资源服务。</li>
+<li>资源服务校验令牌和合法性，合法及返回资源信息。</li>
+</ol>
+</blockquote>
+<h3 id="授权服务配置"><a href="#授权服务配置" class="headerlink" title="授权服务配置"></a>授权服务配置</h3><p>可以用 <code>@EnableAuthorizationServer</code> 注解并继承<code>AuthorizationServerConfigurerAdapter</code>来配置OAuth2.0 授权服务器。</p>
+<p><code>AuthorizationServerConfigurerAdapter</code>要求配置以下几个类，这几个类是由Spring创建的独立的配置对象，它们会被Spring传入AuthorizationServerConfigurer中进行配置。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AuthorizationServerConfigurerAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">AuthorizationServerConfigurer</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token annotation punctuation">@Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationServerSecurityConfigurer</span> security<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token annotation punctuation">@Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">ClientDetailsServiceConfigurer</span> clients<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token annotation punctuation">@Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationServerEndpointsConfigurer</span> endpoints<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+	<span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@EnableAuthorizationServer</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AuthorizationServerConfiguration</span> <span class="token keyword">extends</span> <span class="token class-name">AuthorizationServerConfigurerAdapter</span> <span class="token punctuation">&#123;</span>
+
+    
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationServerSecurityConfigurer</span> security<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>security<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">ClientDetailsServiceConfigurer</span> clients<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>clients<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationServerEndpointsConfigurer</span> endpoints<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>endpoints<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<blockquote>
+<ul>
+<li><code>ClientDetailsServiceConfigurer</code>：用来配置客户端详情服务。</li>
+<li><code>AuthorizationServerEndpointsConfigurer</code>：用来配置令牌（token）的访问端点和令牌服务(token services)。</li>
+<li><code>AuthorizationServerSecurityConfigurer</code>：用来配置令牌端点的安全约束.</li>
+</ul>
+</blockquote>
+<h4 id="2-2-2-1-配置客户端详细信息"><a href="#2-2-2-1-配置客户端详细信息" class="headerlink" title="2.2.2.1.配置客户端详细信息"></a>2.2.2.1.配置客户端详细信息</h4><p>ClientDetailsServiceConfigurer 能够使用内存或者JDBC来实现客户端详情服务（ClientDetailsService）， ClientDetailsService负责查找ClientDetails，而ClientDetails有几个重要的属性如下列表：</p>
+<blockquote>
+<ul>
+<li><code>clientId</code>：（必须的）用来标识客户的Id。</li>
+<li><code>secret</code>：（需要值得信任的客户端）客户端安全码，如果有的话。</li>
+<li><code>scope</code>：用来限制客户端的访问范围，如果为空（默认）的话，那么客户端拥有全部的访问范围。</li>
+<li><code>authorizedGrantTypes</code>：此客户端可以使用的授权类型，默认为空。</li>
+<li><code>authorities</code>：此客户端可以使用的权限（基于Spring Security authorities）。</li>
+</ul>
+</blockquote>
+<p>客户端详情（Client Details）能够在应用程序运行的时候进行更新，可以通过访问底层的存储服务（例如将客户端详情存储在一个关系数据库的表中，就可以使用 JdbcClientDetailsService）或者通过自己实现 ClientRegistrationService接口（同时你也可以实现 ClientDetailsService 接口）来进行管理。</p>
+<h4 id="2-2-2-2-管理令牌"><a href="#2-2-2-2-管理令牌" class="headerlink" title="2.2.2.2.管理令牌"></a>2.2.2.2.管理令牌</h4><p>在Spring Security中，<code>TokenStore</code> 是用于管理令牌（Token）的接口。它负责存储和检索授权信息，以便在用户访问受保护的接口时进行验证。下面是几个 <code>TokenStore</code> 的实现类：</p>
+<ol>
+<li><strong>InMemoryTokenStore</strong>：将 OAuth2 访问令牌保存在内存中，使用 <code>ConcurrentHashMap</code> 管理。这是一种简单且轻量级的实现方式</li>
+<li><strong>JdbcTokenStore</strong>：将 OAuth2 访问令牌存储在数据库中，通常使用关系型数据库（如 MySQL、PostgreSQL）来持久化令牌数据。这样可以实现跨服务器共享令牌信。</li>
+<li><strong>JwkTokenStore</strong>：用于处理 JSON Web Key Set（JWKS）中的令牌。JWKS 是一种用于安全传输令牌的标准格式，通常与 OpenID Connect 和 OAuth2 配合使用。</li>
+<li><strong>RedisTokenStore</strong>：将 OAuth2 访问令牌存储在 Redis 数据库中，具有高性能和可扩展性。这对于分布式系统和微服务架构非常有用</li>
+</ol>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240212131746305.png" srcset="/img/loading.gif" lazyload alt="image-20240212131746305"></p>
+<p>定义TokenConfig<br>在config包下定义TokenConfig</p>
+<h4 id="2-2-2-3-令牌访问端点配置"><a href="#2-2-2-3-令牌访问端点配置" class="headerlink" title="2.2.2.3.令牌访问端点配置"></a>2.2.2.3.令牌访问端点配置</h4><p><code>AuthorizationServerEndpointsConfigurer</code> 是 Spring Security OAuth2 中的一个配置类，用于配置 OAuth2 授权服务器的端点（endpoints）。通过设置以下属性，我们可以决定支持的授权类型（Grant Types）：</p>
+<blockquote>
+<ol>
+<li>**<code>authenticationManager</code>**：指定用于验证用户身份的 <code>AuthenticationManager</code> 实例。这是必需的，因为授权服务器需要验证用户的凭据。</li>
+<li>**<code>tokenStore</code>**：指定用于存储访问令牌的 <code>TokenStore</code> 实现类。不同的 <code>TokenStore</code> 实现方式决定了令牌的存储位置，如内存、数据库或 Redis。</li>
+<li>**<code>userDetailsService</code>**：指定用于加载用户信息的 <code>UserDetailsService</code> 实现类。授权服务器需要根据用户名查找用户信息，以便生成令牌。</li>
+<li>**<code>authorizationCodeServices</code>**：指定用于处理授权码授权类型的服务。授权码授权类型通常用于 Web 应用程序的身份验证流程。</li>
+<li>**<code>implicitGrantService</code>**：指定用于处理隐式授权类型的服务。隐式授权类型通常用于单页应用程序（SPA）的身份验证流程。</li>
+<li>**<code>tokenGranter</code>**：指定自定义的 <code>TokenGranter</code> 实现类，用于支持自定义的授权类型。例如，你可以实现自己的授权类型，然后在这里注册。</li>
+</ol>
+</blockquote>
+<p><code>AuthorizationServerEndpointsConfigurer</code> 允许我们根据项目需求配置授权服务器的不同端点，以支持不同的授权类型。</p>
+<p><strong>配置授权端点的URL（Endpoint URLs）</strong>：<br>AuthorizationServerEndpointsConfigurer 这个配置对象有一个叫做 pathMapping() 的方法用来配置端点URL链接，它有两个参数：</p>
+<ul>
+<li>第一个参数：String 类型的，这个端点URL的默认链接。</li>
+<li>第二个参数：String 类型的，你要进行替代的URL链接。</li>
+</ul>
+<p>以上的参数都将以 “&#x2F;“ 字符为开始的字符串，框架的默认URL链接如下列表，可以作为这个 pathMapping() 方法的 第一个参数：</p>
+<blockquote>
+<ul>
+<li>&#x2F;oauth&#x2F;authorize：授权端点。</li>
+<li>&#x2F;oauth&#x2F;token：令牌端点。</li>
+<li>&#x2F;oauth&#x2F;confirm_access：用户确认授权提交端点。</li>
+<li>&#x2F;oauth&#x2F;error：授权服务错误信息端点。</li>
+<li>&#x2F;oauth&#x2F;check_token：用于资源服务访问的令牌解析端点。</li>
+<li>&#x2F;oauth&#x2F;token_key：提供公有密匙的端点，如果你使用JWT令牌的话。</li>
+</ul>
+</blockquote>
+<p>需要注意的是授权端点这个URL应该被Spring Security保护起来只供授权用户访问.</p>
+<h4 id="2-2-2-4-令牌端点的安全约束"><a href="#2-2-2-4-令牌端点的安全约束" class="headerlink" title="2.2.2.4.令牌端点的安全约束"></a>2.2.2.4.令牌端点的安全约束</h4><p><strong>AuthorizationServerSecurityConfigure</strong>：用来配置令牌端点(Token Endpoint)的安全约束，在 AuthorizationServer中配置如下	</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationServerSecurityConfigurer</span> security<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 允许访问 token 的公钥，默认 /oauth/token_key 是受保护的</span>
+    security<span class="token punctuation">.</span><span class="token function">tokenKeyAccess</span><span class="token punctuation">(</span><span class="token string">"permitAll()"</span><span class="token punctuation">)</span>
+            <span class="token comment">// 允许检查 token 的状态，默认 /oauth/check_token 是受保护的</span>
+            <span class="token punctuation">.</span><span class="token function">checkTokenAccess</span><span class="token punctuation">(</span><span class="token string">"permitAll()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="5-OAuth2的四种授权模式"><a href="#5-OAuth2的四种授权模式" class="headerlink" title="5.OAuth2的四种授权模式"></a>5.OAuth2的四种授权模式</h2><p>OAuth 2.0 定义了四种授权方式，每种方式适用于不同的场景和需求。</p>
+<h3 id="授权码（authorization-code）"><a href="#授权码（authorization-code）" class="headerlink" title="授权码（authorization code）"></a>授权码（authorization code）</h3><p>这是最常用且安全性最高的授权方式。适用于有后端的 Web 应用。流程如下：</p>
+<blockquote>
+<ul>
+<li>用户点击 A 网站提供的链接，跳转到 B 网站并授权用户数据给 A 网站。</li>
+<li>B 网站返回一个授权码给 A 网站。</li>
+<li>A 网站使用授权码在后端向 B 网站请求令牌。</li>
+</ul>
+</blockquote>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20240212135331333.png" srcset="/img/loading.gif" lazyload alt="image-20240212135331333"></p>
+<ol>
+<li>资源拥有者打开客户端，客户端要求资源拥有者给予授权，它将浏览器被重定向到授权服务器，重定向时会附加客户端的身份信息。如：</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">/</span>oauth<span class="token operator">/</span>authorize<span class="token operator">?</span>client_id<span class="token operator">=</span>music<span class="token operator">-</span>community<span class="token operator">&amp;</span>response_type<span class="token operator">=</span>code<span class="token operator">&amp;</span>scope<span class="token operator">=</span>all<span class="token operator">&amp;</span>redirect_uri<span class="token operator">=</span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>baidu<span class="token punctuation">.</span>com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>参数列表如下：</p>
+<blockquote>
+<ul>
+<li>client_id：客户端准入标识。</li>
+<li>response_type：授权码模式固定为code。</li>
+<li>scope：客户端权限。</li>
+<li>redirect_uri：跳转uri，当授权码申请成功后会跳转到此地址，并在后边带上code参数（授权码）。</li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>浏览器出现向授权服务器授权页面，之后同意授权。</li>
+<li>授权服务器将授权码（AuthorizationCode）转经浏览器发送给client(通过redirect_uri)。</li>
+<li>客户端拿着授权码向授权服务器索要访问access_token，请求如下：</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">/</span>oauth<span class="token operator">/</span>token<span class="token operator">?</span> client_id<span class="token operator">=</span>c1<span class="token operator">&amp;</span>client_secret<span class="token operator">=</span>secret<span class="token operator">&amp;</span>grant_type<span class="token operator">=</span>authorization_code<span class="token operator">&amp;</span>code<span class="token operator">=</span><span class="token number">5</span>PgfcD<span class="token operator">&amp;</span>redirect_uri<span class="token operator">=</span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>baidu<span class="token punctuation">.</span>com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="5">
+<li>授权服务器返回令牌(access_token)</li>
+</ol>
+<h3 id="隐藏式（implicit）"><a href="#隐藏式（implicit）" class="headerlink" title="隐藏式（implicit）"></a>隐藏式（implicit）</h3><p>适用于纯前端应用，没有后端的情况。令牌直接传给前端，但安全性较低，令牌有效期通常只在会话期间内。</p>
+<blockquote>
+<ul>
+<li>用户跳转到 B 网站，登录并同意授权。</li>
+<li>B 网站将令牌作为 URL 锚点传给 A 网站。</li>
+</ul>
+</blockquote>
+<h3 id="密码式（password）"><a href="#密码式（password）" class="headerlink" title="密码式（password）"></a>密码式（password）</h3><p>用户直接将用户名和密码告知应用，应用使用这些凭据申请令牌。</p>
+<blockquote>
+<ul>
+<li>A 网站要求用户提供 B 网站的用户名和密码。</li>
+<li>A 网站使用这些凭据向 B 网站请求令牌。</li>
+</ul>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">/</span>oauth<span class="token operator">/</span>token<span class="token operator">?</span>client_id<span class="token operator">=</span>music<span class="token operator">-</span>community<span class="token operator">&amp;</span>client_secret<span class="token operator">=</span>secret<span class="token operator">&amp;</span>grant_type<span class="token operator">=</span>password<span class="token operator">&amp;</span>username<span class="token operator">=</span>shangsan<span class="token operator">&amp;</span>password<span class="token operator">=</span><span class="token number">123</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>参数列表如下：</p>
+<blockquote>
+<ul>
+<li>client_id：客户端准入标识。</li>
+<li>client_secret：客户端秘钥。</li>
+<li>grant_type：授权类型，填写password表示密码模式</li>
+<li>username：资源拥有者用户名。</li>
+<li>password：资源拥有者密码。</li>
+</ul>
+</blockquote>
+<h3 id="客户端凭证（client-credentials）"><a href="#客户端凭证（client-credentials）" class="headerlink" title="客户端凭证（client credentials）"></a>客户端凭证（client credentials）</h3><p>适用于客户端应用，不涉及用户的授权。</p>
+<blockquote>
+<ul>
+<li>第三方应用先备案，获取客户端 ID 和客户端密钥。</li>
+<li>应用使用这些凭证直接向授权服务器请求令牌。</li>
+</ul>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OAuth2/" class="category-chain-item">OAuth2</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/OAuth2/">#OAuth2</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OAuth2.0</div>
+      <div>https://xhablog.online/2024/03/03/OAuth2.0/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu huaiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/05/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A4%E8%AF%81%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88/" title="分布式认证中心实现方案">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">分布式认证中心实现方案</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/22/%E5%88%86%E5%B8%83%E5%BC%8F%E8%B0%83%E5%BA%A6XXL-JOB/" title="分布式调度XXL-JOB">
+                        <span class="hidden-mobile">分布式调度XXL-JOB</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"65685887a536577e68ad","clientSecret":"da9f0f4e5301326ac35bb6141f0234e2a7561f4c","repo":"sunwebgo.github.io","owner":"sunwebgo","admin":["sunwebgo"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '24284ba10af5d60ae8a8ea713d9231a9'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span><svg t="1686650467734" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4406" width="13" height="13"><path d="M926.991 337.678c-22.571-53.364-54.877-101.283-96.021-142.426-41.143-41.143-89.062-73.449-142.426-96.02-55.266-23.375-113.953-35.228-174.434-35.228-60.48 0-119.168 11.852-174.433 35.228-53.364 22.571-101.283 54.877-142.426 96.02s-73.449 89.062-96.02 142.426c-23.375 55.265-35.228 113.953-35.228 174.433 0 60.48 11.852 119.168 35.228 174.434 22.571 53.364 54.877 101.283 96.02 142.426 41.143 41.144 89.062 73.449 142.426 96.021 55.265 23.375 113.953 35.228 174.433 35.228 60.48 0 119.168-11.853 174.434-35.228 53.364-22.571 101.283-54.877 142.426-96.021 41.144-41.143 73.449-89.062 96.021-142.426 23.375-55.266 35.228-113.953 35.228-174.434 0-60.48-11.853-119.168-35.228-174.433z m-412.88 558.541c-211.797 0-384.107-172.31-384.107-384.107 0-211.797 172.31-384.107 384.107-384.107 211.798 0 384.107 172.31 384.107 384.107 0.001 211.797-172.309 384.107-384.107 384.107z" p-id="4407"></path><path d="M514.111 290.829c51.918 0 102.431 18.428 142.233 51.889 13.528 11.375 33.715 9.626 45.086-3.902 11.373-13.527 9.626-33.713-3.902-45.086-51.316-43.142-116.456-66.901-183.417-66.901-76.201 0-147.842 29.675-201.725 83.557-53.883 53.883-83.558 125.523-83.558 201.725s29.675 147.843 83.558 201.726 125.523 83.558 201.725 83.558c66.961 0 132.1-23.76 183.417-66.901 13.528-11.372 15.275-31.559 3.902-45.086s-31.559-15.275-45.086-3.902c-39.803 33.462-90.315 51.89-142.233 51.89-122.015 0-221.282-99.268-221.282-221.283 0-122.017 99.267-221.284 221.282-221.284z" p-id="4408"></path></svg>2021 - 2023</span> <span>本站由</span> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <span>&</span> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <span>强力驱动</span> 
+      <!--《添加网站运行时间 -->
+<br/>
+
+    <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+    <script>
+      var now = new Date();
+
+      function createtime() {
+        //此处修改你的建站时间或者网站上线时间
+        var grt = new Date('06/09/2023 8:00:00');
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+          hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+          mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+          snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = " 本站已破天荒的安全运行 " + dnum + " 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+      }
+      setInterval("createtime()", 250);
+    </script>
+
+<!-- 添加网站运行时间》-->
+<br/>
+<span style="font-weight: initial">文章总字数2786k</span>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
