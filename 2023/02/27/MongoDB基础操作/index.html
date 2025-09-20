@@ -16,16 +16,16 @@
   <meta name="author" content="Xu huaiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.MongoDB 简介  MongoDB是一个开源, 高性能, 无模式的文档型数据库, 当初的设计就是用于简化开发和方便扩展, 是NoSQL数据库产品中的一种.是最像关系型数据库（MySQL）的非关系型数据库. 它支持的数据结构非常**松散**, 是一种类似于 JSON 的 格式叫BSON, 所以它既可以存储比较复杂的数据类型, 又相当的灵活. **MongoDB中的记录是一个文档, 它是一个由">
+    <meta name="description" content="[TOC] 1.MongoDB 简介   MongoDB是一个开源, 高性能, 无模式的文档型数据库, 当初的设计就是用于简化开发和方便扩展, 是NoSQL数据库产品中的一种.是最像关系型数据库（MySQL）的非关系型数据库. 它支持的数据结构非常**松散**, 是一种类似于 JSON 的 格式叫BSON, 所以它既可以存储比较复杂的数据类型, 又相当的灵活. **MongoDB中的记录是一个文档">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MongoDB">
 <meta property="og:url" content="https://xhablog.online/2023/02/27/MongoDB%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="xhang′s blog">
-<meta property="og:description" content="1.MongoDB 简介  MongoDB是一个开源, 高性能, 无模式的文档型数据库, 当初的设计就是用于简化开发和方便扩展, 是NoSQL数据库产品中的一种.是最像关系型数据库（MySQL）的非关系型数据库. 它支持的数据结构非常**松散**, 是一种类似于 JSON 的 格式叫BSON, 所以它既可以存储比较复杂的数据类型, 又相当的灵活. **MongoDB中的记录是一个文档, 它是一个由">
+<meta property="og:description" content="[TOC] 1.MongoDB 简介   MongoDB是一个开源, 高性能, 无模式的文档型数据库, 当初的设计就是用于简化开发和方便扩展, 是NoSQL数据库产品中的一种.是最像关系型数据库（MySQL）的非关系型数据库. 它支持的数据结构非常**松散**, 是一种类似于 JSON 的 格式叫BSON, 所以它既可以存储比较复杂的数据类型, 又相当的灵活. **MongoDB中的记录是一个文档">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227083638827.png">
 <meta property="article:published_time" content="2023-02-27T02:00:00.000Z">
-<meta property="article:modified_time" content="2025-09-20T14:55:24.341Z">
+<meta property="article:modified_time" content="2025-09-20T14:58:50.530Z">
 <meta property="article:author" content="Xu huaiang">
 <meta property="article:tag" content="MongoDB">
 <meta property="article:tag" content="NoSQL">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          29k 字
+          31k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          245 分钟
+          257 分钟
         
       </span>
     
@@ -339,28 +339,105 @@
             
               <div class="markdown-body">
                 
-                <h1 id="1-MongoDB-简介"><a href="#1-MongoDB-简介" class="headerlink" title="1.MongoDB 简介"></a>1.MongoDB 简介</h1><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227083638827.png" srcset="/img/loading.gif" lazyload></p>
+                <p>[TOC]</p>
+<h1 id="1-MongoDB-简介"><a href="#1-MongoDB-简介" class="headerlink" title="1.MongoDB 简介"></a>1.MongoDB 简介</h1><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227083638827.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
 <blockquote>
 <p>MongoDB是一个开源, 高性能, 无模式的文档型数据库, 当初的设计就是用于简化开发和方便扩展, 是NoSQL数据库产品中的一种.是最像关系型数据库（MySQL）的非关系型数据库.</p>
 <p>它支持的数据结构非常<code>**松散**</code>, 是一种类似于 JSON 的 格式叫<code>BSON</code>, 所以它既可以存储比较复杂的数据类型, 又相当的灵活.</p>
 <p>**<font color='scarlet'>MongoDB中的记录是一个文档, 它是一个由字段和值对（ﬁeld:value）组成的数据结构.MongoDB文档类似于JSON对象, 即一个文档认为就是一个对象.</font>**字段的数据类型是字符型, 它的值除了使用基本的一些类型外, 还可以包括其他文档, 普通数组和文档数组.</p>
 </blockquote>
-<h1 id="2-MongoDB的应用场景"><a href="#2-MongoDB的应用场景" class="headerlink" title="2.MongoDB的应用场景"></a>2.MongoDB的应用场景</h1><p>&#x3D;&#x3D;传统的关系型数据库 (比如 MySQL), 在数据操作的”三高”需求以及对应的 Web 2.0 网站需求面前, 会有”力不从心”的感觉。&#x3D;&#x3D;所谓的三高需求:</p>
-<p><strong>高并发, 高性能, 高可用</strong>, 简称三高</p>
-<ul>
-<li><code>High Performance</code>: 对数据库的高并发读写的要求</li>
-<li><code>High Storage:</code> 对海量数据的高效率存储和访问的需求</li>
-<li><code>High Scalability &amp;&amp; High Available:</code> 对数据的高扩展性和高可用性的需求</li>
+<h1 id="2-MongoDB的适用和应用场景"><a href="#2-MongoDB的适用和应用场景" class="headerlink" title="2.MongoDB的适用和应用场景"></a>2.MongoDB的适用和应用场景</h1><p><strong>简单的说，当需要处理大量非结构化或半结构化数据、要求高可扩展性和灵活的时，MongoDB 是一个绝佳的选择。</strong></p>
+<p><strong>适用场景如下：</strong></p>
+<blockquote>
+<ol>
+<li><strong><code>数据模式灵活多变或无法预定义时</code></strong><ul>
+<li><strong>场景</strong>：你的应用在快速迭代中，数据结构经常发生变化。或者你需要存储的数据格式不一，很难用一个固定的表结构来定义。</li>
+<li><strong>优势</strong>：MongoDB 是 <strong>无模式（Schema-less）</strong> 的。这意味着你无需像在关系型数据库中那样先预先定义好所有表和字段结构。你可以随时向文档中添加新字段，每个文档的结构也可以不同。这极大地提高了开发速度和灵活性。</li>
 </ul>
-<p><strong>而 MongoDB 可以应对三高需求</strong></p>
-<p>具体的应用场景:</p>
-<ul>
-<li><strong>社交场景</strong>：使用 MongoDB 存储存储用户信息, 以及用户发表的朋友圈信息, 通过地理位置索引实现附近的人, 地点等功能.</li>
-<li><strong>游戏场景</strong>：使用 MongoDB 存储游戏用户信息, 用 户的装备, 积分等直接以内嵌文档的形式存储, 方便查询, 高效率存储和访问.</li>
-<li><strong>物流场景</strong>：使用 MongoDB 存储订单信息, 订单状态在运送过程中会不断更新, 以 MongoDB 内嵌数组的形式来存储, 一次查询就能将订单所有的变更读取出来.</li>
-<li><strong>物联网场景</strong>：使用 MongoDB 存储所有接入的智能设备信息, 以及设备汇报的日志信息, 并对这些信息进行多维度的分析.</li>
-<li><strong>视频直播</strong>：使用 MongoDB 存储用户信息, 点赞互动信息等.</li>
+</li>
+<li><strong><code>存储非结构化或半结构化数据</code></strong><ul>
+<li><strong>场景</strong>：存储日志、社交媒体帖子、物联网传感器数据、产品目录（不同品类的属性差异很大）、JSON格式的文档等。</li>
+<li><strong>优势</strong>：MongoDB 的 <strong>BSON</strong>（Binary JSON）格式天生就是为存储此类数据而设计的。它比关系型数据库的“行列”结构更能自然地表达这些数据。</li>
 </ul>
+</li>
+<li><strong><code>需要高性能的读写操作（特别是读）</code></strong><ul>
+<li><strong>场景</strong>：高并发、大数据量的应用，如实时分析、内容管理系统、用户个性化数据存储等。</li>
+<li><strong>优势</strong>：<ul>
+<li><strong>嵌入式数据模型</strong>：通过将关联性强的数据（如评论、地址）嵌入到一个文档中，你可以在<strong>一次数据库查询</strong>中获取所有相关数据，避免了多表关联查询（JOIN），这比关系型数据库的多次IO操作要快得多。</li>
+<li><strong>内存映射</strong>：MongoDB 将数据文件映射到内存中，热数据（频繁访问的数据）的读取速度极快。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>需要水平扩展以处理海量数据和高流量</code></strong><ul>
+<li><strong>场景</strong>：你的应用用户量增长迅猛，数据量可能达到TB甚至PB级别，单个服务器无法承受读写压力。</li>
+<li><strong>优势</strong>：MongoDB 原生支持<strong>分片（Sharding）</strong>。你可以轻松地将一个巨大的数据集分布到多个服务器（集群）上，从而实现近乎无限的水平扩展。这是许多传统关系型数据库难以轻松实现的。</li>
+</ul>
+</li>
+<li><strong><code>地理位置查询</code></strong><ul>
+<li><strong>场景</strong>：需要实现“附近的人”、“查找周围的餐厅”等功能。</li>
+<li><strong>优势</strong>：MongoDB 内置了对<strong>地理空间索引（2dsphere）</strong> 的支持，可以高效地执行地理位置查询和聚合计算。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong>具体的应用场景如下:</strong></p>
+<blockquote>
+<ol>
+<li><strong><code>社交媒体与用户生成内容（UGC）平台</code></strong><ul>
+<li><strong>典型代表</strong>：Facebook, Twitter, Instagram, 小红书, 微博</li>
+<li><strong>具体应用</strong>：<ul>
+<li><strong>用户个人资料存储</strong>：每个用户的资料信息差异很大（有的喜欢填兴趣爱好，有的不喜欢），MongoDB 的灵活模式完美适配。</li>
+<li><strong>帖子、评论、点赞</strong>：一条帖子可能包含文字、图片、视频、标签、@提及的人等多种数据。MongoDB 可以将所有这些数据以一个文档的形式存储，读取时一次获取，性能极高。</li>
+<li><strong>社交图谱</strong>：存储“谁关注了谁”、“谁给谁点了赞”这类关系。虽然关系复杂，但用文档模型存储非常直观。</li>
+</ul>
+</li>
+<li><strong>为何选MongoDB</strong>：<strong>模式灵活</strong>（随时新增表情、投票等互动功能）、<strong>读写性能高</strong>（快速加载信息流）、<strong>易于扩展</strong>（用户量暴增时通过分片应对）。</li>
+</ul>
+</li>
+<li><strong><code>物联网（IoT）与实时数据分析</code></strong><ul>
+<li><strong>典型代表</strong>：智能工厂、智能家居、车联网、传感器网络</li>
+<li><strong>具体应用</strong>：<ul>
+<li><strong>设备遥测数据</strong>：成千上万的传感器每秒都在产生海量的数据（如温度、湿度、GPS位置、设备状态）。这些数据通常是时间序列的，且结构可能因设备类型而异。</li>
+<li><strong>实时监控仪表盘</strong>：需要快速写入数据并实时查询最新状态，以在仪表板上显示。</li>
+</ul>
+</li>
+<li><strong>为何选MongoDB</strong>：<strong>高吞吐写入</strong>（能处理海量传感器数据）、<strong>灵活的数据模型</strong>（不同传感器可以有不同的数据字段）、<strong>支持地理空间查询</strong>（查询某区域内的所有设备）。</li>
+</ul>
+</li>
+<li><strong><code>内容管理系统（CMS）和个性化推荐</code></strong><ul>
+<li><strong>典型代表</strong>：新闻网站、博客平台、视频平台（如Youtube）、电商网站</li>
+<li><strong>具体应用</strong>：<ul>
+<li><strong>文章&#x2F;产品存储</strong>：不同类别的文章或产品属性完全不同（一篇文章和一部电影的属性字段差异巨大）。MongoDB 无需为每种内容类型预先设计复杂的表结构。</li>
+<li><strong>用户行为追踪</strong>：记录用户的点击、浏览历史、搜索关键词，用于构建用户画像和实现个性化推荐。</li>
+</ul>
+</li>
+<li><strong>为何选MongoDB</strong>：<strong>无模式设计</strong>（轻松应对内容类型的多样性）、<strong>嵌套数据结构</strong>（将文章内容、作者信息、评论列表嵌入一个文档）、<strong>聚合框架</strong>（强大数据分析能力，用于生成推荐列表）。</li>
+</ul>
+</li>
+<li><strong><code>移动应用后端与服务</code></strong><ul>
+<li><strong>典型代表</strong>：几乎所有需要后端的手机App（游戏、工具、社交）</li>
+<li><strong>具体应用</strong>：<ul>
+<li><strong>App用户数据存储</strong>：存储用户的游戏进度、个人设置、成就、好友列表等。</li>
+<li><strong>实时聊天</strong>：存储聊天消息，支持单聊和群聊。</li>
+</ul>
+</li>
+<li><strong>为何选MongoDB</strong>：<strong>JSON数据格式</strong>（与移动端和Web端使用的对象模型高度一致，减少转换开销）、<strong>开发速度快</strong>、<strong>水平扩展</strong>（支持App用户量的快速增长）。</li>
+</ul>
+</li>
+<li><strong><code>日志与事件存储分析</code></strong><ul>
+<li><strong>典型代表</strong>：应用性能监控（APM）工具、用户行为分析平台</li>
+<li><strong>具体应用</strong>：<ul>
+<li><strong>集中式日志管理</strong>：从多个服务器和应用收集日志数据。日志格式可能因应用而异，且随时可能变化。</li>
+<li><strong>用户行为事件追踪</strong>：记录用户在网站或App上的每一次点击、页面浏览等事件。</li>
+</ul>
+</li>
+<li><strong>为何选MongoDB</strong>：<strong>模式自由</strong>（轻松接纳各种格式的日志）、<strong>高写入性能</strong>（应对海量日志涌入）、<strong>强大的聚合框架</strong>（可以灵活地分析日志数据，生成报告）。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
 <p>这些应用场景中, 数据操作方面的共同点有:</p>
 <ol>
 <li><font color='red'><strong>数据量大</strong></font></li>
@@ -463,9 +540,12 @@ docker exec -it mongo mongosh admin<span aria-hidden="true" class="line-numbers-
 <ol start="9">
 <li><strong>navicat连接测试</strong></li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227123556339.png" srcset="/img/loading.gif" lazyload></p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227123556339.png" srcset="/img/loading.gif" lazyload alt="image-20230227123556339" style="zoom:80%;" />
+
+
+
 <h1 id="5-MongoDB的核心概念"><a href="#5-MongoDB的核心概念" class="headerlink" title="5.MongoDB的核心概念"></a>5.MongoDB的核心概念</h1><ol>
-<li><p><strong><font color='scarlet'>库<DataBase></font></strong><br>mongodb中的库就类似于传统关系型数据库中库的概念，&#x3D;&#x3D;用来通过不同库隔离不同应用数据&#x3D;&#x3D;。   </p>
+<li><p><strong><font color='scarlet'>库<DataBase></font></strong><br>mongodb中的库就类似于传统关系型数据库中库的概念，&#x3D;&#x3D;用来通过不同库隔离不同应用数据&#x3D;&#x3D;。</p>
 <p>mongodb中可以建立多个数据库。每一个库都有自己的集合和权限，不同的数据库也放置在不同的文件中。默认的数据库为”test”，数据库存储在启动指定的data目录中。</p>
 </li>
 <li><p><strong><font color='scarlet'>集合<Collection></font></strong><br>集合就是 MongoDB 文档组，类似于 RDBMS （关系数据库管理系统：Relational Database Management System)中的表的概念。</p>
@@ -474,12 +554,37 @@ docker exec -it mongo mongosh admin<span aria-hidden="true" class="line-numbers-
 <li><p><strong><font color='scarlet'>文档<Document></font></strong><br>文档集合中一条条记录，是一组键值(key-value)对(即 BSON)。**<font color='red'>MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型</font>**，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。</p>
 </li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421112200675.png" srcset="/img/loading.gif" lazyload></p>
+<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421112200675.png" srcset="/img/loading.gif" lazyload alt="image-20230421112200675" style="zoom:80%;" />
+
 <p>一个简单的文档例子如下：d</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">&#123;<span class="token string">"site"</span>:<span class="token string">"www.baizhiedu.xin"</span><span class="token punctuation">,</span> <span class="token string">"name"</span>:<span class="token string">"编程不良人"</span>&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p>MongoDB和RDBMS的关系总结：<br><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230613150507961.png" srcset="/img/loading.gif" lazyload alt="image-20230613150507961"></p>
-<h1 id="6-mongoDB存储原理"><a href="#6-mongoDB存储原理" class="headerlink" title="6.mongoDB存储原理"></a>6.mongoDB存储原理</h1><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227140746011.png" srcset="/img/loading.gif" lazyload></p>
+<p>MongoDB和RDBMS的关系总结：</p>
+<table>
+<thead>
+<tr>
+<th>MongoDB</th>
+<th>RDBMS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据库<database></td>
+<td>数据库<database></td>
+</tr>
+<tr>
+<td>集合<collection></td>
+<td>表<table></td>
+</tr>
+<tr>
+<td>文档<document></td>
+<td>行<row></td>
+</tr>
+<tr>
+<td>字段<field></td>
+<td>列<colume></td>
+</tr>
+</tbody></table>
+<h1 id="6-mongoDB存储原理"><a href="#6-mongoDB存储原理" class="headerlink" title="6.mongoDB存储原理"></a>6.mongoDB存储原理</h1><p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227140746011.png" srcset="/img/loading.gif" lazyload alt="image-20230227140746011"></p>
 <ol>
 <li>mongoDb采用内存加磁盘的方式存储数据；</li>
 <li>mongoDb支持数据分片，当单一的服务器中磁盘不够用的时候，还可以串联其他服务器；</li>
@@ -489,7 +594,7 @@ docker exec -it mongo mongosh admin<span aria-hidden="true" class="line-numbers-
 <li>当客户端写入的时候，会先写入到内存中，内存中写入后请求直接返回，内存中的数据会根据同步策略同步到磁盘；</li>
 <li>如果机器宕机，在重启服务的时候会解析磁盘中的日志和磁盘中的数据进行对比，将未入到磁盘中的数据写入磁盘，但可能会丢失10ms的数据；</li>
 </ol>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227140357307.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230227140357307.png" srcset="/img/loading.gif" lazyload alt="image-20230227140357307"></p>
 <h1 id="7-数据库操作"><a href="#7-数据库操作" class="headerlink" title="7.数据库操作"></a>7.数据库操作</h1><p>mongodb默认保留的数据库</p>
 <ul>
 <li><strong>admin</strong>: 从权限角度考虑, 这是 <code>root</code> 数据库, 如果将一个用户添加到这个数据库, 这个用户自动继承所有数据库的权限, 一些特定的服务器端命令也只能从这个数据库运行, 比如列出所有的数据库或者关闭服务器</li>
@@ -504,7 +609,7 @@ docker exec -it mongo mongosh admin<span aria-hidden="true" class="line-numbers-
 <p>如果数据库不存在则自动创建，例如，以下语句创建 articledb数据库：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">use articledb<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><strong><font color='red'>注意: 在 MongoDB 中，集合只有在内容插入后才会显示!</font></strong> </p>
+<p><strong><font color='red'>注意: 在 MongoDB 中，集合只有在内容插入后才会显示!</font></strong></p>
 <h2 id="2-2查看数据库"><a href="#2-2查看数据库" class="headerlink" title="2.2查看数据库"></a>2.2<strong>查看数据库</strong></h2><ol>
 <li><strong>查看所有的数据库</strong></li>
 </ol>
@@ -520,9 +625,7 @@ show databases<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <h2 id="2-3数据库的删除"><a href="#2-3数据库的删除" class="headerlink" title="2.3数据库的删除"></a>2.3<strong>数据库的删除</strong></h2><ul>
 <li>MongoDB 删除数据库的语法格式如下：</li>
 </ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">db.dropDatabase()
-或
-db.数据库名.drop()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini">db.dropDatabase()<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 
 
@@ -566,7 +669,7 @@ db.数据库名.drop()<span aria-hidden="true" class="line-numbers-rows"><span><
 <h1 id="9-文档的操作"><a href="#9-文档的操作" class="headerlink" title="9.文档的操作"></a>9.文档的操作</h1><h2 id="9-1-文档的插入"><a href="#9-1-文档的插入" class="headerlink" title="9.1 文档的插入"></a>9.1 文档的插入</h2><ol>
 <li><strong><font color='scarlet'>单个文档的插入，语法如下：</font></strong></li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json">db.collection.insert/insertOne(
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json">db.collection.insertOne(
 &lt;document or array of documents><span class="token punctuation">,</span>
 <span class="token punctuation">&#123;</span>
 writeConcern<span class="token operator">:</span> &lt;document><span class="token punctuation">,</span>
@@ -576,16 +679,15 @@ ordered<span class="token operator">:</span> &lt;boolean>
 
 <p>注意点：</p>
 <blockquote>
-<p>1）**<font color='scarlet'>comment集合如果不存在，则会隐式创建</font>** </p>
-<p>2）**<font color='scarlet'>mongo中的数字，默认情况下是double类型，如果要存整型，必须使用函数NumberInt(整型数字)。</font>** </p>
-<p>3）插入当前日期使用 new Date() </p>
-<p>4）插入的数据没有指定 _id ，会自动生成主键值 </p>
+<p>1）**<font color='scarlet'>comment集合如果不存在，则会隐式创建</font>**</p>
+<p>2）**<font color='scarlet'>mongo中的数字，默认情况下是double类型，如果要存整型，必须使用函数NumberInt(整型数字)。</font>**</p>
+<p>3）插入当前日期使用 new Date()</p>
+<p>4）插入的数据没有指定 _id ，会自动生成主键值</p>
 <p>5）如果某字段没值，可以赋值为null，或不写该字段。</p>
 </blockquote>
 <p>插入一条数据如下：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/*插入一条数据*/
-db.articledb.insert<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"zhangsan"</span>,<span class="token string">"age"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">22</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-db.articledb.insertOne<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"lisi"</span>,<span class="token string">"age"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+db.articledb.insertOne<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"lisi"</span>,<span class="token string">"age"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 
 <ol start="2">
 <li><strong><font color='scarlet'>文档的批量插入，语法如下：</font></strong></li>
@@ -606,13 +708,13 @@ db<span class="token punctuation">.</span>articledb<span class="token punctuatio
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">insert</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"wangnima"</span><span class="token punctuation">,</span><span class="token string">"age"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"home"</span>:&#123;<span class="token string">"province"</span>:<span class="token string">"河南省"</span><span class="token punctuation">,</span><span class="token string">"county"</span>:<span class="token string">"扶沟县"</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421114837164.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421114837164.png" srcset="/img/loading.gif" lazyload alt="image-20230421114837164"></p>
 <ol start="4">
 <li><strong><font color='scarlet'>数组的插入</font></strong></li>
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">insert</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"baqi"</span><span class="token punctuation">,</span><span class="token string">"age"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"score"</span>:<span class="token punctuation">[</span>&#123;<span class="token string">"chinese"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">99</span><span class="token punctuation">)</span>&#125;<span class="token punctuation">,</span>&#123;<span class="token string">"math"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">109</span><span class="token punctuation">)</span>&#125;<span class="token punctuation">,</span>&#123;<span class="token string">"english"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">425</span><span class="token punctuation">)</span>&#125;<span class="token punctuation">]</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421115718258.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421115718258.png" srcset="/img/loading.gif" lazyload alt="image-20230421115718258"></p>
 <h2 id="4-2文档的查询"><a href="#4-2文档的查询" class="headerlink" title="4.2文档的查询"></a>4.2文档的查询</h2><p>文档查询的语法格式如下：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token operator">&lt;</span>query<span class="token operator">></span><span class="token punctuation">,</span> <span class="token punctuation">[</span>projection<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -640,21 +742,20 @@ db<span class="token punctuation">.</span>collection<span class="token punctuati
 <p>​		查询出所有匹配参数的文档</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:<span class="token string">"22"</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420153843461.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420153843461.png" srcset="/img/loading.gif" lazyload alt="image-20230420153843461"></p>
 <p>​		使用<code>findOne</code>查询出匹配的第一条数据</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>findOne<span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">22</span><span class="token punctuation">)</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420153926944.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420153926944.png" srcset="/img/loading.gif" lazyload alt="image-20230420153926944"></p>
 <ol start="3">
 <li><strong><font color='scarlet'>查询嵌套文档</font></strong></li>
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"home.province"</span>:<span class="token string">"江苏省"</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421122046971.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421122046971.png" srcset="/img/loading.gif" lazyload alt="image-20230421122046971"></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"home"</span>:&#123;<span class="token string">"province"</span>:<span class="token string">"江苏省"</span><span class="token punctuation">,</span><span class="token string">"county"</span>:<span class="token string">"昆山市"</span><span class="token punctuation">,</span><span class="token string">"town"</span>:<span class="token string">"陆家镇"</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p>db.user.find({“home”:{“province”:”江苏省”,”county”:”昆山市”,”town”:”陆家镇”}})</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421122438669.png" srcset="/img/loading.gif" lazyload></p>
+<p>db.user.find({“home”:{“province”:”江苏省”,”county”:”昆山市”,”town”:”陆家镇”}})<img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421122438669.png" srcset="/img/loading.gif" lazyload alt="image-20230421122438669"></p>
 <ol start="4">
 <li><strong><font color='scarlet'>查询数组</font></strong></li>
 </ol>
@@ -675,8 +776,8 @@ db<span class="token punctuation">.</span>collection<span class="token punctuati
 
 
 
-<h2 id="4-3文档的更新"><a href="#4-3文档的更新" class="headerlink" title="4.3文档的更新"></a>4.3文档的更新</h2><p>语法格式: </p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>
+<h2 id="4-3文档的更新"><a href="#4-3文档的更新" class="headerlink" title="4.3文档的更新"></a>4.3文档的更新</h2><p>语法格式:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span>updateOne<span class="token punctuation">(</span>
    <span class="token operator">&lt;</span>query<span class="token operator">></span><span class="token punctuation">,</span>
    <span class="token operator">&lt;</span><span class="token keyword">update</span><span class="token operator">></span><span class="token punctuation">,</span>
    &#123;
@@ -702,44 +803,47 @@ db<span class="token punctuation">.</span>collection<span class="token punctuati
 <li><strong><font color='scarlet'>覆盖修改</font></strong></li>
 </ol>
 <p>​		当我们未指定其他要修改的字段时，修改的话就会覆盖其他字段的值，其他字段的值为<code>null</code></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420155215807.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420155215807.png" srcset="/img/loading.gif" lazyload alt="image-20230420155215807"></p>
 <ol start="2">
 <li><strong><font color='scarlet'>局部修改</font></strong></li>
 </ol>
 <p>​		要使用修改器<code>$set</code>来实现局部修改</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhangsan"</span>&#125;<span class="token punctuation">,</span>&#123;$<span class="token keyword">set</span>:&#123;<span class="token string">"age"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">22</span><span class="token punctuation">)</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420155558531.png" srcset="/img/loading.gif" lazyload><br>3. <strong><font color='scarlet'>批量修改</font></strong></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420155558531.png" srcset="/img/loading.gif" lazyload alt="image-20230420155558531"></p>
+<ol start="3">
+<li><strong><font color='scarlet'>批量修改</font></strong></li>
+</ol>
 <p>​		<code>mongodb</code>默认只会修改第一条数据，如果要根据字段批量删除字段，需要设置<code>multi</code>为<code>true</code></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:<span class="token number">22</span>&#125;<span class="token punctuation">,</span>&#123;$<span class="token keyword">set</span>:&#123;<span class="token string">"name"</span>:<span class="token string">"zhangquandan"</span>&#125;&#125;<span class="token punctuation">,</span>&#123;<span class="token string">"multi"</span>:<span class="token boolean">true</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420160600855.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420160600855.png" srcset="/img/loading.gif" lazyload alt="image-20230420160600855"></p>
 <ol start="4">
 <li><strong><font color='scarlet'>新增文档字段</font></strong></li>
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhangsan"</span>&#125;<span class="token punctuation">,</span>&#123;$<span class="token keyword">set</span>:&#123;<span class="token string">"address"</span>:<span class="token string">"苏州"</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421113351456.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421113351456.png" srcset="/img/loading.gif" lazyload alt="image-20230421113351456"></p>
 <ol start="5">
 <li><strong><font color='scarlet'>删除文档字段</font></strong></li>
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhangsan"</span>&#125;<span class="token punctuation">,</span>&#123;$unset:&#123;<span class="token string">"address"</span>:<span class="token string">"苏州"</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421113443329.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421113443329.png" srcset="/img/loading.gif" lazyload alt="image-20230421113443329"></p>
 <ol start="6">
 <li><strong><font color='scarlet'>修改嵌套文档</font></strong></li>
 </ol>
 <p>修改嵌套数据：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"wangnima"</span>&#125;<span class="token punctuation">,</span>&#123;$<span class="token keyword">set</span>:&#123;<span class="token string">"home.province"</span>:<span class="token string">"江苏省"</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421115044147.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421115044147.png" srcset="/img/loading.gif" lazyload alt="image-20230421115044147"></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"wangnima"</span>&#125;<span class="token punctuation">,</span>&#123;$<span class="token keyword">set</span>:&#123;<span class="token string">"home"</span>:&#123;<span class="token string">"province"</span>:<span class="token string">"江苏省"</span><span class="token punctuation">,</span><span class="token string">"county"</span>:<span class="token string">"昆山市"</span>&#125;&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421115210443.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421115210443.png" srcset="/img/loading.gif" lazyload alt="image-20230421115210443"></p>
 <p>向内嵌文档中添加数据：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"wangnima"</span>&#125;<span class="token punctuation">,</span>&#123;$<span class="token keyword">set</span>:&#123;<span class="token string">"home.town"</span>:<span class="token string">"陆家镇"</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421115353386.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421115353386.png" srcset="/img/loading.gif" lazyload alt="image-20230421115353386"></p>
 <ol start="7">
 <li><strong><font color='scarlet'>修改数组</font></strong></li>
 </ol>
@@ -747,13 +851,15 @@ db<span class="token punctuation">.</span>collection<span class="token punctuati
 <p>数组的修改</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"qianba"</span>&#125;<span class="token punctuation">,</span>&#123;$<span class="token keyword">set</span>:&#123;<span class="token string">"likes.1"</span>:<span class="token string">"打豆豆"</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421120725118.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421120725118.png" srcset="/img/loading.gif" lazyload alt="image-20230421120725118"></p>
 <p>数组中内嵌文档的修改</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span><span class="token keyword">update</span><span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"baqi"</span>&#125;<span class="token punctuation">,</span>&#123;$<span class="token keyword">set</span>:&#123;<span class="token string">"score.0.chinese"</span>:NumberInt<span class="token punctuation">(</span><span class="token number">119</span><span class="token punctuation">)</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421120906937.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421120906937.png" srcset="/img/loading.gif" lazyload alt="image-20230421120906937"></p>
 <h2 id="4-4文档的删除"><a href="#4-4文档的删除" class="headerlink" title="4.4文档的删除"></a>4.4文档的删除</h2><p>删除文档的语法结构：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span>remove<span class="token punctuation">(</span>条件<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span>remove<span class="token punctuation">(</span>条件<span class="token punctuation">)</span>
+<span class="token operator">or</span>
+db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span>deleteOne<span class="token punctuation">(</span>条件<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <p>以下语句可以将数据全部删除，请慎用</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">comment</span><span class="token punctuation">.</span>remove<span class="token punctuation">(</span>&#123;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
@@ -767,9 +873,11 @@ db<span class="token punctuation">.</span>collection<span class="token punctuati
 </blockquote>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>remove<span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhaoliu"</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420161113183.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420161113183.png" srcset="/img/loading.gif" lazyload alt="image-20230420161113183"></p>
 <h2 id="4-5文档的统计查询"><a href="#4-5文档的统计查询" class="headerlink" title="4.5文档的统计查询"></a>4.5文档的统计查询</h2><p>统计查询使用count()方法，语法如下：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>collection<span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>collection<span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+<span class="token operator">or</span>
+db<span class="token punctuation">.</span>collection<span class="token punctuation">.</span>countDocuments<span class="token punctuation">(</span>query<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 
 <ol>
 <li><strong><font color='scarlet'>统计所有记录数</font></strong></li>
@@ -797,7 +905,7 @@ db<span class="token punctuation">.</span>collection<span class="token punctuati
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">limit</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span>skip<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420162157378.png" srcset="/img/loading.gif" lazyload alt="image-20230420162157378"></p>
-<h2 id="4-7文档的排序查询"><a href="#4-7文档的排序查询" class="headerlink" title="4.7文档的排序查询"></a>4.7文档的排序查询</h2><p><code>sort() </code>方法对数据进行排序，<code>sort() </code>方法可以通过参数指定排序的字段，并使用<code> 1</code> 和<code>-1</code>来指定排序的方式，**<font color='scarlet'>其中 1 为升序排列，而 -1 是用 于降序排列</font>**。 </p>
+<h2 id="4-7文档的排序查询"><a href="#4-7文档的排序查询" class="headerlink" title="4.7文档的排序查询"></a>4.7文档的排序查询</h2><p><code>sort() </code>方法对数据进行排序，<code>sort() </code>方法可以通过参数指定排序的字段，并使用<code> 1</code> 和<code>-1</code>来指定排序的方式，**<font color='scarlet'>其中 1 为升序排列，而 -1 是用 于降序排列</font>**。</p>
 <p>语法如下所示：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>COLLECTION_NAME<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>sort<span class="token punctuation">(</span>&#123;<span class="token keyword">KEY</span>:<span class="token number">1</span>&#125;<span class="token punctuation">)</span>
 或
@@ -835,17 +943,17 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <p>例如：查询年龄大于21的文档</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:&#123;$gt:NumberInt<span class="token punctuation">(</span><span class="token number">21</span><span class="token punctuation">)</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420163439762.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420163439762.png" srcset="/img/loading.gif" lazyload alt="image-20230420163439762"></p>
 <h2 id="4-10文档的包含查询"><a href="#4-10文档的包含查询" class="headerlink" title="4.10文档的包含查询"></a>4.10文档的包含查询</h2><p>包含使用<code>$in</code>操作符。</p>
 <p>不包含使用<code>$nin</code>操作符。</p>
 <p>例如：查询年龄在21-22之间的文档</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:&#123;$<span class="token operator">in</span>:<span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">]</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420163735530.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420163735530.png" srcset="/img/loading.gif" lazyload alt="image-20230420163735530"></p>
 <p>查询年龄不在21-22之间的文档</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:&#123;$nin:<span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">]</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420163829900.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420163829900.png" srcset="/img/loading.gif" lazyload alt="image-20230420163829900"></p>
 <h2 id="4-11文档的去重查询"><a href="#4-11文档的去重查询" class="headerlink" title="4.11文档的去重查询"></a>4.11文档的去重查询</h2><p>去重的操作语法如下：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span><span class="token keyword">distinct</span><span class="token punctuation">(</span><span class="token string">'字段'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -859,10 +967,11 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <p>其中<code>1</code>表示显示，而<code>0</code>表示排除</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhangsan"</span>&#125;<span class="token punctuation">,</span>&#123;<span class="token string">"name"</span>:<span class="token number">1</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420154549251.png" srcset="/img/loading.gif" lazyload><br>如果不想显示<code>_id</code>，可以指定<code>_id</code>为<code>0</code></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420154549251.png" srcset="/img/loading.gif" lazyload alt="image-20230420154549251"></p>
+<p>如果不想显示<code>_id</code>，可以指定<code>_id</code>为<code>0</code></p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhangsan"</span>&#125;<span class="token punctuation">,</span>&#123;<span class="token string">"name"</span>:<span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"_id"</span>:<span class="token number">0</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420154721344.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420154721344.png" srcset="/img/loading.gif" lazyload alt="image-20230420154721344"></p>
 <h2 id="4-13条件连接查询"><a href="#4-13条件连接查询" class="headerlink" title="4.13条件连接查询"></a>4.13条件连接查询</h2><ol>
 <li><strong><code>and</code>操作符</strong></li>
 </ol>
@@ -872,7 +981,7 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <p>示例：查询年龄大于20，并且年龄小于等于21的文档</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;$<span class="token operator">and</span>:<span class="token punctuation">[</span>&#123;<span class="token string">"age"</span>:&#123;$gt:NumberInt<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>&#125;&#125;<span class="token punctuation">,</span>&#123;<span class="token string">"age"</span>:&#123;$lte:NumberInt<span class="token punctuation">(</span><span class="token number">21</span><span class="token punctuation">)</span>&#125;&#125;<span class="token punctuation">]</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420165357963.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420165357963.png" srcset="/img/loading.gif" lazyload alt="image-20230420165357963"></p>
 <ol start="2">
 <li><strong><code>or</code>操作符</strong></li>
 </ol>
@@ -881,7 +990,7 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;$<span class="token operator">or</span>:<span class="token punctuation">[</span>&#123;<span class="token string">"age"</span>:&#123;$lt:NumberInt<span class="token punctuation">(</span><span class="token number">21</span><span class="token punctuation">)</span>&#125;&#125;<span class="token punctuation">,</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhangquandan"</span>&#125;<span class="token punctuation">]</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420165735565.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420165735565.png" srcset="/img/loading.gif" lazyload alt="image-20230420165735565"></p>
 <ol start="3">
 <li><strong><code>and</code>操作符</strong>和**<code>or</code>操作符**联合查询</li>
 </ol>
@@ -999,27 +1108,27 @@ db<span class="token punctuation">.</span>students<span class="token punctuation
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:&#123;$<span class="token keyword">type</span>:<span class="token number">1</span>&#125;&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421091021494.png" srcset="/img/loading.gif" lazyload alt="image-20230421091021494"></p>
-<h1 id="11-索引"><a href="#11-索引" class="headerlink" title="11.索引"></a>11.索引</h1><h2 id="11-1索引的概述"><a href="#11-1索引的概述" class="headerlink" title="11.1索引的概述"></a>11.1索引的概述</h2><p>索引支持在MongoDB中高效地执行查询。如果没有索引，MongoDB必须执行全集合扫描，即扫描集合中的每个文档，以选择与查询语句 匹配的文档。这种扫描全集合的查询效率是非常低的，特别在处理大量的数据时，查询可以要花费几十秒甚至几分钟，这对网站的性能是非常致命的。 </p>
-<p>如果查询存在适当的索引，MongoDB可以使用该索引限制必须检查的文档数。 </p>
-<p>索引是特殊的数据结构，它以易于遍历的形式存储集合数据集的一小部分。索引存储特定字段或一组字段的值，按字段值排序。索引项的排序支持有效的相等匹配和基于范围的查询操作。此外，MongoDB还可以使用索引中的排序返回排序结果。 </p>
-<p>官网文档：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/indexes/">https://docs.mongodb.com/manual/indexes/</a> </p>
+<h1 id="11-索引"><a href="#11-索引" class="headerlink" title="11.索引"></a>11.索引</h1><h2 id="11-1索引的概述"><a href="#11-1索引的概述" class="headerlink" title="11.1索引的概述"></a>11.1索引的概述</h2><p>索引支持在MongoDB中高效地执行查询。如果没有索引，MongoDB必须执行全集合扫描，即扫描集合中的每个文档，以选择与查询语句 匹配的文档。这种扫描全集合的查询效率是非常低的，特别在处理大量的数据时，查询可以要花费几十秒甚至几分钟，这对网站的性能是非常致命的。</p>
+<p>如果查询存在适当的索引，MongoDB可以使用该索引限制必须检查的文档数。</p>
+<p>索引是特殊的数据结构，它以易于遍历的形式存储集合数据集的一小部分。索引存储特定字段或一组字段的值，按字段值排序。索引项的排序支持有效的相等匹配和基于范围的查询操作。此外，MongoDB还可以使用索引中的排序返回排序结果。</p>
+<p>官网文档：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/indexes/">https://docs.mongodb.com/manual/indexes/</a></p>
 <p>了解： MongoDB索引使用B树数据结构（确切的说是B-Tree，MySQL是B+Tree）</p>
 <h2 id="11-2索引的分类"><a href="#11-2索引的分类" class="headerlink" title="11.2索引的分类"></a>11.2索引的分类</h2><h3 id="11-2-1单字段索引"><a href="#11-2-1单字段索引" class="headerlink" title="11.2.1单字段索引"></a>11.2.1单字段索引</h3><p><strong><font color='scarlet'>MongoDB支持在文档的单个字段上创建用户定义的升序&#x2F;降序索引，称为单字段索引（Single Field Index）。</font></strong> 对于单个字段索引和排序操作，索引键的排序顺序（即升序或降序）并不重要，因为MongoDB可以在任何方向上遍历索引。</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420170328029.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420170328029.png" srcset="/img/loading.gif" lazyload alt="image-20230420170328029"></p>
 <h3 id="11-2-2-复合索引"><a href="#11-2-2-复合索引" class="headerlink" title="11.2.2 复合索引"></a>11.2.2 复合索引</h3><p>**<font color='scarlet'>MongoDB还支持多个字段的用户定义索引，即复合索引（Compound Index）</font>**。 复合索引中列出的字段顺序具有重要意义。例如，如果复合索引由 { userid: 1, score: -1 } 组成，则索引首先按userid正序排序，然后 在每个userid的值内，再在按score倒序排序。</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420170411593.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420170411593.png" srcset="/img/loading.gif" lazyload alt="image-20230420170411593"></p>
 <h3 id="11-2-3-其他索引"><a href="#11-2-3-其他索引" class="headerlink" title="11.2.3 其他索引"></a>11.2.3 其他索引</h3><ol>
 <li><strong><font color='scarlet'>地理空间索引（Geospatial Index）</font></strong></li>
 </ol>
 <blockquote>
 <p>为了支持对地理空间坐标数据的有效查询，MongoDB提供了两种特殊的索引：</p>
-<p>返回结果时使用平面几何的二维索引和返回结果时使用球面 几何的二维球面索引。 </p>
+<p>返回结果时使用平面几何的二维索引和返回结果时使用球面 几何的二维球面索引。</p>
 </blockquote>
 <ol start="2">
 <li><strong><font color='scarlet'>文本索引（Text Indexes）</font></strong></li>
 </ol>
 <blockquote>
-<p>MongoDB提供了一种文本索引类型，支持在集合中搜索字符串内容。这些文本索引不存储特定于语言的停止词（例如“the”、“a”、“or”）， 而将集合中的词作为词干，只存储根词。 </p>
+<p>MongoDB提供了一种文本索引类型，支持在集合中搜索字符串内容。这些文本索引不存储特定于语言的停止词（例如“the”、“a”、“or”）， 而将集合中的词作为词干，只存储根词。</p>
 </blockquote>
 <ol start="3">
 <li><strong><font color='scarlet'>哈希索引（Hashed Indexes）</font></strong></li>
@@ -1031,9 +1140,9 @@ db<span class="token punctuation">.</span>students<span class="token punctuation
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span>createIndex<span class="token punctuation">(</span><span class="token keyword">keys</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span>
 db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span>createIndex<span class="token punctuation">(</span>&#123;<span class="token string">"title"</span>:<span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"description"</span>:<span class="token operator">-</span><span class="token number">1</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 
-<p> 说明: 语法中 Key 值为你要创建的索引字段，<code>1 为指定按升序创建索引</code>，<code>如果你想按降序来创建索引指定为 -1 即可。</code></p>
+<p>说明: 语法中 Key 值为你要创建的索引字段，<code>1 为指定按升序创建索引</code>，<code>如果你想按降序来创建索引指定为 -1 即可。</code></p>
 <p>options的列表</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420171411403.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420171411403.png" srcset="/img/loading.gif" lazyload alt="image-20230420171411403"></p>
 <ol>
 <li><p><strong><font color='scarlet'>创建单字段索引</font></strong></p>
 <p>其中<code>-1</code>表示降序</p>
@@ -1041,13 +1150,13 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>createIndex<span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:<span class="token operator">-</span><span class="token number">1</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420172053459.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420172053459.png" srcset="/img/loading.gif" lazyload alt="image-20230420172053459"></p>
 <ol start="2">
 <li><strong><font color='scarlet'>创建复合索引</font></strong></li>
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>createIndex<span class="token punctuation">(</span>&#123;<span class="token string">"age"</span>:<span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"name"</span>:<span class="token operator">-</span><span class="token number">1</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420172956640.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420172956640.png" srcset="/img/loading.gif" lazyload alt="image-20230420172956640"></p>
 <h2 id="11-4索引的查看"><a href="#11-4索引的查看" class="headerlink" title="11.4索引的查看"></a>11.4索引的查看</h2><p>查看当前集合的所有索引：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>集合名称<span class="token punctuation">.</span>getIndexes<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -1074,8 +1183,8 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <h2 id="11-6性能分析工具explain"><a href="#11-6性能分析工具explain" class="headerlink" title="11.6性能分析工具explain"></a>11.6性能分析工具explain</h2><ol>
 <li><strong>执行计划</strong></li>
 </ol>
-<p>分析查询性能（Analyze Query Performance）通常使用执行计划（解释计划、Explain Plan）来查看查询的情况，如查询耗费的时间、是 否基于索引查询等。 </p>
-<p>通常，我们想知道，建立的索引是否有效，效果如何，都需要通过执行计划查看。 </p>
+<p>分析查询性能（Analyze Query Performance）通常使用执行计划（解释计划、Explain Plan）来查看查询的情况，如查询耗费的时间、是 否基于索引查询等。</p>
+<p>通常，我们想知道，建立的索引是否有效，效果如何，都需要通过执行计划查看。</p>
 <p>语法：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>collection<span class="token punctuation">.</span>find<span class="token punctuation">(</span>query<span class="token punctuation">,</span>options<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">explain</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -1083,7 +1192,7 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhangquandan"</span>&#125;<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">explain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p>观察结果可知，当前是使用的是<code>集合扫描，没有用上索引</code></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420174140838.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420174140838.png" srcset="/img/loading.gif" lazyload alt="image-20230420174140838"></p>
 <p>创建索引：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>createIndex<span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token number">1</span>&#125;<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
@@ -1091,7 +1200,7 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>articledb<span class="token punctuation">.</span>find<span class="token punctuation">(</span>&#123;<span class="token string">"name"</span>:<span class="token string">"zhangquandan"</span>&#125;<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">explain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
 <p>观察结果可知，当前是使用的是<code>使用索引name_1进行查询</code></p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420174633670.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230420174633670.png" srcset="/img/loading.gif" lazyload alt="image-20230420174633670"></p>
 <h1 id="12-聚合查询"><a href="#12-聚合查询" class="headerlink" title="12.聚合查询"></a>12.聚合查询</h1><h2 id="12-1管道操作符"><a href="#12-1管道操作符" class="headerlink" title="12.1管道操作符"></a>12.1管道操作符</h2><p>聚合管道操作是将文档在一个管道处理完毕后，把处理的结果传递给下一个管道进行再次处理。聚合管道是使用不同的管道阶段操作器进行不同聚合操作，管道阶段操作器也可称为管道操作符。</p>
 <p>常见管道操作符：</p>
 <table>
@@ -1152,7 +1261,7 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <p>例如：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span>aggregate<span class="token punctuation">(</span><span class="token punctuation">[</span>&#123;$<span class="token keyword">match</span>:&#123;<span class="token string">"name"</span>:<span class="token string">"zhangsan"</span>&#125;&#125;<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421140509590.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421140509590.png" srcset="/img/loading.gif" lazyload alt="image-20230421140509590"></p>
 <ol start="3">
 <li>**<code>$sort</code>**：将输入的文档先进行排序，再输出，-1表示降序，1表示升序。</li>
 </ol>
@@ -1162,10 +1271,10 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <p>例如：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span>aggregate<span class="token punctuation">(</span><span class="token punctuation">[</span>&#123;$sort:&#123;<span class="token string">"age"</span>:<span class="token number">1</span>&#125;&#125;<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421140737438.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421140737438.png" srcset="/img/loading.gif" lazyload alt="image-20230421140737438"></p>
 <ol start="4">
 <li><p>**<code>$project</code>**操作符：用于修改输入文档的结构（增加、删除字段等）和名称。</p>
-<p>  语法如下：</p>
+<p>语法如下：</p>
 </li>
 </ol>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span>COLLECTION_NAME<span class="token punctuation">.</span>aggregate<span class="token punctuation">(</span><span class="token punctuation">[</span>&#123;$project:&#123;<span class="token operator">&lt;</span><span class="token keyword">key</span><span class="token operator">></span>:<span class="token operator">&lt;</span><span class="token keyword">value</span><span class="token operator">></span>&#125;&#125;<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>pretty<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
@@ -1174,7 +1283,7 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <p>使用$project操作符，展示集合comment中的文档，并且文档均不包含字段_id</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span>aggregate<span class="token punctuation">(</span><span class="token punctuation">[</span>&#123;$project:&#123;<span class="token string">"_id"</span>:<span class="token number">0</span>&#125;&#125;<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421141044158.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421141044158.png" srcset="/img/loading.gif" lazyload alt="image-20230421141044158"></p>
 <ol start="5">
 <li>**<code>$skip</code>**操作符：在聚合管道中跳过指定数量的文档，并返回剩余的文档。</li>
 </ol>
@@ -1184,7 +1293,7 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <p>​		例如：</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span>aggregate<span class="token punctuation">(</span><span class="token punctuation">[</span>&#123;$skip:<span class="token number">2</span>&#125;<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421141327797.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421141327797.png" srcset="/img/loading.gif" lazyload alt="image-20230421141327797"></p>
 <ol start="6">
 <li>**<code>$group</code>**操作符：将集合中的文档进行分组，便于后续统计结果</li>
 </ol>
@@ -1198,9 +1307,9 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 <p>如：按照年龄进行分组</p>
 <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">db<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">.</span>aggregate<span class="token punctuation">(</span><span class="token punctuation">[</span>&#123;$<span class="token keyword">group</span>:&#123;_id:<span class="token string">"$age"</span>&#125;&#125;<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 
-<p>   <img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421141726961.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421141726961.png" srcset="/img/loading.gif" lazyload alt="image-20230421141726961"></p>
 <h2 id="12-2管道表达式"><a href="#12-2管道表达式" class="headerlink" title="12.2管道表达式"></a>12.2管道表达式</h2><p>​    管道阶段操作器的值被称为管道表达式，并且每个管道表达式都是一个文档结构，由字段名称、字段值和管道表达式组成。常见的管道表达式如下表。</p>
-<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421141859821.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421141859821.png" srcset="/img/loading.gif" lazyload alt="image-20230421141859821"></p>
 <ol>
 <li><code>$sum</code></li>
 </ol>
@@ -1727,8 +1836,8 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 </blockquote>
 <p>&#x3D;&#x3D;分片(sharding)是指将数据拆分,将其分散存在不同机器的过程，有时也用分区(partitioning)来表示这个概念,&#x3D;&#x3D;将数据分散在不同的机器上，不需要功能强大的大型计算机就能存储更多的数据，处理更大的负载。</p>
 <p>分片目的是通过分片能够增加更多机器来应对不断的增加负载和数据，还不影响应用运行。</p>
-<p>MongoDB支持<code>自动分片</code>,可以摆脱手动分片的管理困扰，<code>集群自动切分数据做负载均衡</code>。 </p>
-<p>**<font color='scarlet'>MongoDB分片的基本思想就是将集合拆分成多个块，这些快分散在若干个片里，每个片只负责总数据的一部分，应用程序不必知道哪些片对应哪些数据，甚至不需要知道数据拆分了</font>**，所以在分片之前会运行一个路由进程，<code>mongos进程</code>，这个路由器知道所有的数据存放位置，应用只需要直接与mongos交互即可。mongos自动将请求转到相应的片上获取数据，从应用角度看分不分片没有什么区别。</p>
+<p>MongoDB支持<code>自动分片</code>,可以摆脱手动分片的管理困扰，<code>集群自动切分数据做负载均衡</code>。</p>
+<p>**<font color='scarlet'>MongoDB分片的基本思想就是将集合拆分成多个块，这些块分散在若干个片里，每个片只负责总数据的一部分，应用程序不必知道哪些片对应哪些数据，甚至不需要知道数据拆分了</font>**，所以在分片之前会运行一个路由进程，<code>mongos进程</code>，这个路由器知道所有的数据存放位置，应用只需要直接与mongos交互即可。mongos自动将请求转到相应的片上获取数据，从应用角度看分不分片没有什么区别。</p>
 <p><strong>分片集群架构</strong></p>
 <p><img src="https://imagebed-xuhuaiang.oss-cn-shanghai.aliyuncs.com/typora/image-20230421110915627.png" srcset="/img/loading.gif" lazyload alt="image-20230421110915627"></p>
 <blockquote>
@@ -2207,7 +2316,7 @@ db<span class="token punctuation">.</span>集合名称<span class="token punctua
 
 <!-- 添加网站运行时间》-->
 <br/>
-<span style="font-weight: initial">文章总字数2824k</span>
+<span style="font-weight: initial">文章总字数2825k</span>
 
     </div>
   
